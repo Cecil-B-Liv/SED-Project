@@ -21,28 +21,27 @@ class User {
 
    public:
     // Constructor code
-    User(string fullName = "", string email = "",
-         string homeAddress = "", int phoneNumber = 0, int creditPoint = 0,
-         double ratingScore = 0.0, int postion = 1,
-         vector<string> skillInfo = {})
+    User(string fullName = "", string email = "", string homeAddress = "",
+         int phoneNumber = 0, int creditPoint = 0, double ratingScore = 0.0,
+         int postion = 1, vector<string> skillInfo = {})
         : fullName(fullName),
           email(email),
           homeAddress(homeAddress),
           phoneNumber(phoneNumber),
           creditPoint(creditPoint),
           ratingScore(ratingScore),
-          position(postion),
+          position(position),
           skillInfo(skillInfo.empty() ? vector<string>(1, "NA") : skillInfo) {}
 
-    //     Function code
-    void listAvailability() {}
-    void searchSupporter() {}
-    bool bookSupporter() {}
-    void rateSupporter() {}
-    void rateHost() {}
-    void blockMember() {}
-    void viewRequest() {}
-    void AcceptRejectRequest() {}
+//     //     Function code
+//     void listAvailability() {}
+//     void searchSupporter() {}
+//     bool bookSupporter() {}
+//     void rateSupporter() {}
+//     void rateHost() {}
+//     void blockMember() {}
+//     void viewRequest() {}
+//     void AcceptRejectRequest() {}
 
     // Testing code
     void showInfo() {
@@ -52,7 +51,8 @@ class User {
         cout << "Phone Number : " << phoneNumber << endl;
         cout << "Credit Points : " << creditPoint << endl;
         cout << "Rating Score : " << ratingScore << endl;
-        cout << "Position : " << position << endl;
+        cout << "Position : ";
+        (position == 0) ? cout << "Admin" : cout << "Member" << endl;
         for (auto i : skillInfo) {
             cout << "Skills : " << i << "\t";
         }

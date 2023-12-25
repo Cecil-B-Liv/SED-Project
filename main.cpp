@@ -1,8 +1,8 @@
 #include <cstring>
 #include <iostream>
 #include <string>
-
-#include "User.h"  //include header file of the module
+// include header file of the module
+#include "Member.h"
 
 #define admin 0
 #define user 1
