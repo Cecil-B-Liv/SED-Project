@@ -1,16 +1,16 @@
-#include "User.h"  //include header file of the module
-
+#include <cstring>
 #include <iostream>
 #include <string>
-#include <cstring>
+
+#include "User.h"  //include header file of the module
 
 using std::cout;
 using std::string;
 
 int main() {
-    string skillInfo{"Teaching", "Eating"};
+    vector<string> skillExist{};
 
-    User Liv("Liv","Liv","Liv","discord",12345,skillInfo);
+    User Liv("Liv", "Liv", "Liv", "discord", 12345, 100, 100, skillExist);
     Liv.showInfo();
 
     return 0;
