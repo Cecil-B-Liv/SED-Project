@@ -1,61 +1,66 @@
 #include <cstring>
 #include <iostream>
 #include <string>
+#include <vector>
 
 using std::cout;
 using std::endl;
 using std::string;
-
-#define MAX_NUM_OF_SKILL 20
+using std::vector;
 
 class User {
    private:
     string fullName;
-    string userName;
     string email;
     string homeAddress;
     int phoneNumber;
-    string skillInfo[MAX_NUM_OF_SKILL];
+    int creditPoint;
+    double ratingScore;
+    int position;
+    vector<string> skillInfo;
 
    public:
     // Constructor code
-    User(string fullName = "", string userName = "", string email = "",
-         string homeAddress = "", int phoneNumber = 0,
-         string skillInfo[] = nullptr)
+    User(string fullName = "", string email = "", string homeAddress = "",
+         int phoneNumber = 0, int creditPoint = 0, double ratingScore = 0.0,
+         int postion = 1, vector<string> skillInfo = {})
         : fullName(fullName),
-          userName(userName),
           email(email),
           homeAddress(homeAddress),
-          phoneNumber(phoneNumber) {
-        for (int i = 0; i < MAX_NUM_OF_SKILL; i++) {
-            if (skillInfo == nullptr) {
-                skillInfo[i] = "NA";  // default value
-            } else {
-                skillInfo[i] = skillInfo[i];
-            }
-        }
-    }
+          phoneNumber(phoneNumber),
+          creditPoint(creditPoint),
+          ratingScore(ratingScore),
+          position(position),
+          skillInfo(skillInfo.empty() ? vector<string>(1, "NA") : skillInfo) {}
 
-    // Function code
-    void listAvailability() {}
-    void searchSupporter() {}
-    bool bookSupporter() {}
-    void rateSupporter() {}
-    void rateHost() {}
-    void blockMember() {}
-    void viewRequest() {}
-    void AcceptRejectRequest() {}
+//     //     Function code
+//     void listAvailability() {}
+//     void searchSupporter() {}
+//     bool bookSupporter() {}
+//     void rateSupporter() {}
+//     void rateHost() {}
+//     void blockMember() {}
+//     void viewRequest() {}
+//     void AcceptRejectRequest() {}
 
     // Testing code
     void showInfo() {
         cout << "Full Name : " << fullName << endl;
-        cout << "User Name : " << userName << endl;
         cout << "Email : " << email << endl;
         cout << "Home Address : " << homeAddress << endl;
-        cout << "Phone Number : " << phoneNumber << "\n" << std::flush;
-        for (int i = 0; i < MAX_NUM_OF_SKILL; i++) {
-            if (!skillInfo[i].empty())
-                cout << "Skills : " << skillInfo[i] << '\n';
+        cout << "Phone Number : " << phoneNumber << endl;
+        cout << "Credit Points : " << creditPoint << endl;
+        cout << "Rating Score : " << ratingScore << endl;
+        cout << "Position : ";
+        (position == 0) ? cout << "Admin" : cout << "Member" << endl;
+        for (auto i : skillInfo) {
+            cout << "Skills : " << i << "\t";
         }
     }
 };
+
+// Test in main
+// vector<string> skillExist{"Teaching","Eating"};
+
+//     User Liv("Liv","Liv","discord",12345,100,100,skillExist);
+//     Liv.showInfo();
