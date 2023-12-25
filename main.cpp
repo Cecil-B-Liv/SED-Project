@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 // include header file of the module
-#include "Member.h"
+#include "Member.h" //include the User.h already
 
 #define admin 0
 #define user 1
