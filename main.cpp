@@ -4,6 +4,7 @@ using std::string;
 using std::cout;
 
 int main(){
-    
-return 0;
+    User()
+
+    return 0;
 }

@@ -1,6 +1,7 @@
 #include<iostream>
 using std::string;
 using std::cout;
+using std::endl;
 
 #define MAX_NUM_OF_SKILL 20
 
@@ -14,6 +15,7 @@ private:
     string skillInfo[MAX_NUM_OF_SKILL];
     
 public:
+    //Constructor
     User (  string fullName,
             string userName,
             string email,
@@ -21,6 +23,7 @@ public:
             int phoneNumber,
             string skillInfo[]);
 
+    //Function code
     void listAvailability();
     void searchSupporter();
     bool bookSupporter();
@@ -30,4 +33,6 @@ public:
     void viewRequest();
     void AcceptRejectRequest();
 
+    //Testing code
+    void showInfo();
 };

@@ -5,6 +5,7 @@
 
 using std::string;
 using std::cout;
+using std::endl;
 
     //Constructor code
     User::User (string fullName = "",
@@ -37,4 +38,19 @@ using std::cout;
     void User::rateHost(){};
     void User::blockMember(){};
     void User::viewRequest(){};
-    void User::AcceptRejectRequest(){};     
+    void User::AcceptRejectRequest(){};    
+
+    //Testing Code
+    void User::showInfo(){
+        cout << "Full Name : "<<fullName<<endl;
+        cout << "User Name : "<<userName<<endl;
+        cout << "Email : "<<email<<endl;
+        cout << "Home Address : "<<homeAddress<<endl;
+        cout << "Phone Number : "<<phoneNumber<<"\n"<<std::flush;
+        for(int i=0 ;i < MAX_NUM_OF_SKILL; i++){
+            if(!skillInfo[i].empty())
+            cout << "Skills : "<<skillInfo[i]<<'\n';
+        }
+    }
+
+
