@@ -1,8 +1,9 @@
 #include<iostream>
 using std::string;
 using std::cout;
+using std::endl;
 
-#define MAX_SKILL 20
+#define MAX_NUM_OF_SKILL 20
 
 class User{
 private:
@@ -11,9 +12,18 @@ private:
     string email;
     string homeAddress;
     int phoneNumber;
-    string skillInfo[MAX_SKILL];
+    string skillInfo[MAX_NUM_OF_SKILL];
     
 public:
+    //Constructor
+    User (  string fullName,
+            string userName,
+            string email,
+            string homeAddress,
+            int phoneNumber,
+            string skillInfo[]);
+
+    //Function code
     void listAvailability();
     void searchSupporter();
     bool bookSupporter();
@@ -23,4 +33,6 @@ public:
     void viewRequest();
     void AcceptRejectRequest();
 
+    //Testing code
+    void showInfo();
 };
