@@ -2,4 +2,7 @@
 using std::string;
 using std::cout;
  
-class 
+int main(){
+    
+    return 0;
+}
