@@ -33,18 +33,18 @@ class User {
           position(position),
           skillInfo(skillInfo.empty() ? vector<string>(1, "NA") : skillInfo) {}
 
-//     //     Function code
-//     void listAvailability() {}
-//     void searchSupporter() {}
-//     bool bookSupporter() {}
-//     void rateSupporter() {}
-//     void rateHost() {}
-//     void blockMember() {}
-//     void viewRequest() {}
-//     void AcceptRejectRequest() {}
+    //     //     Function code
+    //     void listAvailability() {}
+    //     void searchSupporter() {}
+    //     bool bookSupporter() {}
+    //     void rateSupporter() {}
+    //     void rateHost() {}
+    //     void blockMember() {}
+    //     void viewRequest() {}
+    //     void AcceptRejectRequest() {}
 
     // Testing code
-    void showInfo() {
+    virtual void showInfo() {
         cout << "Full Name : " << fullName << endl;
         cout << "Email : " << email << endl;
         cout << "Home Address : " << homeAddress << endl;
@@ -63,4 +63,9 @@ class User {
 // vector<string> skillExist{"Teaching","Eating"};
 
 //     User Liv("Liv","Liv","discord",12345,100,100,skillExist);
+//     Liv.showInfo();
+
+// vector<string> skillExist{};
+
+//     User Liv("Liv", "Liv", "discord", 12345, 100, 100, 1, skillExist);
 //     Liv.showInfo();

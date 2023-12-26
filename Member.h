@@ -6,9 +6,21 @@ class Member : public User {
     string password;
 
    public:
+    // constructor code
+    Member(string username = "username", string password = "pass")
+        : username(username), password(password){};
+
+    void showInfo() {
+        cout << "Username : " << username << endl;
+        cout << "Password : " << password << endl;
+    }
+
+    bool login(string username, string password){
+        strcmp(this->username,username)
+        return true;
+    }
+
     // //    function code
-    //     bool login() {}
     //     bool performTopUp(double Cash) {}
     //     bool viewMemberInfomation() {}
-
 };
