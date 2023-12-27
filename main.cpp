@@ -1,18 +1,14 @@
-#include <cstring>
-#include <iostream>
-#include <string>
 // include header file of the module
-#include "Member.h"  //include the User.h already
+#include "Header/StandardLib.h"
+#include "Header/Member.h" //include the User.h already
+#include "Header/User.h"
 
 #define admin 0
 #define user 1
 
-using std::cout;
-using std::string;
-
-int main() {
-    Member Liv("Liv", "Liv");
-    Liv.showInfo();
+int main()
+{
+    Member Liv("Liv", "liv");
 
     return 0;
 }

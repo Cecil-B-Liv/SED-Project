@@ -1,19 +1,52 @@
-#include "User.h"  //include header file of the module
+#pragma once
+#include "User.h"
 
-class Member : public User {
-   private:
+class Member: public User
+{
+private:
     string username;
     string password;
 
-   public:
-    // constructor code
-    Member(string username = "username", string password = "pass")
-        : username(username), password(password){};
+public:
+    Member(string, string);
+    void showInfo();
+    void setFullName(string);
+    string getFullName();
+    void setEmail(string);
+    ;
 
-    void showInfo() {
-        cout << "Username : " << username << endl;
-        cout << "Password : " << password << endl;
-    }
+    // getter function
+    string getEmail();
 
-    
+    // setter function
+    void setHomeAddress(string);
+    // getter function
+    string getHomeAddress();
+
+    // setter function
+    void setPhoneNumber(int);
+
+    // getter function
+    int getPhoneNumber();
+
+    // setter function
+    void setCreditPoint(int);
+
+    // getter function
+    int getCreditPoint();
+    // setter function
+    void setRatingScore(double);
+    // getter function
+    double getRatingScore();
+    // setter function
+    void setPosition(int);
+
+    // getter function
+    int getPosition();
+
+    // setter function
+    void setSkillInfo(vector<string>);
+
+    // getter function
+    vector<string> getSkillInfo();
 };

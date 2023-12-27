@@ -1,78 +1,73 @@
-#include "StandardLib.h"
+#include "../Header/StandardLib.h"
+#include "../Header/Member.h"
 #include "User.cpp"
-#include <Member.h>
 
-class Member : public User
+// constructor code
+Member::Member(string username = "username", string password = "pass")
+    : username(username), password(password){};
+
+void Member::showInfo()
 {
-protected:
-    string username;
-    string password;
+    cout << "Username : " << username << endl;
+    cout << "Password : " << password << endl;
+}
 
-public:
-    // constructor code
-    Member(string username = "username", string password = "pass")
-        : username(username), password(password){};
+// setter function
+void Member::setFullName(string fullName)
+{
+    this->fullName = fullName;
+}
 
-    void showInfo()
-    {
-        cout << "Username : " << username << endl;
-        cout << "Password : " << password << endl;
-    }
+// getter function
+string Member::getFullName() { return this->fullName; }
 
-    // setter function
-    void setFullName(string fullName) { this->fullName = fullName; }
+// setter function
+void Member::setEmail(string email) { this->email = email; }
 
-    // getter function
-    string getFullName() { return this->fullName; }
+// getter function
+string Member::getEmail() { return this->email; }
 
-    // setter function
-    void setEmail(string email) { this->email = email; }
+// setter function
+void Member::setHomeAddress(string homeAddress)
+{
+    this->homeAddress = homeAddress;
+}
 
-    // getter function
-    string getEmail() { return this->email; }
+// getter function
+string Member::getHomeAddress() { return this->homeAddress; }
 
-    // setter function
-    void setHomeAddress(string homeAddress)
-    {
-        this->homeAddress = homeAddress;
-    }
+// setter function
+void Member::setPhoneNumber(int phoneNumber) { this->phoneNumber = phoneNumber; }
 
-    // getter function
-    string getHomeAddress() { return this->homeAddress; }
+// getter function
+int Member::getPhoneNumber() { return this->phoneNumber; }
 
-    // setter function
-    void setPhoneNumber(int phoneNumber) { this->phoneNumber = phoneNumber; }
+// setter function
+void Member::setCreditPoint(int creditPoint) { this->creditPoint = creditPoint; }
 
-    // getter function
-    int getPhoneNumber() { return this->phoneNumber; }
+// getter function
+int Member::getCreditPoint() { return this->creditPoint; }
 
-    // setter function
-    void setCreditPoint(int creditPoint) { this->creditPoint = creditPoint; }
+// setter function
+void Member::setRatingScore(double ratingScore)
+{
+    this->ratingScore = ratingScore;
+}
 
-    // getter function
-    int getCreditPoint() { return this->creditPoint; }
+// getter function
+double Member::getRatingScore() { return this->ratingScore; }
 
-    // setter function
-    void setRatingScore(double ratingScore)
-    {
-        this->ratingScore = ratingScore;
-    }
+// setter function
+void Member::setPosition(int position) { this->position = position; }
 
-    // getter function
-    double getRatingScore() { return this->ratingScore; }
+// getter function
+int Member::getPosition() { return this->position; }
 
-    // setter function
-    void setPosition(int position) { this->position = position; }
+// setter function
+void Member::setSkillInfo(vector<string> skillInfo)
+{
+    this->skillInfo = skillInfo;
+}
 
-    // getter function
-    int getPosition() { return this->position; }
-
-    // setter function
-    void setSkillInfo(vector<string> skillInfo)
-    {
-        this->skillInfo = skillInfo;
-    }
-
-    // getter function
-    vector<string> getSkillInfo() { return this->skillInfo; }
-};
+// getter function
+vector<string> Member::getSkillInfo() { return this->skillInfo; };
