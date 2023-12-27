@@ -15,12 +15,5 @@ class Member : public User {
         cout << "Password : " << password << endl;
     }
 
-    bool login(string username, string password){
-        strcmp(this->username,username)
-        return true;
-    }
-
-    // //    function code
-    //     bool performTopUp(double Cash) {}
-    //     bool viewMemberInfomation() {}
+    
 };

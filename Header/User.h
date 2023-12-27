@@ -4,6 +4,7 @@
 #include <vector>
 
 using std::cout;
+using std::cin;
 using std::endl;
 using std::string;
 using std::vector;
@@ -32,16 +33,6 @@ class User {
           ratingScore(ratingScore),
           position(position),
           skillInfo(skillInfo.empty() ? vector<string>(1, "NA") : skillInfo) {}
-
-    //     //     Function code
-    //     void listAvailability() {}
-    //     void searchSupporter() {}
-    //     bool bookSupporter() {}
-    //     void rateSupporter() {}
-    //     void rateHost() {}
-    //     void blockMember() {}
-    //     void viewRequest() {}
-    //     void AcceptRejectRequest() {}
 
     // Testing code
     virtual void showInfo() {
