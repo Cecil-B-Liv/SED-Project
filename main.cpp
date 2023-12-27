@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 // include header file of the module
-#include "Member.h"
+#include "Member.h"  //include the User.h already
 
 #define admin 0
 #define user 1
@@ -11,9 +11,7 @@ using std::cout;
 using std::string;
 
 int main() {
-    vector<string> skillExist{};
-
-    User Liv("Liv", "Liv", "discord", 12345, 100, 100, 1, skillExist);
+    Member Liv("Liv", "Liv");
     Liv.showInfo();
 
     return 0;
