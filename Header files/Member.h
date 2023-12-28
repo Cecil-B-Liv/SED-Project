@@ -13,6 +13,8 @@ private:
     string fullName;
     string email;
     string homeAddress;
+    string username;
+    string password;
 
     int phoneNumber;
     int position;
@@ -27,9 +29,18 @@ private:
     vector<Member> supporterList;
 
 public:
-    Member(string, string, string, int, int, double, double, double, vector<string>);
+    explicit Member(string= "", string= "", string= "", int= 0, int= 0, double= 0.0, double= 0.0, double= 0.0,
+                    vector<string> = {}, string= "", string= "");
 
     void showInfo();
+
+    string getUserName();
+
+    string getPassword();
+
+    void setPassword(string);
+
+    void setUserName(string);
 };
 
 #endif //SED_PROJECT_MEMBER_H

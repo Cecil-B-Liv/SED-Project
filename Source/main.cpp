@@ -11,6 +11,9 @@ int main() {
 //
 //    TransactionProccess::processTransaction(1);
 //    Test.showInfo();
+//    Member test;
+//    test.setPassword("1111");
+//    test.setUserName("Liv");
     UI::start();
     return 0;
 }

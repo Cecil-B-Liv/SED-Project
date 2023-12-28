@@ -6,6 +6,7 @@
 #include "../Header files/BasicSTDLIB.h"
 
 #define LOGIN 1
+#define REGISTER 2
 
 void Event::Login() {
     string username;
@@ -27,10 +28,10 @@ void Event::Menu() {
 
     cout << "What do you want\n";
     cout << "1. Login\n2. Register\n";
-
+    cout << "Choice: ";
     cin >> choice;
 
     if (choice == LOGIN) {
-        Login();
+
     }
 }
