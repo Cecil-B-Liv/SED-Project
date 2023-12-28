@@ -41,7 +41,7 @@ void Event::Login() {
     System::UserReader();
 
     for (auto i: System::getMemberList()) {
-        if (username == i.getUserName() && password == i.getPassword())
+        if (username == i.getUsername() && password == i.getPassword())
             cout << "welcome";
     }
 }
