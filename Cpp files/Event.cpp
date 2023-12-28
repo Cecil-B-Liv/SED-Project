@@ -4,6 +4,7 @@
 
 #include "../Header files/Event.h"
 #include "../Header files/BasicSTDLIB.h"
+#include "../Header files/System.h"
 
 #define LOGIN 1
 #define REGISTER 2
@@ -18,8 +19,11 @@ void Event::Login() {
     cout << "Enter your password: ";
     getline(cin >> std::ws, password);
 
-    if ((username == "liv") && (password == "LIV")) {
-        cout << "Welcome";
+    System::UserReader();
+
+    for (auto i: System::getMemberList()) {
+        if (username == i.getUserName() && password == i.getPassword())
+            cout << "welcome";
     }
 }
 
@@ -32,6 +36,6 @@ void Event::Menu() {
     cin >> choice;
 
     if (choice == LOGIN) {
-
+        Login();
     }
 }
