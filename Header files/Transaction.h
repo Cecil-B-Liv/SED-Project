@@ -12,14 +12,13 @@ class Transaction {
     double amount;
     string transactionType;
     string memberID;
-    double amount;
     string time;
 
    public:
-   //constructor
+    // constructor
 
     Transaction(string);
-    //perform transaction())
+    // perform transaction())
     static bool processTransaction(int);
 };
 
