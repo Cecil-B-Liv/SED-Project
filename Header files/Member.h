@@ -29,7 +29,7 @@ class Member {
 
     // System based member info
     vector<string> skillInfo;
-    vector<Transaction> transaction;
+    vector<Transaction> transactionList;
     vector<Member> hostList;
     vector<Member> supporterList;
 
