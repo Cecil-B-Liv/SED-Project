@@ -6,6 +6,7 @@
 #define SED_PROJECT_MEMBER_H
 
 #include "BasicSTDLIB.h"
+#include "Transaction.h"
 
 class Member {
 private:
@@ -21,7 +22,7 @@ private:
     double hostRating;
 
     vector<string> skillInfo;
-
+    Transaction transaction;
 public:
     Member(string, string, string, int, int, double, double, double, vector<string>);
 
