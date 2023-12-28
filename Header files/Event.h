@@ -10,6 +10,8 @@ public:
     static void Login();
 
     static void Menu();
+
+    static void Register();
 };
 
 #endif //SED_PROJECT_EVENT_H

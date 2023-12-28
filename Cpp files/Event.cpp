@@ -9,6 +9,25 @@
 #define LOGIN 1
 #define REGISTER 2
 
+void Event::Menu() {
+    int choice;
+
+    cout << "What do you want\n";
+    cout << "1. Login\n2. Register\n";
+    cout << "Choice: ";
+    cin >> choice;
+
+    if (choice == LOGIN) {
+        Login();
+        return;
+    }
+
+    if (choice == REGISTER) {
+        Register();
+        return;
+    }
+}
+
 void Event::Login() {
     string username;
     string password;
@@ -27,15 +46,14 @@ void Event::Login() {
     }
 }
 
-void Event::Menu() {
-    int choice;
+void Event::Register() {
+    string username;
+    string password;
 
-    cout << "What do you want\n";
-    cout << "1. Login\n2. Register\n";
-    cout << "Choice: ";
-    cin >> choice;
+    cout << "Enter your username: ";
+    getline(cin >> std::ws, username);
 
-    if (choice == LOGIN) {
-        Login();
-    }
+    cout << "Enter your password: ";
+    getline(cin >> std::ws, password);
 }
+
