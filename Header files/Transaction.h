@@ -6,13 +6,20 @@
 #define SED_PROJECT_TRANSACTION_H
 
 #include "BasicSTDLIB.h"
-#include "../Header files/TransactionProccess.h"
 
 class Transaction {
-private:
-    TransactionProccess transaction;
-public:
+   private:
+    double amount;
+    string transactionType;
+    string memberID;
+    double amount;
+    string time;
+
+   public:
+   //constructor
     Transaction(string);
+    //perform transaction())
+    static bool processTransaction(int);
 };
 
-#endif //SED_PROJECT_TRANSACTION_H
+#endif  // SED_PROJECT_TRANSACTION_H

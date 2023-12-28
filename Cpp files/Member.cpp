@@ -4,8 +4,10 @@
 
 #include "../Header files/Member.h"
 
-Member::Member(string fullName, string email, string homeAddress, int phoneNumber, int position, double ratingScore,
-               double supporterRating, double hostRating, vector<string> skillInfo) {
+Member::Member(string fullName, string email, string homeAddress,
+               int phoneNumber, int position, double ratingScore,
+               double supporterRating, double hostRating,
+               vector<string> skillInfo) {
     this->fullName = fullName;
     this->email = email;
     this->homeAddress = homeAddress;
@@ -15,9 +17,31 @@ Member::Member(string fullName, string email, string homeAddress, int phoneNumbe
     this->supporterRating = supporterRating;
     this->hostRating = hostRating;
     this->skillInfo = skillInfo;
+
+    // this->username = username;
+    // this->password = password;
+    // this->memberID = memberID;
+
+    // this->skillInfo = skillInfo;
+    // this->transactionList = transactionList;
+    // this->hostList = hostList;
+    // this->supporterList = supporterList;
+    // this->ratingList = ratingList;
+    // this->requestList = requestList;
 }
 
 void Member::showInfo() {
-    cout << fullName;
+    cout << "Full Name: " << fullName << endl;
+    cout << "Email: " << email << endl;
+    cout << "Home Address: " << homeAddress << endl;
+    cout << "Phone Number: " << phoneNumber << endl;
+    cout << "Position: " << position << endl;
+    cout << "Rating Score: " << ratingScore << endl;
+    cout << "Supporter Rating: " << supporterRating << endl;
+    cout << "Host Rating: " << hostRating << endl;
+    // cout << "Skill Info: ";
+    // for (auto &skill : skillInfo) {
+    //     cout <<  skill << " ";
+    // } Has yet to implemented
+    cout << endl;
 }
-
