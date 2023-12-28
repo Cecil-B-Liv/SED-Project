@@ -1,6 +1,4 @@
-//
 // Created by Nick Anderson on 28/12/2023.
-//
 
 #ifndef SED_PROJECT_BASICSTDLIB_H
 #define SED_PROJECT_BASICSTDLIB_H
@@ -12,11 +10,11 @@
 #include <string>
 #include <vector>
 
-using std::cout;
 using std::cin;
+using std::cout;
 using std::endl;
 using std::string;
 using std::vector;
 using std::ifstream;
 
-#endif //SED_PROJECT_BASICSTDLIB_H
+#endif  // SED_PROJECT_BASICSTDLIB_H
