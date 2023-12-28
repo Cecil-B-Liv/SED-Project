@@ -3,8 +3,7 @@
 //
 
 #include "../Header files/Transaction.h"
-#include "Member.cpp"
 
 Transaction::Transaction(string ID) {
-    
+
 }

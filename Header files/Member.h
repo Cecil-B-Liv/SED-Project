@@ -22,7 +22,10 @@ private:
     double hostRating;
 
     vector<string> skillInfo;
-    Transaction transaction;
+    vector<Transaction> transaction;
+    vector<Member> hostList;
+    vector<Member> supporterList;
+
 public:
     Member(string, string, string, int, int, double, double, double, vector<string>);
 
