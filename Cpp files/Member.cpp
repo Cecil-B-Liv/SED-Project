@@ -4,10 +4,9 @@
 
 #include "../Header files/Member.h"
 
-Member::Member(string fullName, string email, string homeAddress,
-               int phoneNumber, int position, double ratingScore,
-               double supporterRating, double hostRating,
-               vector<string> skillInfo) {
+
+Member::Member(string fullName, string email, string homeAddress, int phoneNumber, int position, double ratingScore,
+               double supporterRating, double hostRating, vector<string> skillInfo, string username, string password) {
     this->fullName = fullName;
     this->email = email;
     this->homeAddress = homeAddress;
@@ -17,12 +16,10 @@ Member::Member(string fullName, string email, string homeAddress,
     this->supporterRating = supporterRating;
     this->hostRating = hostRating;
     this->skillInfo = skillInfo;
-
-    // this->username = username;
-    // this->password = password;
+    this->username = username;
+    this->password = password;
     // this->memberID = memberID;
 
-    // this->skillInfo = skillInfo;
     // this->transactionList = transactionList;
     // this->hostList = hostList;
     // this->supporterList = supporterList;
@@ -45,3 +42,21 @@ void Member::showInfo() {
     // } Has yet to implemented
     cout << endl;
 }
+
+string Member::getUserName() {
+    return username;
+}
+
+string Member::getPassword() {
+    return password;
+}
+
+void Member::setPassword(string passwordVal) {
+    this->password = passwordVal;
+}
+
+void Member::setUserName(string usernameVal) {
+    this->username = usernameVal;
+}
+
+

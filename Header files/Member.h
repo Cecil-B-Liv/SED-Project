@@ -23,17 +23,23 @@ class Member {
     double hostRating;
 
     // Member account
-    //  string username;
-    //  string password;
+    string username;
+    string password;
     //  string memberID;
 
     // System based member info
     vector<string> skillInfo;
     vector<Transaction> transactionList;
-    // vector<Rating> ratingList;
-    // vector<Request> requestList;
     vector<Member> hostList;
     vector<Member> supporterList;
+
+public:
+    explicit Member(string= "", string= "", string= "", int= 0, int= 0, double= 0.0, double= 0.0, double= 0.0,
+                    vector<string> = {}, string= "", string= "");
+    // vector<Rating> ratingList;
+    // vector<Request> requestList;
+
+
 
    public:
     // constructor
@@ -60,9 +66,9 @@ class Member {
 
     double Member::getHostRating() const { return hostRating; }
 
-    // string Member::getUsername() const { return username; }
+     string Member::getUsername() const { return username; }
 
-    // string Member::getPassword() const { return password; }
+    string Member::getPassword() const { return password; }
 
     // string Member::getMemberID() const { return memberID; }
 
@@ -106,9 +112,9 @@ class Member {
         this->hostRating = hostRating;
     }
 
-    // void Member::setUsername(string username) { this->username = username; }
+    void Member::setUsername(string username) { this->username = username; }
 
-    // void Member::setPassword(string password) { this->password = password; }
+    void Member::setPassword(string password) { this->password = password; }
 
     // void Member::setMemberID(string memberID) { this->memberID = memberID; }
 
@@ -135,6 +141,7 @@ class Member {
     void Member::setSupporterList(vector<Member> supporterList) {
         this->supporterList = supporterList;
     }
+
 };
 
 #endif  // SED_PROJECT_MEMBER_H

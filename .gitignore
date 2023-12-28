@@ -31,6 +31,8 @@
 *.out
 *.app
 
-#vscode
-*.json
+cmake-build-debug/
+CMakeLists.txt
+
+#json
 *.json

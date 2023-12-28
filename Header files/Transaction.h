@@ -17,6 +17,7 @@ class Transaction {
 
    public:
    //constructor
+
     Transaction(string);
     //perform transaction())
     static bool processTransaction(int);

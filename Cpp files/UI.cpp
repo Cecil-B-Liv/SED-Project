@@ -3,8 +3,8 @@
 //
 
 #include "../Header files/UI.h"
+#include "../Header files/Event.h"
 
 void UI::start() {
-    cout << "Hello";
-
+    Event::Menu();
 }
