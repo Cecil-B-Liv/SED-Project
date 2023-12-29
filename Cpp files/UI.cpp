@@ -6,14 +6,16 @@
 #include "../Header files/Event.h"
 
 void UI::Start() {
-    Event::Menu();
+    Event::StartScreen();
 }
 
 void UI::Login() {
-    Event::Login();
+    Event::LoginScreen();
 }
 
 void UI::Register() {
-    Event::Register();
+    Event::RegisterScreen();
 }
+
+void UI::Member() {}
 

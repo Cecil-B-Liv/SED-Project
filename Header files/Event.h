@@ -7,11 +7,13 @@
 
 class Event {
 public:
-    static void Login();
+    static void LoginScreen();
 
-    static void Menu();
+    static void StartScreen();
 
-    static void Register();
+    static void RegisterScreen();
+
+    static void MemberScreen();
 };
 
 #endif //SED_PROJECT_EVENT_H

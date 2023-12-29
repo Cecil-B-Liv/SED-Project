@@ -8,16 +8,22 @@
 
 static vector<Member> MemberList;
 
+vector<Member> System::getMemberList() {
+    return MemberList;
+}
+
 void System::UserReader() {
     string username;
     string password;
 
+    // Check if file exist
     ifstream file("../Database/MemberData.txt");
     if (!file.is_open()) {
         std::cerr << "Error opening file " << std::endl;
         return;
     }
 
+    // Read each line and split ","
     std::string line;
     while (std::getline(file, line)) {
         std::istringstream iss(line);
@@ -32,6 +38,19 @@ void System::UserReader() {
     file.close();
 }
 
-vector<Member> System::getMemberList() {
-    return MemberList;
+void System::UserWriter() {
+    string username;
+    string password;
+
+    ifstream file("../Database/MemberData.txt");
+    if (!file.is_open()) {
+        std::cerr << "Error opening file " << std::endl;
+        return;
+    }
+
+    for (Member member: MemberList) {
+
+    }
 }
+
+

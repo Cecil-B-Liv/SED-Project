@@ -14,6 +14,8 @@ public:
     static void Login();
 
     static void Register();
+
+    static void Member();
 };
 
 #endif //SED_PROJECT_UI_H

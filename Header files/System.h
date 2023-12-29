@@ -13,6 +13,8 @@ public:
 
     static void UserReader();
 
+    static void UserWriter();
+
     static vector<Member> getMemberList();
 };
 
