@@ -7,7 +7,8 @@
 static int counter;
 
 Member::Member(string fullName, string email, string homeAddress, int phoneNumber, int position, double ratingScore,
-               double supporterRating, double hostRating, vector<string> skillInfo, string username, string password) {
+               double supporterRating, double hostRating, vector<string> skillInfo, string username, string password,
+               string memberID) {
     this->fullName = fullName;
     this->email = email;
     this->homeAddress = homeAddress;
@@ -20,7 +21,7 @@ Member::Member(string fullName, string email, string homeAddress, int phoneNumbe
     this->username = username;
     this->password = password;
 
-    // this->memberID = memberID;
+    this->memberID = memberID;
     // this->transactionList = transactionList;
     // this->hostList = hostList;
     // this->supporterList = supporterList;

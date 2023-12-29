@@ -15,6 +15,7 @@ vector<Member> System::getMemberList() {
 void System::UserReader() {
     string username;
     string password;
+    string ID;
 
     // Check if file exist
     ifstream file("../Database/MemberData.txt");
@@ -29,10 +30,13 @@ void System::UserReader() {
         std::istringstream iss(line);
         std::getline(iss, username, ',');
         std::getline(iss, password, ',');
+        std::getline(iss, ID, ',');
+
     }
     Member test;
     test.setPassword(password);
     test.setUsername(username);
+    test.setMemberID(ID);
 
     MemberList.push_back(test);
     file.close();

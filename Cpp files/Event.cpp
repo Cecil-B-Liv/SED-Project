@@ -7,9 +7,11 @@
 #include "../Header files/System.h"
 #include "../Header files/UI.h"
 
-#define LOGIN 1
-#define REGISTER 2
-#define MEMBERINFO 3
+#define GUEST 1
+#define LOGIN 2
+#define REGISTER 3
+#define MEMBERINFO 1
+#define MEMBERSKILLRATING 2
 
 bool InputChecker(const string &input) {
     try {
@@ -24,8 +26,12 @@ void Event::StartScreen() {
     string input;
     int check;
 
-    cout << "What do you want" << endl;
-    cout << "1. Login\n2. Register" << endl;
+    cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
+    cout << "“TIME BANK” APPLICATION" << endl << endl;
+    cout << "Instructor: Mr. Tran Duc Linh" << endl;
+    cout << "Group: Group No." << endl;
+
+    cout << "Use the app as 1. Guest 2. Member 3. Admin" << endl;
     cout << ">>> ";
 
     cin >> input;
@@ -39,6 +45,7 @@ void Event::StartScreen() {
     check = std::stoi(input);
 
     switch (check) {
+        case GUEST:
         case LOGIN:
             UI::Login();
         case REGISTER:
@@ -52,6 +59,9 @@ void Event::StartScreen() {
 void Event::LoginScreen() {
     string username;
     string password;
+    int attempts;
+//    int position;
+    string ID;
 
     cout << "Enter your username: ";
     getline(cin >> std::ws, username);
@@ -64,10 +74,12 @@ void Event::LoginScreen() {
     for (auto i: System::getMemberList()) {
         if (!(username == i.getUsername() && password == i.getPassword())) {
             cout << "Wrong username or password" << endl;
+//            position = i.getPosition();
             UI::Login();
         }
         cout << "welcome";
-        Event::MemberScreen();
+        ID = i.getMemberID();
+        UI::Member(ID);
     }
 }
 
@@ -82,9 +94,11 @@ void Event::RegisterScreen() {
     getline(cin >> std::ws, password);
 }
 
-void Event::MemberScreen() {
+void Event::MemberScreen(string ID) {
     string input;
     int check;
+
+    cout << ID << endl << endl;
 
     cout << "What do you want" << endl;
     cout << "1. View Info" << endl;
@@ -95,16 +109,23 @@ void Event::MemberScreen() {
     // Check if user's input is only number
     if (!InputChecker(input)) {
         cout << "Not an option" << endl;
-        UI::Member();
+        UI::Member(ID);
     }
 
     check = std::stoi(input);
 
     switch (check) {
         case MEMBERINFO:
-            UI::Login();
+//            UI::Information(position, ID);
+        case MEMBERSKILLRATING:
+
         default:
             cout << "Not an option" << endl;
             UI::Start();
     }
 }
+
+//void Event::InformationScreen(position, ID) {
+//
+//}
+

@@ -5,6 +5,8 @@
 #ifndef SED_PROJECT_EVENT_H
 #define SED_PROJECT_EVENT_H
 
+#include "BasicSTDLIB.h"
+
 class Event {
 public:
     static void LoginScreen();
@@ -13,7 +15,11 @@ public:
 
     static void RegisterScreen();
 
-    static void MemberScreen();
+//    static void InformationScreen(int, int);
+
+//    static void MemberScreen(string);
+
+    static void MemberScreen(string ID);
 };
 
 #endif //SED_PROJECT_EVENT_H
