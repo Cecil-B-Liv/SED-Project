@@ -9,7 +9,11 @@
 
 class UI {
 public:
-    static void start();
+    static void Start();
+
+    static void Login();
+
+    static void Register();
 };
 
 #endif //SED_PROJECT_UI_H

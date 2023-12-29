@@ -15,6 +15,6 @@ int main() {
     //    test.setPassword("1111");
     //    test.setUserName("Liv");
 
-    UI::start();
+    UI::Start();
     return 0;
 }

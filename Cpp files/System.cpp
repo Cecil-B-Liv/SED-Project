@@ -26,7 +26,7 @@ void System::UserReader() {
     }
     Member test;
     test.setPassword(password);
-    test.setUserName(username);
+    test.setUsername(username);
 
     MemberList.push_back(test);
     file.close();

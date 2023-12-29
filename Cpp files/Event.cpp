@@ -5,27 +5,47 @@
 #include "../Header files/Event.h"
 #include "../Header files/BasicSTDLIB.h"
 #include "../Header files/System.h"
+#include "../Header files/UI.h"
 
-#define LOGIN 1
-#define REGISTER 2
+#define LOGIN '1'
+#define REGISTER '2'
 
 void Event::Menu() {
-    int choice;
+    char input;
 
-    cout << "What do you want\n";
-    cout << "1. Login\n2. Register\n";
+    cout << "What do you want" << endl;
+    cout << "1. Login\n2. Register" << endl;
     cout << "Choice: ";
-    cin >> choice;
 
-    if (choice == LOGIN) {
-        Login();
-        return;
+    cin >> input;
+
+    if (!isdigit(input)) {
+        cout << "Not an option" << endl;
+        UI::Start();
     }
 
-    if (choice == REGISTER) {
-        Register();
-        return;
+    switch (input) {
+        case LOGIN:
+            UI::Login();
+            break;
+        case REGISTER:
+            UI::Register();
+            break;
+        default:
+            cout << "Not an option" << endl;
+            UI::Start();
+            break;
     }
+
+//    if (choice == LOGIN) {
+//        UI::Login();
+//        return;
+//    }
+//
+//    if (choice == REGISTER) {
+//        UI::Register();
+//        return;
+//    }
 }
 
 void Event::Login() {

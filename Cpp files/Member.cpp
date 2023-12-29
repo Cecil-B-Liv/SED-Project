@@ -43,7 +43,7 @@ void Member::showInfo() {
     cout << endl;
 }
 
-string Member::getUserName() {
+string Member::getUsername() {
     return username;
 }
 
@@ -55,7 +55,7 @@ void Member::setPassword(string passwordVal) {
     this->password = passwordVal;
 }
 
-void Member::setUserName(string usernameVal) {
+void Member::setUsername(string usernameVal) {
     this->username = usernameVal;
 }
 
