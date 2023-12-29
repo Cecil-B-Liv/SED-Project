@@ -15,7 +15,7 @@ Member::Member(string fullName, string email, string homeAddress, int phoneNumbe
     this->ratingScore = ratingScore;
     this->supporterRating = supporterRating;
     this->hostRating = hostRating;
-    this->skillInfo = skillInfo;
+    this->skillInfoList = skillInfo;
     this->username = username;
     this->password = password;
     // this->memberID = memberID;
@@ -37,26 +37,12 @@ void Member::showInfo() {
     cout << "Supporter Rating: " << supporterRating << endl;
     cout << "Host Rating: " << hostRating << endl;
     // cout << "Skill Info: ";
-    // for (auto &skill : skillInfo) {
+    // for (auto &skill : skillInfoList) {
     //     cout <<  skill << " ";
     // } Has yet to implemented
     cout << endl;
 }
 
-string Member::getUsername() {
-    return username;
-}
 
-string Member::getPassword() {
-    return password;
-}
-
-void Member::setPassword(string passwordVal) {
-    this->password = passwordVal;
-}
-
-void Member::setUsername(string usernameVal) {
-    this->username = usernameVal;
-}
 
 

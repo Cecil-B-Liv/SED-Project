@@ -10,6 +10,8 @@
 
 class Member {
 private:
+    // Class counter
+    static int counter;
     // Member Info
     string fullName;
     string email;
@@ -28,85 +30,85 @@ private:
     //  string memberID;
 
     // System based member info
-    vector<string> skillInfo;
+    vector<string> skillInfoList;
     vector<Transaction> transactionList;
     vector<Member> hostList;
     vector<Member> supporterList;
-
-public:
-    explicit Member(string = "", string = "", string = "", int = 0, int = 0,
-                    double = 0.0, double = 0.0, double = 0.0,
-                    vector<string> = {}, string = "", string = "");
     // vector<Rating> ratingList;
     // vector<Request> requestList;
 
-//   public:
-//    // constructor
-//    Member(string, string, string, int, int, double, double, double,
-//           vector<string>);
+public:
+    explicit Member(string fullName = "", string email = "", string homeAddress = "",
+                    int phoneNumber = 0, int position = 0, double ratingScore = 0.0,
+                    double supporterRating = 0.0, double hostRating = 0.0, vector<string> skillInfoList = {},
+                    string username = "", string password = "");
+
     // toString
     void showInfo();
 
     // accessor methods
     // getter
-    string getFullName();
 
-    string getEmail();
+    string getUsername() { return username; }
 
-    string getHomeAddress();
+    string getPassword() { return password; }
 
-    int getPhoneNumber();
+    string getFullName() { return fullName; }
 
-    int getPosition();
+    string getEmail() { return email; }
 
-    double getRatingScore();
+    string getHomeAddress() { return homeAddress; }
 
-    double getSupporterRating();
+    int getPhoneNumber() const { return phoneNumber; }
 
-    double getHostRating();
+    int getPosition() const { return position; }
 
-    string getUsername();
+    double getRatingScore() const { return ratingScore; }
 
-    string getPassword();
+    double getSupporterRating() const { return supporterRating; }
+
+    double getHostRating() const { return hostRating; }
+
     // string getMemberID() const { return memberID; }
 
-    vector<string> getSkillInfo();
+    vector<string> getSkillInfo() { return skillInfoList; }
 
-    vector<Transaction> getTransactionList();
+    vector<Transaction> getTransactionList() { return transactionList; }
 
     // vector<Rating> getRatingList() const { return ratingList; }
 
     // vector<Request> getRequestList() const { return requestList; }
 
-    vector<Member> getHostList();
+    vector<Member> getHostList() { return hostList; }
 
-    vector<Member> getSupporterList();
+    vector<Member> getSupporterList() { return supporterList; }
 
     // setter
-    void setFullName(string fullName);
+    void setFullName(string fullNameVal) { this->fullName = fullNameVal; }
 
-    void setEmail(string email);
+    void setEmail(string emailVal) { this->email = emailVal; }
 
-    void setHomeAddress(string homeAddress);
+    void setHomeAddress(string homeAddressVal) { this->homeAddress = homeAddressVal; }
 
-    void setPhoneNumber(int phoneNumber);
+    void setPhoneNumber(int phoneNumberVal) { this->phoneNumber = phoneNumberVal; }
 
-    void setPosition(int position);
+    void setPosition(int positionVal) { this->position = positionVal; }
 
-    void setRatingScore(double ratingScore);
+    void setRatingScore(double ratingScoreVal) { this->ratingScore = ratingScoreVal; }
 
-    void setSupporterRating(double supporterRating);
+    void setSupporterRating(double supporterRatingVal) { this->supporterRating = supporterRatingVal; }
 
-    void setHostRating(double hostRating);
+    void setHostRating(double hostRatingVal) { this->hostRating = hostRatingVal; }
 
-    void setUsername(string username);
+    void setPassword(string passwordVal) { this->password = passwordVal; }
 
-    void setPassword(string password);
+    void setUsername(string usernameVal) { this->username = usernameVal; }
+
     // void setMemberID(string memberID) { this->memberID = memberID; }
 
-    void setSkillInfo(vector<string> skillInfo);
+    void setSkillInfo(vector<string> skillInfoListVal) { this->skillInfoList = skillInfoListVal; }
 
-    void setTransactionList(vector<Transaction> transactionList);
+    void setTransactionList(vector<Transaction> transactionListVal) { this->transactionList = transactionListVal; }
 
     // void setRatingList(vector<Rating> ratingList) {
     //     this->ratingList = ratingList;
@@ -116,9 +118,9 @@ public:
     //     this->requestList = requestList;
     // }
 
-    void setHostList(vector<Member> hostList);
+    void setHostList(vector<Member> hostListVal) { this->hostList = hostListVal; }
 
-    void setSupporterList(vector<Member> supporterList);
+    void setSupporterList(vector<Member> supporterListVal) { this->supporterList = supporterListVal; }
 };
 
 #endif  // SED_PROJECT_MEMBER_H

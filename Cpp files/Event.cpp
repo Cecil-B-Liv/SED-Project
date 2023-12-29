@@ -22,19 +22,20 @@ void Event::Menu() {
     if (!isdigit(input)) {
         cout << "Not an option" << endl;
         UI::Start();
+        return;
     }
 
     switch (input) {
         case LOGIN:
             UI::Login();
-            break;
+            return;
         case REGISTER:
             UI::Register();
-            break;
+            return;
         default:
             cout << "Not an option" << endl;
             UI::Start();
-            break;
+            return;
     }
 
 //    if (choice == LOGIN) {
@@ -61,8 +62,12 @@ void Event::Login() {
     System::UserReader();
 
     for (auto i: System::getMemberList()) {
-        if (username == i.getUsername() && password == i.getPassword())
+        if (username == i.getUsername() && password == i.getPassword()) {
             cout << "welcome";
+            return;
+        } else {
+            return;
+        }
     }
 }
 
