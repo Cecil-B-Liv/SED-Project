@@ -7,6 +7,7 @@
 class Request {
    private:
     string bookingID;
+    string memberID;
     Time startTime;
     Time endTime;
     vector<string> skillRequired;
@@ -21,6 +22,7 @@ class Request {
 
     // Setter methods
     void setBookingID(std::string bookingID) { this->bookingID = bookingID; }
+    void setMemberID(std::string MemberID) { this->MemberID = MemberID; }
 
     void setStartTime(Time startTime) { this->startTime = startTime; }
 
