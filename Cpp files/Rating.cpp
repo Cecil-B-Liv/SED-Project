@@ -1,9 +1,10 @@
 #include "../Header files/Rating.h"
 
-Rating::Rating(string ratingID, string memberRating, double skillRating,
+Rating::Rating(string ratingID, string memberID, string hostID, double skillRating,
                double supporterRating, double hostRating, string comments) {
     this->ratingID = ratingID;
-    this->memberRating = memberRating;
+    this->memberID = memberID;
+    this->hostID = hostID;
     this->skillRating = skillRating;
     this->supporterRating = supporterRating;
     this->hostRating = hostRating;
