@@ -18,9 +18,9 @@ public:
 
     static void Register() { Event::RegisterScreen(); }
 
-    static void Member(string ID = "") { Event::MemberScreen(ID); }
+    static void Member(const string &ID = "") { Event::MemberScreen(ID); }
 
-//    static void Information(int position = 0, int ID = 0) { Event::InformationScreen(ID, position); }
+    static void Information(const string &ID = "") { Event::InformationScreen(ID); }
 };
 
 #endif //SED_PROJECT_UI_H

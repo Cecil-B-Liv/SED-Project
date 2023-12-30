@@ -20,17 +20,17 @@ void System::UserReader() {
     // Check if file exist
     ifstream file("../Database/MemberData.txt");
     if (!file.is_open()) {
-        std::cerr << "Error opening file " << std::endl;
+        cerr << "Error opening file " << endl;
         return;
     }
 
     // Read each line and split ","
-    std::string line;
-    while (std::getline(file, line)) {
-        std::istringstream iss(line);
-        std::getline(iss, username, ',');
-        std::getline(iss, password, ',');
-        std::getline(iss, ID, ',');
+    string line;
+    while (getline(file, line)) {
+        istringstream iss(line);
+        getline(iss, username, ',');
+        getline(iss, password, ',');
+        getline(iss, ID, ',');
 
     }
     Member test;
@@ -38,6 +38,11 @@ void System::UserReader() {
     test.setUsername(username);
     test.setMemberID(ID);
 
+    test.setFullName("Huynh Ngoc Tai");
+    test.setEmail("lmao@gay.com");
+    test.setHomeAddress("League of Legend");
+
+    MemberList.clear();
     MemberList.push_back(test);
     file.close();
 }
@@ -48,7 +53,7 @@ void System::UserWriter() {
 
     ifstream file("../Database/MemberData.txt");
     if (!file.is_open()) {
-        std::cerr << "Error opening file " << std::endl;
+        cerr << "Error opening file " << endl;
         return;
     }
 
@@ -57,4 +62,27 @@ void System::UserWriter() {
     }
 }
 
+string System::LoginCheck(const string &username, const string &password) {
+    UserReader();
+    string memberID;
+
+    for (Member member: getMemberList()) {
+        if (!(username == member.getUsername() && password == member.getPassword())) {
+            return "false";
+        }
+        memberID = member.getMemberID();
+    }
+    return memberID;
+}
+
+void System::getMemberInformation(const string &ID) {
+    UserReader();
+
+    for (const Member &member: getMemberList()) {
+        if (!(ID == member.getMemberID())) {
+            return;
+        }
+        member.showInfo();
+    }
+}
 

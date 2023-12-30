@@ -42,7 +42,7 @@ public:
                     string = "", string = "", string = "");
 
     // toString
-    void showInfo();
+    void showInfo() const;
 
     // accessor methods
     // getter

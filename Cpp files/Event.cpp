@@ -3,7 +3,6 @@
 //
 
 #include "../Header files/Event.h"
-#include "../Header files/BasicSTDLIB.h"
 #include "../Header files/System.h"
 #include "../Header files/UI.h"
 
@@ -15,12 +14,13 @@
 
 bool InputChecker(const string &input) {
     try {
-        std::stoi(input);
+        stoi(input);
         return true;
     } catch (std::invalid_argument &) {
         return false;
     }
 }
+
 
 void Event::StartScreen() {
     string input;
@@ -31,28 +31,37 @@ void Event::StartScreen() {
     cout << "Instructor: Mr. Tran Duc Linh" << endl;
     cout << "Group: Group No." << endl;
 
-    cout << "Use the app as 1. Guest 2. Member 3. Admin" << endl;
+    cout << "Use the app as: 1. Guest 2. Member 3. Admin" << endl;
+    cout << "Exit the app: e or E" << endl;
     cout << ">>> ";
 
     cin >> input;
+
+    if (input == "e") {
+        return;
+    }
 
     // Check if user's input is only number
     if (!InputChecker(input)) {
         cout << "Not an option" << endl;
         UI::Start();
+        return;
     }
 
-    check = std::stoi(input);
+    check = stoi(input);
 
     switch (check) {
         case GUEST:
         case LOGIN:
             UI::Login();
+            return;
         case REGISTER:
             UI::Register();
+            return;
         default:
             cout << "Not an option" << endl;
             UI::Start();
+            return;
     }
 }
 
@@ -69,18 +78,15 @@ void Event::LoginScreen() {
     cout << "Enter your password: ";
     getline(cin >> std::ws, password);
 
-    System::UserReader();
-
-    for (auto i: System::getMemberList()) {
-        if (!(username == i.getUsername() && password == i.getPassword())) {
-            cout << "Wrong username or password" << endl;
-//            position = i.getPosition();
-            UI::Login();
-        }
-        cout << "welcome";
-        ID = i.getMemberID();
-        UI::Member(ID);
+    if (System::LoginCheck(username, password) == "false") {
+        cout << "Wrong username or password" << endl;
+        UI::Login();
+        return;
     }
+
+    cout << "welcome";
+    ID = System::LoginCheck(username, password);
+    UI::Member(ID);
 }
 
 void Event::RegisterScreen() {
@@ -94,7 +100,7 @@ void Event::RegisterScreen() {
     getline(cin >> std::ws, password);
 }
 
-void Event::MemberScreen(string ID) {
+void Event::MemberScreen(const string &ID) {
     string input;
     int check;
 
@@ -102,30 +108,37 @@ void Event::MemberScreen(string ID) {
 
     cout << "What do you want" << endl;
     cout << "1. View Info" << endl;
+    cout << "Exit the app: e or E" << endl;
     cout << ">>> ";
 
     cin >> input;
+
+    if (input == "e") {
+        return;
+    }
 
     // Check if user's input is only number
     if (!InputChecker(input)) {
         cout << "Not an option" << endl;
         UI::Member(ID);
+        return;
     }
 
-    check = std::stoi(input);
+    check = stoi(input);
 
     switch (check) {
         case MEMBERINFO:
-//            UI::Information(position, ID);
+            UI::Information(ID);
+            return;
         case MEMBERSKILLRATING:
-
         default:
             cout << "Not an option" << endl;
             UI::Start();
+            return;
     }
 }
 
-//void Event::InformationScreen(position, ID) {
-//
-//}
+void Event::InformationScreen(const string &ID) {
+    System::getMemberInformation(ID);
+}
 

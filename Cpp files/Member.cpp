@@ -29,7 +29,7 @@ Member::Member(string fullName, string email, string homeAddress, int phoneNumbe
     // this->requestList = requestList;
 }
 
-void Member::showInfo() {
+void Member::showInfo() const {
     cout << "Full Name: " << fullName << endl;
     cout << "Email: " << email << endl;
     cout << "Home Address: " << homeAddress << endl;
@@ -39,9 +39,9 @@ void Member::showInfo() {
     cout << "Supporter Rating: " << supporterRating << endl;
     cout << "Host Rating: " << hostRating << endl;
     cout << "Skill Info: ";
-    for (string &skill: skillInfoList) {
-        cout << skill << " ";
-    }
+//    for (string &skill: skillInfoList) {
+//        cout << skill << " ";
+//    }
     // Has yet to implemented
     cout << endl;
 }

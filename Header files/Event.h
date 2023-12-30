@@ -15,11 +15,9 @@ public:
 
     static void RegisterScreen();
 
-//    static void InformationScreen(int, int);
+    static void InformationScreen(const string &ID);
 
-//    static void MemberScreen(string);
-
-    static void MemberScreen(string ID);
+    static void MemberScreen(const string &ID);
 };
 
 #endif //SED_PROJECT_EVENT_H
