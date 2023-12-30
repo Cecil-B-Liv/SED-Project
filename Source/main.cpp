@@ -1,8 +1,7 @@
 #define admin 0
 #define user 1
 
-#include "../Header files/Member.h"
-#include "../Header files/UI.h"
+#include "../Header files/INCLUDEHEADERS.h"
 
 int main() {
     //    vector<string> obj;
@@ -14,7 +13,8 @@ int main() {
     //    Member test;
     //    test.setPassword("1111");
     //    test.setUserName("Liv");
+    // UI::Start();
 
-    UI::Start();
+    cout << "hello world";
     return 0;
 }
