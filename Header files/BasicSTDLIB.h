@@ -17,5 +17,7 @@ using std::cerr;
 using std::string;
 using std::vector;
 using std::ifstream;
+using std::istringstream;
+using std::stoi;
 
 #endif  // SED_PROJECT_BASICSTDLIB_H

@@ -10,24 +10,22 @@
 
 class Member {
 private:
-    // Class counter
-    static int counter;
     // Member Info
     string fullName;
     string email;
     string homeAddress;
-    int phoneNumber;
-    int position;
+    int phoneNumber{};
+    int position{};
 
     // Member value
-    double ratingScore;
-    double supporterRating;
-    double hostRating;
+    double ratingScore{};
+    double supporterRating{};
+    double hostRating{};
 
     // Member account
     string username;
     string password;
-    //  string memberID;
+    string memberID;
 
     // System based member info
     vector<string> skillInfoList;
@@ -38,13 +36,13 @@ private:
     // vector<Request> requestList;
 
 public:
-    explicit Member(string fullName = "", string email = "", string homeAddress = "",
-                    int phoneNumber = 0, int position = 0, double ratingScore = 0.0,
-                    double supporterRating = 0.0, double hostRating = 0.0, vector<string> skillInfoList = {},
-                    string username = "", string password = "");
+    explicit Member(string = "", string = "", string = "",
+                    int  = 0, int  = 0, double  = 0.0,
+                    double = 0.0, double  = 0.0, vector<string> = {},
+                    string = "", string = "", string = "");
 
     // toString
-    void showInfo();
+    void showInfo() const;
 
     // accessor methods
     // getter
@@ -69,7 +67,7 @@ public:
 
     double getHostRating() const { return hostRating; }
 
-    // string getMemberID() const { return memberID; }
+    string getMemberID() const { return memberID; }
 
     vector<string> getSkillInfo() { return skillInfoList; }
 
@@ -104,7 +102,7 @@ public:
 
     void setUsername(string usernameVal) { this->username = usernameVal; }
 
-    // void setMemberID(string memberID) { this->memberID = memberID; }
+    void setMemberID(string memberIDVal) { this->memberID = memberIDVal; }
 
     void setSkillInfo(vector<string> skillInfoListVal) { this->skillInfoList = skillInfoListVal; }
 

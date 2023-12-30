@@ -13,7 +13,13 @@ public:
 
     static void UserReader();
 
+    static void UserWriter();
+
+    static string LoginCheck(const string &, const string &);
+
     static vector<Member> getMemberList();
+
+    static void getMemberInformation(const string &);
 };
 
 #endif //SED_PROJECT_SYSTEM_H
