@@ -22,7 +22,7 @@ class Request {
 
     // Setter methods
     void setBookingID(std::string bookingID) { this->bookingID = bookingID; }
-    void setMemberID(std::string MemberID) { this->MemberID = MemberID; }
+    void setMemberID(std::string MemberID) { this->memberID = memberID; }
 
     void setStartTime(Time startTime) { this->startTime = startTime; }
 
