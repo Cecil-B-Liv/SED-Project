@@ -7,14 +7,13 @@
 static int counter;
 
 Member::Member(string fullName, string email, string homeAddress,
-               int phoneNumber, int position, double ratingScore,
+               int phoneNumber, double ratingScore,
                double supporterRating, double hostRating, string username,
                string password, string memberID, vector<string> skillInfo) {
     this->fullName = fullName;
     this->email = email;
     this->homeAddress = homeAddress;
     this->phoneNumber = phoneNumber;
-    this->position = position;
     this->ratingScore = ratingScore;
     this->supporterRating = supporterRating;
     this->hostRating = hostRating;
@@ -22,20 +21,19 @@ Member::Member(string fullName, string email, string homeAddress,
     this->username = username;
     this->password = password;
     this->memberID = memberID;
-    
+}   
+    // setter for these vectors
     // this->transactionList = transactionList;
     // this->hostList = hostList;
     // this->supporterList = supporterList;
     // this->ratingList = ratingList;
     // this->requestList = requestList;
-}
 
 void Member::showInfo() const {
     cout << "Full Name: " << fullName << endl;
     cout << "Email: " << email << endl;
     cout << "Home Address: " << homeAddress << endl;
     cout << "Phone Number: " << phoneNumber << endl;
-    cout << "Position: " << position << endl;
     cout << "Rating Score: " << ratingScore << endl;
     cout << "Supporter Rating: " << supporterRating << endl;
     cout << "Host Rating: " << hostRating << endl;
@@ -50,11 +48,11 @@ void Member::showInfo() const {
     }
     cout << endl;
 
-    // cout << "TransactionList: ";
-    // for (Transaction transaction : transactionList) {
-    //     transaction.showInfo();
-    // }
-    // cout << endl;
+    cout << "TransactionList: ";
+    for (Transaction transaction : transactionList) {
+        transaction.showInfo();
+    }
+    cout << endl;
 
     // cout << "Host List: ";
     // for (Member host : hostList) {

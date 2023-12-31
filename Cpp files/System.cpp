@@ -5,9 +5,15 @@
 #include "../Header files/INCLUDEHEADERS.h"
 
 static vector<Member> MemberList;
+static vector<Transaction> TransactionList;
 vector<Member> System::getMemberList() { return MemberList; }
-//call to prevent undefined static variable
-// Returns a copy of the MemberList
+vector<Transaction> getTransactionList() { return TransactionList; }
+
+// static vector<Rating> RatingList;
+// vector<Rating> System::getRatingList() { return RatingList; }
+
+// static vector<Rating> RatingList;
+// vector<Rating> System::getRatingList() { return RatingList; }
 
 void System::MemberReader() {
     string username;
@@ -55,12 +61,6 @@ void System::MemberWriter() {
     for (Member member : MemberList) {
     }
 }
-
-// static vector<Rating> RatingList;
-// vector<Rating> System::getRatingList() { return RatingList; }
-
-// static vector<Rating> RatingList;
-// vector<Rating> System::getRatingList() { return RatingList; }
 
 string System::LoginCheck(const string &username, const string &password) {
     // Call the user reader function
