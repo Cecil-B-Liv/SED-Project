@@ -18,7 +18,7 @@ void System::UserReader() {
     string ID;
 
     // Check if file exist
-    ifstream file("../Database/MemberData.txt");
+    ifstream file("../Database/MemberData.csv");
     if (!file.is_open()) {
         cerr << "Error opening file " << endl;
         return;
@@ -51,7 +51,7 @@ void System::UserWriter() {
     string username;
     string password;
 
-    ifstream file("../Database/MemberData.txt");
+    ifstream file("../Database/MemberData.csv");
     if (!file.is_open()) {
         cerr << "Error opening file " << endl;
         return;
