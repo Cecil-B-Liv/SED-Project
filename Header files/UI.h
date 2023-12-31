@@ -14,13 +14,11 @@ class UI {
 public:
     static void Start() { Event::StartScreen(); }
 
-    static void Login() { Event::LoginScreen(); }
-
-    static void Register() { Event::RegisterScreen(); }
-
     static void Member(const string &ID = "") { Event::MemberScreen(ID); }
 
     static void Information(const string &ID = "") { Event::InformationScreen(ID); }
+
+    static void RegisterLogin(int givenChoice) { Event::RegisterLoginScreen(givenChoice); }
 };
 
 #endif //SED_PROJECT_UI_H

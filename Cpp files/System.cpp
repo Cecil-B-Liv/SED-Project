@@ -14,7 +14,7 @@ vector<Member> System::getMemberList() {
     return MemberList;
 }
 
-void System::UserReader() {
+void System::userReader() {
     string username;
     string password;
     string ID;
@@ -52,7 +52,7 @@ void System::UserReader() {
     file.close();
 }
 
-void System::UserWriter() {
+void System::userWriter() {
     string username;
     string password;
 
@@ -67,8 +67,8 @@ void System::UserWriter() {
     }
 }
 
-string System::LoginCheck(const string &username, const string &password) {
-    UserReader();
+string System::loginCheck(const string &username, const string &password) {
+    userReader();
     string memberID;
 
     for (Member member: getMemberList()) {
@@ -81,13 +81,21 @@ string System::LoginCheck(const string &username, const string &password) {
 }
 
 void System::getMemberInformation(const string &ID) {
-    UserReader();
+    userReader();
 
     for (const Member &member: getMemberList()) {
         if (!(ID == member.getMemberID())) {
             return;
         }
         member.showInfo();
+    }
+}
+
+int System::userInputCheck(const string &input) {
+    try {
+        return stoi(input);
+    } catch (std::invalid_argument &) {
+        return -1;
     }
 }
 

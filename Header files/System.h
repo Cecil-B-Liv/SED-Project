@@ -11,15 +11,17 @@
 class System {
 public:
 
-    static void UserReader();
+    static void userReader();
 
-    static void UserWriter();
+    static void userWriter();
 
-    static string LoginCheck(const string &, const string &);
+    static string loginCheck(const string &, const string &);
 
     static vector<Member> getMemberList();
 
     static void getMemberInformation(const string &);
+
+    static int userInputCheck(const string &);
 };
 
 #endif //SED_PROJECT_SYSTEM_H
