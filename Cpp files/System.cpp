@@ -6,6 +6,8 @@
 #include "../Header files/Member.h"
 #include "../Header files/System.h"
 
+#define EMPTY ""
+
 static vector<Member> MemberList;
 
 vector<Member> System::getMemberList() {
@@ -42,6 +44,9 @@ void System::UserReader() {
     test.setEmail("lmao@gay.com");
     test.setHomeAddress("League of Legend");
 
+    vector<string> skillList = {"lmao1", "lmao2", "lmao3"};
+    test.setSkillInfo(skillList);
+
     MemberList.clear();
     MemberList.push_back(test);
     file.close();
@@ -68,7 +73,7 @@ string System::LoginCheck(const string &username, const string &password) {
 
     for (Member member: getMemberList()) {
         if (!(username == member.getUsername() && password == member.getPassword())) {
-            return "false";
+            return EMPTY;
         }
         memberID = member.getMemberID();
     }

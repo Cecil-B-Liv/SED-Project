@@ -39,10 +39,9 @@ void Member::showInfo() const {
     cout << "Supporter Rating: " << supporterRating << endl;
     cout << "Host Rating: " << hostRating << endl;
     cout << "Skill Info: ";
-//    for (string &skill: skillInfoList) {
-//        cout << skill << " ";
-//    }
-    // Has yet to implemented
+    for (const string &skill: skillInfoList) {
+        cout << skill << " ";
+    }
     cout << endl;
 }
 

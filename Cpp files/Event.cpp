@@ -78,7 +78,7 @@ void Event::LoginScreen() {
     cout << "Enter your password: ";
     getline(cin >> std::ws, password);
 
-    if (System::LoginCheck(username, password) == "false") {
+    if (System::LoginCheck(username, password).empty()) {
         cout << "Wrong username or password" << endl;
         UI::Login();
         return;
