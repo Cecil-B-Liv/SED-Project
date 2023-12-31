@@ -20,6 +20,7 @@ class Rating {
     Rating(string, string, string, double, double, double, string);
     // function code
     void addReview();
+    void showInfo();
     // EXTRA::void updateRating();
 
     // Accessor methods

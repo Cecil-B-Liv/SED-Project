@@ -1,4 +1,4 @@
-#include "../Header files/Rating.h"
+#include "../Header files/INCLUDEHEADERS.h"
 
 Rating::Rating(string ratingID, string memberID, string hostID, double skillRating,
                double supporterRating, double hostRating, string comments) {
@@ -12,4 +12,8 @@ Rating::Rating(string ratingID, string memberID, string hostID, double skillRati
 }
 
 void Rating::addReview(){
+}
+
+void Rating::showInfo(){
+    
 }

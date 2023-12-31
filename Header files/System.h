@@ -9,17 +9,21 @@
 #include "Member.h"
 
 class System {
-public:
-
-    static void UserReader();
-
-    static void UserWriter();
-
-    static string LoginCheck(const string &, const string &);
-
+   public:
+    static void MemberReader();
+    static void MemberWriter();
     static vector<Member> getMemberList();
 
+    static void RatingReader();
+    static void RatingWriter();
+    static vector<Rating> getRatingList();
+
+    static void RequestReader();
+    static void RequestWriter();
+    static vector<Request> getRequestList();
+
+    static string LoginCheck(const string &, const string &);
     static void getMemberInformation(const string &);
 };
 
-#endif //SED_PROJECT_SYSTEM_H
+#endif  // SED_PROJECT_SYSTEM_H

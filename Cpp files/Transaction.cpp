@@ -2,10 +2,16 @@
 // Created by Nick Anderson on 28/12/2023.
 //
 
-#include "../Header files/Transaction.h"
+#include "../Header files/INCLUDEHEADERS.h"
 
+//constructor
+Transaction::Transaction() {
+}
 
-Transaction::Transaction(string ID) {
-
-
+void Transaction::showInfo(){
+    cout << "Transaction Info:\n";
+    cout << "Amount: " << amount << "\n";
+    cout << "Transaction Type: " << transactionType << "\n";
+    cout << "Member ID: " << memberID << "\n";
+    cout << "Time: " << time->getDate() << time->getMonth() << time->getYear() <<"\n";
 }

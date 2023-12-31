@@ -2,9 +2,7 @@
 // Created by Nick Anderson on 28/12/2023.
 //
 
-#include "../Header files/Event.h"
-#include "../Header files/System.h"
-#include "../Header files/UI.h"
+#include "../Header files/INCLUDEHEADERS.h"
 
 #define GUEST 1
 #define LOGIN 2
@@ -13,6 +11,7 @@
 #define MEMBERSKILLRATING 2
 
 bool InputChecker(const string &input) {
+    // Check if user's input is only number
     try {
         stoi(input);
         return true;
@@ -21,47 +20,53 @@ bool InputChecker(const string &input) {
     }
 }
 
-
+// Event Start Screen
 void Event::StartScreen() {
     string input;
     int check;
 
+    // Welcome Message
     cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
     cout << "“TIME BANK” APPLICATION" << endl << endl;
     cout << "Instructor: Mr. Tran Duc Linh" << endl;
     cout << "Group: Group No." << endl;
 
+    // Prompt User to Choose Role
     cout << "Use the app as: 1. Guest 2. Member 3. Admin" << endl;
     cout << "Exit the app: e or E" << endl;
     cout << ">>> ";
 
+    // Get User Input
     cin >> input;
 
+    // Check for Exit Condition
     if (input == "e") {
+        // Close Application
         return;
     }
 
-    // Check if user's input is only number
-    if (!InputChecker(input)) {
-        cout << "Not an option" << endl;
-        UI::Start();
-        return;
-    }
+    // Check if User Input is Valid
+    if (InputChecker(input)) {
+        // Store User Input as Integer
+        check = stoi(input);
 
-    check = stoi(input);
-
-    switch (check) {
-        case GUEST:
-        case LOGIN:
-            UI::Login();
-            return;
-        case REGISTER:
-            UI::Register();
-            return;
-        default:
-            cout << "Not an option" << endl;
-            UI::Start();
-            return;
+        // Switch Based on User Input
+        switch (check) {
+            case GUEST:
+                // Process as Guest
+                break;
+            case LOGIN:
+                // Process as Member
+                break;
+            case REGISTER:
+                // Process as Admin
+                break;
+            default:
+                // Invalid Input
+                break;
+        }
+    } else {
+        // Invalid Input (Non-numeric)
     }
 }
 
@@ -69,7 +74,7 @@ void Event::LoginScreen() {
     string username;
     string password;
     int attempts;
-//    int position;
+    //int position;
     string ID;
 
     cout << "Enter your username: ";
@@ -84,7 +89,7 @@ void Event::LoginScreen() {
         return;
     }
 
-    cout << "welcome";
+    cout << "Welcome";
     ID = System::LoginCheck(username, password);
     UI::Member(ID);
 }
@@ -141,4 +146,3 @@ void Event::MemberScreen(const string &ID) {
 void Event::InformationScreen(const string &ID) {
     System::getMemberInformation(ID);
 }
-
