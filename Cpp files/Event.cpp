@@ -7,8 +7,12 @@
 #include "../Header files/UI.h"
 
 #define GUEST 1
-#define LOGIN 2
-#define REGISTER 3
+#define MEMBER 2
+#define ADMIN 3
+
+#define LOGIN 1
+#define REGISTER 2
+
 #define MEMBERINFO 1
 #define MEMBERSKILLRATING 2
 
@@ -41,11 +45,11 @@ void Event::StartScreen() {
 
     switch (checkedUserInput) {
         case GUEST:
-        case LOGIN:
-            UI::RegisterLogin(LOGIN);
+        case MEMBER:
+            UI::RegisterLogin(MEMBER);
             return;
-        case REGISTER:
-            UI::RegisterLogin(REGISTER);
+        case ADMIN:
+            UI::RegisterLogin(ADMIN);
             return;
         default:
             cout << "Not an option" << endl;
@@ -96,9 +100,29 @@ void Event::InformationScreen(const string &ID) {
     System::getMemberInformation(ID);
 }
 
-void Event::RegisterLoginScreen(int givenChoice) {
+void Event::RegisterLoginScreen(int choice) {
+    string givenChoice;
     string username;
     string password;
+
+    if (choice == ADMIN) {
+        return;
+    }
+
+    if (choice == MEMBER) {
+        cout << "1. Log in 2. Register" << endl;
+        cout << ">>> ";
+        cin >> givenChoice;
+    }
+
+    int checkedUserInput = System::userInputCheck(givenChoice);
+
+    // Check if user's input is only number
+    if (checkedUserInput == -1) {
+        cout << "Not an option" << endl;
+        UI::RegisterLogin(choice);
+        return;
+    }
 
     cout << "Enter your username: ";
     getline(cin >> std::ws, username);
@@ -106,17 +130,19 @@ void Event::RegisterLoginScreen(int givenChoice) {
     cout << "Enter your password: ";
     getline(cin >> std::ws, password);
 
-    switch (givenChoice) {
+    switch (checkedUserInput) {
         case LOGIN:
             if (System::loginCheck(username, password).empty()) {
                 cout << "Wrong username or password" << endl;
-                UI::RegisterLogin(LOGIN);
+                UI::RegisterLogin(choice);
                 return;
             }
             cout << "welcome";
             UI::Member(System::loginCheck(username, password));
+            return;
         case REGISTER:
             cout << "User already exist";
+            return;
         default:
             return;
     }
