@@ -56,11 +56,11 @@ void System::MemberWriter() {
     }
 }
 
-static vector<Rating> RatingList;
-vector<Rating> System::getRatingList() { return RatingList; }
+// static vector<Rating> RatingList;
+// vector<Rating> System::getRatingList() { return RatingList; }
 
-static vector<Rating> RatingList;
-vector<Rating> System::getRatingList() { return RatingList; }
+// static vector<Rating> RatingList;
+// vector<Rating> System::getRatingList() { return RatingList; }
 
 string System::LoginCheck(const string &username, const string &password) {
     // Call the user reader function

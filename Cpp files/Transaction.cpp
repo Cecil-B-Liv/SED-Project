@@ -13,5 +13,5 @@ void Transaction::showInfo(){
     cout << "Amount: " << amount << "\n";
     cout << "Transaction Type: " << transactionType << "\n";
     cout << "Member ID: " << memberID << "\n";
-    cout << "Time: " << time->getDate() << time->getMonth() << time->getYear() <<"\n";
+    // cout << "Time: " << time->getDate() << time->getMonth() << time->getYear() <<"\n";
 }

@@ -12,7 +12,7 @@ class Transaction {
     double amount;
     string transactionType;
     string memberID;
-    Time* time = nullptr;
+    string time; // in dd/mm/yyyy format
 
    public:
     // constructor
@@ -39,9 +39,9 @@ class Transaction {
     void setMemberID(string memberID) { this->memberID = memberID; }
 
     // getter and setter methods for time attribute
-    Time getTime() { return *time; }
+    string getTime() { return time; }
 
-    void setTime(Time *time) { this->time = time; }
+    void setTime(string time) { this->time = time; }
 };
 
 #endif  // SED_PROJECT_TRANSACTION_H

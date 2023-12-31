@@ -6,7 +6,29 @@
 
 static int counter;
 
-Member::Member() {}
+Member::Member(string fullName, string email, string homeAddress,
+               int phoneNumber, int position, double ratingScore,
+               double supporterRating, double hostRating, string username,
+               string password, string memberID, vector<string> skillInfo) {
+    this->fullName = fullName;
+    this->email = email;
+    this->homeAddress = homeAddress;
+    this->phoneNumber = phoneNumber;
+    this->position = position;
+    this->ratingScore = ratingScore;
+    this->supporterRating = supporterRating;
+    this->hostRating = hostRating;
+    this->skillInfoList = skillInfo;
+    this->username = username;
+    this->password = password;
+    this->memberID = memberID;
+    
+    // this->transactionList = transactionList;
+    // this->hostList = hostList;
+    // this->supporterList = supporterList;
+    // this->ratingList = ratingList;
+    // this->requestList = requestList;
+}
 
 void Member::showInfo() const {
     cout << "Full Name: " << fullName << endl;

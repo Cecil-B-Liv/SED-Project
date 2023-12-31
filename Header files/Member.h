@@ -29,15 +29,17 @@ class Member {
 
    public:
     // System based member info
-    static vector<string> skillInfoList;
-    static vector<Transaction*> transactionList;
-    static vector<Member*> hostList;
-    static vector<Member*> supporterList;
-    static vector<Rating*> RatingList;
-    static vector<Request*> RequestList;
+    vector<string> skillInfoList;
+    // static vector<Transaction> transactionList;
+    // static vector<Member> hostList;
+    // static vector<Member> supporterList;
+    // static vector<Rating> RatingList;
+    // static vector<Request> RequestList;
 
     // constructor
-    explicit Member();
+    explicit Member(string = "", string = "", string = "", int = 0, int = 0,
+                    double = 0.0, double = 0.0, double = 0.0, string = "",
+                    string = "", string = "", vector<string> = {});
 
     // toString
     void showInfo() const;
@@ -67,17 +69,18 @@ class Member {
 
     string getMemberID() const { return memberID; }
 
-    static vector<string> getSkillInfo() { return skillInfoList; }
+    vector<string> getSkillInfo() { return skillInfoList; }
 
-    static vector<Transaction*> getTransactionList() { return transactionList; }
+    // static vector<Transaction> getTransactionList() { return transactionList;
+    // }
 
-    static vector<Rating*> getRatingList() { return RatingList; }
+    // static vector<Rating> getRatingList() { return RatingList; }
 
-    static vector<Request*> getRequestList() { return RequestList; }
+    // static vector<Request> getRequestList() { return RequestList; }
 
-    static vector<Member*> getHostList() { return hostList; }
+    // static vector<Member> getHostList() { return hostList; }
 
-    static vector<Member*> getSupporterList() { return supporterList; }
+    // static vector<Member> getSupporterList() { return supporterList; }
 
     // setter
     void setFullName(string fullNameVal) { this->fullName = fullNameVal; }
@@ -112,29 +115,26 @@ class Member {
 
     void setMemberID(string memberIDVal) { this->memberID = memberIDVal; }
 
-    static void setSkillInfo(vector<string> skillInfoListVal) {
+    void setSkillInfo(vector<string> skillInfoListVal) {
         skillInfoList = skillInfoListVal;
     }
 
-    static void setTransactionList(vector<Transaction*> transactionListVal) {
-        transactionList = transactionListVal;
-    }
+    // void setTransactionList(vector<Transaction> transactionListVal) {
+    //     transactionList = transactionListVal;
+    // }
 
-    static void setRatingList(vector<Rating*> ratingList) {
-        RatingList = ratingList;
-    }
+    // void setRatingList(vector<Rating> ratingList) { RatingList = ratingList;
+    // }
 
-    static void setRequestList(vector<Request*> requestList) {
-        RequestList = requestList;
-    }
+    // void setRequestList(vector<Request> requestList) {
+    //     RequestList = requestList;
+    // }
 
-    static void setHostList(vector<Member*> hostListVal) {
-        hostList = hostListVal;
-    }
+    // void setHostList(vector<Member> hostListVal) { hostList = hostListVal; }
 
-    static void setSupporterList(vector<Member*> supporterListVal) {
-        supporterList = supporterListVal;
-    }
+    // void setSupporterList(vector<Member> supporterListVal) {
+    //     supporterList = supporterListVal;
+    // }
 };
 
 #endif  // SED_PROJECT_MEMBER_H

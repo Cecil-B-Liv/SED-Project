@@ -15,6 +15,6 @@ int main() {
     //    test.setUserName("Liv");
     // UI::Start();
 
-    cout << "hello world";
+    cout << "Hello world";
     return 0;
 }
