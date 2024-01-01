@@ -7,9 +7,8 @@
 #define EMPTY ""
 
 static vector<Member> MemberList;
-static vector<Transaction> TransactionList;
+
 vector<Member> System::getMemberList() { return MemberList; }
-vector<Transaction> getTransactionList() { return TransactionList; }
 
 // static vector<Rating> RatingList;
 // vector<Rating> System::getRatingList() { return RatingList; }
@@ -17,7 +16,7 @@ vector<Transaction> getTransactionList() { return TransactionList; }
 // static vector<Rating> RatingList;
 // vector<Rating> System::getRatingList() { return RatingList; }
 
-void System::userReader() {
+void System::memberReader() {
     string username;
     string password;
     string ID;
@@ -54,9 +53,7 @@ void System::userReader() {
     file.close();
 }
 
-
-void System::userWriter() {
-
+void System::memberWriter() {
     string username;
     string password;
     // Open file
@@ -69,13 +66,13 @@ void System::userWriter() {
     }
 }
 
-
-string System::loginCheck(const string &username, const string &password) {
-    userReader();
+string System::loginCheck(const string &membername, const string &password) {
+    memberReader();
     string memberID;
 
-    for (Member member: getMemberList()) {
-        if (!(username == member.getUsername() && password == member.getPassword())) {
+    for (Member member : getMemberList()) {
+        if (!(membername == member.getUsername() &&
+              password == member.getPassword())) {
             return EMPTY;
         }
         // If found, store the member ID and break the loop
@@ -87,7 +84,7 @@ string System::loginCheck(const string &username, const string &password) {
 }
 
 void System::getMemberInformation(const string &ID) {
-    userReader();
+    memberReader();
 
     // Loop through each member
     for (const Member &member : getMemberList()) {
@@ -101,13 +98,10 @@ void System::getMemberInformation(const string &ID) {
     }
 }
 
-
-int System::userInputCheck(const string &input) {
+int System::memberInputCheck(const string &input) {
     try {
         return stoi(input);
     } catch (std::invalid_argument &) {
         return -1;
     }
 }
-
-

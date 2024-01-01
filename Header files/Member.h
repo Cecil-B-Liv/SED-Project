@@ -15,7 +15,6 @@ class Member {
     string email;
     string homeAddress;
     int phoneNumber;
-    int position;
 
     // Member value
     double ratingScore;
@@ -31,19 +30,17 @@ class Member {
    public:
     // System based member info
 
-    
     // static vector<Member> hostList;
     // static vector<Member> supporterList;
     // static vector<Rating> RatingList;
     // static vector<Request> RequestList;
 
-
-
-    explicit Member(string fullName = "", string email = "", string homeAddress = "",
-                    int phoneNumber = 0, int position = 0, double ratingScore = 0.0,
-                    double supporterRating = 0.0, double hostRating = 0.0, vector<string> skillInfoList = {},
-                    string username = "", string password = "", string memberID = "");
-
+    explicit Member(string fullName = "", string email = "",
+                    string homeAddress = "", int phoneNumber = 0,
+                    double ratingScore = 0.0, double supporterRating = 0.0,
+                    double hostRating = 0.0, string username = "",
+                    string password = "", string memberID = "",
+                    vector<string> skillInfoList = {});
 
     // toString
     void showInfo() const;

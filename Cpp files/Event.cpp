@@ -38,7 +38,7 @@ void Event::StartScreen() {
         return;
     }
 
-    int checkedUserInput = System::userInputCheck(input);
+    int checkedUserInput = System::memberInputCheck(input);
 
     // Check if user's input is only number
     if (checkedUserInput == -1) {
@@ -79,7 +79,7 @@ void Event::MemberScreen(const string &ID) {
     }
 
     // Check if user's input is only number
-    int checkedUserInput = System::userInputCheck(input);
+    int checkedUserInput = System::memberInputCheck(input);
 
     // Check if user's input is only number
     if (checkedUserInput == -1) {
@@ -119,7 +119,7 @@ void Event::RegisterLoginScreen(int choice) {
         cin >> givenChoice;
     }
 
-    int checkedUserInput = System::userInputCheck(givenChoice);
+    int checkedUserInput = System::memberInputCheck(givenChoice);
 
     // Check if user's input is only number
     if (checkedUserInput == -1) {

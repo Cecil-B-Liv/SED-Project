@@ -13,8 +13,7 @@ int main() {
     //    Member test;
     //    test.setPassword("1111");
     //    test.setUserName("Liv");
-    // UI::Start();
-
+    UI::Start();
     cout << "Hello world";
     return 0;
 }
