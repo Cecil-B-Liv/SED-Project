@@ -8,7 +8,6 @@
 #include "Request.h"
 #include "System.h"
 #include "Time.h"
-#include "Transaction.h"
 #include "UI.h"
 
 #endif  // INCLUDEHEADERS

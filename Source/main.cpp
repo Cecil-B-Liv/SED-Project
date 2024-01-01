@@ -14,6 +14,6 @@ int main() {
     //    test.setPassword("1111");
     //    test.setUserName("Liv");
     UI::Start();
-    cout << "Hello world";
+    cout << endl << "Hello world";
     return 0;
 }
