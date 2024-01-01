@@ -19,6 +19,7 @@ class Request {
 
     // function code
     bool answerRequest();
+    void showInfo();
 
     // Setter methods
     void setBookingID(std::string bookingID) { this->bookingID = bookingID; }

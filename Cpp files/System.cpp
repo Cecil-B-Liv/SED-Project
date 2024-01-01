@@ -2,17 +2,20 @@
 // Created by Nick Anderson on 28/12/2023.
 //
 
-#include "../Header files/BasicSTDLIB.h"
-#include "../Header files/Member.h"
-#include "../Header files/System.h"
+#include "../Header files/INCLUDEHEADERS.h"
 
 #define EMPTY ""
 
 static vector<Member> MemberList;
+static vector<Transaction> TransactionList;
+vector<Member> System::getMemberList() { return MemberList; }
+vector<Transaction> getTransactionList() { return TransactionList; }
 
-vector<Member> System::getMemberList() {
-    return MemberList;
-}
+// static vector<Rating> RatingList;
+// vector<Rating> System::getRatingList() { return RatingList; }
+
+// static vector<Rating> RatingList;
+// vector<Rating> System::getRatingList() { return RatingList; }
 
 void System::userReader() {
     string username;
@@ -20,7 +23,7 @@ void System::userReader() {
     string ID;
 
     // Check if file exist
-    ifstream file("../Database/MemberData.txt");
+    ifstream file("../Database/MemberData.csv");
     if (!file.is_open()) {
         cerr << "Error opening file " << endl;
         return;
@@ -33,7 +36,6 @@ void System::userReader() {
         getline(iss, username, ',');
         getline(iss, password, ',');
         getline(iss, ID, ',');
-
     }
     Member test;
     test.setPassword(password);
@@ -52,20 +54,21 @@ void System::userReader() {
     file.close();
 }
 
+
 void System::userWriter() {
+
     string username;
     string password;
-
-    ifstream file("../Database/MemberData.txt");
-    if (!file.is_open()) {
+    // Open file
+    ifstream file("../Database/MemberData.csv");
+    if (!file.is_open()) {  // Check if file opened successfully
         cerr << "Error opening file " << endl;
         return;
     }
-
-    for (Member member: MemberList) {
-
+    for (Member member : MemberList) {
     }
 }
+
 
 string System::loginCheck(const string &username, const string &password) {
     userReader();
@@ -75,21 +78,29 @@ string System::loginCheck(const string &username, const string &password) {
         if (!(username == member.getUsername() && password == member.getPassword())) {
             return EMPTY;
         }
+        // If found, store the member ID and break the loop
         memberID = member.getMemberID();
+        break;
     }
+    // Return the member ID
     return memberID;
 }
 
 void System::getMemberInformation(const string &ID) {
     userReader();
 
-    for (const Member &member: getMemberList()) {
+    // Loop through each member
+    for (const Member &member : getMemberList()) {
+        // If the ID doesn't match, exit the loop
         if (!(ID == member.getMemberID())) {
+            cout << "Member not found";
             return;
         }
+        // Display member information
         member.showInfo();
     }
 }
+
 
 int System::userInputCheck(const string &input) {
     try {
@@ -98,4 +109,5 @@ int System::userInputCheck(const string &input) {
         return -1;
     }
 }
+
 

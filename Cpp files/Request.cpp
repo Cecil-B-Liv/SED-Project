@@ -1,5 +1,4 @@
-#include "../Header files/Request.h"
-#include "../Header files/Member.h"
+#include "../Header files/INCLUDEHEADERS.h"
 
 #define ONLINE '1'
 #define OFFLINE '-1'
@@ -11,4 +10,6 @@ Request::Request(){}
 bool Request::answerRequest(){
     return true;
 }
-
+void Request::showInfo(){
+    
+}

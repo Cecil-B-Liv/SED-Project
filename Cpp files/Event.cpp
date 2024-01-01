@@ -2,13 +2,12 @@
 // Created by Nick Anderson on 28/12/2023.
 //
 
-#include "../Header files/Event.h"
-#include "../Header files/System.h"
-#include "../Header files/UI.h"
+#include "../Header files/INCLUDEHEADERS.h"
 
 #define GUEST 1
 #define MEMBER 2
 #define ADMIN 3
+
 
 #define LOGIN 1
 #define REGISTER 2
@@ -19,18 +18,23 @@
 void Event::StartScreen() {
     string input;
 
+    // Welcome Message
     cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
     cout << "“TIME BANK” APPLICATION" << endl << endl;
     cout << "Instructor: Mr. Tran Duc Linh" << endl;
     cout << "Group: Group No." << endl;
 
+    // Prompt User to Choose Role
     cout << "Use the app as: 1. Guest 2. Member 3. Admin" << endl;
     cout << "Exit the app: e or E" << endl;
     cout << ">>> ";
 
+    // Get User Input
     cin >> input;
 
+    // Check for Exit Condition
     if (input == "e") {
+        // Close Application
         return;
     }
 
@@ -147,3 +151,4 @@ void Event::RegisterLoginScreen(int choice) {
             return;
     }
 }
+
