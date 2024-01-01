@@ -43,15 +43,11 @@ void Member::showInfo() const {
     cout << "Password: " << password << endl;
 
     cout << "Skill Info: ";
-    for (auto skill : skillInfoList) {
+
+    for (const string &skill: skillInfoList) {
         cout << skill << " ";
     }
-    cout << endl;
 
-    cout << "TransactionList: ";
-    for (Transaction transaction : transactionList) {
-        transaction.showInfo();
-    }
     cout << endl;
 
     // cout << "Host List: ";

@@ -4,6 +4,8 @@
 
 #include "../Header files/INCLUDEHEADERS.h"
 
+#define EMPTY ""
+
 static vector<Member> MemberList;
 static vector<Transaction> TransactionList;
 vector<Member> System::getMemberList() { return MemberList; }
@@ -15,7 +17,7 @@ vector<Transaction> getTransactionList() { return TransactionList; }
 // static vector<Rating> RatingList;
 // vector<Rating> System::getRatingList() { return RatingList; }
 
-void System::MemberReader() {
+void System::userReader() {
     string username;
     string password;
     string ID;
@@ -44,12 +46,17 @@ void System::MemberReader() {
     test.setEmail("lmao@gay.com");
     test.setHomeAddress("League of Legend");
 
+    vector<string> skillList = {"lmao1", "lmao2", "lmao3"};
+    test.setSkillInfo(skillList);
+
     MemberList.clear();
     MemberList.push_back(test);
     file.close();
 }
 
-void System::MemberWriter() {
+
+void System::userWriter() {
+
     string username;
     string password;
     // Open file
@@ -62,19 +69,14 @@ void System::MemberWriter() {
     }
 }
 
-string System::LoginCheck(const string &username, const string &password) {
-    // Call the user reader function
-    MemberReader();
-    // Variable to store the member ID
+
+string System::loginCheck(const string &username, const string &password) {
+    userReader();
     string memberID;
 
-    // Iterate through the member list
-    for (Member member : getMemberList()) {
-        // Check if the entered username and password match any member in the
-        // list
-        if (!(username == member.getUsername() &&
-              password == member.getPassword())) {
-            return "false";  // If not, return "false"
+    for (Member member: getMemberList()) {
+        if (!(username == member.getUsername() && password == member.getPassword())) {
+            return EMPTY;
         }
         // If found, store the member ID and break the loop
         memberID = member.getMemberID();
@@ -85,8 +87,7 @@ string System::LoginCheck(const string &username, const string &password) {
 }
 
 void System::getMemberInformation(const string &ID) {
-    // Create user reader
-    MemberReader();
+    userReader();
 
     // Loop through each member
     for (const Member &member : getMemberList()) {
@@ -99,3 +100,14 @@ void System::getMemberInformation(const string &ID) {
         member.showInfo();
     }
 }
+
+
+int System::userInputCheck(const string &input) {
+    try {
+        return stoi(input);
+    } catch (std::invalid_argument &) {
+        return -1;
+    }
+}
+
+

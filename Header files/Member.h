@@ -14,12 +14,13 @@ class Member {
     string fullName;
     string email;
     string homeAddress;
-    int phoneNumber{};
+    int phoneNumber;
+    int position;
 
     // Member value
-    double ratingScore{};
-    double supporterRating{};
-    double hostRating{};
+    double ratingScore;
+    double supporterRating;
+    double hostRating;
 
     // Member account
     string username;
@@ -30,16 +31,19 @@ class Member {
    public:
     // System based member info
 
-    vector<Transaction> transactionList;
+    
     // static vector<Member> hostList;
     // static vector<Member> supporterList;
     // static vector<Rating> RatingList;
     // static vector<Request> RequestList;
 
-    // constructor
-    explicit Member(string = "", string = "", string = "", int = 0,
-                    double = 0.0, double = 0.0, double = 0.0, string = "",
-                    string = "", string = "", vector<string> = {});
+
+
+    explicit Member(string fullName = "", string email = "", string homeAddress = "",
+                    int phoneNumber = 0, int position = 0, double ratingScore = 0.0,
+                    double supporterRating = 0.0, double hostRating = 0.0, vector<string> skillInfoList = {},
+                    string username = "", string password = "", string memberID = "");
+
 
     // toString
     void showInfo() const;
