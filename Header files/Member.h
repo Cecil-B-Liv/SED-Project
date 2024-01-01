@@ -28,7 +28,6 @@ class Member {
 
    public:
     // System based member info
-
     // static vector<Member> hostList;
     // static vector<Member> supporterList;
     // static vector<Rating> RatingList;
