@@ -9,15 +9,13 @@
 
 class Event {
 public:
-    static void LoginScreen();
-
     static void StartScreen();
 
-    static void RegisterScreen();
+    static void InformationScreen(const string &);
 
-    static void InformationScreen(const string &ID);
+    static void MemberScreen(const string &);
 
-    static void MemberScreen(const string &ID);
+    static void RegisterLoginScreen(int);
 };
 
 #endif //SED_PROJECT_EVENT_H

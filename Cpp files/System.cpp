@@ -6,13 +6,15 @@
 #include "../Header files/Member.h"
 #include "../Header files/System.h"
 
+#define EMPTY ""
+
 static vector<Member> MemberList;
 
 vector<Member> System::getMemberList() {
     return MemberList;
 }
 
-void System::UserReader() {
+void System::userReader() {
     string username;
     string password;
     string ID;
@@ -42,12 +44,15 @@ void System::UserReader() {
     test.setEmail("lmao@gay.com");
     test.setHomeAddress("League of Legend");
 
+    vector<string> skillList = {"lmao1", "lmao2", "lmao3"};
+    test.setSkillInfo(skillList);
+
     MemberList.clear();
     MemberList.push_back(test);
     file.close();
 }
 
-void System::UserWriter() {
+void System::userWriter() {
     string username;
     string password;
 
@@ -62,13 +67,13 @@ void System::UserWriter() {
     }
 }
 
-string System::LoginCheck(const string &username, const string &password) {
-    UserReader();
+string System::loginCheck(const string &username, const string &password) {
+    userReader();
     string memberID;
 
     for (Member member: getMemberList()) {
         if (!(username == member.getUsername() && password == member.getPassword())) {
-            return "false";
+            return EMPTY;
         }
         memberID = member.getMemberID();
     }
@@ -76,13 +81,21 @@ string System::LoginCheck(const string &username, const string &password) {
 }
 
 void System::getMemberInformation(const string &ID) {
-    UserReader();
+    userReader();
 
     for (const Member &member: getMemberList()) {
         if (!(ID == member.getMemberID())) {
             return;
         }
         member.showInfo();
+    }
+}
+
+int System::userInputCheck(const string &input) {
+    try {
+        return stoi(input);
+    } catch (std::invalid_argument &) {
+        return -1;
     }
 }
 

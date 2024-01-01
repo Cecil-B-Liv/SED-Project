@@ -14,13 +14,13 @@ private:
     string fullName;
     string email;
     string homeAddress;
-    int phoneNumber{};
-    int position{};
+    int phoneNumber;
+    int position;
 
     // Member value
-    double ratingScore{};
-    double supporterRating{};
-    double hostRating{};
+    double ratingScore;
+    double supporterRating;
+    double hostRating;
 
     // Member account
     string username;
@@ -36,10 +36,10 @@ private:
     // vector<Request> requestList;
 
 public:
-    explicit Member(string = "", string = "", string = "",
-                    int  = 0, int  = 0, double  = 0.0,
-                    double = 0.0, double  = 0.0, vector<string> = {},
-                    string = "", string = "", string = "");
+    explicit Member(string fullName = "", string email = "", string homeAddress = "",
+                    int phoneNumber = 0, int position = 0, double ratingScore = 0.0,
+                    double supporterRating = 0.0, double hostRating = 0.0, vector<string> skillInfoList = {},
+                    string username = "", string password = "", string memberID = "");
 
     // toString
     void showInfo() const;
