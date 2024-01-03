@@ -50,7 +50,7 @@ void Event::StartScreen() {
     switch (checkedUserInput) {
         case GUEST:
         case MEMBER:
-            UI::RegisterLogin(MEMBER);
+//            UI::RegisterLogin(MEMBER);
             return;
         case ADMIN:
             UI::RegisterLogin(ADMIN);

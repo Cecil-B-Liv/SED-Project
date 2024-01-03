@@ -19,5 +19,6 @@ using std::vector;
 using std::ifstream;
 using std::istringstream;
 using std::stoi;
+using std::stringstream;
 
 #endif  // SED_PROJECT_BASICSTDLIB_H

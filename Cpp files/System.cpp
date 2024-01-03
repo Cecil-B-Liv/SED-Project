@@ -3,18 +3,19 @@
 //
 
 #include "../Header files/INCLUDEHEADERS.h"
+#include "../Header files/System.h"
+
 
 #define EMPTY ""
 
+// static vector<Rating> RatingList;
+// vector<Rating> System::getRatingList() { return RatingList; }
+
+// static vector<Rating> RatingList;
+// vector<Rating> System::getRatingList() { return RatingList; }
+
 static vector<Member> MemberList;
 
-vector<Member> System::getMemberList() { return MemberList; }
-
-// static vector<Rating> RatingList;
-// vector<Rating> System::getRatingList() { return RatingList; }
-
-// static vector<Rating> RatingList;
-// vector<Rating> System::getRatingList() { return RatingList; }
 
 void System::memberReader() {
     string username;
@@ -62,7 +63,7 @@ void System::memberWriter() {
         cerr << "Error opening file " << endl;
         return;
     }
-    for (Member member : MemberList) {
+    for (Member member: MemberList) {
     }
 }
 
@@ -70,7 +71,7 @@ string System::loginCheck(const string &membername, const string &password) {
     memberReader();
     string memberID;
 
-    for (Member member : getMemberList()) {
+    for (Member member: getMemberList()) {
         if (!(membername == member.getUsername() &&
               password == member.getPassword())) {
             return EMPTY;
@@ -87,7 +88,7 @@ void System::getMemberInformation(const string &ID) {
     memberReader();
 
     // Loop through each member
-    for (const Member &member : getMemberList()) {
+    for (const Member &member: getMemberList()) {
         // If the ID doesn't match, exit the loop
         if (!(ID == member.getMemberID())) {
             cout << "Member not found";
@@ -104,4 +105,14 @@ int System::memberInputCheck(const string &input) {
     } catch (std::invalid_argument &) {
         return -1;
     }
+}
+
+vector<Member> System::getMemberList() {
+    return MemberList;
+}
+
+void System::addRating(string ratingID, string memberID, string hostID, double skillRating, double supporterRating,
+                       double hostRating, string comments) {
+
+
 }

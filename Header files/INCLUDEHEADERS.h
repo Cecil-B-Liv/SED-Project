@@ -9,5 +9,7 @@
 #include "System.h"
 #include "Time.h"
 #include "UI.h"
+#include <regex>
 
-#endif  // INCLUDEHEADERS
+
+#endif  // SED_PROJECT_INCLUDEHEADERS_H

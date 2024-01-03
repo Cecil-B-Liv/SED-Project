@@ -5,7 +5,7 @@
 #include "Time.h"
 
 class Request {
-   private:
+private:
     string bookingID;
     string memberID;
     Time startTime;
@@ -13,38 +13,40 @@ class Request {
     vector<string> skillRequired;
     string status;
 
-   public:
+public:
     // constructor code
     Request();
 
     // function code
     bool answerRequest();
+
     void showInfo();
 
     // Setter methods
-    void setBookingID(std::string bookingID) { this->bookingID = bookingID; }
-    void setMemberID(std::string MemberID) { this->memberID = memberID; }
+    void setBookingID(string bookingIDVal) { this->bookingID = bookingIDVal; }
 
-    void setStartTime(Time startTime) { this->startTime = startTime; }
+    void setMemberID(string memberIDVal) { this->memberID = memberIDVal; }
 
-    void setEndTime(Time endTime) { this->endTime = endTime; }
+    void setStartTime(Time startTimeVal) { this->startTime = startTimeVal; }
 
-    void setSkillRequired(std::vector<std::string> skillRequired) {
-        this->skillRequired = skillRequired;
+    void setEndTime(Time endTimeVal) { this->endTime = endTimeVal; }
+
+    void setSkillRequired(vector<string> skillRequiredVal) {
+        this->skillRequired = skillRequiredVal;
     }
 
-    void setStatus(std::string status) { this->status = status; }
+    void setStatus(string statusVal) { this->status = statusVal; }
 
     // Getter methods
-    std::string getBookingID() const { return bookingID; }
+    string getBookingID() const { return bookingID; }
 
     Time getStartTime() const { return startTime; }
 
     Time getEndTime() const { return endTime; }
 
-    std::vector<std::string> getSkillRequired() const { return skillRequired; }
+    vector<string> getSkillRequired() const { return skillRequired; }
 
-    std::string getStatus() const { return status; }
+    string getStatus() const { return status; }
 };
 
 #endif

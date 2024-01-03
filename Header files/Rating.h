@@ -5,7 +5,7 @@
 #include "Member.h"
 
 class Rating {
-   private:
+private:
     string ratingID;
     string memberID;
     string hostID;
@@ -15,44 +15,43 @@ class Rating {
     double hostRating;
     string comments;
 
-   public:
+public:
     // constructor code
     Rating(string, string, string, double, double, double, string);
+
     // function code
-    void addReview();
     void showInfo();
     // EXTRA::void updateRating();
 
-    // Accessor methods
-    string getRatingID() { return ratingID; }
+    string getRatingID() const { return ratingID; }
 
-    void setRatingID(string ratingID) { this->ratingID = ratingID; }
+    string getMemberID() const { return memberID; }
 
-    string getMemberID() { return memberID; }
+    string getHostID() const { return hostID; }
 
-    void setMemberID(string memberID) { this->memberID = memberID; }
+    double getSkillRating() const { return skillRating; }
 
-    string getHostID() { return hostID; }
+    double getSupporterRating() const { return supporterRating; }
 
-    void setHostID(string hostID) { this->hostID = hostID; }
+    double getHostRating() const { return hostRating; }
 
-    double getSkillRating() { return skillRating; }
+    string getComments() const { return comments; }
 
-    void setSkillRating(double skillRating) { this->skillRating = skillRating; }
+    // Setter functions are not marked as const
+    void setRatingID(const string &ratingIDVal) { this->ratingID = ratingIDVal; }
 
-    double getSupporterRating() { return supporterRating; }
+    void setMemberID(const string &memberIDVal) { this->memberID = memberIDVal; }
 
-    void setSupporterRating(double supporterRating) {
-        this->supporterRating = supporterRating;
-    }
+    void setHostID(const string &hostIDVal) { this->hostID = hostIDVal; }
 
-    double getHostRating() { return hostRating; }
+    void setSkillRating(double skillRatingVal) { this->skillRating = skillRatingVal; }
 
-    void setHostRating(double hostRating) { this->hostRating = hostRating; }
+    void setSupporterRating(double supporterRatingVal) { this->supporterRating = supporterRatingVal; }
 
-    string getComments() { return comments; }
+    void setHostRating(double hostRatingVal) { this->hostRating = hostRatingVal; }
 
-    void setComments(string comments) { this->comments = comments; }
+    void setComments(const string &commentsVal) { this->comments = commentsVal; }
+
 };
 
-#endif  // SED_PROJECT_RATING_H
+#endif  // SED_PROJECT_RATING_Hß

@@ -1,16 +1,16 @@
 #include "../Header files/INCLUDEHEADERS.h"
 
-Time::Time() {}
-Time::Time(int date = 0, int month = 0, int year = 0)
-    : date(date), month(month), year(year){};
 
-void Time::showInfo() {
-    std::cout << "Date: " << date << "/" << month << "/" << year << std::endl;
+Time::Time(int date, int month, int year)
+        : date(date), month(month), year(year) {}
+
+void Time::showInfo() const {
+    cout << "Date: " << date << "/" << month << "/" << year << endl;
 }
 
 // method
-bool Time::isLeapYear(int year) {
-    return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
+int Time::isLeapYear(int year) {
+    return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) ? 1 : -1;
 }
 
 string Time::formatConverter() {
@@ -37,9 +37,9 @@ int Time::getDuration(const Time &startDate, const Time &endDate) {
 
         for (int month = monthStart; month <= monthEnd; month++) {
             int dayStart = (year == startYear && month == startMonth) ? startDay : 1;
-            int dayEnd = (year == endYear && month == endMonth)? endDay: daysInMonth[month];
+            int dayEnd = (year == endYear && month == endMonth) ? endDay : daysInMonth[month];
 
-            if (month == 2 && isLeapYear(year)) {
+            if (month == 2 && isLeapYear(year) == 1) {
                 dayEnd++;  // February has an extra day in a leap year
             }
             duration += dayEnd - dayStart + 1;
@@ -48,13 +48,13 @@ int Time::getDuration(const Time &startDate, const Time &endDate) {
     return duration;
 }
 
-bool Time::compareTime(const Time &startd, const Time &endd) {
-    int startDay = startd.getDate();
-    int startMonth = startd.getMonth();
-    int startYear = startd.getYear();
-    int endDay = endd.getDate();
-    int endMonth = endd.getMonth();
-    int endYear = endd.getYear();
+bool Time::compareTime(const Time &startDate, const Time &endDate) {
+    int startDay = startDate.getDate();
+    int startMonth = startDate.getMonth();
+    int startYear = startDate.getYear();
+    int endDay = endDate.getDate();
+    int endMonth = endDate.getMonth();
+    int endYear = endDate.getYear();
 
     if (startYear < endYear) {
         return true;
@@ -67,49 +67,51 @@ bool Time::compareTime(const Time &startd, const Time &endd) {
             }
         }
     }
-
     return false;
 }
 
+Time Time::stringToTime(string &dateString) {
+    stringstream ss(dateString);
+    string item;
+    vector<string> tokens;
+
+    // split to get the date
+    while (getline(ss, item, '/')) {
+        tokens.push_back(item);
+    }
+
+    // check
+    // the date is valid
+    if (tokens.size() != 3) {
+        cout << tokens.size() << endl;
+    }
+
+    // set the date
+    int day = stoi(tokens[0]);
+    int month = stoi(tokens[1]);
+    int year = stoi(tokens[2]);
+
+    return Time(day, month, year);
+}
+
+
+
+
 // Might need later
 
-// std::ostream &operator<<(std::ostream &cout, const Time &date) {
+// ostream &operator<<(ostream &cout, const Time &date) {
 //     cout << date.date << '/' << date.month << '/' << date.year;
 //     return cout;
 // }
 
 //     Time
-//     Time::stringToTime(string &dateString) {
-//     std::stringstream ss(dateString);
-//     string item;
-
-//     vector<string> tokens;
-
-//     // split to get the date
-//     while (getline(ss, item, '/')) {
-//         tokens.push_back(item);
-//     }
-
-//     // check
-//     // the date is valid
-//     if (tokens.size() != 3) {
-//         cout << tokens.size() << endl;
-//     }
-
-//     // set the date
-//     int day = stoi(tokens[0]);
-//     int month = stoi(tokens[1]);
-//     int year = stoi(tokens[2]);
-
-//     return Time(day, month, year);
-// }
 
 // Time Time::getCurrentDate() {
-//     auto now = std::chrono::system_clock::now();
-//     std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
+//     auto now = chrono::system_clock::now();
+//     time_t currentTime = chrono::system_clock::to_time_t(now);
 
 //     // Convert currentTime to a Time object
-//     struct tm *timeInfo = std::localtime(&currentTime);
+//     struct tm *timeInfo = localtime(&currentTime);
 //     Time currentDate;
 //     currentDate.setDate(timeInfo->tm_mday);
 //     currentDate.setMonth(timeInfo->tm_mon + 1);     // Month is zero-based
