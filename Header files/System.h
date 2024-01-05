@@ -15,9 +15,10 @@ const string REQUEST_PATH = "../Database/RequestData.csv";
 const string RATING_PATH = "../Database/RatingData.csv";
 
 class System {
-   private:
+private:
     // private constructor
     System();
+
     // user name and password for admin
     string const adminUsername = "admin";
     string const adminPassword = "admin";
@@ -29,20 +30,25 @@ class System {
     vector<Rating> RatingList;
     vector<Request> RequestList;
 
-   public:
+public:
     static System &getInstance();
 
     vector<Member> &getMemberList() { return this->MemberList; }
+
     vector<Rating> &getRatingList() { return this->RatingList; }
+
     vector<Request> &getRequestList() { return this->RequestList; }
 
     void memberReader();
+
     void memberWriter();
 
     void RatingReader();
+
     void RatingWriter();
 
     void RequestReader();
+
     void RequestWriter();
 
     string loginCheck(const string &, const string &);
@@ -54,6 +60,8 @@ class System {
     void addRating(string ratingID, string memberID, string hostID,
                    double skillRating, double supporterRating,
                    double hostRating, string comments);
+
+    void removeRating(string ratingID);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H

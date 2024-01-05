@@ -41,9 +41,13 @@ void Event::StartScreen() {
         }
 
         // Check if user's input is only number
-        if (system.memberInputCheck(input) != -1) {
-            UI::RegisterLogin(system.memberInputCheck(input));
-            return;
+
+        switch (system.memberInputCheck(input)) {
+            case GUEST:
+            case MEMBER:
+            case ADMIN:
+                UI::RegisterLogin(system.memberInputCheck(input));
+                return;
         }
         cout << "Not an option" << endl;
     }
@@ -75,9 +79,6 @@ void Event::MemberScreen(const string &ID) {
                     return;
                 case MEMBERSKILLRATING:
                     return;
-                default:
-                    cout << "Something went horribly wrong if this case is hit";
-                    return;
             }
         }
         cout << "Not an option" << endl;
@@ -108,7 +109,8 @@ void Event::RegisterLoginScreen(int choice) {
 
         // Check if user's input is only number
 
-        if (system.memberInputCheck(givenChoice) != -1) {
+
+        if (system.memberInputCheck(givenChoice) == LOGIN) {
             break;
         }
         cout << "Not an option" << endl;
@@ -122,20 +124,10 @@ void Event::RegisterLoginScreen(int choice) {
         getline(cin >> std::ws, password);
 
         if (!(system.loginCheck(username, password).empty())) {
-            switch (system.memberInputCheck(givenChoice)) {
-                case LOGIN:
-                    cout << "welcome";
-                    UI::Member(system.loginCheck(username, password));
-                    return;
-                case REGISTER:
-                    cout << "User already exist";
-                    return;
-                default:
-                    cout << "Something went horribly wrong if this case is hit";
-                    return;
-            }
+            cout << "welcome";
+            UI::Member(system.loginCheck(username, password));
+            return;
         }
         cout << "Wrong username or password" << endl;
     }
 }
-

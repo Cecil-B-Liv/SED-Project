@@ -111,6 +111,11 @@ int System::memberInputCheck(const string &input) {
 
 void System::addRating(string ratingID, string memberID, string hostID, double skillRating, double supporterRating,
                        double hostRating, string comments) {
+    Rating rating(ratingID, memberID, hostID, skillRating,
+                  supporterRating, hostRating, comments);
+    RatingList.push_back(rating);
+}
 
-
+void System::removeRating(string ratingID) {
+    
 }
