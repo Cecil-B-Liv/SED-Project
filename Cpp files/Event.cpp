@@ -16,6 +16,7 @@
 #define MEMBERSKILLRATING 2
 
 void Event::StartScreen() {
+    System &system = System::getInstance();
     string input;
 
     // Welcome Message
@@ -38,7 +39,7 @@ void Event::StartScreen() {
         return;
     }
 
-    int checkedUserInput = System::memberInputCheck(input);
+    int checkedUserInput = system.memberInputCheck(input);
 
     // Check if user's input is only number
     if (checkedUserInput == -1) {
@@ -50,7 +51,7 @@ void Event::StartScreen() {
     switch (checkedUserInput) {
         case GUEST:
         case MEMBER:
-//            UI::RegisterLogin(MEMBER);
+           UI::RegisterLogin(MEMBER);
             return;
         case ADMIN:
             UI::RegisterLogin(ADMIN);
@@ -63,6 +64,7 @@ void Event::StartScreen() {
 }
 
 void Event::MemberScreen(const string &ID) {
+    System &system = System::getInstance();
     string input;
 
     cout << ID << endl << endl;
@@ -79,7 +81,7 @@ void Event::MemberScreen(const string &ID) {
     }
 
     // Check if user's input is only number
-    int checkedUserInput = System::memberInputCheck(input);
+    int checkedUserInput = system.memberInputCheck(input);
 
     // Check if user's input is only number
     if (checkedUserInput == -1) {
@@ -101,10 +103,12 @@ void Event::MemberScreen(const string &ID) {
 }
 
 void Event::InformationScreen(const string &ID) {
-    System::getMemberInformation(ID);
+    System &system = System::getInstance();
+    system.getMemberInformation(ID);
 }
 
 void Event::RegisterLoginScreen(int choice) {
+    System &system = System::getInstance();
     string givenChoice;
     string username;
     string password;
@@ -119,7 +123,7 @@ void Event::RegisterLoginScreen(int choice) {
         cin >> givenChoice;
     }
 
-    int checkedUserInput = System::memberInputCheck(givenChoice);
+    int checkedUserInput = system.memberInputCheck(givenChoice);
 
     // Check if user's input is only number
     if (checkedUserInput == -1) {
@@ -136,13 +140,13 @@ void Event::RegisterLoginScreen(int choice) {
 
     switch (checkedUserInput) {
         case LOGIN:
-            if (System::loginCheck(username, password).empty()) {
+            if (system.loginCheck(username, password).empty()) {
                 cout << "Wrong username or password" << endl;
                 UI::RegisterLogin(choice);
                 return;
             }
             cout << "welcome";
-            UI::Member(System::loginCheck(username, password));
+            UI::Member(system.loginCheck(username, password));
             return;
         case REGISTER:
             cout << "User already exist";
