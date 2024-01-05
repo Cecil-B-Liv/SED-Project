@@ -20,9 +20,14 @@ System &System::getInstance() {
 }
 
 void System::memberReader() {
+    string fullname;
+    string email;
+    string address;
+    string phoneNumber;
     string username;
     string password;
     string ID;
+    Member member;
 
     // Check if file exist
     ifstream file("../Database/MemberData.csv");
@@ -35,38 +40,42 @@ void System::memberReader() {
     string line;
     while (getline(file, line)) {
         istringstream iss(line);
+        getline(iss, fullname, ',');
+        cout << fullname << endl;
+        getline(iss, email, ',');
+        getline(iss, address, ',');
+        getline(iss, phoneNumber, ',');
         getline(iss, username, ',');
         getline(iss, password, ',');
         getline(iss, ID, ',');
+
+        member.setFullName(fullname);
+        member.setEmail(email);
+        member.setHomeAddress(address);
+        member.setPhoneNumber(stoi(phoneNumber));
+        member.setUsername(username);
+        member.setPassword(password);
+        member.setMemberID(ID);
+        
+        MemberList.push_back(member);
     }
-    Member test;
-    test.setPassword(password);
-    test.setUsername(username);
-    test.setMemberID(ID);
 
-    test.setFullName("Huynh Ngoc Tai");
-    test.setEmail("lmao@gay.com");
-    test.setHomeAddress("League of Legend");
-
-    vector<string> skillList = {"lmao1", "lmao2", "lmao3"};
-    test.setSkillInfo(skillList);
-
-    MemberList.clear();
-    MemberList.push_back(test);
     file.close();
 }
 
-void System::memberWriter() {
-    string username;
-    string password;
+void System::memberWriter(const Member &newMember) {
     // Open file
-    ifstream file("../Database/MemberData.csv");
+    ofstream file("../Database/MemberData.csv", std::ios::app);
     if (!file.is_open()) {  // Check if file opened successfully
         cerr << "Error opening file " << endl;
         return;
     }
-    for (Member member: MemberList) {
-    }
+
+    file << newMember.getFullName() << "," << newMember.getEmail() << "," << newMember.getHomeAddress() << ","
+         << newMember.getPhoneNumber() << "," << newMember.getUsername() << "," << newMember.getPassword() << ","
+         << newMember.getMemberID() << endl;
+
+    file.close();
 }
 
 string System::loginCheck(const string &memberName, const string &password) {
@@ -116,6 +125,39 @@ void System::addRating(string ratingID, string memberID, string hostID, double s
     RatingList.push_back(rating);
 }
 
-void System::removeRating(string ratingID) {
-    
+void System::removeRating(const string &ratingID) {
+    int idx = 0;
+    for (const Rating &ratingToRemove: RatingList) {
+        if (ratingID == ratingToRemove.getRatingID()) {
+            RatingList.erase(RatingList.cbegin() + idx);
+            return;
+        }
+        idx++;
+    }
+}
+
+string System::generateMemberID() {
+    memberReader();
+    int memberID = 300000; // default ID value
+    char IDSuffix = 'S'; // suffix of ID
+    int totalMemberAmount = (int) MemberList.size();
+
+    int currentID = memberID + totalMemberAmount;
+
+    return IDSuffix + std::to_string(currentID);
+}
+
+void System::registerNewMember(const string &fullName, const string &email, const string &homeAddress,
+                               int phoneNumber, const string &username, const string &password) {
+    Member newMember;
+    newMember.setFullName(fullName);
+    newMember.setEmail(email);
+    newMember.setHomeAddress(homeAddress);
+    newMember.setPhoneNumber(phoneNumber);
+    newMember.setUsername(username);
+    newMember.setPassword(password);
+    newMember.setMemberID(generateMemberID());
+
+    memberWriter(newMember);
+    MemberList.push_back(newMember);
 }

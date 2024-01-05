@@ -19,6 +19,10 @@ public:
     static void Information(const string &ID = "") { Event::InformationScreen(ID); }
 
     static void RegisterLogin(int choice) { Event::RegisterLoginScreen(choice); }
+
+    static void Login() { Event::LoginScreen(); }
+
+    static void Register() { Event::RegisterScreen(); }
 };
 
 #endif //SED_PROJECT_UI_H

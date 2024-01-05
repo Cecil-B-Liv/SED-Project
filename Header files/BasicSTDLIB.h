@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <regex>
 
 using std::cin;
 using std::cout;
@@ -17,8 +18,11 @@ using std::cerr;
 using std::string;
 using std::vector;
 using std::ifstream;
+using std::ofstream;
 using std::istringstream;
 using std::stoi;
 using std::stringstream;
+using std::regex;
+using std::regex_match;
 
 #endif  // SED_PROJECT_BASICSTDLIB_H

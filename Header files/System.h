@@ -23,7 +23,7 @@ private:
     string const adminUsername = "admin";
     string const adminPassword = "admin";
 
-    // Data for the system
+    // Data for the systemInstance
     vector<Member> MemberList;
     vector<Rating> userRating;
     vector<Rating> motorRating;
@@ -41,7 +41,7 @@ public:
 
     void memberReader();
 
-    void memberWriter();
+    void memberWriter(const Member &);
 
     void RatingReader();
 
@@ -57,11 +57,17 @@ public:
 
     int memberInputCheck(const string &);
 
+    string generateMemberID();
+
     void addRating(string ratingID, string memberID, string hostID,
                    double skillRating, double supporterRating,
                    double hostRating, string comments);
 
-    void removeRating(string ratingID);
+    void removeRating(const string &ratingID);
+
+    void registerNewMember(const string &fullName = "", const string &email = "",
+                           const string &homeAddress = "", int phoneNumber = 0, const string &username = "",
+                           const string &password = "");
 };
 
 #endif  // SED_PROJECT_SYSTEM_H

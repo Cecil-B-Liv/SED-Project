@@ -3,6 +3,8 @@
 //
 
 #include "../Header files/INCLUDEHEADERS.h"
+#include "../Header files/Event.h"
+
 
 #define GUEST 1
 #define MEMBER 2
@@ -15,8 +17,9 @@
 #define MEMBERINFO 1
 #define MEMBERSKILLRATING 2
 
+System &systemInstance = System::getInstance();
+
 void Event::StartScreen() {
-    System &system = System::getInstance();
     string input;
 
     // Welcome Message
@@ -42,11 +45,11 @@ void Event::StartScreen() {
 
         // Check if user's input is only number
 
-        switch (system.memberInputCheck(input)) {
+        switch (systemInstance.memberInputCheck(input)) {
             case GUEST:
             case MEMBER:
             case ADMIN:
-                UI::RegisterLogin(system.memberInputCheck(input));
+                UI::RegisterLogin(systemInstance.memberInputCheck(input));
                 return;
         }
         cout << "Not an option" << endl;
@@ -54,7 +57,6 @@ void Event::StartScreen() {
 }
 
 void Event::MemberScreen(const string &ID) {
-    System &system = System::getInstance();
     string input;
 
     cout << ID << endl << endl;
@@ -72,8 +74,8 @@ void Event::MemberScreen(const string &ID) {
         }
 
         // Check if user's input is only number
-        if (system.memberInputCheck(input) != -1) {
-            switch (system.memberInputCheck(input)) {
+        if (systemInstance.memberInputCheck(input) != -1) {
+            switch (systemInstance.memberInputCheck(input)) {
                 case MEMBERINFO:
                     UI::Information(ID);
                     return;
@@ -86,15 +88,11 @@ void Event::MemberScreen(const string &ID) {
 }
 
 void Event::InformationScreen(const string &ID) {
-    System &system = System::getInstance();
-    system.getMemberInformation(ID);
+    systemInstance.getMemberInformation(ID);
 }
 
 void Event::RegisterLoginScreen(int choice) {
-    System &system = System::getInstance();
     string givenChoice;
-    string username;
-    string password;
 
     if (choice == ADMIN) {
         return;
@@ -109,12 +107,21 @@ void Event::RegisterLoginScreen(int choice) {
 
         // Check if user's input is only number
 
-
-        if (system.memberInputCheck(givenChoice) == LOGIN) {
-            break;
+        switch (systemInstance.memberInputCheck(givenChoice)) {
+            case LOGIN:
+                UI::Login();
+                return;
+            case REGISTER:
+                UI::Register();
+                return;
         }
         cout << "Not an option" << endl;
     }
+}
+
+void Event::LoginScreen() {
+    string username;
+    string password;
 
     while (true) {
         cout << "Enter your username: ";
@@ -123,11 +130,73 @@ void Event::RegisterLoginScreen(int choice) {
         cout << "Enter your password: ";
         getline(cin >> std::ws, password);
 
-        if (!(system.loginCheck(username, password).empty())) {
+        if (!(systemInstance.loginCheck(username, password).empty())) {
             cout << "welcome";
-            UI::Member(system.loginCheck(username, password));
+            UI::Member(systemInstance.loginCheck(username, password));
             return;
         }
         cout << "Wrong username or password" << endl;
     }
+}
+
+void Event::RegisterScreen() {
+    string fullname;
+    string username;
+    string password;
+    string passwordDoubleCheck;
+    string address;
+    string phoneNumber;
+    string email;
+
+    cout << "Enter your full name: ";
+    getline(cin >> std::ws, fullname);
+
+    cout << "Enter your username: ";
+    getline(cin >> std::ws, username);
+
+    while (true) {
+
+        cout << "Enter your password: ";
+        getline(cin >> std::ws, password);
+
+        cout << "Confirm your password: ";
+        getline(cin >> std::ws, passwordDoubleCheck);
+
+        if (password == passwordDoubleCheck) {
+            break;
+        }
+        cout << "Re-enter your password" << endl;
+    }
+
+    cout << "Enter your address: ";
+    getline(cin >> std::ws, address);
+
+    regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
+
+    while (true) {
+        cout << "Enter your email: ";
+        getline(cin >> std::ws, email);
+
+        if (regex_match(email, emailRegex)) { break; }
+
+        cout << "Invalid email" << endl;
+    }
+
+    regex phoneRegex(R"(\+?[0-9]+[\s\-]*[0-9]+[\s\-]*[0-9]+)");
+
+    while (true) {
+        cout << "Enter your phone number: ";
+        getline(cin >> std::ws, phoneNumber);
+
+        if (regex_match(phoneNumber, phoneRegex)) { break; }
+
+        int checked = systemInstance.memberInputCheck(phoneNumber);
+        if (checked != -1) {
+            break;
+        }
+
+        cout << "Invalid phone number" << endl;
+    }
+    systemInstance.registerNewMember(fullname, email, address, stoi(phoneNumber), username, password);
+    UI::RegisterLogin(LOGIN);
 }

@@ -8,7 +8,7 @@
 #include "BasicSTDLIB.h"
 
 class Member {
-   private:
+private:
     // Member Info
     string fullName;
     string email;
@@ -26,7 +26,7 @@ class Member {
     string memberID;
     vector<string> skillInfoList;
 
-   public:
+public:
     // System based member info
     // static vector<Member> hostList;
     // static vector<Member> supporterList;
@@ -88,7 +88,7 @@ class Member {
         this->homeAddress = homeAddressVal;
     }
 
-    void setPhoneNumber(const int &phoneNumberVal) {
+    void setPhoneNumber(int phoneNumberVal) {
         this->phoneNumber = phoneNumberVal;
     }
 
