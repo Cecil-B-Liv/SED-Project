@@ -25,41 +25,27 @@ void Event::StartScreen() {
     cout << "Instructor: Mr. Tran Duc Linh" << endl;
     cout << "Group: Group No." << endl;
 
-    // Prompt User to Choose Role
-    cout << "Use the app as: 1. Guest 2. Member 3. Admin" << endl;
-    cout << "Exit the app: e or E" << endl;
-    cout << ">>> ";
+    while (true) {
+        // Prompt User to Choose Role
+        cout << "Use the app as: 1. Guest 2. Member 3. Admin" << endl;
+        cout << "Exit the app: e or E" << endl;
+        cout << ">>> ";
 
-    // Get User Input
-    cin >> input;
+        // Get User Input
+        cin >> input;
 
-    // Check for Exit Condition
-    if (input == "e") {
-        // Close Application
-        return;
-    }
+        // Check for Exit Condition
+        if (input == "e") {
+            // Close Application
+            return;
+        }
 
-    int checkedUserInput = system.memberInputCheck(input);
-
-    // Check if user's input is only number
-    if (checkedUserInput == -1) {
+        // Check if user's input is only number
+        if (system.memberInputCheck(input) != -1) {
+            UI::RegisterLogin(system.memberInputCheck(input));
+            return;
+        }
         cout << "Not an option" << endl;
-        UI::Start();
-        return;
-    }
-
-    switch (checkedUserInput) {
-        case GUEST:
-        case MEMBER:
-           UI::RegisterLogin(MEMBER);
-            return;
-        case ADMIN:
-            UI::RegisterLogin(ADMIN);
-            return;
-        default:
-            cout << "Not an option" << endl;
-            UI::Start();
-            return;
     }
 }
 
@@ -69,36 +55,32 @@ void Event::MemberScreen(const string &ID) {
 
     cout << ID << endl << endl;
 
-    cout << "What do you want" << endl;
-    cout << "1. View Info" << endl;
-    cout << "Exit the app: e or E" << endl;
-    cout << ">>> ";
+    while (true) {
+        cout << "What do you want" << endl;
+        cout << "1. View Info" << endl;
+        cout << "Exit the app: e or E" << endl;
+        cout << ">>> ";
 
-    cin >> input;
+        cin >> input;
 
-    if (input == "e") {
-        return;
-    }
+        if (input == "e") {
+            return;
+        }
 
-    // Check if user's input is only number
-    int checkedUserInput = system.memberInputCheck(input);
-
-    // Check if user's input is only number
-    if (checkedUserInput == -1) {
+        // Check if user's input is only number
+        if (system.memberInputCheck(input) != -1) {
+            switch (system.memberInputCheck(input)) {
+                case MEMBERINFO:
+                    UI::Information(ID);
+                    return;
+                case MEMBERSKILLRATING:
+                    return;
+                default:
+                    cout << "Something went horribly wrong if this case is hit";
+                    return;
+            }
+        }
         cout << "Not an option" << endl;
-        UI::Start();
-        return;
-    }
-
-    switch (checkedUserInput) {
-        case MEMBERINFO:
-            UI::Information(ID);
-            return;
-        case MEMBERSKILLRATING:
-        default:
-            cout << "Not an option" << endl;
-            UI::Start();
-            return;
     }
 }
 
@@ -117,42 +99,43 @@ void Event::RegisterLoginScreen(int choice) {
         return;
     }
 
-    if (choice == MEMBER) {
+    // Other than admin was chosen
+    while (true) {
         cout << "1. Log in 2. Register" << endl;
         cout << ">>> ";
+
         cin >> givenChoice;
-    }
 
-    int checkedUserInput = system.memberInputCheck(givenChoice);
+        // Check if user's input is only number
 
-    // Check if user's input is only number
-    if (checkedUserInput == -1) {
+        if (system.memberInputCheck(givenChoice) != -1) {
+            break;
+        }
         cout << "Not an option" << endl;
-        UI::RegisterLogin(choice);
-        return;
     }
 
-    cout << "Enter your username: ";
-    getline(cin >> std::ws, username);
+    while (true) {
+        cout << "Enter your username: ";
+        getline(cin >> std::ws, username);
 
-    cout << "Enter your password: ";
-    getline(cin >> std::ws, password);
+        cout << "Enter your password: ";
+        getline(cin >> std::ws, password);
 
-    switch (checkedUserInput) {
-        case LOGIN:
-            if (system.loginCheck(username, password).empty()) {
-                cout << "Wrong username or password" << endl;
-                UI::RegisterLogin(choice);
-                return;
+        if (!(system.loginCheck(username, password).empty())) {
+            switch (system.memberInputCheck(givenChoice)) {
+                case LOGIN:
+                    cout << "welcome";
+                    UI::Member(system.loginCheck(username, password));
+                    return;
+                case REGISTER:
+                    cout << "User already exist";
+                    return;
+                default:
+                    cout << "Something went horribly wrong if this case is hit";
+                    return;
             }
-            cout << "welcome";
-            UI::Member(system.loginCheck(username, password));
-            return;
-        case REGISTER:
-            cout << "User already exist";
-            return;
-        default:
-            return;
+        }
+        cout << "Wrong username or password" << endl;
     }
 }
 

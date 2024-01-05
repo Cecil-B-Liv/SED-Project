@@ -13,6 +13,7 @@
 
 // Default constructor
 System::System() = default;
+
 System &System::getInstance() {
     static System System;
     return System;
@@ -68,12 +69,12 @@ void System::memberWriter() {
     }
 }
 
-string System::loginCheck(const string &membername, const string &password) {
+string System::loginCheck(const string &memberName, const string &password) {
     memberReader();
     string memberID;
 
-    for (Member member: getMemberList()) {
-        if (!(membername == member.getUsername() &&
+    for (const Member &member: getMemberList()) {
+        if (!(memberName == member.getUsername() &&
               password == member.getPassword())) {
             return EMPTY;
         }
