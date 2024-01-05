@@ -11,11 +11,12 @@
 // static vector<Rating> RatingList;
 // vector<Rating> System::getRatingList() { return RatingList; }
 
-// static vector<Rating> RatingList;
-// vector<Rating> System::getRatingList() { return RatingList; }
-
-static vector<Member> MemberList;
-
+// Default constructor
+System::System() = default;
+System &System::getInstance() {
+    static System System;
+    return System;
+}
 
 void System::memberReader() {
     string username;
@@ -105,10 +106,6 @@ int System::memberInputCheck(const string &input) {
     } catch (std::invalid_argument &) {
         return -1;
     }
-}
-
-vector<Member> System::getMemberList() {
-    return MemberList;
 }
 
 void System::addRating(string ratingID, string memberID, string hostID, double skillRating, double supporterRating,

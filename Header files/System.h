@@ -15,30 +15,44 @@ const string REQUEST_PATH = "../Database/RequestData.csv";
 const string RATING_PATH = "../Database/RatingData.csv";
 
 class System {
-public:
-    static void memberReader();
+   private:
+    // private constructor
+    System();
+    // user name and password for admin
+    string const adminUsername = "admin";
+    string const adminPassword = "admin";
 
-    static void memberWriter();
+    // Data for the system
+    vector<Member> MemberList;
+    vector<Rating> userRating;
+    vector<Rating> motorRating;
+    vector<Rating> RatingList;
+    vector<Request> RequestList;
 
-    static vector<Member> getMemberList();
+   public:
+    static System &getInstance();
 
-    // static void RatingReader();
-    // static void RatingWriter();
+    vector<Member> &getMemberList() { return this->MemberList; }
+    vector<Rating> &getRatingList() { return this->RatingList; }
+    vector<Request> &getRequestList() { return this->RequestList; }
 
-    // static void RequestReader();
-    // static void RequestWriter();
+    void memberReader();
+    void memberWriter();
 
-    // static vector<Rating> getRatingList();
+    void RatingReader();
+    void RatingWriter();
 
-// static vector<Request> getRequestList();
+    void RequestReader();
+    void RequestWriter();
 
-    static string loginCheck(const string &, const string &);
+    string loginCheck(const string &, const string &);
 
-    static void getMemberInformation(const string &);
+    void getMemberInformation(const string &);
 
-    static int memberInputCheck(const string &);
+    int memberInputCheck(const string &);
 
-    void addRating(string ratingID, string memberID, string hostID, double skillRating, double supporterRating,
+    void addRating(string ratingID, string memberID, string hostID,
+                   double skillRating, double supporterRating,
                    double hostRating, string comments);
 };
 
