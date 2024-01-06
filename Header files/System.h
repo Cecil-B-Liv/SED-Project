@@ -24,20 +24,19 @@ private:
     string const adminPassword = "admin";
 
     // Data for the systemInstance
-    vector<Member> MemberList;
+    vector<Member> memberList;
     vector<Rating> userRating;
-    vector<Rating> motorRating;
-    vector<Rating> RatingList;
-    vector<Request> RequestList;
+    vector<Rating *> ratingList;
+    vector<Request> requestList;
 
 public:
     static System &getInstance();
 
-    vector<Member> &getMemberList() { return this->MemberList; }
+    vector<Member> &getMemberList() { return this->memberList; }
 
-    vector<Rating> &getRatingList() { return this->RatingList; }
+    vector<Rating *> &getRatingList() { return this->ratingList; }
 
-    vector<Request> &getRequestList() { return this->RequestList; }
+    vector<Request> &getRequestList() { return this->requestList; }
 
     // File Reader
     void memberFileReader();

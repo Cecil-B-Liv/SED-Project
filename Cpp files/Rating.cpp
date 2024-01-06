@@ -2,8 +2,6 @@
 
 #include "../Header files/INCLUDEHEADERS.h"
 
-vector<Rating *> ratingList;
-
 Rating::Rating(string ratingID, string memberID, string hostID, double skillRating,
                double supporterRating, double hostRating, string comments) {
     this->ratingID = ratingID;

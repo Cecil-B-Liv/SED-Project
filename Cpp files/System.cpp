@@ -8,8 +8,8 @@
 
 #define EMPTY ""
 
-// static vector<Rating> RatingList;
-// vector<Rating> System::getRatingList() { return RatingList; }
+// static vector<Rating> ratingList;
+// vector<Rating> System::getRatingList() { return ratingList; }
 
 // Default constructor
 System::System() = default;
@@ -39,7 +39,7 @@ void System::memberFileReader() {
 
     // Read each line and split ","
     string line;
-    MemberList.clear();
+    memberList.clear();
     while (getline(file, line)) {
         istringstream iss(line);
         getline(iss, fullname, ',');
@@ -58,7 +58,7 @@ void System::memberFileReader() {
         member.setPassword(password);
         member.setMemberID(ID);
 
-        MemberList.push_back(member);
+        memberList.push_back(member);
     }
 
     file.close();
@@ -138,14 +138,14 @@ void System::addRating(string ratingID, string memberID, string hostID, double s
                        double hostRating, string comments) {
     Rating rating(ratingID, memberID, hostID, skillRating,
                   supporterRating, hostRating, comments);
-    RatingList.push_back(rating);
+    ratingList.push_back(&rating);
 }
 
 void System::removeRating(const string &ratingID) {
     int idx = 0;
-    for (const Rating &ratingToRemove: RatingList) {
-        if (ratingID == ratingToRemove.getRatingID()) {
-            RatingList.erase(RatingList.cbegin() + idx);
+    for (const Rating *ratingToRemove: ratingList) {
+        if (ratingID == ratingToRemove->getRatingID()) {
+            ratingList.erase(ratingList.cbegin() + idx);
             return;
         }
         idx++;
@@ -155,7 +155,7 @@ void System::removeRating(const string &ratingID) {
 string System::generateMemberID() {
     int memberID = 300000; // default ID value
     char IDSuffix = 'S'; // suffix of ID
-    int totalMemberAmount = (int) MemberList.size();
+    int totalMemberAmount = (int) memberList.size();
 
     int currentID = memberID + totalMemberAmount;
 
@@ -174,7 +174,7 @@ void System::registerNewMember(const string &fullName, const string &email, cons
     newMember.setMemberID(generateMemberID());
 
     memberFileWriter(newMember);
-    MemberList.push_back(newMember);
+    memberList.push_back(newMember);
 }
 
 

@@ -63,13 +63,13 @@ void Member::showInfo() const {
     // cout << endl;
 
     // cout << "Rating List: ";
-    // for (auto rating : RatingList) {
+    // for (auto rating : ratingList) {
     //     rating.showInfo();
     // }
     // cout << endl;
 
     // cout << "Request List: ";
-    // for (auto request : RequestList) {
+    // for (auto request : requestList) {
     //     request.showInfo();
     // }
     // cout << endl;

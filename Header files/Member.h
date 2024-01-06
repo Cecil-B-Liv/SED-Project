@@ -30,8 +30,8 @@ public:
     // System based member info
     // static vector<Member> hostList;
     // static vector<Member> supporterList;
-    // static vector<Rating> RatingList;
-    // static vector<Request> RequestList;
+    // static vector<Rating> ratingList;
+    // static vector<Request> requestList;
 
     explicit Member(string fullName = "", string email = "",
                     string homeAddress = "", int phoneNumber = 0,
@@ -125,11 +125,11 @@ public:
     //     transactionList = transactionListVal;
     // }
 
-    // void setRatingList(vector<Rating> ratingList) { RatingList = ratingList;
+    // void setRatingList(vector<Rating> ratingList) { ratingList = ratingList;
     // }
 
     // void setRequestList(vector<Request> requestList) {
-    //     RequestList = requestList;
+    //     requestList = requestList;
     // }
 
     // void setHostList(vector<Member> hostListVal) { hostList = hostListVal; }
