@@ -4,8 +4,6 @@
 
 #include "../Header files/INCLUDEHEADERS.h"
 
-static int counter;
-
 Member::Member(string fullName, string email, string homeAddress,
                int phoneNumber, double ratingScore,
                double supporterRating, double hostRating, string username,

@@ -21,6 +21,7 @@ public:
 
     static void RegisterScreen();
 
+    static void Initialize();
 };
 
 #endif //SED_PROJECT_EVENT_H

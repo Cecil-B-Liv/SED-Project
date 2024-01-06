@@ -3,13 +3,10 @@
 //
 
 #include "../Header files/INCLUDEHEADERS.h"
-#include "../Header files/Event.h"
-
 
 #define GUEST 1
 #define MEMBER 2
 #define ADMIN 3
-
 
 #define LOGIN 1
 #define REGISTER 2
@@ -18,6 +15,16 @@
 #define MEMBERSKILLRATING 2
 
 System &systemInstance = System::getInstance();
+
+// Initialize all the reader and append to a vector for easy access
+void Event::Initialize() {
+    systemInstance.memberFileReader();
+    systemInstance.hostFileReader();
+    systemInstance.ratingFileReader();
+    systemInstance.requestFileReader();
+    systemInstance.supporterFileReader();
+}
+
 
 void Event::StartScreen() {
     string input;
@@ -45,11 +52,11 @@ void Event::StartScreen() {
 
         // Check if user's input is only number
 
-        switch (systemInstance.memberInputCheck(input)) {
+        switch (systemInstance.checkIfInputIsInteger(input)) {
             case GUEST:
             case MEMBER:
             case ADMIN:
-                UI::RegisterLogin(systemInstance.memberInputCheck(input));
+                UI::RegisterLogin(systemInstance.checkIfInputIsInteger(input));
                 return;
         }
         cout << "Not an option" << endl;
@@ -59,7 +66,7 @@ void Event::StartScreen() {
 void Event::MemberScreen(const string &ID) {
     string input;
 
-    cout << ID << endl << endl;
+    cout << ID << endl;
 
     while (true) {
         cout << "What do you want" << endl;
@@ -74,8 +81,8 @@ void Event::MemberScreen(const string &ID) {
         }
 
         // Check if user's input is only number
-        if (systemInstance.memberInputCheck(input) != -1) {
-            switch (systemInstance.memberInputCheck(input)) {
+        if (systemInstance.checkIfInputIsInteger(input) != -1) {
+            switch (systemInstance.checkIfInputIsInteger(input)) {
                 case MEMBERINFO:
                     UI::Information(ID);
                     return;
@@ -107,7 +114,7 @@ void Event::RegisterLoginScreen(int choice) {
 
         // Check if user's input is only number
 
-        switch (systemInstance.memberInputCheck(givenChoice)) {
+        switch (systemInstance.checkIfInputIsInteger(givenChoice)) {
             case LOGIN:
                 UI::Login();
                 return;
@@ -131,7 +138,7 @@ void Event::LoginScreen() {
         getline(cin >> std::ws, password);
 
         if (!(systemInstance.loginCheck(username, password).empty())) {
-            cout << "welcome";
+            cout << "welcome ";
             UI::Member(systemInstance.loginCheck(username, password));
             return;
         }
@@ -190,7 +197,7 @@ void Event::RegisterScreen() {
 
         if (regex_match(phoneNumber, phoneRegex)) { break; }
 
-        int checked = systemInstance.memberInputCheck(phoneNumber);
+        int checked = systemInstance.checkIfInputIsInteger(phoneNumber);
         if (checked != -1) {
             break;
         }
@@ -198,5 +205,5 @@ void Event::RegisterScreen() {
         cout << "Invalid phone number" << endl;
     }
     systemInstance.registerNewMember(fullname, email, address, stoi(phoneNumber), username, password);
-    UI::RegisterLogin(LOGIN);
+    UI::RegisterLogin(MEMBER);
 }

@@ -12,7 +12,10 @@
 
 class UI {
 public:
-    static void Start() { Event::StartScreen(); }
+    static void Start() {
+        Event::Initialize();
+        Event::StartScreen();
+    }
 
     static void Member(const string &ID = "") { Event::MemberScreen(ID); }
 

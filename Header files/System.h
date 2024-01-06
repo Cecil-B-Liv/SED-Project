@@ -39,23 +39,31 @@ public:
 
     vector<Request> &getRequestList() { return this->RequestList; }
 
-    void memberReader();
+    // File Reader
+    void memberFileReader();
 
-    void memberWriter(const Member &);
+    void ratingFileReader();
 
-    void RatingReader();
+    void requestFileReader();
 
-    void RatingWriter();
+    void hostFileReader();
 
-    void RequestReader();
+    void supporterFileReader();
 
-    void RequestWriter();
+    // File Writer
+    void memberFileWriter(const Member &newMember);
 
+    void ratingFileWriter();
+
+    void requestFileWriter();
+
+    // Check if valid information was input
     string loginCheck(const string &, const string &);
 
-    void getMemberInformation(const string &);
+    int checkIfInputIsInteger(const string &input);
 
-    int memberInputCheck(const string &);
+    // Get information of member
+    void getMemberInformation(const string &);
 
     string generateMemberID();
 

@@ -3,7 +3,6 @@
 //
 
 #include "../Header files/INCLUDEHEADERS.h"
-#include "../Header files/System.h"
 
 
 #define EMPTY ""
@@ -19,7 +18,7 @@ System &System::getInstance() {
     return System;
 }
 
-void System::memberReader() {
+void System::memberFileReader() {
     string fullname;
     string email;
     string address;
@@ -38,10 +37,10 @@ void System::memberReader() {
 
     // Read each line and split ","
     string line;
+    MemberList.clear();
     while (getline(file, line)) {
         istringstream iss(line);
         getline(iss, fullname, ',');
-        cout << fullname << endl;
         getline(iss, email, ',');
         getline(iss, address, ',');
         getline(iss, phoneNumber, ',');
@@ -56,14 +55,14 @@ void System::memberReader() {
         member.setUsername(username);
         member.setPassword(password);
         member.setMemberID(ID);
-        
+
         MemberList.push_back(member);
     }
 
     file.close();
 }
 
-void System::memberWriter(const Member &newMember) {
+void System::memberFileWriter(const Member &newMember) {
     // Open file
     ofstream file("../Database/MemberData.csv", std::ios::app);
     if (!file.is_open()) {  // Check if file opened successfully
@@ -79,7 +78,6 @@ void System::memberWriter(const Member &newMember) {
 }
 
 string System::loginCheck(const string &memberName, const string &password) {
-    memberReader();
     string memberID;
 
     for (const Member &member: getMemberList()) {
@@ -96,7 +94,6 @@ string System::loginCheck(const string &memberName, const string &password) {
 }
 
 void System::getMemberInformation(const string &ID) {
-    memberReader();
 
     // Loop through each member
     for (const Member &member: getMemberList()) {
@@ -110,7 +107,7 @@ void System::getMemberInformation(const string &ID) {
     }
 }
 
-int System::memberInputCheck(const string &input) {
+int System::checkIfInputIsInteger(const string &input) {
     try {
         return stoi(input);
     } catch (std::invalid_argument &) {
@@ -137,7 +134,6 @@ void System::removeRating(const string &ratingID) {
 }
 
 string System::generateMemberID() {
-    memberReader();
     int memberID = 300000; // default ID value
     char IDSuffix = 'S'; // suffix of ID
     int totalMemberAmount = (int) MemberList.size();
@@ -158,6 +154,6 @@ void System::registerNewMember(const string &fullName, const string &email, cons
     newMember.setPassword(password);
     newMember.setMemberID(generateMemberID());
 
-    memberWriter(newMember);
+    memberFileWriter(newMember);
     MemberList.push_back(newMember);
 }
