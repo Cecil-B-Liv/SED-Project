@@ -11,8 +11,8 @@
 #define LOGIN 1
 #define REGISTER 2
 
-#define MEMBERINFO 1
-#define MEMBERSKILLRATING 2
+#define MEMBER_INFO 1
+#define MEMBER_SKILL_RATING 2
 
 System &systemInstance = System::getInstance();
 
@@ -83,10 +83,10 @@ void Event::MemberScreen(const string &ID) {
         // Check if user's input is only number
         if (systemInstance.checkIfInputIsInteger(input) != -1) {
             switch (systemInstance.checkIfInputIsInteger(input)) {
-                case MEMBERINFO:
+                case MEMBER_INFO:
                     UI::Information(ID);
                     return;
-                case MEMBERSKILLRATING:
+                case MEMBER_SKILL_RATING:
                     return;
             }
         }

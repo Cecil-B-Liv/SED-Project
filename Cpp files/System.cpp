@@ -3,6 +3,7 @@
 //
 
 #include "../Header files/INCLUDEHEADERS.h"
+#include "../Header files/System.h"
 
 
 #define EMPTY ""
@@ -18,6 +19,7 @@ System &System::getInstance() {
     return System;
 }
 
+// Reader functions
 void System::memberFileReader() {
     string fullname;
     string email;
@@ -62,6 +64,23 @@ void System::memberFileReader() {
     file.close();
 }
 
+void System::ratingFileReader() {
+
+}
+
+void System::requestFileReader() {
+
+}
+
+void System::hostFileReader() {
+
+}
+
+void System::supporterFileReader() {
+
+}
+
+// Writer functions
 void System::memberFileWriter(const Member &newMember) {
     // Open file
     ofstream file("../Database/MemberData.csv", std::ios::app);
@@ -157,3 +176,5 @@ void System::registerNewMember(const string &fullName, const string &email, cons
     memberFileWriter(newMember);
     MemberList.push_back(newMember);
 }
+
+
