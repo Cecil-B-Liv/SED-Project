@@ -17,7 +17,7 @@ private:
 
 public:
     // constructor code
-    Rating(string, string, string, double, double, double, string);
+    explicit Rating(string = "", string = "", string = "", double = 0.0, double = 0.0, double= 0.0, string= "");
 
     // function code
     void showInfo();

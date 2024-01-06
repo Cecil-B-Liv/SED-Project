@@ -16,8 +16,8 @@
 
 System &systemInstance = System::getInstance();
 
-// Initialize all the reader and append to a vector for easy access
-void Event::Initialize() {
+// initialize all the reader and append to a vector for easy access
+void Event::initialize() {
     systemInstance.memberFileReader();
     systemInstance.hostFileReader();
     systemInstance.ratingFileReader();
@@ -26,7 +26,7 @@ void Event::Initialize() {
 }
 
 
-void Event::StartScreen() {
+void Event::startScreen() {
     string input;
 
     // Welcome Message
@@ -37,7 +37,7 @@ void Event::StartScreen() {
 
     while (true) {
         // Prompt User to Choose Role
-        cout << "Use the app as: 1. Guest 2. Member 3. Admin" << endl;
+        cout << "Use the app as: 1. Guest 2. showMemberScreen 3. Admin" << endl;
         cout << "Exit the app: e or E" << endl;
         cout << ">>> ";
 
@@ -51,19 +51,19 @@ void Event::StartScreen() {
         }
 
         // Check if user's input is only number
-
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case GUEST:
             case MEMBER:
             case ADMIN:
-                UI::RegisterLogin(systemInstance.checkIfInputIsInteger(input));
+                UI::showRegisterLoginScreen(systemInstance.checkIfInputIsInteger(input));
                 return;
+            default:
+                cout << "Not an option" << endl;
         }
-        cout << "Not an option" << endl;
     }
 }
 
-void Event::MemberScreen(const string &ID) {
+void Event::memberScreen(const string &) {
     string input;
 
     cout << ID << endl;
@@ -81,24 +81,22 @@ void Event::MemberScreen(const string &ID) {
         }
 
         // Check if user's input is only number
-        if (systemInstance.checkIfInputIsInteger(input) != -1) {
-            switch (systemInstance.checkIfInputIsInteger(input)) {
-                case MEMBER_INFO:
-                    UI::Information(ID);
-                    return;
-                case MEMBER_SKILL_RATING:
-                    return;
-            }
+        switch (systemInstance.checkIfInputIsInteger(input)) {
+            case MEMBER_INFO:
+                UI::showMemberInformationScreen(ID);
+                return;
+            case MEMBER_SKILL_RATING:
+                return;
         }
         cout << "Not an option" << endl;
     }
 }
 
-void Event::InformationScreen(const string &ID) {
+void Event::informationScreen(const string &) {
     systemInstance.getMemberInformation(ID);
 }
 
-void Event::RegisterLoginScreen(int choice) {
+void Event::registerLoginScreen(int choice) {
     string givenChoice;
 
     if (choice == ADMIN) {
@@ -107,7 +105,7 @@ void Event::RegisterLoginScreen(int choice) {
 
     // Other than admin was chosen
     while (true) {
-        cout << "1. Log in 2. Register" << endl;
+        cout << "1. Log in 2. showRegisterScreen" << endl;
         cout << ">>> ";
 
         cin >> givenChoice;
@@ -116,17 +114,17 @@ void Event::RegisterLoginScreen(int choice) {
 
         switch (systemInstance.checkIfInputIsInteger(givenChoice)) {
             case LOGIN:
-                UI::Login();
+                UI::showLoginScreen();
                 return;
             case REGISTER:
-                UI::Register();
+                UI::showRegisterScreen();
                 return;
         }
         cout << "Not an option" << endl;
     }
 }
 
-void Event::LoginScreen() {
+void Event::loginScreen() {
     string username;
     string password;
 
@@ -139,14 +137,14 @@ void Event::LoginScreen() {
 
         if (!(systemInstance.loginCheck(username, password).empty())) {
             cout << "welcome ";
-            UI::Member(systemInstance.loginCheck(username, password));
+            UI::showMemberScreen(systemInstance.loginCheck(username, password));
             return;
         }
         cout << "Wrong username or password" << endl;
     }
 }
 
-void Event::RegisterScreen() {
+void Event::registerScreen() {
     string fullname;
     string username;
     string password;
@@ -205,5 +203,5 @@ void Event::RegisterScreen() {
         cout << "Invalid phone number" << endl;
     }
     systemInstance.registerNewMember(fullname, email, address, stoi(phoneNumber), username, password);
-    UI::RegisterLogin(MEMBER);
+    UI::showRegisterLoginScreen(MEMBER);
 }

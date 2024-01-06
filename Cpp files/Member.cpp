@@ -36,7 +36,7 @@ void Member::showInfo() const {
     cout << "Supporter Rating: " << supporterRating << endl;
     cout << "Host Rating: " << hostRating << endl;
 
-    cout << "Member ID: " << memberID << endl;
+    cout << "showMemberScreen ID: " << memberID << endl;
     cout << "Username: " << username << endl;
     cout << "Password: " << password << endl;
 
@@ -49,14 +49,14 @@ void Member::showInfo() const {
     cout << endl;
 
     // cout << "Host List: ";
-    // for (Member host : hostList) {
+    // for (showMemberScreen host : hostList) {
     //     cout << "MemberID: " << host.getMemberID
     //          << ", Name: " << host.getFullName;
     // }
     // cout << endl;
 
     // cout << "Supporter List: ";
-    // for (Member supporter : supporterList) {
+    // for (showMemberScreen supporter : supporterList) {
     //     cout << "MemberID: " << supporter.getMemberID
     //          << ", Name: " << supporter.getFullName;
     // }

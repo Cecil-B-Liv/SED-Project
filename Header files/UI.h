@@ -12,20 +12,20 @@
 
 class UI {
 public:
-    static void Start() {
-        Event::Initialize();
-        Event::StartScreen();
+    static void start() {
+        Event::initialize();
+        Event::startScreen();
     }
 
-    static void Member(const string &ID = "") { Event::MemberScreen(ID); }
+    static void showMemberScreen(const string &ID = "") { Event::memberScreen(ID); }
 
-    static void Information(const string &ID = "") { Event::InformationScreen(ID); }
+    static void showMemberInformationScreen(const string &ID = "") { Event::informationScreen(ID); }
 
-    static void RegisterLogin(int choice) { Event::RegisterLoginScreen(choice); }
+    static void showRegisterLoginScreen(int choice) { Event::registerLoginScreen(choice); }
 
-    static void Login() { Event::LoginScreen(); }
+    static void showLoginScreen() { Event::loginScreen(); }
 
-    static void Register() { Event::RegisterScreen(); }
+    static void showRegisterScreen() { Event::registerScreen(); }
 };
 
 #endif //SED_PROJECT_UI_H

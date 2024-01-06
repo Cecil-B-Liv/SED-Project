@@ -61,7 +61,7 @@ public:
 
     int checkIfInputIsInteger(const string &input);
 
-    // Get information of member
+    // Get information of showMemberScreen
     void getMemberInformation(const string &);
 
     string generateMemberID();

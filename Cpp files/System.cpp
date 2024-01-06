@@ -3,8 +3,6 @@
 //
 
 #include "../Header files/INCLUDEHEADERS.h"
-#include "../Header files/System.h"
-
 
 #define EMPTY ""
 
@@ -104,24 +102,24 @@ string System::loginCheck(const string &memberName, const string &password) {
               password == member.getPassword())) {
             return EMPTY;
         }
-        // If found, store the member ID and break the loop
+        // If found, store the showMemberScreen ID and break the loop
         memberID = member.getMemberID();
         break;
     }
-    // Return the member ID
+    // Return the showMemberScreen ID
     return memberID;
 }
 
 void System::getMemberInformation(const string &ID) {
 
-    // Loop through each member
+    // Loop through each showMemberScreen
     for (const Member &member: getMemberList()) {
         // If the ID doesn't match, exit the loop
         if (!(ID == member.getMemberID())) {
-            cout << "Member not found";
+            cout << "showMemberScreen not found";
             return;
         }
-        // Display member information
+        // Display showMemberScreen information
         member.showInfo();
     }
 }

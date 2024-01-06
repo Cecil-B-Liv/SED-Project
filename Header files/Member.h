@@ -9,27 +9,27 @@
 
 class Member {
 private:
-    // Member Info
+    // showMemberScreen Info
     string fullName;
     string email;
     string homeAddress;
     int phoneNumber;
 
-    // Member value
+    // showMemberScreen value
     double ratingScore;
     double supporterRating;
     double hostRating;
 
-    // Member account
+    // showMemberScreen account
     string username;
     string password;
     string memberID;
     vector<string> skillInfoList;
 
 public:
-    // System based member info
-    // static vector<Member> hostList;
-    // static vector<Member> supporterList;
+    // System based showMemberScreen info
+    // static vector<showMemberScreen> hostList;
+    // static vector<showMemberScreen> supporterList;
     // static vector<Rating> ratingList;
     // static vector<Request> requestList;
 
@@ -73,9 +73,9 @@ public:
 
     // vector<Request*> getRequestList() const;
 
-    // vector<Member*> getHostList() const;
+    // vector<showMemberScreen*> getHostList() const;
 
-    // vector<Member*> getSupporterList() const;
+    // vector<showMemberScreen*> getSupporterList() const;
 
     // setter
     void setFullName(const string &fullNameVal) {
@@ -132,9 +132,9 @@ public:
     //     requestList = requestList;
     // }
 
-    // void setHostList(vector<Member> hostListVal) { hostList = hostListVal; }
+    // void setHostList(vector<showMemberScreen> hostListVal) { hostList = hostListVal; }
 
-    // void setSupporterList(vector<Member> supporterListVal) {
+    // void setSupporterList(vector<showMemberScreen> supporterListVal) {
     //     supporterList = supporterListVal;
     // }
 };
