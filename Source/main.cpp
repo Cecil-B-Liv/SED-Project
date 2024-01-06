@@ -5,6 +5,7 @@
 
 int main() {
 
+    // how to use vector of pointers
     vector<string *> testVector;
 
     string test1 = "info1";
