@@ -22,8 +22,8 @@ int main() {
     cout << *testVector[0] << endl; // dereference and get the value at index 0
 
     // 2nd method
-    cout << *(*(testVector.begin() + 1))
-         << endl; // dereference to get address at begin then add 1 then dereference to get the value
+    cout << *(*(testVector.begin() + 1)) << endl; // the first * indicate the position of the pointer in the vector,
+    // the second * dereference that pointer to get the value
 
     // loops through the vector of points using a pointer
     for (string *ptr: testVector) {
