@@ -9,6 +9,6 @@
 #include "System.h"
 #include "Time.h"
 #include "UI.h"
-
+#include "Styles.h"
 
 #endif  // SED_PROJECT_INCLUDEHEADERS_H
