@@ -20,8 +20,7 @@ Member::Member(string fullName, string email, string homeAddress,
     this->password = password;
     this->memberID = memberID;
 }
-//     setter for these vectors
-//     this->transactionList = transactionList;
+//     setter for these vectors, which doesnt need
 //     this->hostList = hostList;
 //     this->supporterList = supporterList;
 //     this->ratingList = ratingList;

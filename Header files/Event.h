@@ -8,23 +8,23 @@
 #include "BasicSTDLIB.h"
 
 class Event {
-public:
+   public:
     static void initialize();
 
     static void startScreen();
 
     static void informationScreen(const string &);
 
+    static void guestScreen();
     static void memberScreen(const string &);
+    static void adminScreen();
 
     static void registerLoginScreen(int);
-
     static void loginScreen();
 
     static void registerScreen();
 
-    static void
-
+    // static void
 };
 
-#endif //SED_PROJECT_EVENT_H
+#endif  // SED_PROJECT_EVENT_H

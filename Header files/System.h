@@ -15,7 +15,7 @@ const string REQUEST_PATH = "../Database/RequestData.csv";
 const string RATING_PATH = "../Database/RatingData.csv";
 
 class System {
-private:
+   private:
     // private constructor
     System();
 
@@ -29,7 +29,7 @@ private:
     vector<Rating *> ratingList;
     vector<Request> requestList;
 
-public:
+   public:
     static System &getInstance();
 
     vector<Member> &getMemberList() { return this->memberList; }
@@ -40,20 +40,14 @@ public:
 
     // File Reader
     void memberFileReader();
-
     void ratingFileReader();
-
     void requestFileReader();
-
     void hostFileReader();
-
     void supporterFileReader();
 
     // File Writer
     void memberFileWriter(const Member &newMember);
-
     void ratingFileWriter();
-
     void requestFileWriter();
 
     // Check if valid information was input
@@ -72,8 +66,10 @@ public:
 
     void removeRating(const string &ratingID);
 
-    void registerNewMember(const string &fullName = "", const string &email = "",
-                           const string &homeAddress = "", int phoneNumber = 0, const string &username = "",
+    void registerNewMember(const string &fullName = "",
+                           const string &email = "",
+                           const string &homeAddress = "", int phoneNumber = 0,
+                           const string &username = "",
                            const string &password = "");
 };
 

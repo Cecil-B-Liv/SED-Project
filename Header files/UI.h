@@ -11,21 +11,34 @@
 #include "Event.h"
 
 class UI {
-public:
+   public:
     static void start() {
         Event::initialize();
         Event::startScreen();
     }
 
-    static void showMemberScreen(const string &ID = "") { Event::memberScreen(ID); }
+    static void showGuestScreen(){
+        Event::guestScreen();
+    }
+    static void showMemberScreen(const string &ID = "") {
+        Event::memberScreen(ID);
+    }
 
-    static void showMemberInformationScreen(const string &ID = "") { Event::informationScreen(ID); }
+    static void showAdminScreen(){
+        Event::adminScreen();
+    }
 
-    static void showRegisterLoginScreen(int choice) { Event::registerLoginScreen(choice); }
+    static void showMemberInformationScreen(const string &ID = "") {
+        Event::informationScreen(ID);
+    }
+
+    static void showRegisterLoginScreen(int choice) {
+        Event::registerLoginScreen(choice);
+    }
 
     static void showLoginScreen() { Event::loginScreen(); }
 
     static void showRegisterScreen() { Event::registerScreen(); }
 };
 
-#endif //SED_PROJECT_UI_H
+#endif  // SED_PROJECT_UI_H

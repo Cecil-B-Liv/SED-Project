@@ -8,7 +8,7 @@
 #include "BasicSTDLIB.h"
 
 class Member {
-private:
+   private:
     // showMemberScreen Info
     string fullName;
     string email;
@@ -26,13 +26,13 @@ private:
     string memberID;
     vector<string> skillInfoList;
 
-public:
-    // System based showMemberScreen info
-    // static vector<showMemberScreen> hostList;
-    // static vector<showMemberScreen> supporterList;
-    // static vector<Rating> ratingList;
-    // static vector<Request> requestList;
+    // // System based member info
+    // vector<Member *> hostList = {};
+    // vector<Member *> supporterList = {};
+    // vector<Rating *> ratingList = {};
+    // vector<Request *> requestList = {};
 
+   public:
     explicit Member(string fullName = "", string email = "",
                     string homeAddress = "", int phoneNumber = 0,
                     double ratingScore = 0.0, double supporterRating = 0.0,
@@ -67,15 +67,13 @@ public:
 
     vector<string> getSkillInfo() { return skillInfoList; }
 
-    // vector<Transaction*> getTransactionList() const;
+    // vector<Rating *> getRatingList() const;
 
-    // vector<Rating*> getRatingList() const;
+    // vector<Request *> getRequestList() const;
 
-    // vector<Request*> getRequestList() const;
+    // vector<Member *> getHostList() const;
 
-    // vector<showMemberScreen*> getHostList() const;
-
-    // vector<showMemberScreen*> getSupporterList() const;
+    // vector<Member *> getSupporterList() const;
 
     // setter
     void setFullName(const string &fullNameVal) {
@@ -119,22 +117,19 @@ public:
     void setSkillInfo(const vector<string> skillInfoListVal) {
         skillInfoList = skillInfoListVal;
     }
-    // dont need lol
+    // // dont need lol
 
-    // void setTransactionList(vector<Transaction> transactionListVal) {
-    //     transactionList = transactionListVal;
-    // }
+    // void setRatingList(vector<Rating *> ratingList) { ratingList =
+    // ratingList; }
 
-    // void setRatingList(vector<Rating> ratingList) { ratingList = ratingList;
-    // }
-
-    // void setRequestList(vector<Request> requestList) {
+    // void setRequestList(vector<Request *> requestList) {
     //     requestList = requestList;
     // }
 
-    // void setHostList(vector<showMemberScreen> hostListVal) { hostList = hostListVal; }
+    // void setHostList(vector<Member *> hostListVal) { hostList = hostListVal;
+    // }
 
-    // void setSupporterList(vector<showMemberScreen> supporterListVal) {
+    // void setSupporterList(vector<Member *> supporterListVal) {
     //     supporterList = supporterListVal;
     // }
 };

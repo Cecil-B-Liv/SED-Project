@@ -62,21 +62,13 @@ void System::memberFileReader() {
     file.close();
 }
 
-void System::ratingFileReader() {
+void System::ratingFileReader() {}
 
-}
+void System::requestFileReader() {}
 
-void System::requestFileReader() {
+void System::hostFileReader() {}
 
-}
-
-void System::hostFileReader() {
-
-}
-
-void System::supporterFileReader() {
-
-}
+void System::supporterFileReader() {}
 
 // Writer functions
 void System::memberFileWriter(const Member &newMember) {
@@ -87,9 +79,10 @@ void System::memberFileWriter(const Member &newMember) {
         return;
     }
 
-    file << newMember.getFullName() << "," << newMember.getEmail() << "," << newMember.getHomeAddress() << ","
-         << newMember.getPhoneNumber() << "," << newMember.getUsername() << "," << newMember.getPassword() << ","
-         << newMember.getMemberID() << endl;
+    file << newMember.getFullName() << "," << newMember.getEmail() << ","
+         << newMember.getHomeAddress() << "," << newMember.getPhoneNumber()
+         << "," << newMember.getUsername() << "," << newMember.getPassword()
+         << "," << newMember.getMemberID() << endl;
 
     file.close();
 }
@@ -97,7 +90,7 @@ void System::memberFileWriter(const Member &newMember) {
 string System::loginCheck(const string &memberName, const string &password) {
     string memberID;
 
-    for (const Member &member: getMemberList()) {
+    for (const Member &member : getMemberList()) {
         if (!(memberName == member.getUsername() &&
               password == member.getPassword())) {
             return EMPTY;
@@ -111,9 +104,8 @@ string System::loginCheck(const string &memberName, const string &password) {
 }
 
 void System::getMemberInformation(const string &ID) {
-
     // Loop through each showMemberScreen
-    for (const Member &member: getMemberList()) {
+    for (const Member &member : getMemberList()) {
         // If the ID doesn't match, exit the loop
         if (!(ID == member.getMemberID())) {
             cout << "showMemberScreen not found";
@@ -128,20 +120,22 @@ int System::checkIfInputIsInteger(const string &input) {
     try {
         return stoi(input);
     } catch (std::invalid_argument &) {
+        cout << "Invalid input";
         return -1;
     }
 }
 
-void System::addRating(string ratingID, string memberID, string hostID, double skillRating, double supporterRating,
+void System::addRating(string ratingID, string memberID, string hostID,
+                       double skillRating, double supporterRating,
                        double hostRating, string comments) {
-    Rating rating(ratingID, memberID, hostID, skillRating,
-                  supporterRating, hostRating, comments);
+    Rating rating(ratingID, memberID, hostID, skillRating, supporterRating,
+                  hostRating, comments);
     ratingList.push_back(&rating);
 }
 
 void System::removeRating(const string &ratingID) {
     int idx = 0;
-    for (const Rating *ratingToRemove: ratingList) {
+    for (const Rating *ratingToRemove : ratingList) {
         if (ratingID == ratingToRemove->getRatingID()) {
             ratingList.erase(ratingList.cbegin() + idx);
             return;
@@ -151,17 +145,18 @@ void System::removeRating(const string &ratingID) {
 }
 
 string System::generateMemberID() {
-    int memberID = 300000; // default ID value
-    char IDSuffix = 'S'; // suffix of ID
-    int totalMemberAmount = (int) memberList.size();
+    int memberID = 300000;  // default ID value
+    char IDSuffix = 'S';    // suffix of ID
+    int totalMemberAmount = (int)memberList.size();
 
     int currentID = memberID + totalMemberAmount;
 
     return IDSuffix + std::to_string(currentID);
 }
 
-void System::registerNewMember(const string &fullName, const string &email, const string &homeAddress,
-                               int phoneNumber, const string &username, const string &password) {
+void System::registerNewMember(const string &fullName, const string &email,
+                               const string &homeAddress, int phoneNumber,
+                               const string &username, const string &password) {
     Member newMember;
     newMember.setFullName(fullName);
     newMember.setEmail(email);
@@ -174,5 +169,3 @@ void System::registerNewMember(const string &fullName, const string &email, cons
     memberFileWriter(newMember);
     memberList.push_back(newMember);
 }
-
-

@@ -25,7 +25,6 @@ void Event::initialize() {
     systemInstance.supporterFileReader();
 }
 
-
 void Event::startScreen() {
     string input;
 
@@ -37,8 +36,8 @@ void Event::startScreen() {
 
     while (true) {
         // Prompt User to Choose Role
-        cout << "Use the app as: 1. Guest 2. showMemberScreen 3. Admin" << endl;
-        cout << "Exit the app: e or E" << endl;
+        cout << "Use the app as: 1. Guest 2. Member 3. Admin" << endl;
+        cout << "Exit the app: Press e" << endl;
         cout << ">>> ";
 
         // Get User Input
@@ -53,9 +52,14 @@ void Event::startScreen() {
         // Check if user's input is only number
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case GUEST:
+                UI::showGuestScreen();
+                return;
             case MEMBER:
+                UI::showMemberScreen();
+                return;
             case ADMIN:
-                UI::showRegisterLoginScreen(systemInstance.checkIfInputIsInteger(input));
+                UI::showRegisterLoginScreen(
+                    systemInstance.checkIfInputIsInteger(input));
                 return;
             default:
                 cout << "Not an option" << endl;
@@ -63,7 +67,43 @@ void Event::startScreen() {
     }
 }
 
-void Event::memberScreen(const string &) {
+void Event::guestScreen() {
+    string input;
+
+    cout << "Detail of available Supporters: " << endl;
+    for (Member supporter : systemInstance.getMemberList()) {
+        supporter.showInfo();
+        cout << ">>>>" << endl << endl;
+    }
+
+    while (true) {
+        cout << "What do you want" << endl;
+        cout << "1. Register" << endl;
+        cout << "2. Login" << endl;
+        cout << "Exit the app: e" << endl;
+        cout << ">>> ";
+
+        cin >> input;
+
+        if (input == "e") {
+            return;
+        }
+
+        // Check if user's input is only number
+        switch (systemInstance.checkIfInputIsInteger(input)) {
+            case LOGIN:
+                UI::showLoginScreen();
+                return;
+            case REGISTER:
+                UI::showRegisterScreen();
+                return;
+            default:
+                cout << "Not an option" << endl;
+        }
+    }
+}
+
+void Event::memberScreen(const string &ID) {
     string input;
 
     cout << ID << endl;
@@ -92,7 +132,7 @@ void Event::memberScreen(const string &) {
     }
 }
 
-void Event::informationScreen(const string &) {
+void Event::informationScreen(const string &ID) {
     systemInstance.getMemberInformation(ID);
 }
 
@@ -160,7 +200,6 @@ void Event::registerScreen() {
     getline(cin >> std::ws, username);
 
     while (true) {
-
         cout << "Enter your password: ";
         getline(cin >> std::ws, password);
 
@@ -175,6 +214,7 @@ void Event::registerScreen() {
 
     cout << "Enter your address: ";
     getline(cin >> std::ws, address);
+    // HCM or HN only
 
     regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
 
@@ -182,7 +222,9 @@ void Event::registerScreen() {
         cout << "Enter your email: ";
         getline(cin >> std::ws, email);
 
-        if (regex_match(email, emailRegex)) { break; }
+        if (regex_match(email, emailRegex)) {
+            break;
+        }
 
         cout << "Invalid email" << endl;
     }
@@ -193,7 +235,9 @@ void Event::registerScreen() {
         cout << "Enter your phone number: ";
         getline(cin >> std::ws, phoneNumber);
 
-        if (regex_match(phoneNumber, phoneRegex)) { break; }
+        if (regex_match(phoneNumber, phoneRegex)) {
+            break;
+        }
 
         int checked = systemInstance.checkIfInputIsInteger(phoneNumber);
         if (checked != -1) {
@@ -202,6 +246,7 @@ void Event::registerScreen() {
 
         cout << "Invalid phone number" << endl;
     }
-    systemInstance.registerNewMember(fullname, email, address, stoi(phoneNumber), username, password);
+    systemInstance.registerNewMember(fullname, email, address,
+                                     stoi(phoneNumber), username, password);
     UI::showRegisterLoginScreen(MEMBER);
 }
