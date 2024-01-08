@@ -37,6 +37,7 @@ void System::memberFileReader() {
 
     // Read each line and split ","
     string line;
+    vector<string *> testList = {new string("help"), new string("me")};
     memberList.clear();
     while (getline(file, line)) {
         istringstream iss(line);
@@ -55,6 +56,7 @@ void System::memberFileReader() {
         member.setUsername(username);
         member.setPassword(password);
         member.setMemberID(ID);
+        member.setSkillInfo(testList);
 
         memberList.push_back(member);
     }
@@ -90,7 +92,7 @@ void System::memberFileWriter(const Member &newMember) {
 string System::loginCheck(const string &memberName, const string &password) {
     string memberID;
 
-    for (const Member &member : getMemberList()) {
+    for (const Member &member: getMemberList()) {
         if (!(memberName == member.getUsername() &&
               password == member.getPassword())) {
             return EMPTY;
@@ -105,7 +107,7 @@ string System::loginCheck(const string &memberName, const string &password) {
 
 void System::getMemberInformation(const string &ID) {
     // Loop through each showMemberScreen
-    for (const Member &member : getMemberList()) {
+    for (const Member &member: getMemberList()) {
         // If the ID doesn't match, exit the loop
         if (!(ID == member.getMemberID())) {
             cout << "showMemberScreen not found";
@@ -135,7 +137,7 @@ void System::addRating(string ratingID, string memberID, string hostID,
 
 void System::removeRating(const string &ratingID) {
     int idx = 0;
-    for (const Rating *ratingToRemove : ratingList) {
+    for (const Rating *ratingToRemove: ratingList) {
         if (ratingID == ratingToRemove->getRatingID()) {
             ratingList.erase(ratingList.cbegin() + idx);
             return;
@@ -147,7 +149,7 @@ void System::removeRating(const string &ratingID) {
 string System::generateMemberID() {
     int memberID = 300000;  // default ID value
     char IDSuffix = 'S';    // suffix of ID
-    int totalMemberAmount = (int)memberList.size();
+    int totalMemberAmount = (int) memberList.size();
 
     int currentID = memberID + totalMemberAmount;
 
@@ -169,3 +171,13 @@ void System::registerNewMember(const string &fullName, const string &email,
     memberFileWriter(newMember);
     memberList.push_back(newMember);
 }
+
+void System::addSkill(const string &newSkill, const string &ID) {
+    Member member;
+    for (const Member &iterMember: memberList) {
+        if (iterMember.getMemberID() == ID) {
+            member.addSkill(new string(newSkill));
+        }
+    }
+}
+
