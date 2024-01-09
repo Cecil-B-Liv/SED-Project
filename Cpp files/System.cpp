@@ -174,9 +174,16 @@ void System::registerNewMember(const string &fullName, const string &email,
 }
 
 void System::addNewSkill(const string &newSkill, const string &ID) {
-    for (Member &iter: memberList) {
-        if (iter.getMemberID() == ID) {
-            iter.addSkill(new string(newSkill));
+//    for (Member &iter: memberList) {
+//
+//        if (iter.getMemberID() == ID) {
+//            iter.addSkill(new string(newSkill));
+//        }
+//    }
+
+    for (auto it = memberList.begin(); it != memberList.end(); it++) {
+        if (it->getMemberID() == ID) {
+            it->addSkill(new string(newSkill));
         }
     }
 }
