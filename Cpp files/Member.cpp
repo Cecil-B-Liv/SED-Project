@@ -3,11 +3,13 @@
 //
 
 #include "../Header files/INCLUDEHEADERS.h"
+#include "../Header files/Member.h"
+
 
 Member::Member(string fullName, string email, string homeAddress,
                int phoneNumber, double ratingScore,
                double supporterRating, double hostRating, string username,
-               string password, string memberID, vector<string> skillInfo) {
+               string password, string memberID, vector<string *> skillInfo) {
     this->fullName = fullName;
     this->email = email;
     this->homeAddress = homeAddress;
@@ -41,8 +43,8 @@ void Member::showInfo() const {
 
     cout << "Skill Info: ";
 
-    for (const string &skill: skillInfoList) {
-        cout << skill << " ";
+    for (string *skill: skillInfoList) {
+        cout << *skill << " ";
     }
 
     cout << endl;
