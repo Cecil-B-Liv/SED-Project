@@ -53,10 +53,10 @@ void Event::startScreen() {
     cout << "Group: No. 6" << endl;
     cout << endl;
     cout << STYLE_UNDERLINE << "Team Members:" << endl;
-    cout << COLOR_RED << "s3978680" <<  COLOR_WHITE << "Huynh Ngoc Tai" << COLOR_RESET << endl;
-    cout << COLOR_RED << "s3988776" <<  COLOR_WHITE << "Tran Quang Minh" << COLOR_RESET << endl;
-    cout << COLOR_RED << "s3926104" <<  COLOR_WHITE << "Nguyen Hoang Viet" << COLOR_RESET << endl;
-    cout << COLOR_RED << "s3940891" <<  COLOR_WHITE << "Ngo Minh Hieu" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3978680" << COLOR_WHITE << "Huynh Ngoc Tai" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3988776" << COLOR_WHITE << "Tran Quang Minh" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3926104" << COLOR_WHITE << "Nguyen Hoang Viet" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3940891" << COLOR_WHITE << "Ngo Minh Hieu" << COLOR_RESET << endl;
     elementDivider;
 
     while (true) {
@@ -89,7 +89,7 @@ void Event::startScreen() {
                 return;
             case ADMIN:
                 UI::showRegisterLoginScreen(
-                    systemInstance.checkIfInputIsInteger(input));
+                        systemInstance.checkIfInputIsInteger(input));
                 return;
             default:
                 cout << "Invalid option provided!" << endl;
@@ -101,8 +101,8 @@ void Event::guestScreen() {
     string input;
 
     cout << "Details of available supporters: " << endl;
-    for (Member supporter : systemInstance.getMemberList()) {
-        supporter.showInfo();
+    for (auto it = systemInstance.getMemberList().begin(); it =  ) {
+        (*supporter)->showInfo();
         cout << ">>>>" << endl << endl;
     }
 

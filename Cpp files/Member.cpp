@@ -43,9 +43,9 @@ void Member::showInfo() const {
 
     cout << "Skill Info: ";
 
-    for (string *skill: skillInfoList) {
-        cout << *skill << " ";
-    }
+//    for (string *skill: skillInfoList) {
+//        cout << *skill << " ";
+//    }
 
     cout << endl;
 

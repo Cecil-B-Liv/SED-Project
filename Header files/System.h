@@ -24,7 +24,7 @@ private:
     string const adminPassword = "admin";
 
     // Data for the systemInstance
-    vector<Member> memberList;
+    vector<Member *> memberList;
     vector<Rating> userRating;
     vector<Rating *> ratingList;
     vector<Request> requestList;
@@ -32,7 +32,7 @@ private:
 public:
     static System &getInstance();
 
-    vector<Member> &getMemberList() { return this->memberList; }
+    vector<Member *> getMemberList() { return this->memberList; }
 
     vector<Rating *> &getRatingList() { return this->ratingList; }
 

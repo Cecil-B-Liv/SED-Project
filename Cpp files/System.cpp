@@ -58,7 +58,7 @@ void System::memberFileReader() {
         member.setMemberID(ID);
         member.setSkillInfo(testList);
 
-        memberList.push_back(member);
+        memberList.push_back(&member);
         addNewSkill("no", ID);
     }
 
@@ -93,13 +93,13 @@ void System::memberFileWriter(const Member &newMember) {
 string System::loginCheck(const string &memberName, const string &password) {
     string memberID;
 
-    for (const Member &member: getMemberList()) {
-        if (!(memberName == member.getUsername() &&
-              password == member.getPassword())) {
+    for (auto member = memberList.begin(); member != memberList.end(); member++) {
+        if (!(memberName == (*member)->getUsername() &&
+              password == (*member)->getPassword())) {
             return EMPTY;
         }
         // If found, store the showMemberScreen ID and break the loop
-        memberID = member.getMemberID();
+        memberID = (*member)->getMemberID();
         break;
     }
     // Return the showMemberScreen ID
@@ -108,14 +108,14 @@ string System::loginCheck(const string &memberName, const string &password) {
 
 void System::getMemberInformation(const string &ID) {
     // Loop through each showMemberScreen
-    for (const Member &member: getMemberList()) {
+    for (auto it = memberList.begin(); it != memberList.end(); it++) {
         // If the ID doesn't match, exit the loop
-        if (!(ID == member.getMemberID())) {
+        if (!(ID == (*it)->getMemberID())) {
             cout << "showMemberScreen not found";
             return;
         }
         // Display showMemberScreen information
-        member.showInfo();
+        (*it)->showInfo();
     }
 }
 
@@ -170,7 +170,7 @@ void System::registerNewMember(const string &fullName, const string &email,
     newMember.setMemberID(generateMemberID());
 
     memberFileWriter(newMember);
-    memberList.push_back(newMember);
+    memberList.push_back(&newMember);
 }
 
 void System::addNewSkill(const string &newSkill, const string &ID) {
@@ -182,9 +182,7 @@ void System::addNewSkill(const string &newSkill, const string &ID) {
 //    }
 
     for (auto it = memberList.begin(); it != memberList.end(); it++) {
-        if (it->getMemberID() == ID) {
-            it->addSkill(new string(newSkill));
-        }
+        (*it)->getMemberID();
     }
 }
 
