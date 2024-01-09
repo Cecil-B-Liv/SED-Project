@@ -56,10 +56,15 @@ public:
 
     void requestFileWriter();
 
+    //check if there is a member with that ID
+    int checkMemberExist(const string&);
     // Check if valid information was input
     string loginCheck(const string &, const string &);
 
     int checkIfInputIsInteger(const string &input);
+
+    //Admin function
+    void resetPassword(const string&);
 
     // Get information of showMemberScreen
     void getMemberInformation(const string &);

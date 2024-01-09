@@ -23,7 +23,6 @@ class UI {
     static void showMemberScreen(const string &ID = "") {
         Event::memberScreen(ID);
     }
-
     static void showAdminScreen(){
         Event::adminScreen();
     }
@@ -31,9 +30,11 @@ class UI {
     static void showMemberInformationScreen(const string &ID = "") {
         Event::informationScreen(ID);
     }
-
-    static void showRegisterLoginScreen(int choice) {
-        Event::registerLoginScreen(choice);
+    static void resetMemberPwdScreen(){
+        Event::resetMemberPwd();
+    };
+    static void showRegisterLoginScreen() {
+        Event::registerLoginScreen();
     }
 
     static void showLoginScreen() { Event::loginScreen(); }

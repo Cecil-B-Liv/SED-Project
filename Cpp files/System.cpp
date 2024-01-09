@@ -6,6 +6,9 @@
 
 #define EMPTY ""
 
+#define AVAILABLE 1
+#define UNAVAILABLE 0
+
 // static vector<Rating> ratingList;
 // vector<Rating> System::getRatingList() { return ratingList; }
 
@@ -87,6 +90,20 @@ void System::memberFileWriter(const Member &newMember) {
          << "," << newMember.getMemberID() << endl;
 
     file.close();
+}
+
+int System::checkMemberExist(const string& ID){
+    for (const Member &member: getMemberList()) {
+        if (!(ID == member.getMemberID()))
+            return UNAVAILABLE;
+        else return AVAILABLE;
+    }
+}
+void System::resetPassword(const string& ID, const string& newPwd){
+    for (const Member &member: getMemberList()) {
+        if (ID == member.getMemberID()) {
+            member.setPassword(newPwd);
+        }
 }
 
 string System::loginCheck(const string &memberName, const string &password) {
