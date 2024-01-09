@@ -17,6 +17,7 @@ System &System::getInstance() {
     return System;
 }
 
+
 // Reader functions
 void System::memberFileReader() {
     string fullname;
@@ -38,7 +39,6 @@ void System::memberFileReader() {
     // Read each line and split ","
     string line;
     vector<string *> testList = {new string("help"), new string("me")};
-    memberList.clear();
     while (getline(file, line)) {
         istringstream iss(line);
         getline(iss, fullname, ',');
@@ -59,6 +59,7 @@ void System::memberFileReader() {
         member.setSkillInfo(testList);
 
         memberList.push_back(member);
+        addNewSkill("no", ID);
     }
 
     file.close();
@@ -172,11 +173,10 @@ void System::registerNewMember(const string &fullName, const string &email,
     memberList.push_back(newMember);
 }
 
-void System::addSkill(const string &newSkill, const string &ID) {
-    Member member;
-    for (const Member &iterMember: memberList) {
-        if (iterMember.getMemberID() == ID) {
-            member.addSkill(new string(newSkill));
+void System::addNewSkill(const string &newSkill, const string &ID) {
+    for (Member &iter: memberList) {
+        if (iter.getMemberID() == ID) {
+            iter.addSkill(new string(newSkill));
         }
     }
 }

@@ -78,7 +78,7 @@ public:
                            const string &username = "",
                            const string &password = "");
 
-    void addSkill(const string &, const string &);
+    void addNewSkill(const string &newSkill, const string &ID);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H
