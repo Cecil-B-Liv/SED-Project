@@ -124,21 +124,6 @@ public:
         this->skillInfoList.push_back(newSkill);
     }
 
-    // // dont need lol
-
-    // void setRatingList(vector<Rating *> ratingList) { ratingList =
-    // ratingList; }
-
-    // void setRequestList(vector<Request *> requestList) {
-    //     requestList = requestList;
-    // }
-
-    // void setHostList(vector<Member *> hostListVal) { hostList = hostListVal;
-    // }
-
-    // void setSupporterList(vector<Member *> supporterListVal) {
-    //     supporterList = supporterListVal;
-    // }
 };
 
 #endif  // SED_PROJECT_MEMBER_H
