@@ -13,7 +13,7 @@ class Event {
 
     static void startScreen();
 
-    static void informationScreen(const string &);
+    static void getMemberInfoScreen(const string &);
 
     static void guestScreen();
     static void memberScreen(const string &);

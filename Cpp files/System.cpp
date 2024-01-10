@@ -32,9 +32,9 @@ void System::memberFileReader() {
     Member member;
 
     // Check if file exist
-    ifstream file("../Database/MemberData.csv");
+    ifstream file(MEMBER_PATH);
     if (!file.is_open()) {
-        cerr << "Error opening file " << endl;
+        cerr << "Error opening file memberdata in member reader" << endl;
         return;
     }
 
@@ -68,19 +68,14 @@ void System::memberFileReader() {
 }
 
 void System::ratingFileReader() {}
-
 void System::requestFileReader() {}
-
-void System::hostFileReader() {}
-
-void System::supporterFileReader() {}
 
 // Writer functions
 void System::memberFileWriter(const Member &newMember) {
     // Open file
-    ofstream file("../Database/MemberData.csv", std::ios::app);
+    ofstream file(MEMBER_PATH, std::ios::app);
     if (!file.is_open()) {  // Check if file opened successfully
-        cerr << "Error opening file " << endl;
+        cerr << "Error opening file member data in member writer" << endl;
         return;
     }
 
@@ -91,26 +86,31 @@ void System::memberFileWriter(const Member &newMember) {
 
     file.close();
 }
+void System::ratingFileWriter() {}
+void System::requestFileWriter() {}
 
-int System::checkMemberExist(const string& ID){
-    for (const Member &member: getMemberList()) {
-        if (!(ID == member.getMemberID()))
-            return UNAVAILABLE;
-        else return AVAILABLE;
+int System::checkMemberExist(const string &ID) {
+    // check if there is a member with that ID
+    for (const Member &member : getMemberList()) {
+        if ((ID == member.getMemberID())) return AVAILABLE;
     }
+    return AVAILABLE;
 }
-void System::resetPassword(const string& ID, const string& newPwd){
-    for (const Member &member: getMemberList()) {
+
+void System::resetPassword(const string &ID, const string &newPwd) {
+    for (Member &member : getMemberList()) {
         if (ID == member.getMemberID()) {
             member.setPassword(newPwd);
         }
+    }
 }
 
-string System::loginCheck(const string &memberName, const string &password) {
+string System::getID_with_username_password(const string &username,
+                                            const string &password) {
     string memberID;
 
-    for (const Member &member: getMemberList()) {
-        if (!(memberName == member.getUsername() &&
+    for (const Member &member : getMemberList()) {
+        if (!(username == member.getUsername() &&
               password == member.getPassword())) {
             return EMPTY;
         }
@@ -120,11 +120,11 @@ string System::loginCheck(const string &memberName, const string &password) {
     }
     // Return the showMemberScreen ID
     return memberID;
-}
+}  // Check if valid information was input
 
 void System::getMemberInformation(const string &ID) {
     // Loop through each showMemberScreen
-    for (const Member &member: getMemberList()) {
+    for (const Member &member : getMemberList()) {
         // If the ID doesn't match, exit the loop
         if (!(ID == member.getMemberID())) {
             cout << "showMemberScreen not found";
@@ -154,7 +154,7 @@ void System::addRating(string ratingID, string memberID, string hostID,
 
 void System::removeRating(const string &ratingID) {
     int idx = 0;
-    for (const Rating *ratingToRemove: ratingList) {
+    for (const Rating *ratingToRemove : ratingList) {
         if (ratingID == ratingToRemove->getRatingID()) {
             ratingList.erase(ratingList.cbegin() + idx);
             return;
@@ -166,7 +166,7 @@ void System::removeRating(const string &ratingID) {
 string System::generateMemberID() {
     int memberID = 300000;  // default ID value
     char IDSuffix = 'S';    // suffix of ID
-    int totalMemberAmount = (int) memberList.size();
+    int totalMemberAmount = (int)memberList.size();
 
     int currentID = memberID + totalMemberAmount;
 
@@ -191,10 +191,9 @@ void System::registerNewMember(const string &fullName, const string &email,
 
 void System::addSkill(const string &newSkill, const string &ID) {
     Member member;
-    for (const Member &iterMember: memberList) {
+    for (const Member &iterMember : memberList) {
         if (iterMember.getMemberID() == ID) {
             member.addSkill(new string(newSkill));
         }
     }
 }
-

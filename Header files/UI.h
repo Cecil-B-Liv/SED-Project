@@ -12,30 +12,26 @@
 
 class UI {
    public:
+   //start the intialize that run all of the reader file to get data for the program
+   //start the home screen
     static void start() {
         Event::initialize();
         Event::startScreen();
     }
 
-    static void showGuestScreen(){
-        Event::guestScreen();
-    }
+    static void showGuestScreen() { Event::guestScreen(); }
     static void showMemberScreen(const string &ID = "") {
         Event::memberScreen(ID);
     }
-    static void showAdminScreen(){
-        Event::adminScreen();
-    }
+    static void showAdminScreen() { 
+        Event::adminScreen(); }
 
+//
     static void showMemberInformationScreen(const string &ID = "") {
-        Event::informationScreen(ID);
+        Event::getMemberInfoScreen(ID);
     }
-    static void resetMemberPwdScreen(){
-        Event::resetMemberPwd();
-    };
-    static void showRegisterLoginScreen() {
-        Event::registerLoginScreen();
-    }
+    static void resetMemberPwdScreen() { Event::resetMemberPwd(); };
+    static void showRegisterLoginScreen() { Event::registerLoginScreen(); }
 
     static void showLoginScreen() { Event::loginScreen(); }
 

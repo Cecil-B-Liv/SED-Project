@@ -10,7 +10,7 @@
 #include "BasicSTDLIB.h"
 
 class Member {
-private:
+   private:
     // showMemberScreen Info
     string fullName;
     string email;
@@ -34,7 +34,7 @@ private:
     // vector<Rating *> ratingList = {};
     // vector<Request *> requestList = {};
 
-public:
+   public:
     explicit Member(string fullName = "", string email = "",
                     string homeAddress = "", int phoneNumber = 0,
                     double ratingScore = 0.0, double supporterRating = 0.0,
@@ -120,9 +120,7 @@ public:
         this->skillInfoList = skillInfoListVal;
     }
 
-    void addSkill(string *newSkill) {
-        this->skillInfoList.push_back(newSkill);
-    }
+    void addSkill(string *newSkill) { this->skillInfoList.push_back(newSkill); }
 
     // // dont need lol
 
