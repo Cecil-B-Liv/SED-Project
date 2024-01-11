@@ -6,7 +6,8 @@
 #define SED_PROJECT_MEMBER_H
 
 #include <utility>
-
+#include "Rating.h"
+#include "Request.h"
 #include "BasicSTDLIB.h"
 
 class Member {
@@ -29,10 +30,10 @@ private:
     vector<string *> skillInfoList;
 
     // // System based member info
-    // vector<Member *> hostList = {};
-    // vector<Member *> supporterList = {};
-    // vector<Rating *> ratingList = {};
-    // vector<Request *> requestList = {};
+    vector<Member *> hostList;
+    vector<Member *> supporterList;
+    vector<Rating *> ratingList;
+    vector<Request *> requestList;
 
 public:
     explicit Member(string fullName = "", string email = "",
@@ -126,19 +127,21 @@ public:
 
     // // dont need lol
 
-    // void setRatingList(vector<Rating *> ratingList) { ratingList =
-    // ratingList; }
+    void addRating(Rating *newRating) {
+        this->ratingList.push_back(newRating);
+    }
 
-    // void setRequestList(vector<Request *> requestList) {
-    //     requestList = requestList;
-    // }
+    void addRequest(Request *newRequest) {
+        this->requestList.push_back(newRequest);
+    }
 
-    // void setHostList(vector<Member *> hostListVal) { hostList = hostListVal;
-    // }
+    void addHost(Member *newHost) {
+        this->hostList.push_back(newHost);
+    }
 
-    // void setSupporterList(vector<Member *> supporterListVal) {
-    //     supporterList = supporterListVal;
-    // }
+    void addSupporter(Member *newSupporter) {
+        this->supporterList.push_back(newSupporter);
+    }
 };
 
 #endif  // SED_PROJECT_MEMBER_H

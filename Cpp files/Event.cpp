@@ -101,8 +101,8 @@ void Event::guestScreen() {
     string input;
 
     cout << "Details of available supporters: " << endl;
-    for (auto it = systemInstance.getMemberList().begin(); it =  ) {
-        (*supporter)->showInfo();
+    for (auto &member: systemInstance.getMemberList()) {
+        member.showInfo();
         cout << ">>>>" << endl << endl;
     }
 
@@ -173,7 +173,7 @@ void Event::memberScreen(const string &ID) {
 }
 
 void Event::informationScreen(const string &ID) {
-    systemInstance.getMemberInformation(ID);
+    systemInstance.displayMemberInformation(ID);
 }
 
 void Event::registerLoginScreen(int choice) {

@@ -24,19 +24,19 @@ private:
     string const adminPassword = "admin";
 
     // Data for the systemInstance
-    vector<Member *> memberList;
+    vector<Member> memberList;
     vector<Rating> userRating;
-    vector<Rating *> ratingList;
+    vector<Rating> ratingList;
     vector<Request> requestList;
 
 public:
     static System &getInstance();
 
-    vector<Member *> getMemberList() { return this->memberList; }
+    vector<Member> getMemberList() { return memberList; }
 
-    vector<Rating *> &getRatingList() { return this->ratingList; }
+    vector<Rating> &getRatingList() { return ratingList; }
 
-    vector<Request> &getRequestList() { return this->requestList; }
+    vector<Request> &getRequestList() { return requestList; }
 
     // File Reader
     void memberFileReader();
@@ -62,13 +62,9 @@ public:
     int checkIfInputIsInteger(const string &input);
 
     // Get information of showMemberScreen
-    void getMemberInformation(const string &);
+    void displayMemberInformation(const string &ID);
 
     string generateMemberID();
-
-    void addRating(string ratingID, string memberID, string hostID,
-                   double skillRating, double supporterRating,
-                   double hostRating, string comments);
 
     void removeRating(const string &ratingID);
 
@@ -78,7 +74,13 @@ public:
                            const string &username = "",
                            const string &password = "");
 
-    void addNewSkill(const string &newSkill, const string &ID);
+    void addNewSkill(const string &, const string &);
+
+    void addNewRating(string ratingID, string memberID, string hostID,
+                      double skillRating, double supporterRating,
+                      double hostRating, string comments);
+
+    void addNewRequest();
 };
 
 #endif  // SED_PROJECT_SYSTEM_H

@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <regex>
+#include <ctime>
 
 using std::cin;
 using std::cout;
