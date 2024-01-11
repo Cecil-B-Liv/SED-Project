@@ -15,5 +15,14 @@ bool Request::answerRequest() {
 }
 
 void Request::showInfo() {
+    cout << "Booking ID: " << bookingID << endl;
+    cout << "Member ID: " << memberID << endl;
+    cout << "Skill Required: " << endl;
 
+    for (string *skill: skillRequired) {
+        cout << *skill;
+    }
+    cout << endl;
+    cout << "Creation time: " << getFormattedCreationTime() << endl;
+    cout << "Status: " << endl;
 }

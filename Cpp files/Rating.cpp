@@ -14,5 +14,10 @@ Rating::Rating(string ratingID, string memberID, string hostID, double skillRati
 }
 
 void Rating::showInfo() {
-
+    cout << "Rating ID: " << ratingID;
+    cout << "Member ID: " << memberID;
+    cout << "Host ID: " << hostID;
+    cout << "Supporter Rating: " << supporterRating;
+    cout << "Host Rating: " << hostRating;
+    cout << "Comment: " << comments;
 }

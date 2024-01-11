@@ -6,7 +6,7 @@
 
 #define EMPTY ""
 
-enum HardSkill {
+enum hardSkill {
     CAR_MECHANIC,
     TEACHING,
     TUTORING,
@@ -122,7 +122,6 @@ void System::ratingFileReader() {
         getline(iss, supporterRating, ',');
         getline(iss, hostRating, ',');
         getline(iss, comments, ',');
-
 
     }
 }
