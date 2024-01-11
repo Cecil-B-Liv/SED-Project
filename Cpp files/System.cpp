@@ -6,7 +6,6 @@
 
 #define EMPTY ""
 
-
 enum HardSkill {
     CAR_MECHANIC,
     TEACHING,
@@ -96,7 +95,37 @@ void System::memberFileReader() {
     file.close();
 }
 
-void System::ratingFileReader() {}
+void System::ratingFileReader() {
+    // Check if file exist
+    ifstream file("../Database/RatingData.csv");
+    if (!file.is_open()) {
+        cerr << "Error opening file " << endl;
+        return;
+    }
+    string line;
+    while (getline(file, line)) {
+        string ratingID;
+        string memberID;
+        string hostID;
+        string skillRating;
+        string supporterRating;
+        string hostRating;
+        string comments;
+
+        Rating rating;
+
+        istringstream iss(line);
+        getline(iss, ratingID, ',');
+        getline(iss, memberID, ',');
+        getline(iss, hostID, ',');
+        getline(iss, skillRating, ',');
+        getline(iss, supporterRating, ',');
+        getline(iss, hostRating, ',');
+        getline(iss, comments, ',');
+
+
+    }
+}
 
 void System::requestFileReader() {
     // Check if file exist
