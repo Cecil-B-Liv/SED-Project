@@ -7,6 +7,29 @@
 #define EMPTY ""
 
 
+enum HardSkill {
+    CAR_MECHANIC,
+    TEACHING,
+    TUTORING,
+    PLUMBING_REPAIR,
+    WRITING,
+    PHOTOGRAPHY,
+    COOKING,
+    GARDENING,
+    HOUSE_CLEANING,
+    LAUNDRY,
+    SEWING,
+    FIRST_AID,
+    TIME_MANAGEMENT,
+    PUBLIC_SPEAKING,
+    BASIC_COMPUTER_SKILLS,
+    MONEY_MANAGEMENT,
+    COMMUNICATION,
+    PROBLEM_SOLVING,
+    TEAMWORK,
+    STRESS_MANAGEMENT
+};
+
 // static vector<Rating> ratingList;
 // vector<Rating> System::getRatingList() { return ratingList; }
 
