@@ -40,10 +40,14 @@ class System {
     void ratingFileWriter();
     void requestFileWriter();
 
+    void memberFileSave();
+    void ratingFileSave();
+    void requestFileSave();
+
     // check if there is a member with that ID
     int checkMemberExist(const string &);
     // Check if valid information was input
-    string getID_with_username_password(const string &, const string &);
+    string getidWithUsernamePassword(const string &, const string &);
     // Get information of showMemberScreen
     void getMemberInformation(const string &);
 
@@ -54,6 +58,10 @@ class System {
     void addRating(string ratingID, string memberID, string hostID,
                    double skillRating, double supporterRating,
                    double hostRating, string comments);
+
+    Member getMemberWithID(const string&);
+
+    int changePasswordWithID(const string&, const string&);
 
     void removeRating(const string &ratingID);
 

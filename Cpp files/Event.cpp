@@ -15,6 +15,9 @@
 #define MEMBER 2
 #define ADMIN 3
 
+#define YES "y"
+#define NO "n"
+
 #define LOGIN 1
 #define REGISTER 2
 
@@ -42,6 +45,13 @@ void Event::initialize() {
     systemInstance.memberFileReader();
     systemInstance.ratingFileReader();
     systemInstance.requestFileReader();
+}
+
+void Event::endScreen(){
+    systemInstance.memberFileSave();
+    systemInstance.ratingFileSave();
+    systemInstance.requestFileSave();
+    return;
 }
 
 // Display the starting screen with welcome message and user role options
@@ -156,9 +166,7 @@ void Event::guestScreen() {
 
         if (input == "e") {
             return;
-        }
-
-        if (input == "h") {
+        } else if (input == "h") {
             Event::startScreen();
             return;
         }
@@ -269,6 +277,8 @@ void Event::registerLoginScreen() {
     string givenChoice;
 
     while (true) {
+        cout << COLOR_YELLOW << "Continue sign-in to enter." << COLOR_RESET
+             << endl;
         cout << COLOR_GREEN << "Please select an option: " << COLOR_RESET
              << endl;
         cout << endl;
@@ -276,12 +286,23 @@ void Event::registerLoginScreen() {
              << COLOR_RESET << endl;
         cout << COLOR_BLUE
              << "2. Don't have an account? Consider signing up for one."
-             << COLOR_RESET << endl;
+             << COLOR_RESET << endl
+             << endl;
+        cout << COLOR_YELLOW << "h. Return to start screen" << COLOR_RESET
+             << endl;
+        cout << COLOR_RED << "e. Exit - Close the application" << COLOR_RESET
+             << endl;
         cout << endl;
         cout << ">>> ";
 
         cin >> givenChoice;
 
+        if (givenChoice == "e") {
+            return;
+        } else if (givenChoice == "h") {
+            Event::startScreen();
+            return;
+        }
         // Check if user's input is only number
 
         switch (systemInstance.checkIfInputIsInteger(givenChoice)) {
@@ -314,11 +335,11 @@ void Event::loginScreen() {
             UI::showAdminScreen();
             return;
         } else if (!(systemInstance
-                         .getID_with_username_password(username, password)
+                         .getidWithUsernamePassword(username, password)
                          .empty())) {
             cout << "Welcome to Time Bank!";
-            UI::showMemberScreen(systemInstance.getID_with_username_password(
-                username, password));
+            UI::showMemberScreen(
+                systemInstance.getidWithUsernamePassword(username, password));
             return;
         }
         cout << COLOR_RED << "Wrong username or password!" << COLOR_RESET
@@ -396,22 +417,60 @@ void Event::registerScreen() {
 
 void Event::resetMemberPwd() {
     string id;
-    char input;
+    string input;
+    string newpwd;
 
     while (true) {
         cout << "Enter the ID of the member you want to reset their password: ";
         getline(cin >> std::ws, id);
 
         if (systemInstance.checkMemberExist(id)) {
-            cout << "Existing member with your inputted ID. Loading..";
+            cout << "Existing member with your inputted ID. Loading.." << endl;
             elementDivider;
-            UI::resetMemberPwdScreen;
+            cout << "Information of member" << id << endl;
+            systemInstance.getMemberInformation(id);
+
+            cout << "Select these options: " << endl;
+            cout << "1. Change this account password." << endl;
+            cout << COLOR_RED << "e. Exit - Close the application"
+                 << COLOR_RESET << endl;
+            cout << COLOR_YELLOW << "h. Return to start screen" << COLOR_RESET
+                 << endl;
+            cout << endl;
+
+            cout << endl << ">>>>";
+            cin >> input;
+
+            if (input == "e") {
+                return;
+            } else if (input == "h") {
+                Event::startScreen();
+                return;
+            }
+
+            // Check if user's input is only number
+            switch (systemInstance.checkIfInputIsInteger(input)) {
+                case RESET_MEM_PWD:
+                    cout << "Enter new password that you want to reset: "
+                         << endl;
+                    cout << ">>> ";
+                    getline(cin >> std::ws, newpwd);
+                    systemInstance.changePasswordWithID(id, newpwd);
+                    cout << "\nSuccessfully changed the password!" << endl;
+                    Event::adminScreen;
+                    return;
+                default:
+                    cout << COLOR_RED << "Invalid option provided"
+                         << COLOR_RESET << endl;
+            }
+
+            return;
         } else {
             cout << "\nID not found.\nDo you want to try again?(y/n)";
             cin >> input;
-            if (input == 'y')
+            if (input == YES)
                 continue;
-            else if (input == 'n')
+            else if (input == NO)
                 return;
             else {
                 cout << "Invalid option. Return to administrator screen.";

@@ -3,6 +3,7 @@ SED_App_Project
 =========================
 
 EVENT -> UI -> System
+fullname, email, address, phonenumber, username, password, id
 
 Command_line:
 mkdir output; cd output; 

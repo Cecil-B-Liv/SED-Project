@@ -86,6 +86,15 @@ void System::memberFileWriter(const Member &newMember) {
 
     file.close();
 }
+
+void System::memberFileSave(){
+    ofstream file(MEMBER_PATH, std::ios::app);
+    if (!file.is_open()) {  // Check if file opened successfully
+        cerr << "Error opening file member data in member writer" << endl;
+        return;
+    }   
+}
+
 void System::ratingFileWriter() {}
 void System::requestFileWriter() {}
 
@@ -105,8 +114,8 @@ void System::resetPassword(const string &ID, const string &newPwd) {
     }
 }
 
-string System::getID_with_username_password(const string &username,
-                                            const string &password) {
+string System::getidWithUsernamePassword(const string &username,
+                                         const string &password) {
     string memberID;
 
     for (const Member &member : getMemberList()) {
@@ -122,6 +131,17 @@ string System::getID_with_username_password(const string &username,
     return memberID;
 }  // Check if valid information was input
 
+Member System::getMemberWithID(const string &ID) {
+    Member temp;
+    for (const Member &mem : getMemberList()) {
+        if (mem.getMemberID() == ID) {
+            return mem;
+        }
+    }
+    cout << "No data of member with that ID";
+    return temp;
+}
+
 void System::getMemberInformation(const string &ID) {
     // Loop through each showMemberScreen
     for (const Member &member : getMemberList()) {
@@ -135,11 +155,22 @@ void System::getMemberInformation(const string &ID) {
     }
 }
 
+int System::changePasswordWithID(const string &ID, const string &newPwd) {
+    for (Member &member : getMemberList()) {
+        if (member.getMemberID() == ID) {
+            member.setPassword(newPwd);
+            return 0;
+        }
+    }
+    cout << "Couldnt change this account password.";
+    return -1;
+}
+
 int System::checkIfInputIsInteger(const string &input) {
     try {
         return stoi(input);
     } catch (std::invalid_argument &) {
-        cout << "Invalid input";
+        // cout << "Invalid input";
         return -1;
     }
 }
