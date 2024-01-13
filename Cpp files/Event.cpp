@@ -112,6 +112,12 @@ void Event::startScreen() {
                 return;
             case MEMBER:
                 UI::showRegisterLoginScreen();
+
+               // UI::showMemberScreen();
+               // return;
+            //case ADMIN:
+              //  UI::showRegisterLoginScreen(
+                //        systemInstance.checkIfInputIsInteger(input));
                 return;
             // case ADMIN:
             //     UI::showRegisterLoginScreen(
@@ -135,8 +141,8 @@ void Event::guestScreen() {
             "options: "
          << endl;
     cout << "Details of available supporters: " << endl;
-    for (Member supporter : systemInstance.getMemberList()) {
-        supporter.showInfo();
+    for (auto &member: systemInstance.getMemberList()) {
+        member.showInfo();
         cout << ">>>>" << endl << endl;
     }
 
@@ -232,8 +238,14 @@ void Event::memberScreen(const string &ID) {
     }
 }
 
+
 void Event::adminScreen() {
     string input;
+
+void Event::informationScreen(const string &ID) {
+    systemInstance.displayMemberInformation(ID);
+}
+
 
     cout << "\nWelcome, you are browsing with administrator role." << endl;
     elementDivider;

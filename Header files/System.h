@@ -21,14 +21,17 @@ class System {
     // Data for the systemInstance
     vector<Member> memberList;
     vector<Rating> userRating;
-    vector<Rating *> ratingList;
+    vector<Rating> ratingList;
     vector<Request> requestList;
 
    public:
     static System &getInstance();
-    vector<Member> &getMemberList() { return this->memberList; }
-    vector<Rating *> &getRatingList() { return this->ratingList; }
-    vector<Request> &getRequestList() { return this->requestList; }
+
+    vector<Member> getMemberList() { return memberList; }
+
+    vector<Rating> &getRatingList() { return ratingList; }
+
+    vector<Request> &getRequestList() { return requestList; }
 
     // File Reader
     void memberFileReader();
@@ -49,7 +52,7 @@ class System {
     // Check if valid information was input
     string getidWithUsernamePassword(const string &, const string &);
     // Get information of showMemberScreen
-    void getMemberInformation(const string &);
+    void displayMemberInformation(const string &ID);
 
     // Admin function
     void resetPassword(const string &, const string &);
@@ -62,6 +65,7 @@ class System {
     Member getMemberWithID(const string&);
 
     int changePasswordWithID(const string&, const string&);
+
 
     void removeRating(const string &ratingID);
 
@@ -78,6 +82,15 @@ class System {
     int checkIfInputIsInteger(const string &input);
     // generate member ID when register
     string generateMemberID();
+
+    void addNewSkill(const string &, const string &);
+
+    void addNewRating(string ratingID, string memberID, string hostID,
+                      double skillRating, double supporterRating,
+                      double hostRating, string comments);
+
+    void addNewRequest();
+
 };
 
 #endif  // SED_PROJECT_SYSTEM_H

@@ -4,7 +4,10 @@
 #define OFFLINE -1
 
 // Constructor
-Request::Request() {}
+Request::Request() {
+    std::time_t timeOfRequestObjectCreation = std::time(nullptr);
+    creationTime = *std::localtime(&timeOfRequestObjectCreation);
+}
 
 //function code
 bool Request::answerRequest() {

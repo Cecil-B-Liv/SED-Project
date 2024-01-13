@@ -22,11 +22,6 @@ Member::Member(string fullName, string email, string homeAddress,
     this->password = password;
     this->memberID = memberID;
 }
-//     setter for these vectors, which doesnt need
-//     this->hostList = hostList;
-//     this->supporterList = supporterList;
-//     this->ratingList = ratingList;
-//     this->requestList = requestList;
 
 void Member::showInfo() const {
     cout << "Full Name: " << fullName << endl;
