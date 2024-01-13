@@ -59,7 +59,6 @@ void System::memberFileReader() {
 
     // Read each line and split ","
     string line;
-    vector<string *> testList = {new string("help"), new string("me")};
     while (getline(file, line)) {
         string fullname;
         string email;
@@ -68,6 +67,8 @@ void System::memberFileReader() {
         string username;
         string password;
         string ID;
+        string skills;
+        vector<string *> newSkillsList;
         Member member;
 
         istringstream iss(line);
@@ -78,6 +79,13 @@ void System::memberFileReader() {
         getline(iss, username, ',');
         getline(iss, password, ',');
         getline(iss, ID, ',');
+        getline(iss, skills, ',');
+
+        stringstream getSkill(skills);
+        string skill;
+        while (getline(getSkill, skill, '-')) {
+            newSkillsList.push_back(new string(skill));
+        }
 
         member.setFullName(fullname);
         member.setEmail(email);
@@ -86,10 +94,9 @@ void System::memberFileReader() {
         member.setUsername(username);
         member.setPassword(password);
         member.setMemberID(ID);
-        member.setSkillInfo(testList);
+        member.setSkillInfo(newSkillsList);
 
         memberList.push_back(member);
-        addNewSkill("no", ID);
     }
 
     file.close();
@@ -163,18 +170,20 @@ void System::supporterFileReader() {}
 
 // Writer functions
 void System::memberFileWriter(const Member &newMember) {
+    memberList.push_back(newMember);
     // Open file
-    ofstream file("../Database/MemberData.csv", std::ios::app);
+    ofstream file("../Database/MemberData.csv");
     if (!file.is_open()) {  // Check if file opened successfully
         cerr << "Error opening file " << endl;
         return;
     }
 
-    file << newMember.getFullName() << "," << newMember.getEmail() << ","
-         << newMember.getHomeAddress() << "," << newMember.getPhoneNumber()
-         << "," << newMember.getUsername() << "," << newMember.getPassword()
-         << "," << newMember.getMemberID() << endl;
-
+    for (Member &members: memberList) {
+        file << members.getFullName() << "," << members.getEmail() << ","
+             << members.getHomeAddress() << "," << members.getPhoneNumber()
+             << "," << members.getUsername() << "," << members.getPassword()
+             << "," << members.getMemberID() << endl;
+    }
     file.close();
 }
 
@@ -211,7 +220,6 @@ int System::checkIfInputIsInteger(const string &input) {
     try {
         return stoi(input);
     } catch (std::invalid_argument &) {
-        cout << "Invalid input";
         return -1;
     }
 }
