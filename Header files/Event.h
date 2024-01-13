@@ -12,15 +12,17 @@ class Event {
     static void initialize();
 
     static void startScreen();
+    static void endScreen();
 
-    static void informationScreen(const string &);
+    static void getMemberInfoScreen(const string &);
 
     static void guestScreen();
     static void memberScreen(const string &);
     static void adminScreen();
 
-    static void registerLoginScreen(int);
+    static void registerLoginScreen();
     static void loginScreen();
+    static void resetMemberPwd();
 
     static void registerScreen();
 
