@@ -89,7 +89,7 @@ void Event::startScreen() {
                 return;
             case ADMIN:
                 UI::showRegisterLoginScreen(
-                    systemInstance.checkIfInputIsInteger(input));
+                        systemInstance.checkIfInputIsInteger(input));
                 return;
             default:
                 cout << "Invalid option provided!" << endl;
@@ -101,8 +101,8 @@ void Event::guestScreen() {
     string input;
 
     cout << "Details of available supporters: " << endl;
-    for (Member supporter : systemInstance.getMemberList()) {
-        supporter.showInfo();
+    for (auto &member: systemInstance.getMemberList()) {
+        member.showInfo();
         cout << ">>>>" << endl << endl;
     }
 
@@ -174,7 +174,7 @@ void Event::memberScreen(const string &ID) {
 }
 
 void Event::informationScreen(const string &ID) {
-    systemInstance.getMemberInformation(ID);
+    systemInstance.displayMemberInformation(ID);
 }
 
 void Event::registerLoginScreen(int choice) {

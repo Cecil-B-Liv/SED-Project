@@ -8,9 +8,8 @@ class Request {
 private:
     string bookingID;
     string memberID;
-    Time startTime;
-    Time endTime;
     vector<string> skillRequired;
+    tm creationTime;
     string status;
 
 public:
@@ -27,25 +26,27 @@ public:
 
     void setMemberID(string memberIDVal) { this->memberID = memberIDVal; }
 
-    void setStartTime(Time startTimeVal) { this->startTime = startTimeVal; }
-
-    void setEndTime(Time endTimeVal) { this->endTime = endTimeVal; }
-
     void setSkillRequired(vector<string> skillRequiredVal) {
         this->skillRequired = skillRequiredVal;
     }
 
     void setStatus(string statusVal) { this->status = statusVal; }
 
+    void setCreationTime(const std::tm &time) {
+        this->creationTime = time;
+    }
+
     // Getter methods
     string getBookingID() const { return bookingID; }
 
-    Time getStartTime() const { return startTime; }
-
-    Time getEndTime() const { return endTime; }
-
     vector<string> getSkillRequired() const { return skillRequired; }
 
+    string getFormattedCreationTime() const {
+        char buffer[20];  // Buffer to hold the formatted time
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M", &creationTime);
+        return {buffer};
+    }
+    
     string getStatus() const { return status; }
 };
 

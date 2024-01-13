@@ -6,6 +6,29 @@
 
 #define EMPTY ""
 
+enum HardSkill {
+    CAR_MECHANIC,
+    TEACHING,
+    TUTORING,
+    PLUMBING_REPAIR,
+    WRITING,
+    PHOTOGRAPHY,
+    COOKING,
+    GARDENING,
+    HOUSE_CLEANING,
+    LAUNDRY,
+    SEWING,
+    FIRST_AID,
+    TIME_MANAGEMENT,
+    PUBLIC_SPEAKING,
+    BASIC_COMPUTER_SKILLS,
+    MONEY_MANAGEMENT,
+    COMMUNICATION,
+    PROBLEM_SOLVING,
+    TEAMWORK,
+    STRESS_MANAGEMENT
+};
+
 // static vector<Rating> ratingList;
 // vector<Rating> System::getRatingList() { return ratingList; }
 
@@ -17,17 +40,16 @@ System &System::getInstance() {
     return System;
 }
 
+// parse the time in csv and return
+tm parseCSVTime(const std::string &timeStr) {
+    tm timeStruct = {};
+    istringstream iss(timeStr);
+    iss >> std::get_time(&timeStruct, "%Y-%m-%d %H:%M");
+    return timeStruct;
+}
+
 // Reader functions
 void System::memberFileReader() {
-    string fullname;
-    string email;
-    string address;
-    string phoneNumber;
-    string username;
-    string password;
-    string ID;
-    Member member;
-
     // Check if file exist
     ifstream file("../Database/MemberData.csv");
     if (!file.is_open()) {
@@ -38,8 +60,16 @@ void System::memberFileReader() {
     // Read each line and split ","
     string line;
     vector<string *> testList = {new string("help"), new string("me")};
-    memberList.clear();
     while (getline(file, line)) {
+        string fullname;
+        string email;
+        string address;
+        string phoneNumber;
+        string username;
+        string password;
+        string ID;
+        Member member;
+
         istringstream iss(line);
         getline(iss, fullname, ',');
         getline(iss, email, ',');
@@ -59,14 +89,74 @@ void System::memberFileReader() {
         member.setSkillInfo(testList);
 
         memberList.push_back(member);
+        addNewSkill("no", ID);
     }
 
     file.close();
 }
 
-void System::ratingFileReader() {}
+void System::ratingFileReader() {
+    // Check if file exist
+    ifstream file("../Database/RatingData.csv");
+    if (!file.is_open()) {
+        cerr << "Error opening file " << endl;
+        return;
+    }
+    string line;
+    while (getline(file, line)) {
+        string ratingID;
+        string memberID;
+        string hostID;
+        string skillRating;
+        string supporterRating;
+        string hostRating;
+        string comments;
 
-void System::requestFileReader() {}
+        Rating rating;
+
+        istringstream iss(line);
+        getline(iss, ratingID, ',');
+        getline(iss, memberID, ',');
+        getline(iss, hostID, ',');
+        getline(iss, skillRating, ',');
+        getline(iss, supporterRating, ',');
+        getline(iss, hostRating, ',');
+        getline(iss, comments, ',');
+
+
+    }
+}
+
+void System::requestFileReader() {
+    // Check if file exist
+    ifstream file("../Database/RequestData.csv");
+    if (!file.is_open()) {
+        cerr << "Error opening file " << endl;
+        return;
+    }
+
+    string line;
+    while (getline(file, line)) {
+        string bookingID;
+        string memberID;
+        vector<string> skillRequired;
+        string time;
+        tm creationTime{};
+        string status;
+        Request request;
+
+        istringstream iss(line);
+        getline(iss, bookingID, ',');
+        getline(iss, memberID, ',');
+        getline(iss, status, ',');
+        getline(iss, time, ',');
+
+        request.setCreationTime(parseCSVTime(time));
+        request.setMemberID(memberID);
+        request.setBookingID(bookingID);
+        request.setStatus(status);
+    }
+}
 
 void System::hostFileReader() {}
 
@@ -92,7 +182,7 @@ void System::memberFileWriter(const Member &newMember) {
 string System::loginCheck(const string &memberName, const string &password) {
     string memberID;
 
-    for (const Member &member: getMemberList()) {
+    for (auto &member: memberList) {
         if (!(memberName == member.getUsername() &&
               password == member.getPassword())) {
             return EMPTY;
@@ -105,16 +195,16 @@ string System::loginCheck(const string &memberName, const string &password) {
     return memberID;
 }
 
-void System::getMemberInformation(const string &ID) {
+void System::displayMemberInformation(const string &ID) {
     // Loop through each showMemberScreen
-    for (const Member &member: getMemberList()) {
+    for (auto &it: memberList) {
         // If the ID doesn't match, exit the loop
-        if (!(ID == member.getMemberID())) {
+        if (!(ID == it.getMemberID())) {
             cout << "showMemberScreen not found";
             return;
         }
         // Display showMemberScreen information
-        member.showInfo();
+        it.showInfo();
     }
 }
 
@@ -127,19 +217,19 @@ int System::checkIfInputIsInteger(const string &input) {
     }
 }
 
-void System::addRating(string ratingID, string memberID, string hostID,
-                       double skillRating, double supporterRating,
-                       double hostRating, string comments) {
+void System::addNewRating(string ratingID, string memberID, string hostID,
+                          double skillRating, double supporterRating,
+                          double hostRating, string comments) {
     Rating rating(ratingID, memberID, hostID, skillRating, supporterRating,
                   hostRating, comments);
-    ratingList.push_back(&rating);
+    ratingList.push_back(rating);
 }
 
 void System::removeRating(const string &ratingID) {
     int idx = 0;
-    for (const Rating *ratingToRemove: ratingList) {
-        if (ratingID == ratingToRemove->getRatingID()) {
-            ratingList.erase(ratingList.cbegin() + idx);
+    for (Rating &ratingToRemove: ratingList) {
+        if (ratingID == ratingToRemove.getRatingID()) {
+            ratingList.erase(ratingList.begin() + idx);
             return;
         }
         idx++;
@@ -172,11 +262,10 @@ void System::registerNewMember(const string &fullName, const string &email,
     memberList.push_back(newMember);
 }
 
-void System::addSkill(const string &newSkill, const string &ID) {
-    Member member;
-    for (const Member &iterMember: memberList) {
-        if (iterMember.getMemberID() == ID) {
-            member.addSkill(new string(newSkill));
+void System::addNewSkill(const string &newSkill, const string &memberID) {
+    for (Member &iter: memberList) {
+        if (iter.getMemberID() == memberID) {
+            iter.addSkill(new string(newSkill));
         }
     }
 }
