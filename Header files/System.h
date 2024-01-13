@@ -9,12 +9,12 @@
 #include "Member.h"
 
 // Data path
-const string MEMBER_PATH = "./Database/MemberData.csv";
-const string REQUEST_PATH = "./Database/RequestData.csv";
-const string RATING_PATH = "./Database/RatingData.csv";
+const string MEMBER_PATH = "../Database/MemberData.csv";
+const string REQUEST_PATH = "../Database/RequestData.csv";
+const string RATING_PATH = "../Database/RatingData.csv";
 
 class System {
-   private:
+private:
     // private constructor
     System();
 
@@ -24,7 +24,7 @@ class System {
     vector<Rating> ratingList;
     vector<Request> requestList;
 
-   public:
+public:
     static System &getInstance();
 
     vector<Member> getMemberList() { return memberList; }
@@ -35,22 +35,24 @@ class System {
 
     // File Reader
     void memberFileReader();
+
     void ratingFileReader();
+
     void requestFileReader();
 
     // File Writer
-    void memberFileWriter(const Member &newMember);
-    void ratingFileWriter();
-    void requestFileWriter();
+    void memberFileWriter();
 
-    void memberFileSave();
-    void ratingFileSave();
-    void requestFileSave();
+    void ratingFileWriter();
+
+    void requestFileWriter();
 
     // check if there is a member with that ID
     int checkMemberExist(const string &);
+
     // Check if valid information was input
     string getidWithUsernamePassword(const string &, const string &);
+
     // Get information of showMemberScreen
     void displayMemberInformation(const string &ID);
 
@@ -62,9 +64,9 @@ class System {
                    double skillRating, double supporterRating,
                    double hostRating, string comments);
 
-    Member getMemberWithID(const string&);
+    Member getMemberWithID(const string &);
 
-    int changePasswordWithID(const string&, const string&);
+//    int changePasswordWithID(const string &, const string &);
 
 
     void removeRating(const string &ratingID);
@@ -80,6 +82,7 @@ class System {
     // Helper Function
     // check input is integer when choosing option
     int checkIfInputIsInteger(const string &input);
+
     // generate member ID when register
     string generateMemberID();
 

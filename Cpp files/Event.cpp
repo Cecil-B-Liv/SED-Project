@@ -47,11 +47,8 @@ void Event::initialize() {
     systemInstance.requestFileReader();
 }
 
-void Event::endScreen(){
-    systemInstance.memberFileSave();
-    systemInstance.ratingFileSave();
-    systemInstance.requestFileSave();
-    return;
+void Event::endScreen() {
+//pass
 }
 
 // Display the starting screen with welcome message and user role options
@@ -59,12 +56,12 @@ void Event::startScreen() {
     string input;
 
     // Welcome Message
-    sectionDivider;
+    sectionDivider
     cout << COLOR_YELLOW << STYLE_BOLD << "EEET2482/COSC2082 ASSIGNMENT"
          << COLOR_RESET << endl;
     cout << COLOR_YELLOW << STYLE_UNDERLINE << "“TIME BANK” APPLICATION"
          << COLOR_RESET << endl;
-    sectionDivider;
+    sectionDivider
 
     cout << endl;
     cout << "Instructor: Mr. Tran Duc Linh" << endl;
@@ -79,7 +76,7 @@ void Event::startScreen() {
          << COLOR_RESET << endl;
     cout << COLOR_RED << "s3940891" << COLOR_WHITE << "- Ngo Minh Hieu"
          << COLOR_RESET << endl;
-    elementDivider;
+    elementDivider
 
     while (true) {
         // Prompt User to Choose Role
@@ -113,16 +110,16 @@ void Event::startScreen() {
             case MEMBER:
                 UI::showRegisterLoginScreen();
 
-               // UI::showMemberScreen();
-               // return;
-            //case ADMIN:
-              //  UI::showRegisterLoginScreen(
+                // UI::showMemberScreen();
+                // return;
+                //case ADMIN:
+                //  UI::showRegisterLoginScreen(
                 //        systemInstance.checkIfInputIsInteger(input));
                 return;
-            // case ADMIN:
-            //     UI::showRegisterLoginScreen(
-            //         systemInstance.checkIfInputIsInteger(input));
-            //     return;
+                // case ADMIN:
+                //     UI::showRegisterLoginScreen(
+                //         systemInstance.checkIfInputIsInteger(input));
+                //     return;
             default:
                 cout << "Invalid option provided!" << endl;
         }
@@ -132,7 +129,7 @@ void Event::startScreen() {
 // Get ID as parameter and search for that member in memberlist
 // then, show Information of that member
 void Event::getMemberInfoScreen(const string &ID) {
-    systemInstance.getMemberInformation(ID);
+    systemInstance.displayMemberInformation(ID);
 }
 
 void Event::guestScreen() {
@@ -146,7 +143,7 @@ void Event::guestScreen() {
         cout << ">>>>" << endl << endl;
     }
 
-    elementDivider;
+    elementDivider
 
     while (true) {
         cout << COLOR_GREEN
@@ -156,9 +153,9 @@ void Event::guestScreen() {
              << endl;
         cout << COLOR_BLUE << "0. Show available supporter in the system."
              << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "1. Sign-up an account to join us." << COLOR_RESET
+        cout << COLOR_BLUE "1. Sign-in with an existing account " << COLOR_RESET
              << endl;
-        cout << COLOR_BLUE "2. Sign-in with an existing account " << COLOR_RESET
+        cout << COLOR_BLUE << "2. Sign-up an account to join us." << COLOR_RESET
              << endl;
         cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application" << COLOR_RESET
@@ -179,13 +176,13 @@ void Event::guestScreen() {
 
         // Check if user's input is only number
         switch (systemInstance.checkIfInputIsInteger(input)) {
-                // case 0:
+            // case 0:
 
-            case LOGIN:
-                UI::showLoginScreen();
-                return;
             case REGISTER:
                 UI::showRegisterScreen();
+                return;
+            case LOGIN:
+                UI::showLoginScreen();
                 return;
             default:
                 cout << "Invalid option provided!" << endl;
@@ -198,7 +195,7 @@ void Event::memberScreen(const string &ID) {
 
     cout << ID << endl;
 
-    elementDivider;
+    elementDivider
 
     while (true) {
         cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
@@ -238,17 +235,12 @@ void Event::memberScreen(const string &ID) {
     }
 }
 
-
 void Event::adminScreen() {
     string input;
 
-void Event::informationScreen(const string &ID) {
-    systemInstance.displayMemberInformation(ID);
-}
-
 
     cout << "\nWelcome, you are browsing with administrator role." << endl;
-    elementDivider;
+    elementDivider
 
     while (true) {
         cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
@@ -342,16 +334,16 @@ void Event::loginScreen() {
         cout << "Enter your password: ";
         getline(cin >> std::ws, password);
 
-        if (username.compare(adminUsername) == 0 &&
-            password.compare(adminPassword) == 0) {
+        if (username == adminUsername &&
+            password == adminPassword) {
             UI::showAdminScreen();
             return;
         } else if (!(systemInstance
-                         .getidWithUsernamePassword(username, password)
-                         .empty())) {
+                .getidWithUsernamePassword(username, password)
+                .empty())) {
             cout << "Welcome to Time Bank!";
             UI::showMemberScreen(
-                systemInstance.getidWithUsernamePassword(username, password));
+                    systemInstance.getidWithUsernamePassword(username, password));
             return;
         }
         cout << COLOR_RED << "Wrong username or password!" << COLOR_RESET
@@ -425,6 +417,7 @@ void Event::registerScreen() {
                                      stoi(phoneNumber), username, password);
     cout << "Succesfully register your account \n Press e to exit to start "
             "screen.";
+    UI::start();
 }
 
 void Event::resetMemberPwd() {
@@ -438,9 +431,9 @@ void Event::resetMemberPwd() {
 
         if (systemInstance.checkMemberExist(id)) {
             cout << "Existing member with your inputted ID. Loading.." << endl;
-            elementDivider;
+            elementDivider
             cout << "Information of member" << id << endl;
-            systemInstance.getMemberInformation(id);
+            systemInstance.displayMemberInformation(id);
 
             cout << "Select these options: " << endl;
             cout << "1. Change this account password." << endl;
@@ -456,7 +449,7 @@ void Event::resetMemberPwd() {
             if (input == "e") {
                 return;
             } else if (input == "h") {
-                Event::startScreen();
+                UI::start();
                 return;
             }
 
@@ -467,7 +460,7 @@ void Event::resetMemberPwd() {
                          << endl;
                     cout << ">>> ";
                     getline(cin >> std::ws, newpwd);
-                    systemInstance.changePasswordWithID(id, newpwd);
+                    systemInstance.resetPassword(id, newpwd);
                     cout << "\nSuccessfully changed the password!" << endl;
                     Event::adminScreen;
                     return;
@@ -490,4 +483,4 @@ void Event::resetMemberPwd() {
             }
         }
     }
-};
+}

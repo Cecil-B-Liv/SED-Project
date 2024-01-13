@@ -3,15 +3,16 @@
 //
 
 #include "../Header files/INCLUDEHEADERS.h"
+#include "../Header files/System.h"
+
 
 #define EMPTY ""
 
-
-#define AVAILABLE 1
-#define UNAVAILABLE 0
+enum Status {
+    UNAVAILABLE, AVAILABLE
+};
 
 enum HardSkill {
-
     CAR_MECHANIC,
     TEACHING,
     TUTORING,
@@ -111,7 +112,7 @@ void System::memberFileReader() {
 
 void System::ratingFileReader() {
     // Check if file exist
-    ifstream file("../Database/RatingData.csv");
+    ifstream file(RATING_PATH);
     if (!file.is_open()) {
         cerr << "Error opening file " << endl;
         return;
@@ -142,7 +143,7 @@ void System::ratingFileReader() {
 
 void System::requestFileReader() {
     // Check if file exist
-    ifstream file("../Database/RequestData.csv");
+    ifstream file(REQUEST_PATH);
     if (!file.is_open()) {
         cerr << "Error opening file " << endl;
         return;
@@ -173,10 +174,9 @@ void System::requestFileReader() {
 
 
 // Writer functions
-void System::memberFileWriter(const Member &newMember) {
-    memberList.push_back(newMember);
+void System::memberFileWriter() {
     // Open file
-    ofstream file("../Database/MemberData.csv");
+    ofstream file(MEMBER_PATH);
     if (!file.is_open()) {  // Check if file opened successfully
         cerr << "Error opening file member data in member writer" << endl;
         return;
@@ -189,31 +189,26 @@ void System::memberFileWriter(const Member &newMember) {
              << "," << members.getMemberID() << endl;
     }
     file.close();
-}
 
-void System::memberFileSave(){
-    ofstream file(MEMBER_PATH, std::ios::app);
-    if (!file.is_open()) {  // Check if file opened successfully
-        cerr << "Error opening file member data in member writer" << endl;
-        return;
-    }   
 }
 
 void System::ratingFileWriter() {}
+
 void System::requestFileWriter() {}
 
 int System::checkMemberExist(const string &ID) {
     // check if there is a member with that ID
-    for (const Member &member : getMemberList()) {
-        if ((ID == member.getMemberID())) return AVAILABLE;
+    for (const Member &member: memberList) {
+        if ((ID == member.getMemberID())) return Status::AVAILABLE;
     }
-    return AVAILABLE;
+    return Status::UNAVAILABLE;
 }
 
 void System::resetPassword(const string &ID, const string &newPwd) {
-    for (Member &member : getMemberList()) {
+    for (Member &member: memberList) {
         if (ID == member.getMemberID()) {
             member.setPassword(newPwd);
+            memberFileWriter();
         }
     }
 }
@@ -222,7 +217,7 @@ string System::getidWithUsernamePassword(const string &username,
                                          const string &password) {
     string memberID;
 
-    for (const Member &member : getMemberList()) {
+    for (const Member &member: getMemberList()) {
         if (!(username == member.getUsername() &&
               password == member.getPassword())) {
             return EMPTY;
@@ -237,7 +232,7 @@ string System::getidWithUsernamePassword(const string &username,
 
 Member System::getMemberWithID(const string &ID) {
     Member temp;
-    for (const Member &mem : getMemberList()) {
+    for (const Member &mem: getMemberList()) {
         if (mem.getMemberID() == ID) {
             return mem;
         }
@@ -249,28 +244,28 @@ Member System::getMemberWithID(const string &ID) {
 void System::displayMemberInformation(const string &ID) {
     // Loop through each showMemberScreen
 
-    for (auto Member &member : getMemberList()) {
-
+    for (Member &member: getMemberList()) {
         // If the ID doesn't match, exit the loop
-        if (!(ID == it.getMemberID())) {
+        if (!(ID == member.getMemberID())) {
             cout << "showMemberScreen not found";
             return;
         }
         // Display showMemberScreen information
-        it.showInfo();
+        member.showInfo();
     }
 }
 
-int System::changePasswordWithID(const string &ID, const string &newPwd) {
-    for (Member &member : getMemberList()) {
-        if (member.getMemberID() == ID) {
-            member.setPassword(newPwd);
-            return 0;
-        }
-    }
-    cout << "Couldnt change this account password.";
-    return -1;
-}
+//int System::changePasswordWithID(const string &ID, const string &newPwd) {
+//    for (Member &member: getMemberList()) {
+//        if (member.getMemberID() == ID) {
+//            member.setPassword(newPwd);
+//
+//            return 0;
+//        }
+//    }
+//    cout << "Couldnt change this account password.";
+//    return -1;
+//}
 
 int System::checkIfInputIsInteger(const string &input) {
     try {
@@ -307,7 +302,7 @@ void System::removeRating(const string &ratingID) {
 string System::generateMemberID() {
     int memberID = 300000;  // default ID value
     char IDSuffix = 'S';    // suffix of ID
-    int totalMemberAmount = (int)memberList.size();
+    int totalMemberAmount = (int) memberList.size();
 
     int currentID = memberID + totalMemberAmount;
 
@@ -326,8 +321,8 @@ void System::registerNewMember(const string &fullName, const string &email,
     newMember.setPassword(password);
     newMember.setMemberID(generateMemberID());
 
-    memberFileWriter(newMember);
     memberList.push_back(newMember);
+    memberFileWriter();
 }
 
 void System::addNewSkill(const string &newSkill, const string &memberID) {
