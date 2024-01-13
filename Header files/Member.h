@@ -124,7 +124,6 @@ public:
     void addSkill(string *newSkill) {
         this->skillInfoList.push_back(newSkill);
     }
-
     // // dont need lol
 
     void addRating(Rating *newRating) {

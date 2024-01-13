@@ -53,10 +53,10 @@ void Event::startScreen() {
     cout << "Group: No. 6" << endl;
     cout << endl;
     cout << STYLE_UNDERLINE << "Team Members:" << endl;
-    cout << COLOR_RED << "s3978680" << COLOR_WHITE << "Huynh Ngoc Tai" << COLOR_RESET << endl;
-    cout << COLOR_RED << "s3988776" << COLOR_WHITE << "Tran Quang Minh" << COLOR_RESET << endl;
-    cout << COLOR_RED << "s3926104" << COLOR_WHITE << "Nguyen Hoang Viet" << COLOR_RESET << endl;
-    cout << COLOR_RED << "s3940891" << COLOR_WHITE << "Ngo Minh Hieu" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3978680" <<  COLOR_WHITE << "- Huynh Ngoc Tai" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3988776" <<  COLOR_WHITE << "- Tran Quang Minh" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3926104" <<  COLOR_WHITE << "- Nguyen Hoang Viet" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3940891" <<  COLOR_WHITE << "- Ngo Minh Hieu" << COLOR_RESET << endl;
     elementDivider;
 
     while (true) {
@@ -109,10 +109,10 @@ void Event::guestScreen() {
     elementDivider;
 
     while (true) {
-        cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
+        cout << COLOR_GREEN << "If you want to book one of our supporter, consider joining us here: \n Please select an option: " << COLOR_RESET << endl;
         cout << endl;
-        cout << COLOR_BLUE << "1. Register as a Member" << COLOR_RESET << endl;
-        cout << COLOR_BLUE "2. Login as a Member" << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "1. Sign-up an account to join us." << COLOR_RESET << endl;
+        cout << COLOR_BLUE "2. Sign-in with an existing account "<< COLOR_RESET << endl;
         cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application" << COLOR_RESET << endl;
         cout << endl;
@@ -167,8 +167,9 @@ void Event::memberScreen(const string &ID) {
                 return;
             case MEMBER_SKILL_RATING:
                 return;
+            default: 
+                cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET << endl;
         }
-        cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET << endl;
     }
 }
 
