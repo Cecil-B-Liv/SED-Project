@@ -11,18 +11,24 @@
 
 #include "../Header files/INCLUDEHEADERS.h"
 
-#define GUEST 1
-#define MEMBER 2
-#define ADMIN 3
+
+enum UserPosition {
+    GUEST = 1,
+    MEMBER,
+};
 
 #define YES "y"
 #define NO "n"
 
-#define LOGIN 1
-#define REGISTER 2
+enum UserChoice {
+    LOGIN = 1,
+    REGISTER
+};
 
-#define MEMBER_INFO 1
-#define MEMBER_SKILL_RATING 2
+enum {
+    MEMBER_INFO = 1, MEMBER_SKILL_RATING
+};
+
 
 #define RESET_MEM_PWD 1
 
@@ -86,8 +92,6 @@ void Event::startScreen() {
              << endl;
         cout << COLOR_BLUE << "  2. Member - Access member features"
              << COLOR_RESET << endl;
-        // cout << COLOR_BLUE << "  3. Admin - Administrative tasks" <<
-        // COLOR_RESET << endl;
         cout << COLOR_RED << "  e. Exit - Close the application" << COLOR_RESET
              << endl;
         cout << endl;
@@ -104,22 +108,12 @@ void Event::startScreen() {
 
         // Check if user's input is only number
         switch (systemInstance.checkIfInputIsInteger(input)) {
-            case GUEST:
+            case UserPosition::GUEST:
                 UI::showGuestScreen();
                 return;
-            case MEMBER:
+            case UserPosition::MEMBER:
                 UI::showRegisterLoginScreen();
-
-                // UI::showMemberScreen();
-                // return;
-                //case ADMIN:
-                //  UI::showRegisterLoginScreen(
-                //        systemInstance.checkIfInputIsInteger(input));
                 return;
-                // case ADMIN:
-                //     UI::showRegisterLoginScreen(
-                //         systemInstance.checkIfInputIsInteger(input));
-                //     return;
             default:
                 cout << "Invalid option provided!" << endl;
         }
@@ -178,10 +172,10 @@ void Event::guestScreen() {
         switch (systemInstance.checkIfInputIsInteger(input)) {
             // case 0:
 
-            case REGISTER:
+            case UserChoice::REGISTER:
                 UI::showRegisterScreen();
                 return;
-            case LOGIN:
+            case UserChoice::LOGIN:
                 UI::showLoginScreen();
                 return;
             default:
@@ -310,10 +304,10 @@ void Event::registerLoginScreen() {
         // Check if user's input is only number
 
         switch (systemInstance.checkIfInputIsInteger(givenChoice)) {
-            case LOGIN:
+            case UserChoice::LOGIN:
                 UI::showLoginScreen();
                 return;
-            case REGISTER:
+            case UserChoice::REGISTER:
                 UI::showRegisterScreen();
                 return;
             default:
@@ -423,7 +417,7 @@ void Event::registerScreen() {
 void Event::resetMemberPwd() {
     string id;
     string input;
-    string newpwd;
+    string newPassword;
 
     while (true) {
         cout << "Enter the ID of the member you want to reset their password: ";
@@ -459,8 +453,8 @@ void Event::resetMemberPwd() {
                     cout << "Enter new password that you want to reset: "
                          << endl;
                     cout << ">>> ";
-                    getline(cin >> std::ws, newpwd);
-                    systemInstance.resetPassword(id, newpwd);
+                    getline(cin >> std::ws, newPassword);
+                    systemInstance.resetPassword(id, newPassword);
                     cout << "\nSuccessfully changed the password!" << endl;
                     Event::adminScreen;
                     return;
