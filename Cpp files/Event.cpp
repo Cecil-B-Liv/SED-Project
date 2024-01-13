@@ -325,8 +325,8 @@ void Event::registerLoginScreen() {
                 UI::showRegisterScreen();
                 return;
             default:
-                cout << COLOR_RED << "Invalid option provided" << COLOR_RESET
-                     << endl;
+                cout << COLOR_RED << "Invalid option provided" << COLOR_RESET << endl;
+
         }
     }
 }
