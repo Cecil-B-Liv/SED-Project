@@ -6,6 +6,10 @@
 
 #define EMPTY ""
 
+
+#define AVAILABLE 1
+#define UNAVAILABLE 0
+
 enum HardSkill {
     CAR_MECHANIC,
     TEACHING,
@@ -29,6 +33,7 @@ enum HardSkill {
     STRESS_MANAGEMENT
 };
 
+
 // static vector<Rating> ratingList;
 // vector<Rating> System::getRatingList() { return ratingList; }
 
@@ -51,9 +56,9 @@ tm parseCSVTime(const std::string &timeStr) {
 // Reader functions
 void System::memberFileReader() {
     // Check if file exist
-    ifstream file("../Database/MemberData.csv");
+    ifstream file(MEMBER_PATH);
     if (!file.is_open()) {
-        cerr << "Error opening file " << endl;
+        cerr << "Error opening file memberdata in member reader" << endl;
         return;
     }
 
@@ -94,6 +99,7 @@ void System::memberFileReader() {
 
     file.close();
 }
+
 
 void System::ratingFileReader() {
     // Check if file exist
@@ -158,16 +164,13 @@ void System::requestFileReader() {
     }
 }
 
-void System::hostFileReader() {}
-
-void System::supporterFileReader() {}
 
 // Writer functions
 void System::memberFileWriter(const Member &newMember) {
     // Open file
-    ofstream file("../Database/MemberData.csv", std::ios::app);
+    ofstream file(MEMBER_PATH, std::ios::app);
     if (!file.is_open()) {  // Check if file opened successfully
-        cerr << "Error opening file " << endl;
+        cerr << "Error opening file member data in member writer" << endl;
         return;
     }
 
@@ -179,11 +182,39 @@ void System::memberFileWriter(const Member &newMember) {
     file.close();
 }
 
-string System::loginCheck(const string &memberName, const string &password) {
+void System::memberFileSave(){
+    ofstream file(MEMBER_PATH, std::ios::app);
+    if (!file.is_open()) {  // Check if file opened successfully
+        cerr << "Error opening file member data in member writer" << endl;
+        return;
+    }   
+}
+
+void System::ratingFileWriter() {}
+void System::requestFileWriter() {}
+
+int System::checkMemberExist(const string &ID) {
+    // check if there is a member with that ID
+    for (const Member &member : getMemberList()) {
+        if ((ID == member.getMemberID())) return AVAILABLE;
+    }
+    return AVAILABLE;
+}
+
+void System::resetPassword(const string &ID, const string &newPwd) {
+    for (Member &member : getMemberList()) {
+        if (ID == member.getMemberID()) {
+            member.setPassword(newPwd);
+        }
+    }
+}
+
+string System::getidWithUsernamePassword(const string &username,
+                                         const string &password) {
     string memberID;
 
-    for (auto &member: memberList) {
-        if (!(memberName == member.getUsername() &&
+    for (const Member &member : getMemberList()) {
+        if (!(username == member.getUsername() &&
               password == member.getPassword())) {
             return EMPTY;
         }
@@ -193,11 +224,24 @@ string System::loginCheck(const string &memberName, const string &password) {
     }
     // Return the showMemberScreen ID
     return memberID;
+}  // Check if valid information was input
+
+Member System::getMemberWithID(const string &ID) {
+    Member temp;
+    for (const Member &mem : getMemberList()) {
+        if (mem.getMemberID() == ID) {
+            return mem;
+        }
+    }
+    cout << "No data of member with that ID";
+    return temp;
 }
 
 void System::displayMemberInformation(const string &ID) {
     // Loop through each showMemberScreen
-    for (auto &it: memberList) {
+
+    for (auto Member &member : getMemberList()) {
+
         // If the ID doesn't match, exit the loop
         if (!(ID == it.getMemberID())) {
             cout << "showMemberScreen not found";
@@ -208,11 +252,22 @@ void System::displayMemberInformation(const string &ID) {
     }
 }
 
+int System::changePasswordWithID(const string &ID, const string &newPwd) {
+    for (Member &member : getMemberList()) {
+        if (member.getMemberID() == ID) {
+            member.setPassword(newPwd);
+            return 0;
+        }
+    }
+    cout << "Couldnt change this account password.";
+    return -1;
+}
+
 int System::checkIfInputIsInteger(const string &input) {
     try {
         return stoi(input);
     } catch (std::invalid_argument &) {
-        cout << "Invalid input";
+        // cout << "Invalid input";
         return -1;
     }
 }
@@ -227,9 +282,11 @@ void System::addNewRating(string ratingID, string memberID, string hostID,
 
 void System::removeRating(const string &ratingID) {
     int idx = 0;
+
     for (Rating &ratingToRemove: ratingList) {
         if (ratingID == ratingToRemove.getRatingID()) {
             ratingList.erase(ratingList.begin() + idx);
+
             return;
         }
         idx++;
@@ -239,7 +296,7 @@ void System::removeRating(const string &ratingID) {
 string System::generateMemberID() {
     int memberID = 300000;  // default ID value
     char IDSuffix = 'S';    // suffix of ID
-    int totalMemberAmount = (int) memberList.size();
+    int totalMemberAmount = (int)memberList.size();
 
     int currentID = memberID + totalMemberAmount;
 
@@ -266,7 +323,7 @@ void System::addNewSkill(const string &newSkill, const string &memberID) {
     for (Member &iter: memberList) {
         if (iter.getMemberID() == memberID) {
             iter.addSkill(new string(newSkill));
+
         }
     }
 }
-
