@@ -43,8 +43,10 @@ void Member::showInfo() const {
     cout << "Password: " << password << endl;
     cout << "Available Status: " << availableStatus << endl;
 
-    cout << "Host List: " << hostMember->getFullName() << endl;
-    cout << "Supporter List: " << supporterMember->getFullName() << endl;
+    // if (this->hostMember != nullptr)
+    //     cout << "Host List: " << hostMember->getFullName() << endl;
+    // if (this->supporterMember != nullptr)
+    //     cout << "Supporter List: " << supporterMember->getFullName() << endl;
 
     cout << "Skill Info: ";
     for (string *skill : skillInfoList) {

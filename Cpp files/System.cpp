@@ -75,6 +75,11 @@ void System::memberFileReader() {
         vector<string *> newSkillsList;
         Member member;
 
+        // vector<Rating> ratingList;
+        // vector<Request> requestList;
+        // Member *hostMember;
+        // Member *supporterMember;
+
         istringstream iss(line);
         getline(iss, fullname, ',');
         getline(iss, email, ',');
@@ -99,6 +104,7 @@ void System::memberFileReader() {
         member.setPassword(password);
         member.setMemberID(ID);
         member.setSkillInfo(newSkillsList);
+        // member.setAvailableStatus();
 
         memberList.push_back(member);
     }
@@ -182,6 +188,8 @@ void System::memberFileWriter() {
              << "," << members.getUsername() << "," << members.getPassword()
              << "," << members.getMemberID() << endl;
     }
+
+    //add member available status
     file.close();
 }
 

@@ -31,7 +31,7 @@ class Member {
     bool availableStatus;
     vector<string *> skillInfoList;
 
-    // // System based member info
+    // System based member info
     vector<Rating> ratingList;
     vector<Request> requestList;
     Member *hostMember;
@@ -43,7 +43,7 @@ class Member {
         int phoneNumber = 0, double ratingScore = 0.0,
         double supporterRating = 0.0, double hostRating = 0.0,
         string username = "", string password = "", string memberID = "",
-        bool availableStatus = false, vector<string *> skillInfoList = {},
+        bool availableStatus = 0, vector<string *> skillInfoList = {},
         vector<Rating> ratingList = {}, vector<Request> requestList = {},
         Member *hostMember = nullptr, Member *supporterMember = nullptr);
 

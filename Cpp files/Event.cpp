@@ -128,7 +128,7 @@ void Event::getMemberInfoScreen(const string &ID) {
 
 void Event::guestScreen() {
     string input;
-    cout << "Welcome, you are browing as guest, check out the following "
+    cout << "\nWelcome, you are browing as guest, check out the following "
             "options: "
          << endl;
     cout << "Details of available supporters: " << endl;
