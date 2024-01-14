@@ -311,7 +311,13 @@ void System::registerNewMember(const string &fullName, const string &email,
     newMember.setPhoneNumber(phoneNumber);
     newMember.setUsername(username);
     newMember.setPassword(password);
+
     newMember.setMemberID(generateMemberID());
+
+    // Already being set when default constructor
+    // newMember.setAvailableStatus(false);
+    // newMember.setHostMember()
+    // newMember.setSupporterMember()
 
     memberList.push_back(newMember);
     memberFileWriter();

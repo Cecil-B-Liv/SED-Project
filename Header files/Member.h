@@ -6,9 +6,10 @@
 #define SED_PROJECT_MEMBER_H
 
 #include <utility>
+
+#include "BasicSTDLIB.h"
 #include "Rating.h"
 #include "Request.h"
-#include "BasicSTDLIB.h"
 
 class Member {
    private:
@@ -27,21 +28,24 @@ class Member {
     string username;
     string password;
     string memberID;
+    bool availableStatus;
     vector<string *> skillInfoList;
 
     // // System based member info
-    vector<Member *> hostList;
-    vector<Member *> supporterList;
-    vector<Rating *> ratingList;
-    vector<Request *> requestList;
+    vector<Rating> ratingList;
+    vector<Request> requestList;
+    Member *hostMember;
+    Member *supporterMember;
 
    public:
-    explicit Member(string fullName = "", string email = "",
-                    string homeAddress = "", int phoneNumber = 0,
-                    double ratingScore = 0.0, double supporterRating = 0.0,
-                    double hostRating = 0.0, string username = "",
-                    string password = "", string memberID = "",
-                    vector<string *> skillInfoList = {});
+    explicit Member(
+        string fullName = "", string email = "", string homeAddress = "",
+        int phoneNumber = 0, double ratingScore = 0.0,
+        double supporterRating = 0.0, double hostRating = 0.0,
+        string username = "", string password = "", string memberID = "",
+        bool availableStatus = false, vector<string *> skillInfoList = {},
+        vector<Rating> ratingList = {}, vector<Request> requestList = {},
+        Member *hostMember = nullptr, Member *supporterMember = nullptr);
 
     // toString
     void showInfo() const;
@@ -68,15 +72,17 @@ class Member {
 
     string getMemberID() const { return memberID; }
 
+    bool getMemberAvailableStatus() const { return availableStatus; }
+
     vector<string *> getSkillInfo() { return skillInfoList; }
 
-    // vector<Rating *> getRatingList() const;
+    vector<Rating> getRatingList() const { return ratingList; }
 
-    // vector<Request *> getRequestList() const;
+    vector<Request> getRequestList() const { return requestList; }
 
-    // vector<Member *> getHostList() const;
+    Member *getHostMember() const { return hostMember; }
 
-    // vector<Member *> getSupporterList() const;
+    Member *getSupporterMember() { return supporterMember; }
 
     // setter
     void setFullName(const string &fullNameVal) {
@@ -117,28 +123,26 @@ class Member {
         this->memberID = memberIDVal;
     }
 
+    void setAvailableStatus(const bool &availableStatusVal) {
+        this->availableStatus = availableStatusVal;
+    }
+
     void setSkillInfo(vector<string *> skillInfoListVal) {
         this->skillInfoList = skillInfoListVal;
     }
 
-    void addSkill(string *newSkill) {
-        this->skillInfoList.push_back(newSkill);
+    void setHostMember(Member *newHost) { this->hostMember = newHost; }
+
+    void setSupporterMember(Member *newSupporter) {
+        this->supporterMember = newSupporter;
     }
 
-    void addRating(Rating *newRating) {
-        this->ratingList.push_back(newRating);
-    }
+    void addSkill(string *newSkill) { this->skillInfoList.push_back(newSkill); }
 
-    void addRequest(Request *newRequest) {
+    void addRating(Rating newRating) { this->ratingList.push_back(newRating); }
+
+    void addRequest(Request newRequest) {
         this->requestList.push_back(newRequest);
-    }
-
-    void addHost(Member *newHost) {
-        this->hostList.push_back(newHost);
-    }
-
-    void addSupporter(Member *newSupporter) {
-        this->supporterList.push_back(newSupporter);
     }
 };
 

@@ -60,14 +60,9 @@ public:
     void resetPassword(const string &, const string &);
 
     // System function
-    void addRating(string ratingID, string memberID, string hostID,
-                   double skillRating, double supporterRating,
-                   double hostRating, string comments);
-
     Member getMemberWithID(const string &);
 
 //    int changePasswordWithID(const string &, const string &);
-
 
     void removeRating(const string &ratingID);
 
