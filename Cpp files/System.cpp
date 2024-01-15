@@ -4,9 +4,7 @@
 
 #include "../Header files/System.h"
 
-#include "../Header files/INCLUDEHEADERS.h"
-
-#define EMPTY ""
+const string EMPTY;
 
 enum Status {
     UNAVAILABLE, AVAILABLE
@@ -221,7 +219,6 @@ void System::resetPassword(const string &ID, const string &newPwd) {
             memberFileWriter();
             cout << "\nSuccessfully changed the password!" << endl;
         }
-        cout << "\nNo user with this ID found" << endl;
     }
 }
 
