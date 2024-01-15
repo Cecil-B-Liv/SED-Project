@@ -41,7 +41,6 @@ string const adminPassword = "admin";
          << COLOR_RESET << endl;
 #define elementDivider \
     cout << "------------------------------------------------" << endl;
-// #define print(x) cout << x << endl;
 
 System &systemInstance = System::getInstance();
 
@@ -130,14 +129,10 @@ void Event::guestScreen() {
     string input_1;
     string input_2;
     elementDivider
-    cout
-            << "Welcome to our Time Bank Application, you are browing as guest:"
-            << endl;
+    cout << "Welcome to our Time Bank Application, you are browsing as guest:" << endl;
 
     while (true) {
-        cout << "\nDo you want to see the information of our "
-                "supporter (y/n):"
-             << endl;
+        cout << "\nDo you want to see the information of our supporter (y/n):" << endl;
         cout << ">>> ";
         cin >> input_1;
         // Check if user's input is only number
@@ -159,9 +154,8 @@ void Event::guestScreen() {
 
     while (true) {
         cout << COLOR_GREEN
-             << "If you want to book one of our supporter, or becoming one of "
-                "us, consider joining us "
-                "here: \n Please select an option: "
+             << "If you want to book one of our supporter, or becoming one of us, consider joining us here: "
+                "\n Please select an option: "
              << COLOR_RESET << endl
              << endl;
         cout << COLOR_BLUE "1. Sign-in with an existing account " << COLOR_RESET
@@ -180,7 +174,9 @@ void Event::guestScreen() {
 
         if (input_2 == "e") {
             return;
-        } else if (input_2 == "h") {
+        }
+
+        if (input_2 == "h") {
             Event::startScreen();
             return;
         }
@@ -427,8 +423,7 @@ void Event::registerScreen() {
     }
     systemInstance.registerNewMember(fullname, email, address,
                                      stoi(phoneNumber), username, password);
-    cout << "Successfully register your account \n Press e to exit to start "
-            "screen.";
+    cout << "Successfully register your account \n Press e to exit to start screen.";
     UI::start();
 }
 
