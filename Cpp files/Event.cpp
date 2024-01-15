@@ -43,20 +43,23 @@ void Event::startScreen() {
     string input;
 
     // Welcome Message
+    cout << endl;
     sectionDivider;
+    cout << endl;
     cout << COLOR_YELLOW << STYLE_BOLD << "EEET2482/COSC2082 ASSIGNMENT" << COLOR_RESET << endl;
     cout << COLOR_YELLOW << STYLE_UNDERLINE << "“TIME BANK” APPLICATION" << COLOR_RESET << endl;
+    cout << endl;
     sectionDivider;
 
     cout << endl;
     cout << "Instructor: Mr. Tran Duc Linh" << endl;
     cout << "Group: No. 6" << endl;
     cout << endl;
-    cout << STYLE_UNDERLINE << "Team Members:" << endl;
-    cout << COLOR_RED << "s3978680" <<  COLOR_WHITE << "- Huynh Ngoc Tai" << COLOR_RESET << endl;
-    cout << COLOR_RED << "s3988776" <<  COLOR_WHITE << "- Tran Quang Minh" << COLOR_RESET << endl;
-    cout << COLOR_RED << "s3926104" <<  COLOR_WHITE << "- Nguyen Hoang Viet" << COLOR_RESET << endl;
-    cout << COLOR_RED << "s3940891" <<  COLOR_WHITE << "- Ngo Minh Hieu" << COLOR_RESET << endl;
+    cout << COLOR_YELLOW << STYLE_UNDERLINE << "Team Members:" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3978680 " <<  COLOR_WHITE << "- Huynh Ngoc Tai" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3988776 " <<  COLOR_WHITE << "- Tran Quang Minh" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3926104 " <<  COLOR_WHITE << "- Nguyen Hoang Viet" << COLOR_RESET << endl;
+    cout << COLOR_RED << "s3940891 " <<  COLOR_WHITE << "- Ngo Minh Hieu" << COLOR_RESET << endl;
     elementDivider;
 
     while (true) {
@@ -66,6 +69,7 @@ void Event::startScreen() {
         cout << COLOR_BLUE << "  1. Guest - Browse as a guest" << COLOR_RESET << endl;
         cout << COLOR_BLUE << "  2. Member - Access member features" << COLOR_RESET << endl;
         cout << COLOR_BLUE << "  3. Admin - Administrative tasks" << COLOR_RESET << endl;
+        cout << endl;
         cout << COLOR_RED << "  e. Exit - Close the application" << COLOR_RESET << endl;
         cout << endl;
         cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
@@ -109,14 +113,14 @@ void Event::guestScreen() {
     elementDivider;
 
     while (true) {
-        cout << COLOR_GREEN << "If you want to book one of our supporter, consider joining us here: \n Please select an option: " << COLOR_RESET << endl;
+        cout << COLOR_GREEN << "If you want to book one of our supporter, consider joining us here: \nPlease select an option: " << COLOR_RESET << endl;
         cout << endl;
         cout << COLOR_BLUE << "1. Sign-up an account to join us." << COLOR_RESET << endl;
         cout << COLOR_BLUE "2. Sign-in with an existing account "<< COLOR_RESET << endl;
         cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application" << COLOR_RESET << endl;
         cout << endl;
-        cout << ">>> ";
+        cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
 
         cin >> input;
 
@@ -133,7 +137,7 @@ void Event::guestScreen() {
                 UI::showRegisterScreen();
                 return;
             default:
-                cout << "Invalid option provided!" << endl;
+                cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET << endl;
         }
     }
 }
@@ -152,7 +156,7 @@ void Event::memberScreen(const string &ID) {
         cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application" << COLOR_RESET << endl;
         cout << endl;
-        cout << ">>> ";
+        cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
 
         cin >> input;
 
@@ -191,7 +195,7 @@ void Event::registerLoginScreen(int choice) {
         cout << COLOR_BLUE << "1. Login as member" << COLOR_RESET << endl;
         cout << COLOR_BLUE << "2. Register as a member" << COLOR_RESET << endl;
         cout << endl;
-        cout << ">>> ";
+        cout << COLOR_YELLOW ">>> " << COLOR_RESET;
 
         cin >> givenChoice;
 
@@ -205,7 +209,7 @@ void Event::registerLoginScreen(int choice) {
                 UI::showRegisterScreen();
                 return;
         }
-        cout << COLOR_RED << "Invalid option provided" << COLOR_RESET << endl;
+        cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET << endl;
     }
 }
 
@@ -271,7 +275,7 @@ void Event::registerScreen() {
             break;
         }
 
-        cout << COLOR_RED << "Invalid email" << COLOR_RESET << endl;
+        cout << COLOR_RED << "Invalid email!" << COLOR_RESET << endl;
     }
 
     regex phoneRegex(R"(\+?[0-9]+[\s\-]*[0-9]+[\s\-]*[0-9]+)");
