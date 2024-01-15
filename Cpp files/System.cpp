@@ -8,7 +8,9 @@
 
 #define EMPTY ""
 
-enum Status { UNAVAILABLE, AVAILABLE };
+enum Status {
+    UNAVAILABLE, AVAILABLE
+};
 
 enum HardSkill {
     CAR_MECHANIC,
@@ -50,6 +52,13 @@ tm parseCSVTime(const std::string &timeStr) {
     istringstream iss(timeStr);
     iss >> std::get_time(&timeStruct, "%Y-%m-%d %H:%M");
     return timeStruct;
+}
+
+string toLowerString(string &input) {
+    for (unsigned char c: input) {
+        tolower(c);
+    }
+    return input;
 }
 
 // Reader functions
@@ -182,7 +191,7 @@ void System::memberFileWriter() {
         return;
     }
 
-    for (Member &members : memberList) {
+    for (Member &members: memberList) {
         file << members.getFullName() << "," << members.getEmail() << ","
              << members.getHomeAddress() << "," << members.getPhoneNumber()
              << "," << members.getUsername() << "," << members.getPassword()
@@ -199,14 +208,14 @@ void System::requestFileWriter() {}
 
 int System::checkMemberExist(const string &ID) {
     // check if there is a member with that ID
-    for (const Member &member : memberList) {
+    for (const Member &member: memberList) {
         if ((ID == member.getMemberID())) return Status::AVAILABLE;
     }
     return Status::UNAVAILABLE;
 }
 
 void System::resetPassword(const string &ID, const string &newPwd) {
-    for (Member &member : memberList) {
+    for (Member &member: memberList) {
         if (ID == member.getMemberID()) {
             member.setPassword(newPwd);
             memberFileWriter();
@@ -218,7 +227,7 @@ string System::getidWithUsernamePassword(const string &username,
                                          const string &password) {
     string memberID;
 
-    for (const Member &member : getMemberList()) {
+    for (const Member &member: getMemberList()) {
         if (!(username == member.getUsername() &&
               password == member.getPassword())) {
             return EMPTY;
@@ -233,7 +242,7 @@ string System::getidWithUsernamePassword(const string &username,
 
 Member System::getMemberWithID(const string &ID) {
     Member temp;
-    for (const Member &mem : getMemberList()) {
+    for (const Member &mem: getMemberList()) {
         if (mem.getMemberID() == ID) {
             return mem;
         }
@@ -245,7 +254,7 @@ Member System::getMemberWithID(const string &ID) {
 void System::displayMemberInformation(const string &ID) {
     // Loop through each showMemberScreen
 
-    for (Member &member : getMemberList()) {
+    for (Member &member: getMemberList()) {
         // If the ID doesn't match, exit the loop
         if (!(ID == member.getMemberID())) {
             cout << "showMemberScreen not found";
@@ -272,8 +281,6 @@ int System::checkIfInputIsInteger(const string &input) {
     try {
         return stoi(input);
     } catch (std::invalid_argument &) {
-        // cout << "Invalid input";
-
         return -1;
     }
 }
@@ -289,7 +296,7 @@ void System::addNewRating(string ratingID, string memberID, string hostID,
 void System::removeRating(const string &ratingID) {
     int idx = 0;
 
-    for (Rating &ratingToRemove : ratingList) {
+    for (Rating &ratingToRemove: ratingList) {
         if (ratingID == ratingToRemove.getRatingID()) {
             ratingList.erase(ratingList.begin() + idx);
 
@@ -302,7 +309,7 @@ void System::removeRating(const string &ratingID) {
 string System::generateMemberID() {
     int memberID = 300000;  // default ID value
     char IDSuffix = 'S';    // suffix of ID
-    int totalMemberAmount = (int)memberList.size();
+    int totalMemberAmount = (int) memberList.size();
 
     int currentID = memberID + totalMemberAmount;
 
@@ -332,9 +339,10 @@ void System::registerNewMember(const string &fullName, const string &email,
 }
 
 void System::addNewSkill(const string &newSkill, const string &memberID) {
-    for (Member &iter : memberList) {
+    for (Member &iter: memberList) {
         if (iter.getMemberID() == memberID) {
             iter.addSkill(new string(newSkill));
         }
     }
 }
+
