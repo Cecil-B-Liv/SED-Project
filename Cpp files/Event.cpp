@@ -27,6 +27,7 @@ enum {
     MEMBER_INFO = 1, MEMBER_SKILL_RATING
 };
 
+
 enum {
     RESET_MEM_PWD = 1
 };
@@ -208,6 +209,8 @@ void Event::memberScreen(const string &ID) {
         cout << endl;
         cout << COLOR_BLUE << "1. View my info" << COLOR_RESET << endl;
         cout << endl;
+        cout << COLOR_BLUE << "2. View available supporter" << COLOR_RESET << endl;
+        cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application" << COLOR_RESET
              << endl;
         cout << COLOR_YELLOW << "h. Return to start screen" << COLOR_RESET
@@ -231,9 +234,12 @@ void Event::memberScreen(const string &ID) {
             case MEMBER_INFO:
                 UI::showMemberInformationScreen(ID);
                 return;
-            case MEMBER_SKILL_RATING:
-                cout << "have yet to implemented";
-                return;
+            // case MEMBER_INFO:
+            //     UI::showMemberInformationScreen(ID);
+            //     return;
+            // case MEMBER_SKILL_RATING:
+            //     cout << "have yet to implemented";
+            //     return;
             default:
                 cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
                      << endl;
