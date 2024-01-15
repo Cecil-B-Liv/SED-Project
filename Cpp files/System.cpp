@@ -223,7 +223,7 @@ void System::resetPassword(const string &ID, const string &newPwd) {
     }
 }
 
-string System::getidWithUsernamePassword(const string &username,
+string System::getIDWithUsernamePassword(const string &username,
                                          const string &password) {
     string memberID;
 

@@ -51,7 +51,7 @@ public:
     int checkMemberExist(const string &);
 
     // Check if valid information was input
-    string getidWithUsernamePassword(const string &, const string &);
+    string getIDWithUsernamePassword(const string &username, const string &password);
 
     // Get information of showMemberScreen
     void displayMemberInformation(const string &ID);

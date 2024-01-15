@@ -148,9 +148,7 @@ void Event::guestScreen() {
                 member.showInfo();
                 cout << "\n";
             }
-        }
-
-        if (input_1 == NO) {
+        } else if (input_1 == NO) {
             break;
         } else {
             cout << "Invalid option provided!" << endl;
@@ -271,7 +269,9 @@ void Event::adminScreen() {
 
         if (input == "e") {
             return;
-        } else if (input == "h") {
+        }
+
+        if (input == "h") {
             Event::startScreen();
             return;
         }
@@ -314,7 +314,9 @@ void Event::registerLoginScreen() {
 
         if (givenChoice == "e") {
             return;
-        } else if (givenChoice == "h") {
+        }
+
+        if (givenChoice == "h") {
             Event::startScreen();
             return;
         }
@@ -348,12 +350,12 @@ void Event::loginScreen() {
         if (username == adminUsername && password == adminPassword) {
             UI::showAdminScreen();
             return;
-        } else if (!(systemInstance
-                .getidWithUsernamePassword(username, password)
-                .empty())) {
+        }
+
+        if (!(systemInstance.getIDWithUsernamePassword(username, password).empty())) {
             cout << "Welcome to Time Bank!";
             UI::showMemberScreen(
-                    systemInstance.getidWithUsernamePassword(username, password));
+                    systemInstance.getIDWithUsernamePassword(username, password));
             return;
         }
         cout << COLOR_RED << "Wrong username or password!" << COLOR_RESET
