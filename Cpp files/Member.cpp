@@ -41,7 +41,9 @@ void Member::showInfo() const {
     cout << "Member ID: " << memberID << endl;
     cout << "Username: " << username << endl;
     cout << "Password: " << password << endl;
-    cout << "Available Status: " << availableStatus << endl;
+
+    (availableStatus == true) ? cout << "Available Status: Online " << endl
+                           : cout << "Available Status: Offline " << endl;
 
     // if (this->hostMember != nullptr)
     //     cout << "Host List: " << hostMember->getFullName() << endl;
