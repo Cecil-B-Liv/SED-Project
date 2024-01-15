@@ -12,7 +12,7 @@
 #include "Request.h"
 
 class Member {
-   private:
+private:
     // showMemberScreen Info
     string fullName;
     string email;
@@ -37,15 +37,15 @@ class Member {
     Member *hostMember;
     Member *supporterMember;
 
-   public:
+public:
     explicit Member(
-        string fullName = "", string email = "", string homeAddress = "",
-        int phoneNumber = 0, double ratingScore = 0.0,
-        double supporterRating = 0.0, double hostRating = 0.0,
-        string username = "", string password = "", string memberID = "",
-        bool availableStatus = false, vector<string *> skillInfoList = {},
-        vector<Rating> ratingList = {}, vector<Request> requestList = {},
-        Member *hostMember = nullptr, Member *supporterMember = nullptr);
+            string fullName = "", string email = "", string homeAddress = "",
+            int phoneNumber = 0, double ratingScore = 0.0,
+            double supporterRating = 0.0, double hostRating = 0.0,
+            string username = "", string password = "", string memberID = "",
+            bool availableStatus = false, vector<string *> skillInfoList = {},
+            vector<Rating> ratingList = {}, vector<Request> requestList = {},
+            Member *hostMember = nullptr, Member *supporterMember = nullptr);
 
     // toString
     void showInfo() const;

@@ -4,7 +4,6 @@
 
 #include "../Header files/Member.h"
 
-#include "../Header files/INCLUDEHEADERS.h"
 
 Member::Member(string fullName, string email, string homeAddress,
                int phoneNumber, double ratingScore, double supporterRating,
@@ -42,16 +41,21 @@ void Member::showInfo() const {
     cout << "Username: " << username << endl;
     cout << "Password: " << password << endl;
 
-    (availableStatus == true) ? cout << "Available Status: Online " << endl
-                           : cout << "Available Status: Offline " << endl;
+    availableStatus ? cout << "Available Status: Online " << endl
+                    : cout << "Available Status: Offline " << endl;
+    cout << "Host List: ";
+    if (this->hostMember != nullptr)
+        cout << hostMember->getFullName() << endl;
+    cout << endl;
 
-    // if (this->hostMember != nullptr)
-    //     cout << "Host List: " << hostMember->getFullName() << endl;
-    // if (this->supporterMember != nullptr)
-    //     cout << "Supporter List: " << supporterMember->getFullName() << endl;
+
+    cout << "Supporter List: ";
+    if (this->supporterMember != nullptr)
+        cout << supporterMember->getFullName() << endl;
+    cout << endl;
 
     cout << "Skill Info: ";
-    for (string *skill : skillInfoList) {
+    for (string *skill: skillInfoList) {
         cout << *skill << " ";
     }
     cout << endl;
