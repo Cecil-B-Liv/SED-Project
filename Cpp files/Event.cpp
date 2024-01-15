@@ -486,7 +486,6 @@ void Event::resetMemberPwd() {
                 cout << ">>> ";
                 getline(cin >> std::ws, newPassword);
                 systemInstance.resetPassword(id, newPassword);
-                cout << "\nSuccessfully changed the password!" << endl;
                 UI::showAdminScreen();
                 return;
             default:

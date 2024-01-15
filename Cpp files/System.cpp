@@ -219,7 +219,9 @@ void System::resetPassword(const string &ID, const string &newPwd) {
         if (ID == member.getMemberID()) {
             member.setPassword(newPwd);
             memberFileWriter();
+            cout << "\nSuccessfully changed the password!" << endl;
         }
+        cout << "\nNo user with this ID found" << endl;
     }
 }
 

@@ -57,7 +57,7 @@ public:
     void displayMemberInformation(const string &ID);
 
     // Admin function
-    void resetPassword(const string &, const string &);
+    void resetPassword(const string &ID, const string &newPwd);
 
     // System function
     Member getMemberWithID(const string &);
