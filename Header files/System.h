@@ -44,7 +44,7 @@ public:
 
     void ratingFileWriter();
 
-    void requestFileWriter();
+    void bookingFileWriter();
 
     // check if there is a member with that ID
     int checkMemberExist(const string &);

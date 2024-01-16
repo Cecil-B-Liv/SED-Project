@@ -165,7 +165,6 @@ void System::requestFileReader() {
         string supporterMemberID;
         string time;
 
-        tm creationTime{};
         string status;
         Booking request;
 
@@ -232,7 +231,7 @@ void System::ratingFileWriter() {
     file.close();
 }
 
-void System::requestFileWriter() {
+void System::bookingFileWriter() {
     // Open file
     ofstream file(BOOKING_PATH);
     if (!file.is_open()) {  // Check if file opened successfully
