@@ -21,7 +21,7 @@ private:
     // Data for the systemInstance
     vector<Member> memberList;
     vector<Rating> ratingList;
-    vector<Request> requestList;
+    vector<Booking> bookingList;
 
 public:
     static System &getInstance();
@@ -30,7 +30,7 @@ public:
 
     vector<Rating> getRatingList() { return ratingList; }
 
-    vector<Request> &getRequestList() { return requestList; }
+    vector<Booking> &getRequestList() { return bookingList; }
 
     // File Reader
     void memberFileReader();
