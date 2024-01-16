@@ -1,11 +1,13 @@
-#ifndef SED_PROJECT_REQUEST_H
-#define SED_PROJECT_REQUEST_H
+#ifndef SED_PROJECT_BOOKING_H
+#define SED_PROJECT_BOOKING_H
 
 #include "BasicSTDLIB.h"
 #include "Time.h"
 
-class Request {
-   private:
+
+class Booking {
+private:
+
     string bookingID;
     string hostMemberID;
     string supporterMemberID;
@@ -18,7 +20,7 @@ class Request {
     // vector<string *> skillRequired;
    public:
     // constructor code
-    Request();
+    Booking();
 
     // function code
     void showInfo();

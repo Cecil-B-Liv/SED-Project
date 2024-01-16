@@ -20,7 +20,7 @@ class System {
     // Data for the systemInstance
     vector<Member> memberList;
     vector<Rating> ratingList;
-    vector<Request> requestList;
+    vector<Booking> requestList;
 
    public:
     static System &getInstance();
@@ -29,7 +29,7 @@ class System {
 
     vector<Rating> getRatingList() { return ratingList; }
 
-    vector<Request> getRequestList() { return requestList; }
+    vector<Booking> &getRequestList() { return requestList; }
 
     // File Reader
     void memberFileReader();
@@ -59,11 +59,9 @@ class System {
     void resetPassword(const string &ID, const string &newPwd);
 
     // System function
-    Member getMemberWithID(const string &);
+    Member getMemberObject(const string &ID);
 
     //    int changePasswordWithID(const string &, const string &);
-
-    void removeRating(const string &ratingID);
 
     void registerNewMember(const string &fullName = "",
                            const string &email = "",
@@ -90,7 +88,6 @@ class System {
 
     void addNewRequest();
     void requestToBookAvailableSupporter(const string &, const string &D);
-
 };
 
 #endif  // SED_PROJECT_SYSTEM_H
