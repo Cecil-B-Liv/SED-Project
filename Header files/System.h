@@ -60,11 +60,10 @@ public:
     void resetPassword(const string &ID, const string &newPwd);
 
     // System function
-    Member getMemberWithID(const string &);
+    Member getMemberObject(const string &ID);
 
 //    int changePasswordWithID(const string &, const string &);
 
-    void removeRating(const string &ratingID);
 
     void registerNewMember(const string &fullName = "",
                            const string &email = "",

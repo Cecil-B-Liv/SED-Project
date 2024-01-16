@@ -10,27 +10,28 @@ enum Status {
     UNAVAILABLE, AVAILABLE
 };
 
-enum HardSkill {
-    CAR_MECHANIC,
-    TEACHING,
-    TUTORING,
-    PLUMBING_REPAIR,
-    WRITING,
-    PHOTOGRAPHY,
-    COOKING,
-    GARDENING,
-    HOUSE_CLEANING,
-    LAUNDRY,
-    SEWING,
-    FIRST_AID,
-    TIME_MANAGEMENT,
-    PUBLIC_SPEAKING,
-    BASIC_COMPUTER_SKILLS,
-    MONEY_MANAGEMENT,
-    COMMUNICATION,
-    PROBLEM_SOLVING,
-    TEAMWORK,
-    STRESS_MANAGEMENT
+const vector<string> skillStrings = {
+        "Unknown skill",
+        "Car Mechanic",
+        "Teaching",
+        "Tutoring",
+        "Plumbing Repair",
+        "Writing",
+        "Photography",
+        "Cooking",
+        "Gardening",
+        "House Cleaning",
+        "Laundry",
+        "Sewing",
+        "First Aid",
+        "Time Management",
+        "Public Speaking",
+        "Basic Computer Skills",
+        "Money Management",
+        "Communication",
+        "Problem Solving",
+        "Teamwork",
+        "Stress Management"
 };
 
 // static vector<Rating> ratingList;
@@ -190,10 +191,18 @@ void System::memberFileWriter() {
     }
 
     for (Member &members: memberList) {
+        string skillList;
+        for (auto &skill: members.getSkillInfo()) {
+            skillList = *skill;
+
+            if (&skill != &members.getSkillInfo().back()) {
+                skillList += "-";
+            }
+        }
         file << members.getFullName() << "," << members.getEmail() << ","
              << members.getHomeAddress() << "," << members.getPhoneNumber()
              << "," << members.getUsername() << "," << members.getPassword()
-             << "," << members.getMemberID() << endl;
+             << "," << members.getMemberID() << "," << skillList;
     }
 
     //add member available status
@@ -239,7 +248,7 @@ string System::getIDWithUsernamePassword(const string &username,
     return memberID;
 }  // Check if valid information was input
 
-Member System::getMemberWithID(const string &ID) {
+Member System::getMemberObject(const string &ID) {
     Member temp;
     for (const Member &mem: getMemberList()) {
         if (mem.getMemberID() == ID) {
@@ -264,18 +273,6 @@ void System::displayMemberInformation(const string &ID) {
     }
 }
 
-// int System::changePasswordWithID(const string &ID, const string &newPwd) {
-//     for (Member &member: getMemberList()) {
-//         if (member.getMemberID() == ID) {
-//             member.setPassword(newPwd);
-//
-//             return 0;
-//         }
-//     }
-//     cout << "Couldnt change this account password.";
-//     return -1;
-// }
-
 int System::checkIfInputIsInteger(const string &input) {
     try {
         return stoi(input);
@@ -290,19 +287,6 @@ void System::addNewRating(string ratingID, string memberID, string hostID,
     Rating rating(ratingID, memberID, hostID, skillRating, supporterRating,
                   hostRating, comments);
     ratingList.push_back(rating);
-}
-
-void System::removeRating(const string &ratingID) {
-    int idx = 0;
-
-    for (Rating &ratingToRemove: ratingList) {
-        if (ratingID == ratingToRemove.getRatingID()) {
-            ratingList.erase(ratingList.begin() + idx);
-
-            return;
-        }
-        idx++;
-    }
 }
 
 string System::generateMemberID() {
@@ -338,10 +322,17 @@ void System::registerNewMember(const string &fullName, const string &email,
 }
 
 void System::addNewSkill(const string &newSkill, const string &memberID) {
-    for (Member &iter: memberList) {
-        if (iter.getMemberID() == memberID) {
-            iter.addSkill(new string(newSkill));
+    Member temp = getMemberObject(memberID);
+
+    int tempSkill = checkIfInputIsInteger(newSkill);
+    if (!tempSkill) {
+        cout << "fuck you";
+        return;
+    }
+
+    for (auto it = skillStrings.begin(); it != skillStrings.end(); it++) {
+        if (tempSkill == (it - skillStrings.begin())) {
+            temp.addSkill(new string(*it));
         }
     }
 }
-

@@ -32,8 +32,8 @@ private:
     vector<string *> skillInfoList;
 
     // System based member info
-    vector<Rating> ratingList;
-    vector<Request> requestList;
+    vector<Rating *> ratingList;
+    vector<Request *> requestList;
     Member *hostMember;
     Member *supporterMember;
 
@@ -44,7 +44,7 @@ public:
             double supporterRating = 0.0, double hostRating = 0.0,
             string username = "", string password = "", string memberID = "",
             bool availableStatus = false, vector<string *> skillInfoList = {},
-            vector<Rating> ratingList = {}, vector<Request> requestList = {},
+            vector<Rating *> ratingList = {}, vector<Request *> requestList = {},
             Member *hostMember = nullptr, Member *supporterMember = nullptr);
 
     // toString
@@ -76,11 +76,11 @@ public:
 
     vector<string *> getSkillInfo() { return skillInfoList; }
 
-    vector<Rating> getRatingList() const { return ratingList; }
+    vector<Rating *> getRatingList() { return ratingList; }
 
-    vector<Request> getRequestList() const { return requestList; }
+    vector<Request *> getRequestList() { return requestList; }
 
-    Member *getHostMember() const { return hostMember; }
+    Member *getHostMember() { return hostMember; }
 
     Member *getSupporterMember() { return supporterMember; }
 
@@ -139,9 +139,9 @@ public:
 
     void addSkill(string *newSkill) { this->skillInfoList.push_back(newSkill); }
 
-    void addRating(Rating newRating) { this->ratingList.push_back(newRating); }
+    void addRating(Rating *newRating) { this->ratingList.push_back(newRating); }
 
-    void addRequest(Request newRequest) {
+    void addRequest(Request *newRequest) {
         this->requestList.push_back(newRequest);
     }
 };
