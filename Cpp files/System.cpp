@@ -329,7 +329,7 @@ void System::addNewRating(string ratingID, string memberID, string hostID,
 string System::generateMemberID() {
     int memberID = 300000;  // default ID value
     char IDSuffix = 'S';    // suffix of ID
-    int totalMemberAmount = (int) memberList.size();
+    int totalMemberAmount = (int) memberList.size(); // type cast unsigned long into int
 
     int currentID = memberID + totalMemberAmount;
 
@@ -339,7 +339,7 @@ string System::generateMemberID() {
 string System::generateRatingID() {
     int ratingID = 0;  // default ID value
     string IDSuffix = "RA";    // suffix of ID
-    int totalRatingAmount = (int) ratingList.size();
+    int totalRatingAmount = (int) ratingList.size(); // type cast unsigned long into int
 
     int currentID = ratingID + totalRatingAmount;
 
@@ -349,7 +349,7 @@ string System::generateRatingID() {
 string System::generateRequestID() {
     int requestID = 300000;  // default ID value
     string IDSuffix = "RE";    // suffix of ID
-    int totalRequestAmount = (int) requestList.size();
+    int totalRequestAmount = (int) bookingList.size(); // type cast unsigned long into int
 
     int currentID = requestID + totalRequestAmount;
 
@@ -379,10 +379,17 @@ void System::registerNewMember(const string &fullName, const string &email,
 }
 
 void System::addNewSkill(const string &newSkill, const string &memberID) {
-    for (Member &iter: memberList) {
-        if (iter.getMemberID() == memberID) {
-            iter.addSkill(new string(newSkill));
+    Member temp = getMemberObject(memberID);
+
+    int tempSkill = checkIfInputIsInteger(newSkill);
+    if (!tempSkill) {
+        cout << "fuck you";
+        return;
+    }
+
+    for (auto it = skillStrings.begin(); it != skillStrings.end(); it++) {
+        if (tempSkill == (it - skillStrings.begin())) {
+            temp.addSkill(new string(*it));
         }
     }
 }
-
