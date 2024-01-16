@@ -23,7 +23,13 @@ class System {
     vector<Rating> ratingList;
     vector<Booking> bookingList;
 
-   public:
+
+public:
+
+
+    void clearTerminal();
+
+
     static System &getInstance();
 
     vector<Member> getMemberList() { return memberList; }
@@ -37,16 +43,18 @@ class System {
 
     void ratingFileReader();
 
-    void requestFileReader();
+    void bookingFileReader();
 
     // File Writer
     void memberFileWriter();
 
     void ratingFileWriter();
 
-    void requestFileWriter();
     
     tm parseCSVTime(const std::string &timeStr);
+
+    void bookingFileWriter();
+
 
         // check if there is a member with that ID
         int checkMemberExist(const string &);
@@ -85,7 +93,7 @@ class System {
 
     void addNewSkill(const string &, const string &);
 
-    void addNewRating(string ratingID, string memberID, string hostID,
+    void addNewRating(string memberID, string hostID,
                       double skillRating, double supporterRating,
                       double hostRating, string comments);
 

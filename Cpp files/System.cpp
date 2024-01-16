@@ -40,6 +40,19 @@ tm System::parseCSVTime(const std::string &timeStr) {
     return timeStruct;
 }
 
+void System::clearTerminal() {
+#ifdef _WIN32
+    // For Windows
+    std::system("cls");
+#elif __APPLE__
+    // For macOS
+    std::system("clear");
+#else
+    // For other platforms (assuming UNIX-like behavior)
+    std::system("clear");
+#endif
+}
+
 string toLowerString(string &input) {
     for (unsigned char c : input) {
         tolower(c);
@@ -134,10 +147,18 @@ void System::ratingFileReader() {
         getline(iss, supporterRating, ',');
         getline(iss, hostRating, ',');
         getline(iss, comments, ',');
+
+        rating.setRatingID(ratingID);
+        rating.setMemberID(memberID);
+        rating.setHostID(hostID);
+        rating.setSkillRating(std::stod(skillRating));
+        rating.setHostRating(std::stod(hostRating));
+        rating.setComments(comments);
     }
+    file.close();
 }
 
-void System::requestFileReader() {
+void System::bookingFileReader() {
     // Check if file exist
     ifstream file(BOOKING_PATH);
     if (!file.is_open()) {
@@ -152,7 +173,6 @@ void System::requestFileReader() {
         string supporterMemberID;
         string time;
 
-        tm creationTime{};
         string status;
         Booking request;
 
@@ -193,7 +213,7 @@ void System::memberFileWriter() {
         file << members.getFullName() << "," << members.getEmail() << ","
              << members.getHomeAddress() << "," << members.getPhoneNumber()
              << "," << members.getUsername() << "," << members.getPassword()
-             << "," << members.getMemberID() << "," << skillList;
+             << "," << members.getMemberID() << "," << skillList << endl;
     }
 
     // add member available status
@@ -208,18 +228,16 @@ void System::ratingFileWriter() {
         return;
     }
 
-    // for (Member &members : memberList) {
-    //     file << members.getFullName() << "," << members.getEmail() << ","
-    //          << members.getHomeAddress() << "," << members.getPhoneNumber()
-    //          << "," << members.getUsername() << "," << members.getPassword()
-    //          << "," << members.getMemberID() << endl;
-    // }
+    for (const auto &rating: ratingList) {
+        file << rating.getRatingID() << "," << rating.getMemberID() << ","
+             << rating.getHostID() << "," << rating.getSkillRating() << "," <<
+             "," << rating.getHostRating() << "," << "," << rating.getComments() << endl;
+    }
 
-    // add member available status
     file.close();
 }
 
-void System::requestFileWriter() {
+void System::bookingFileWriter() {
     // Open file
     ofstream file(BOOKING_PATH);
     if (!file.is_open()) {  // Check if file opened successfully
@@ -227,13 +245,11 @@ void System::requestFileWriter() {
         return;
     }
 
-    // for (Member &members : memberList) {
-    //     file << members.getFullName() << "," << members.getEmail() << ","
-    //          << members.getHomeAddress() << "," << members.getPhoneNumber()
-    //          << "," << members.getUsername() << "," << members.getPassword()
-    //          << "," << members.getMemberID() << endl;
-    // }
-
+    for (const auto &booking: bookingList) {
+        file << booking.getBookingID() << "," << booking.getHostMemberID() << ","
+             << booking.getSupporterMemberID() << "," << booking.getStatus() << ","
+             << booking.getFormattedCreationTime() << endl;
+    }
     // add member available status
     file.close();
 }
@@ -306,10 +322,10 @@ int System::checkIfInputIsInteger(const string &input) {
     }
 }
 
-void System::addNewRating(string ratingID, string memberID, string hostID,
+void System::addNewRating(string memberID, string hostID,
                           double skillRating, double supporterRating,
                           double hostRating, string comments) {
-    Rating rating(ratingID, memberID, hostID, skillRating, supporterRating,
+    Rating rating(generateRatingID(), memberID, hostID, skillRating, supporterRating,
                   hostRating, comments);
     ratingList.push_back(rating);
 }
@@ -331,7 +347,9 @@ void System::addNewBooking(string hostMemberID,
 string System::generateMemberID() {
     int memberID = 300000;  // default ID value
     char IDSuffix = 'S';    // suffix of ID
-    int totalMemberAmount = (int)memberList.size();
+
+    int totalMemberAmount = (int) memberList.size(); // type cast unsigned long into int
+
 
     int currentID = memberID + totalMemberAmount;
 
@@ -339,19 +357,23 @@ string System::generateMemberID() {
 }
 
 string System::generateRatingID() {
-    int ratingID = 0;        // default ID value
-    string IDSuffix = "RA";  // suffix of ID
-    int totalRatingAmount = (int)ratingList.size();
+
+    int ratingID = 0;  // default ID value
+    string IDSuffix = "RA";    // suffix of ID
+    int totalRatingAmount = (int) ratingList.size(); // type cast unsigned long into int
+
 
     int currentID = ratingID + totalRatingAmount;
 
     return IDSuffix + std::to_string(currentID);
 }
 
+
 string System::generateBookingID() {
     int bookingID = 0;  // default ID value
     string IDSuffix = "B";  // suffix of ID
     int totalRequestAmount = (int)bookingList.size();
+
 
     int currentID = bookingID + totalRequestAmount;
 
@@ -381,9 +403,19 @@ void System::registerNewMember(const string &fullName, const string &email,
 }
 
 void System::addNewSkill(const string &newSkill, const string &memberID) {
-    for (Member &iter : memberList) {
-        if (iter.getMemberID() == memberID) {
-            iter.addSkill(new string(newSkill));
+
+    Member temp = getMemberObject(memberID);
+
+    int tempSkill = checkIfInputIsInteger(newSkill);
+    if (!tempSkill) {
+        cout << "fuck you";
+        return;
+    }
+
+    for (auto it = skillStrings.begin(); it != skillStrings.end(); it++) {
+        if (tempSkill == (it - skillStrings.begin())) {
+            temp.addSkill(new string(*it));
         }
     }
 }
+

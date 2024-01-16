@@ -19,11 +19,17 @@ enum UserPosition {
 const string YES = "y";
 const string NO = "n";
 
-enum UserChoice { LOGIN = 1, REGISTER };
+enum UserChoice {
+    LOGIN = 1, REGISTER
+};
 
-enum { MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER };
+enum {
+    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER
+};
 
-enum { RESET_MEM_PWD = 1 };
+enum {
+    RESET_MEM_PWD = 1
+};
 
 // username and password for admin
 string const adminUsername = "admin";
@@ -42,7 +48,7 @@ System &systemInstance = System::getInstance();
 void Event::initialize() {
     systemInstance.memberFileReader();
     systemInstance.ratingFileReader();
-    systemInstance.requestFileReader();
+    systemInstance.bookingFileReader();
 }
 
 void Event::endScreen() {
@@ -54,15 +60,16 @@ void Event::startScreen() {
     string input;
 
     // Welcome Message
-    sectionDivider cout << COLOR_YELLOW << STYLE_BOLD
-                        << "EEET2482/COSC2082 ASSIGNMENT" << COLOR_RESET
-                        << endl;
+    sectionDivider
+    cout << COLOR_YELLOW << STYLE_BOLD
+         << "EEET2482/COSC2082 ASSIGNMENT" << COLOR_RESET
+         << endl;
     cout << COLOR_YELLOW << STYLE_UNDERLINE << "“TIME BANK” APPLICATION"
          << COLOR_RESET << endl;
     sectionDivider
 
-            cout
-        << endl;
+    cout
+            << endl;
     cout << "Instructor: Mr. Tran Duc Linh" << endl;
     cout << "Group: No. 6" << endl;
     cout << endl;
@@ -77,7 +84,7 @@ void Event::startScreen() {
          << COLOR_RESET << endl;
     elementDivider
 
-        while (true) {
+    while (true) {
         // Prompt User to Choose Role
         cout << COLOR_GREEN << "Select your role: " << COLOR_RESET << endl;
         cout << COLOR_BLUE << "  1. Guest - Browse as a guest" << COLOR_RESET
@@ -144,9 +151,10 @@ void Event::getAllSupporterInformationScreen() {
 void Event::guestScreen() {
     string input_1;
     string input_2;
-    elementDivider cout
-        << "Welcome to our Time Bank Application, you are browsing as guest:"
-        << endl;
+    elementDivider
+    cout
+            << "Welcome to our Time Bank Application, you are browsing as guest:"
+            << endl;
 
     while (true) {
         cout << "\nDo you want to see the information of our supporter (y/n):"
@@ -156,8 +164,10 @@ void Event::guestScreen() {
         // Check if user's input is only number
 
         if (input_1 == YES) {
+
             cout << "Information of our supporter members: " << endl;
             for (auto &member : systemInstance.getMemberList()) {
+
                 member.showInfo();
                 cout << "\n";
             }
@@ -170,7 +180,7 @@ void Event::guestScreen() {
 
     elementDivider
 
-        while (true) {
+    while (true) {
         cout << COLOR_GREEN
              << "If you want to book one of our supporter, or becoming one of "
                 "us, consider joining us here: "
@@ -222,7 +232,7 @@ void Event::memberScreen(const string &ID) {
 
     elementDivider
 
-        while (true) {
+    while (true) {
         cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
         cout << endl;
         cout << COLOR_BLUE << "1. View my info." << COLOR_RESET << endl;
@@ -258,8 +268,10 @@ void Event::memberScreen(const string &ID) {
                 UI::showGuestScreen();
                 return;
             case BOOK_AVAILABLE_SUPPORTER:
+
                 UI::showAllSupporterInformationScreen();
                 UI::bookSupporter(ID);
+
                 UI::showGuestScreen();
                 return;
             case FILTER_SUPPORTER:
@@ -279,7 +291,7 @@ void Event::adminScreen() {
     cout << "\nWelcome, you are browsing with administrator role." << endl;
     elementDivider
 
-        while (true) {
+    while (true) {
         cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
         cout << endl;
         cout << COLOR_BLUE << "1. Reset a member password." << COLOR_RESET
@@ -379,10 +391,10 @@ void Event::loginScreen() {
         }
 
         if (!(systemInstance.getIDWithUsernamePassword(username, password)
-                  .empty())) {
+                .empty())) {
             cout << "Welcome to Time Bank!";
             UI::showMemberScreen(
-                systemInstance.getIDWithUsernamePassword(username, password));
+                    systemInstance.getIDWithUsernamePassword(username, password));
             return;
         }
         cout << COLOR_RED << "Wrong username or password!" << COLOR_RESET
@@ -470,7 +482,8 @@ void Event::resetMemberPwd() {
 
         if (systemInstance.checkMemberExist(id)) {
             cout << "Existing member with your inputted ID. Loading.." << endl;
-            elementDivider cout << "Information of member" << id << endl;
+            elementDivider
+            cout << "Information of member" << id << endl;
             systemInstance.displayMemberInformation(id);
             break;
         }
