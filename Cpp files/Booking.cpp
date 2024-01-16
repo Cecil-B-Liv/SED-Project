@@ -11,9 +11,9 @@ Booking::Booking() {
 
 //function code
 
-bool Booking::answerRequest() {
-    return true;
-}
+// bool Booking::answerRequest() {
+//     return true;
+// }
 
 
 void Booking::showInfo() {
