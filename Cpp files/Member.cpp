@@ -10,7 +10,7 @@ Member::Member(string fullName, string email, string homeAddress,
                double hostRating, string username, string password,
                string memberID, bool available_status,
                vector<string *> skillInfo, vector<Rating *> ratingList,
-               vector<Request *> requestList, Member *hostMember,
+               vector<Booking *> requestList, Member *hostMember,
                Member *supportMember) {
     this->fullName = fullName;
     this->email = email;
@@ -58,7 +58,7 @@ void Member::showInfo() const {
     // }
     // cout << endl;
 
-    // cout << "Request List: ";
+    // cout << "Booking List: ";
     // for (auto request : requestList) {
     //     request.showInfo();
     // }

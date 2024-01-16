@@ -22,7 +22,7 @@ private:
     vector<Member> memberList;
     vector<Rating> userRating;
     vector<Rating> ratingList;
-    vector<Request> requestList;
+    vector<Booking> requestList;
 
 public:
     static System &getInstance();
@@ -31,7 +31,7 @@ public:
 
     vector<Rating> &getRatingList() { return ratingList; }
 
-    vector<Request> &getRequestList() { return requestList; }
+    vector<Booking> &getRequestList() { return requestList; }
 
     // File Reader
     void memberFileReader();

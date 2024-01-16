@@ -4,17 +4,17 @@
 #define OFFLINE -1
 
 // Constructor
-Request::Request() {
+Booking::Booking() {
     std::time_t timeOfRequestObjectCreation = std::time(nullptr);
     creationTime = *std::localtime(&timeOfRequestObjectCreation);
 }
 
 //function code
-bool Request::answerRequest() {
+bool Booking::answerRequest() {
     return true;
 }
 
-void Request::showInfo() {
+void Booking::showInfo() {
     cout << "Booking ID: " << bookingID << endl;
     cout << "Member ID: " << memberID << endl;
     cout << "Skill Required: " << endl;

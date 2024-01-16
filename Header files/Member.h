@@ -9,7 +9,7 @@
 
 #include "BasicSTDLIB.h"
 #include "Rating.h"
-#include "Request.h"
+#include "Booking.h"
 
 class Member {
 private:
@@ -33,7 +33,7 @@ private:
 
     // System based member info
     vector<Rating *> ratingList;
-    vector<Request *> requestList;
+    vector<Booking *> requestList;
     Member *hostMember;
     Member *supporterMember;
 
@@ -44,7 +44,7 @@ public:
             double supporterRating = 0.0, double hostRating = 0.0,
             string username = "", string password = "", string memberID = "",
             bool availableStatus = false, vector<string *> skillInfoList = {},
-            vector<Rating *> ratingList = {}, vector<Request *> requestList = {},
+            vector<Rating *> ratingList = {}, vector<Booking *> requestList = {},
             Member *hostMember = nullptr, Member *supporterMember = nullptr);
 
     // toString
@@ -78,7 +78,7 @@ public:
 
     vector<Rating *> getRatingList() { return ratingList; }
 
-    vector<Request *> getRequestList() { return requestList; }
+    vector<Booking *> getRequestList() { return requestList; }
 
     Member *getHostMember() { return hostMember; }
 
@@ -141,7 +141,7 @@ public:
 
     void addRating(Rating *newRating) { this->ratingList.push_back(newRating); }
 
-    void addRequest(Request *newRequest) {
+    void addRequest(Booking *newRequest) {
         this->requestList.push_back(newRequest);
     }
 };

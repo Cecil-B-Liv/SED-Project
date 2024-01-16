@@ -84,7 +84,7 @@ void System::memberFileReader() {
         Member member;
 
         // vector<Rating> ratingList;
-        // vector<Request> requestList;
+        // vector<Booking> requestList;
         // Member *hostMember;
         // Member *supporterMember;
 
@@ -166,7 +166,7 @@ void System::requestFileReader() {
         string time;
         tm creationTime{};
         string status;
-        Request request;
+        Booking request;
 
         istringstream iss(line);
         getline(iss, bookingID, ',');
