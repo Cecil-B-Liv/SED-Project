@@ -10,19 +10,17 @@ Request::Request() {
 }
 
 //function code
-bool Request::answerRequest() {
-    return true;
-}
 
 void Request::showInfo() {
     cout << "Booking ID: " << bookingID << endl;
-    cout << "Member ID: " << memberID << endl;
+    cout << "Host ID: " << hostMemberID << endl;
+    cout << "Supporter ID: " << hostMemberID << endl;
     cout << "Skill Required: " << endl;
-
-    for (string *skill: skillRequired) {
-        cout << *skill;
-    }
     cout << endl;
     cout << "Creation time: " << getFormattedCreationTime() << endl;
     cout << "Status: " << endl;
+
+    // for (string *skill: skillRequired) {
+    //     cout << *skill;
+    // }
 }
