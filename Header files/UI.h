@@ -19,9 +19,7 @@ class UI {
         Event::startScreen();
     }
 
-    static void end(){
-        Event::endScreen();
-    }
+    static void end() { Event::endScreen(); }
 
     static void showGuestScreen() { Event::guestScreen(); }
     static void showMemberScreen(const string &ID = "") {
@@ -29,10 +27,15 @@ class UI {
     }
     static void showAdminScreen() { Event::adminScreen(); }
 
-    //
     static void showMemberInformationScreen(const string &ID = "") {
         Event::getMemberInfoScreen(ID);
     }
+
+    static void showAllSupporterInformationScreen(){
+        Event::getAllSupporterInformationScreen();
+    }
+
+    static void bookSupporter(const string ID) { Event::bookSupporter(ID); }
     static void resetMemberPwdScreen() { Event::resetMemberPwd(); };
     static void showRegisterLoginScreen() { Event::registerLoginScreen(); }
 

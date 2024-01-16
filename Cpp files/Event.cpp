@@ -117,6 +117,29 @@ void Event::startScreen() {
 void Event::getMemberInfoScreen(const string &ID) {
     systemInstance.displayMemberInformation(ID);
 }
+void Event::getAllSupporterInformationScreen() {
+    string input;
+    while (true) {
+        cout << "\nDo you want to see the information of our "
+                "supporter (y.YES/n.NO):"
+             << endl;
+        cout << ">>> ";
+        cin >> input;
+        // Check if user's input is only number
+        if (input == YES) {
+            cout << "Details of available supporters: " << endl;
+            for (auto &member : systemInstance.getMemberList()) {
+                if (member.getMemberAvailableStatus() == true)
+                    member.showInfo();
+                cout << "\n";
+            }
+        } else if (input == NO) {
+            break;
+        } else {
+            cout << "Invalid option provided!" << endl;
+        }
+    }
+}
 
 void Event::guestScreen() {
     string input_1;
@@ -133,7 +156,7 @@ void Event::guestScreen() {
         // Check if user's input is only number
 
         if (input_1 == YES) {
-            cout << "Details of available supporters: " << endl;
+            cout << "Information of our supporter members: " << endl;
             for (auto &member : systemInstance.getMemberList()) {
                 member.showInfo();
                 cout << "\n";
@@ -235,26 +258,8 @@ void Event::memberScreen(const string &ID) {
                 UI::showGuestScreen();
                 return;
             case BOOK_AVAILABLE_SUPPORTER:
-                while (true) {
-                    cout << "\nDo you want to see the information of our "
-                            "supporter (y.YES/n.NO):"
-                         << endl;
-                    cout << ">>> ";
-                    cin >> input;
-                    // Check if user's input is only number
-                    if (input == YES) {
-                        cout << "Details of available supporters: " << endl;
-                        for (auto &member : systemInstance.getMemberList()) {
-                            member.showInfo();
-                            cout << "\n";
-                        }
-                    } else if (input == NO) {
-                        break;
-                    } else {
-                        cout << "Invalid option provided!" << endl;
-                    }
-                }
-                
+                UI::showAllSupporterInformationScreen();
+                UI::bookSupporter(ID);
                 UI::showGuestScreen();
                 return;
             case FILTER_SUPPORTER:
@@ -337,9 +342,7 @@ void Event::registerLoginScreen() {
 
         if (givenChoice == "e") {
             return;
-        }
-
-        if (givenChoice == "h") {
+        } else if (givenChoice == "h") {
             Event::startScreen();
             return;
         }
@@ -519,5 +522,65 @@ void Event::resetMemberPwd() {
                 cout << COLOR_RED << "Invalid option provided" << COLOR_RESET
                      << endl;
         }
+    }
+}
+
+void Event::bookSupporter(const string hostID) {
+    string supporterID;
+    string input;
+    double rentingTime;
+    string time;
+
+    while (true) {
+        cout << "\nEnter the ID of the member you want to book: ";
+        getline(cin >> std::ws, supporterID);
+
+        if (systemInstance.checkMemberExist(supporterID)) {
+            cout << "Existing member with your inputted ID. Loading.." << endl;
+            elementDivider
+
+                    cout
+                << "Information of member" << supporterID << endl;
+            systemInstance.displayMemberInformation(supporterID);
+            cout << "\nDo you wish to proceed? [y/n]: ";
+            cout << "\n>>> ";
+            cin >> input;
+            if (input == "y") {
+                cout << "\nHow long do you want to rent: ";
+                cin >> rentingTime; 
+                //prevent renting over 12 hours and negative number
+                while (rentingTime < 0 && rentingTime > 12){
+                    cout << "Please enter renting time that is valid (>0 and <12): ";
+                    cin >> rentingTime;
+                }
+                cout
+                    << "\nDate and time that you want to rent your supporter: ";
+                cout << "\nWhat time do you want to start renting ";
+                getline(cin >> std::ws, time);
+                while (time != "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}") {
+                    cout << "\nWrong format! Please follow this format "
+                            "yyyy-mm-dd hh:mm"
+                         << endl
+                         << endl;
+
+                    cout << COLOR_YELLOW << "h. Return to start screen"
+                         << COLOR_RESET << endl;
+                    cout << COLOR_RED << "e. Exit - Close the application"
+                         << COLOR_RESET << endl;
+                    cin >> rentingTime;
+
+                    if (time == "e") {
+                        return;
+                    } else if (time == "h") {
+                        Event::startScreen();
+                        return;
+                    }
+                }
+            }
+            systemInstance.addNewBooking(hostID, supporterID, "Pending",
+                                         rentingTime, systemInstance.parseCSVTime(time));
+        } else cout << "System doesn't have the supporter with your inputted ID.";
+        
+        break;
     }
 }

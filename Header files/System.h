@@ -14,7 +14,7 @@ const string BOOKING_PATH = "../Database/BookingData.csv";
 const string RATING_PATH = "../Database/RatingData.csv";
 
 class System {
-private:
+   private:
     // private constructor
     System();
 
@@ -23,7 +23,7 @@ private:
     vector<Rating> ratingList;
     vector<Booking> bookingList;
 
-public:
+   public:
     static System &getInstance();
 
     vector<Member> getMemberList() { return memberList; }
@@ -45,9 +45,11 @@ public:
     void ratingFileWriter();
 
     void requestFileWriter();
+    
+    tm parseCSVTime(const std::string &timeStr);
 
-    // check if there is a member with that ID
-    int checkMemberExist(const string &);
+        // check if there is a member with that ID
+        int checkMemberExist(const string &);
 
     // Check if valid information was input
     string getIDWithUsernamePassword(const string &username,
@@ -70,8 +72,6 @@ public:
                            const string &username = "",
                            const string &password = "");
 
-    void addSkill(const string &, const string &);
-
     // Helper Function
     // check input is integer when choosing option
     int checkIfInputIsInteger(const string &input);
@@ -81,7 +81,7 @@ public:
 
     string generateRatingID();
 
-    string generateRequestID();
+    string generateBookingID();
 
     void addNewSkill(const string &, const string &);
 
@@ -89,9 +89,12 @@ public:
                       double skillRating, double supporterRating,
                       double hostRating, string comments);
 
+    void addNewBooking(string hostMemberID, string supporterMemberID,
+                       string status, double timeRenting, tm startTime);
+
     void addNewRequest();
 
-    void requestToBookAvailableSupporter(const string &, const string &D);
+    void requestToBookAvailableSupporter(const string &, const string &);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H

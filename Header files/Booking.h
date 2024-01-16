@@ -4,10 +4,8 @@
 #include "BasicSTDLIB.h"
 #include "Time.h"
 
-
 class Booking {
-private:
-
+   private:
     string bookingID;
     string hostMemberID;
     string supporterMemberID;
@@ -18,7 +16,7 @@ private:
     tm creationTime;
 
     // vector<string *> skillRequired;
-public:
+   public:
     // constructor code
     Booking();
 
@@ -40,8 +38,11 @@ public:
     void setStatus(string statusVal) { this->status = statusVal; }
 
     void setCreationTime(const std::tm &time) { this->creationTime = time; }
+    void setStartTime(const std::tm &time) { this->startTime = time; }
+    void setTimeRenting(double timeRenting) { this->timeRenting = timeRenting; }
 
     // Getter methods
+    double getTimeRenting() const { return timeRenting; }
     string getBookingID() const { return bookingID; }
 
     string getHostMemberID() const { return hostMemberID; }
@@ -56,7 +57,11 @@ public:
         return {buffer};
     }
 
-
+    string getFormattedStartRentingTime() const{
+        char buffer[20];  // Buffer to hold the formatted time
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M", &startTime);
+        return {buffer};
+    }
 };
 
 #endif
