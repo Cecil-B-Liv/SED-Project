@@ -150,7 +150,7 @@ void System::ratingFileReader() {
 
 void System::requestFileReader() {
     // Check if file exist
-    ifstream file(REQUEST_PATH);
+    ifstream file(BOOKING_PATH);
     if (!file.is_open()) {
         cerr << "Error opening file " << endl;
         return;

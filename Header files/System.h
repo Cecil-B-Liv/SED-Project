@@ -10,7 +10,7 @@
 
 // Data path
 const string MEMBER_PATH = "../Database/MemberData.csv";
-const string REQUEST_PATH = "../Database/RequestData.csv";
+const string BOOKING_PATH = "../Database/BookingData.csv";
 const string RATING_PATH = "../Database/RatingData.csv";
 
 class System {
