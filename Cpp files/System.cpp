@@ -6,7 +6,9 @@
 
 const string EMPTY;
 
-enum Status { UNAVAILABLE, AVAILABLE };
+enum Status {
+    UNAVAILABLE, AVAILABLE
+};
 
 const vector<string> skillStrings = {
         "Unknown skill",
@@ -52,7 +54,7 @@ tm parseCSVTime(const std::string &timeStr) {
 }
 
 string toLowerString(string &input) {
-    for (unsigned char c : input) {
+    for (unsigned char c: input) {
         tolower(c);
     }
     return input;
@@ -161,10 +163,11 @@ void System::requestFileReader() {
         string bookingID;
         string hostMemberID;
         string supporterMemberID;
+        string time;
 
         tm creationTime{};
         string status;
-        Request request;
+        Booking request;
 
         istringstream iss(line);
         getline(iss, bookingID, ',');
@@ -191,8 +194,15 @@ void System::memberFileWriter() {
         cerr << "Error opening file member data in member writer" << endl;
         return;
     }
+    string skillList;
 
     for (Member &members: memberList) {
+        for (const auto &skill: members.getSkillInfo()) {
+            skillList += *skill;
+            if (&skill != &members.getSkillInfo().back()) {
+                skillList += "-";
+            }
+        }
         file << members.getFullName() << "," << members.getEmail() << ","
              << members.getHomeAddress() << "," << members.getPhoneNumber()
              << "," << members.getUsername() << "," << members.getPassword()
@@ -204,7 +214,7 @@ void System::memberFileWriter() {
 }
 
 void System::ratingFileWriter() {
-        // Open file
+    // Open file
     ofstream file(RATING_PATH);
     if (!file.is_open()) {  // Check if file opened successfully
         cerr << "Error opening file rating data in rating writer" << endl;
@@ -223,8 +233,8 @@ void System::ratingFileWriter() {
 }
 
 void System::requestFileWriter() {
-        // Open file
-    ofstream file(REQUEST_PATH);
+    // Open file
+    ofstream file(BOOKING_PATH);
     if (!file.is_open()) {  // Check if file opened successfully
         cerr << "Error opening file request data in request writer" << endl;
         return;
@@ -243,14 +253,14 @@ void System::requestFileWriter() {
 
 int System::checkMemberExist(const string &ID) {
     // check if there is a member with that ID
-    for (const Member &member : memberList) {
+    for (const Member &member: memberList) {
         if ((ID == member.getMemberID())) return Status::AVAILABLE;
     }
     return Status::UNAVAILABLE;
 }
 
 void System::resetPassword(const string &ID, const string &newPwd) {
-    for (Member &member : memberList) {
+    for (Member &member: memberList) {
         if (ID == member.getMemberID()) {
             member.setPassword(newPwd);
             memberFileWriter();
@@ -263,7 +273,7 @@ string System::getIDWithUsernamePassword(const string &username,
                                          const string &password) {
     string memberID;
 
-    for (const Member &member : getMemberList()) {
+    for (const Member &member: getMemberList()) {
         if (!(username == member.getUsername() &&
               password == member.getPassword())) {
             return EMPTY;
@@ -278,7 +288,7 @@ string System::getIDWithUsernamePassword(const string &username,
 
 Member System::getMemberObject(const string &ID) {
     Member temp;
-    for (const Member &mem : getMemberList()) {
+    for (const Member &mem: getMemberList()) {
         if (mem.getMemberID() == ID) {
             return mem;
         }
@@ -290,7 +300,7 @@ Member System::getMemberObject(const string &ID) {
 void System::displayMemberInformation(const string &ID) {
     // Loop through each showMemberScreen
 
-    for (Member &member : getMemberList()) {
+    for (Member &member: getMemberList()) {
         // If the ID doesn't match, exit the loop
         if (!(ID == member.getMemberID())) {
             cout << "showMemberScreen not found";
@@ -317,23 +327,10 @@ void System::addNewRating(string ratingID, string memberID, string hostID,
     ratingList.push_back(rating);
 }
 
-void System::removeRating(const string &ratingID) {
-    int idx = 0;
-
-    for (Rating &ratingToRemove: ratingList) {
-        if (ratingID == ratingToRemove.getRatingID()) {
-            ratingList.erase(ratingList.begin() + idx);
-
-            return;
-        }
-        idx++;
-    }
-}
-
 string System::generateMemberID() {
     int memberID = 300000;  // default ID value
     char IDSuffix = 'S';    // suffix of ID
-    int totalMemberAmount = (int)memberList.size();
+    int totalMemberAmount = (int) memberList.size();
 
     int currentID = memberID + totalMemberAmount;
 
@@ -343,7 +340,7 @@ string System::generateMemberID() {
 string System::generateRatingID() {
     int ratingID = 0;  // default ID value
     string IDSuffix = "RA";    // suffix of ID
-    int totalRatingAmount = (int)ratingList.size();
+    int totalRatingAmount = (int) ratingList.size();
 
     int currentID = ratingID + totalRatingAmount;
 
@@ -353,7 +350,7 @@ string System::generateRatingID() {
 string System::generateRequestID() {
     int requestID = 300000;  // default ID value
     string IDSuffix = "RE";    // suffix of ID
-    int totalRequestAmount = (int)requestList.size();
+    int totalRequestAmount = (int) requestList.size();
 
     int currentID = requestID + totalRequestAmount;
 

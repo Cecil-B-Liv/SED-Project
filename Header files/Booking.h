@@ -18,7 +18,7 @@ private:
     tm creationTime;
 
     // vector<string *> skillRequired;
-   public:
+public:
     // constructor code
     Booking();
 
@@ -27,20 +27,27 @@ private:
 
     // Setter methods
     void setBookingID(string bookingIDVal) { this->bookingID = bookingIDVal; }
+
     void setHostMemberID(string hostMemberIDVal) {
         this->hostMemberID = hostMemberIDVal;
     }
+
     void setSupporterMemberID(string supporterMemberIDVal) {
         this->supporterMemberID = supporterMemberIDVal;
     }
+
     // PENDING, COMPLETED, DENIED
     void setStatus(string statusVal) { this->status = statusVal; }
+
     void setCreationTime(const std::tm &time) { this->creationTime = time; }
 
     // Getter methods
     string getBookingID() const { return bookingID; }
+
     string getHostMemberID() const { return hostMemberID; }
+
     string getSupporterMemberID() const { return supporterMemberID; }
+
     string getStatus() const { return status; }
 
     string getFormattedCreationTime() const {

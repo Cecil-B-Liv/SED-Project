@@ -14,22 +14,23 @@ const string BOOKING_PATH = "../Database/BookingData.csv";
 const string RATING_PATH = "../Database/RatingData.csv";
 
 class System {
-   private:
+private:
     // private constructor
     System();
+
     // Data for the systemInstance
     vector<Member> memberList;
     vector<Rating> ratingList;
-    vector<Booking> requestList;
+    vector<Request> requestList;
 
-   public:
+public:
     static System &getInstance();
 
     vector<Member> getMemberList() { return memberList; }
 
     vector<Rating> getRatingList() { return ratingList; }
 
-    vector<Booking> &getRequestList() { return requestList; }
+    vector<Request> &getRequestList() { return requestList; }
 
     // File Reader
     void memberFileReader();
@@ -77,7 +78,9 @@ class System {
 
     // generate member ID when register
     string generateMemberID();
+
     string generateRatingID();
+
     string generateRequestID();
 
     void addNewSkill(const string &, const string &);
@@ -87,6 +90,7 @@ class System {
                       double hostRating, string comments);
 
     void addNewRequest();
+
     void requestToBookAvailableSupporter(const string &, const string &D);
 };
 
