@@ -1,10 +1,10 @@
-#ifndef SED_PROJECT_REQUEST_H
-#define SED_PROJECT_REQUEST_H
+#ifndef SED_PROJECT_BOOKING_H
+#define SED_PROJECT_BOOKING_H
 
 #include "BasicSTDLIB.h"
 #include "Time.h"
 
-class Request {
+class Booking {
 private:
     string bookingID;
     string memberID;
@@ -14,7 +14,7 @@ private:
 
 public:
     // constructor code
-    Request();
+    Booking();
 
     // function code
     bool answerRequest();

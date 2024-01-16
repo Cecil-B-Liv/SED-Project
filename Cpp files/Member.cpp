@@ -9,8 +9,8 @@ Member::Member(string fullName, string email, string homeAddress,
                int phoneNumber, double ratingScore, double supporterRating,
                double hostRating, string username, string password,
                string memberID, bool available_status,
-               vector<string *> skillInfo, vector<Rating> ratingList,
-               vector<Request> requestList, Member *hostMember,
+               vector<string *> skillInfo, vector<Rating *> ratingList,
+               vector<Booking *> requestList, Member *hostMember,
                Member *supportMember) {
     this->fullName = fullName;
     this->email = email;
@@ -43,16 +43,8 @@ void Member::showInfo() const {
 
     availableStatus ? cout << "Available Status: Online " << endl
                     : cout << "Available Status: Offline " << endl;
-    cout << "Host List: ";
-    if (this->hostMember != nullptr)
-        cout << hostMember->getFullName() << endl;
-    cout << endl;
-
-
-    cout << "Supporter List: ";
-    if (this->supporterMember != nullptr)
-        cout << supporterMember->getFullName() << endl;
-    cout << endl;
+    cout << "Host List: " << hostMember->getFullName() << endl;
+    cout << "Supporter List: " << supporterMember->getFullName() << endl;
 
     cout << "Skill Info: ";
     for (string *skill: skillInfoList) {
@@ -66,7 +58,7 @@ void Member::showInfo() const {
     // }
     // cout << endl;
 
-    // cout << "Request List: ";
+    // cout << "Booking List: ";
     // for (auto request : requestList) {
     //     request.showInfo();
     // }
