@@ -2,14 +2,16 @@
 // Created by Nick Anderson on 28/12/2023.
 //
 
-#include "../Header files/INCLUDEHEADERS.h"
 #include "../Header files/Member.h"
 
 
 Member::Member(string fullName, string email, string homeAddress,
-               int phoneNumber, double ratingScore,
-               double supporterRating, double hostRating, string username,
-               string password, string memberID, vector<string *> skillInfo) {
+               int phoneNumber, double ratingScore, double supporterRating,
+               double hostRating, string username, string password,
+               string memberID, bool available_status,
+               vector<string *> skillInfo, vector<Rating *> ratingList,
+               vector<Booking *> requestList, Member *hostMember,
+               Member *supportMember) {
     this->fullName = fullName;
     this->email = email;
     this->homeAddress = homeAddress;
@@ -21,12 +23,10 @@ Member::Member(string fullName, string email, string homeAddress,
     this->username = username;
     this->password = password;
     this->memberID = memberID;
+    // this->availableStatus = available_status;
+    // this->hostMember = hostMember;
+    // this->supporterMember = supporterMember;
 }
-//     setter for these vectors, which doesnt need
-//     this->hostList = hostList;
-//     this->supporterList = supporterList;
-//     this->ratingList = ratingList;
-//     this->requestList = requestList;
 
 void Member::showInfo() const {
     cout << "Full Name: " << fullName << endl;
@@ -37,31 +37,20 @@ void Member::showInfo() const {
     cout << "Supporter Rating: " << supporterRating << endl;
     cout << "Host Rating: " << hostRating << endl;
 
-    cout << "showMemberScreen ID: " << memberID << endl;
+    cout << "Member ID: " << memberID << endl;
     cout << "Username: " << username << endl;
     cout << "Password: " << password << endl;
 
-    cout << "Skill Info: ";
+    availableStatus ? cout << "Available Status: Online " << endl
+                    : cout << "Available Status: Offline " << endl;
+    cout << "Host List: " << hostMember->getFullName() << endl;
+    cout << "Supporter List: " << supporterMember->getFullName() << endl;
 
+    cout << "Skill Info: ";
     for (string *skill: skillInfoList) {
         cout << *skill << " ";
     }
-
     cout << endl;
-
-    // cout << "Host List: ";
-    // for (showMemberScreen host : hostList) {
-    //     cout << "MemberID: " << host.getMemberID
-    //          << ", Name: " << host.getFullName;
-    // }
-    // cout << endl;
-
-    // cout << "Supporter List: ";
-    // for (showMemberScreen supporter : supporterList) {
-    //     cout << "MemberID: " << supporter.getMemberID
-    //          << ", Name: " << supporter.getFullName;
-    // }
-    // cout << endl;
 
     // cout << "Rating List: ";
     // for (auto rating : ratingList) {
@@ -69,7 +58,7 @@ void Member::showInfo() const {
     // }
     // cout << endl;
 
-    // cout << "Request List: ";
+    // cout << "Booking List: ";
     // for (auto request : requestList) {
     //     request.showInfo();
     // }

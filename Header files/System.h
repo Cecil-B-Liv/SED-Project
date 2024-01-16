@@ -9,9 +9,8 @@
 #include "Member.h"
 
 // Data path
-const string USER_PATH = "../Database/MemberData.csv";
-const string TRANSACTION_PATH = "../Database/TransactionData.csv";
-const string REQUEST_PATH = "../Database/RequestData.csv";
+const string MEMBER_PATH = "../Database/MemberData.csv";
+const string BOOKING_PATH = "../Database/BookingData.csv";
 const string RATING_PATH = "../Database/RatingData.csv";
 
 class System {
@@ -19,24 +18,19 @@ private:
     // private constructor
     System();
 
-    // user name and password for admin
-    string const adminUsername = "admin";
-    string const adminPassword = "admin";
-
     // Data for the systemInstance
     vector<Member> memberList;
-    vector<Rating> userRating;
-    vector<Rating *> ratingList;
-    vector<Request> requestList;
+    vector<Rating> ratingList;
+    vector<Booking> bookingList;
 
 public:
     static System &getInstance();
 
-    vector<Member> &getMemberList() { return this->memberList; }
+    vector<Member> getMemberList() { return memberList; }
 
-    vector<Rating *> &getRatingList() { return this->ratingList; }
+    vector<Rating> getRatingList() { return ratingList; }
 
-    vector<Request> &getRequestList() { return this->requestList; }
+    vector<Booking> &getRequestList() { return bookingList; }
 
     // File Reader
     void memberFileReader();
@@ -45,32 +39,30 @@ public:
 
     void requestFileReader();
 
-    void hostFileReader();
-
-    void supporterFileReader();
-
     // File Writer
-    void memberFileWriter(const Member &newMember);
+    void memberFileWriter();
 
     void ratingFileWriter();
 
-    void requestFileWriter();
+    void bookingFileWriter();
+
+    // check if there is a member with that ID
+    int checkMemberExist(const string &);
 
     // Check if valid information was input
-    string loginCheck(const string &, const string &);
-
-    int checkIfInputIsInteger(const string &input);
+    string getIDWithUsernamePassword(const string &username,
+                                     const string &password);
 
     // Get information of showMemberScreen
-    void getMemberInformation(const string &);
+    void displayMemberInformation(const string &ID);
 
-    string generateMemberID();
+    // Admin function
+    void resetPassword(const string &ID, const string &newPwd);
 
-    void addRating(string ratingID, string memberID, string hostID,
-                   double skillRating, double supporterRating,
-                   double hostRating, string comments);
+    // System function
+    Member getMemberObject(const string &ID);
 
-    void removeRating(const string &ratingID);
+    //    int changePasswordWithID(const string &, const string &);
 
     void registerNewMember(const string &fullName = "",
                            const string &email = "",
@@ -79,6 +71,27 @@ public:
                            const string &password = "");
 
     void addSkill(const string &, const string &);
+
+    // Helper Function
+    // check input is integer when choosing option
+    int checkIfInputIsInteger(const string &input);
+
+    // generate member ID when register
+    string generateMemberID();
+
+    string generateRatingID();
+
+    string generateRequestID();
+
+    void addNewSkill(const string &, const string &);
+
+    void addNewRating(string ratingID, string memberID, string hostID,
+                      double skillRating, double supporterRating,
+                      double hostRating, string comments);
+
+    void addNewRequest();
+
+    void requestToBookAvailableSupporter(const string &, const string &D);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H
