@@ -415,7 +415,7 @@ void Event::registerScreen() {
         if (password == passwordDoubleCheck) {
             break;
         }
-        cout << "Re-enter your password" << endl;
+        cout << "Re-enter your password: " << endl;
     }
 
     cout << "Enter your address: ";
