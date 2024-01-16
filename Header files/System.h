@@ -14,22 +14,20 @@ const string REQUEST_PATH = "../Database/RequestData.csv";
 const string RATING_PATH = "../Database/RatingData.csv";
 
 class System {
-private:
+   private:
     // private constructor
     System();
-
     // Data for the systemInstance
     vector<Member> memberList;
-    vector<Rating> userRating;
     vector<Rating> ratingList;
     vector<Booking> requestList;
 
-public:
+   public:
     static System &getInstance();
 
     vector<Member> getMemberList() { return memberList; }
 
-    vector<Rating> &getRatingList() { return ratingList; }
+    vector<Rating> getRatingList() { return ratingList; }
 
     vector<Booking> &getRequestList() { return requestList; }
 
@@ -51,7 +49,8 @@ public:
     int checkMemberExist(const string &);
 
     // Check if valid information was input
-    string getIDWithUsernamePassword(const string &username, const string &password);
+    string getIDWithUsernamePassword(const string &username,
+                                     const string &password);
 
     // Get information of showMemberScreen
     void displayMemberInformation(const string &ID);
@@ -62,8 +61,7 @@ public:
     // System function
     Member getMemberObject(const string &ID);
 
-//    int changePasswordWithID(const string &, const string &);
-
+    //    int changePasswordWithID(const string &, const string &);
 
     void registerNewMember(const string &fullName = "",
                            const string &email = "",
@@ -79,6 +77,8 @@ public:
 
     // generate member ID when register
     string generateMemberID();
+    string generateRatingID();
+    string generateRequestID();
 
     void addNewSkill(const string &, const string &);
 
@@ -87,7 +87,7 @@ public:
                       double hostRating, string comments);
 
     void addNewRequest();
-
+    void requestToBookAvailableSupporter(const string &, const string &D);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H
