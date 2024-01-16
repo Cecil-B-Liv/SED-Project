@@ -7,6 +7,7 @@
 Booking::Booking() {
     std::time_t timeOfRequestObjectCreation = std::time(nullptr);
     creationTime = *std::localtime(&timeOfRequestObjectCreation);
+
 }
 
 //function code
@@ -20,10 +21,10 @@ void Booking::showInfo() {
     cout << "Booking ID: " << bookingID << endl;
     cout << "Host ID: " << hostMemberID << endl;
     cout << "Supporter ID: " << hostMemberID << endl;
-    cout << "Skill Required: " << endl;
-    cout << endl;
+    cout << "Time Renting " << timeRenting << endl;
     cout << "Creation time: " << getFormattedCreationTime() << endl;
-    cout << "Status: " << endl;
+    cout << "Start Renting time: " << getFormattedStartRentingTime << endl;
+    cout << "Status: " << status <<  endl;
 
     // for (string *skill: skillRequired) {
     //     cout << *skill;
