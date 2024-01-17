@@ -489,7 +489,7 @@ void Event::registerScreen() {
         cout << COLOR_RED << "Invalid phone number!" << COLOR_RESET << endl;
     }
     systemInstance.registerNewMember(fullname, email, address,
-                                     stoi(phoneNumber), username, password);
+                                     phoneNumber, username, password);
     cout << COLOR_GREEN << "Successfully register your account \n Press e to exit to start "
                            "screen." << COLOR_RESET << endl;
     UI::start();
@@ -564,7 +564,7 @@ void Event::resetMemberPwd() {
     }
 }
 
-void Event::bookSupporter(const string hostID) {
+void Event::bookSupporter(const string &hostID) {
     string supporterID;
     string input;
     double rentingTime;
@@ -615,9 +615,9 @@ void Event::bookSupporter(const string hostID) {
                         return;
                     }
                 }
+                systemInstance.addNewBooking(hostID, supporterID, "Pending",
+                                             rentingTime, systemInstance.parseCSVTime(time));
             }
-            systemInstance.addNewBooking(hostID, supporterID, "Pending",
-                                         rentingTime, systemInstance.parseCSVTime(time));
         } else cout << "System doesn't have the supporter with your inputted ID.";
 
         break;

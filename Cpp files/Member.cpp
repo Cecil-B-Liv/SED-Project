@@ -6,7 +6,7 @@
 
 
 Member::Member(string fullName, string email, string homeAddress,
-               int phoneNumber, double ratingScore, double supporterRating,
+               string phoneNumber, double ratingScore, double supporterRating,
                double hostRating, string username, string password,
                string memberID, int available_status,
                vector<string *> skillInfo, vector<Rating *> ratingList,

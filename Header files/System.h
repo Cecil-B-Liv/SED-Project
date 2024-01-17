@@ -76,7 +76,8 @@ public:
 
     void registerNewMember(const string &fullName = "",
                            const string &email = "",
-                           const string &homeAddress = "", int phoneNumber = 0,
+                           const string &homeAddress = "",
+                           const string &phoneNumber = "",
                            const string &username = "",
                            const string &password = "");
 

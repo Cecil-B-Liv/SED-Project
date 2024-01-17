@@ -111,7 +111,7 @@ void System::memberFileReader() {
         member.setFullName(fullname);
         member.setEmail(email);
         member.setHomeAddress(address);
-        member.setPhoneNumber(stoi(phoneNumber));
+        member.setPhoneNumber(phoneNumber);
         member.setUsername(username);
         member.setPassword(password);
         member.setMemberID(ID);
@@ -394,7 +394,7 @@ string System::generateBookingID() {
 }
 
 void System::registerNewMember(const string &fullName, const string &email,
-                               const string &homeAddress, int phoneNumber,
+                               const string &homeAddress, const string &phoneNumber,
                                const string &username, const string &password) {
     Member newMember;
     newMember.setFullName(fullName);

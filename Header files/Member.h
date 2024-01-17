@@ -17,7 +17,7 @@ private:
     string fullName;
     string email;
     string homeAddress;
-    int phoneNumber;
+    string phoneNumber;
 
     // showMemberScreen value
     double ratingScore;
@@ -40,12 +40,12 @@ private:
 public:
     explicit Member(
             string fullName = "", string email = "", string homeAddress = "",
-            int phoneNumber = 0, double ratingScore = 0.0,
+            string phoneNumber = "", double ratingScore = 0.0,
             double supporterRating = 0.0, double hostRating = 0.0,
             string username = "", string password = "", string memberID = "",
-            int availableStatus = 0, vector<string *> skillInfoList = {},
+            int available_status = 0, vector<string *> skillInfo = {},
             vector<Rating *> ratingList = {}, vector<Booking *> requestList = {},
-            Member *hostMember = nullptr, Member *supporterMember = nullptr);
+            Member *hostMember = nullptr, Member *supportMember = nullptr);
 
     // toString
     void showInfo() const;
@@ -62,7 +62,7 @@ public:
 
     string getHomeAddress() const { return homeAddress; }
 
-    int getPhoneNumber() const { return phoneNumber; }
+    string getPhoneNumber() const { return phoneNumber; }
 
     double getRatingScore() const { return ratingScore; }
 
@@ -95,7 +95,7 @@ public:
         this->homeAddress = homeAddressVal;
     }
 
-    void setPhoneNumber(int phoneNumberVal) {
+    void setPhoneNumber(const string &phoneNumberVal) {
         this->phoneNumber = phoneNumberVal;
     }
 
