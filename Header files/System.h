@@ -14,7 +14,7 @@ const string BOOKING_PATH = "../Database/BookingData.csv";
 const string RATING_PATH = "../Database/RatingData.csv";
 
 class System {
-   private:
+private:
     // private constructor
     System();
 
@@ -50,14 +50,14 @@ public:
 
     void ratingFileWriter();
 
-    
+
     tm parseCSVTime(const std::string &timeStr);
 
     void bookingFileWriter();
 
 
-        // check if there is a member with that ID
-        int checkMemberExist(const string &);
+    // check if there is a member with that ID
+    int checkMemberExist(const string &);
 
     // Check if valid information was input
     string getIDWithUsernamePassword(const string &username,

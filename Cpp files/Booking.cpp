@@ -23,10 +23,6 @@ void Booking::showInfo() {
     cout << "Supporter ID: " << hostMemberID << endl;
     cout << "Time Renting " << timeRenting << endl;
     cout << "Creation time: " << getFormattedCreationTime() << endl;
-    cout << "Start Renting time: " << getFormattedStartRentingTime << endl;
-    cout << "Status: " << status <<  endl;
-
-    // for (string *skill: skillRequired) {
-    //     cout << *skill;
-    // }
+    cout << "Start Renting time: " << getFormattedStartRentingTime() << endl;
+    cout << "Status: " << status << endl;
 }

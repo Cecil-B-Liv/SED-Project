@@ -158,6 +158,8 @@ void System::ratingFileReader() {
         rating.setSkillRating(std::stod(skillRating));
         rating.setHostRating(std::stod(hostRating));
         rating.setComments(comments);
+
+        ratingList.push_back(rating);
     }
     file.close();
 }
@@ -175,7 +177,8 @@ void System::bookingFileReader() {
         string bookingID;
         string hostMemberID;
         string supporterMemberID;
-        string time;
+        string creationTime;
+        string startTime;
 
         string status;
         Booking request;
@@ -186,15 +189,20 @@ void System::bookingFileReader() {
         getline(iss, supporterMemberID, ',');
 
         getline(iss, status, ',');
-        getline(iss, time, ',');
+        getline(iss, creationTime, ',');
+        getline(iss, startTime, ',');
 
-        request.setCreationTime(parseCSVTime(time));
+
+        request.setCreationTime(parseCSVTime(creationTime));
+        request.setStartTime(parseCSVTime(startTime));
         request.setBookingID(bookingID);
         request.setHostMemberID(hostMemberID);
         request.setSupporterMemberID(supporterMemberID);
-
         request.setStatus(status);
+
+        bookingList.push_back(request);
     }
+    file.close();
 }
 
 // Writer functions
@@ -253,7 +261,7 @@ void System::bookingFileWriter() {
     for (const auto &booking: bookingList) {
         file << booking.getBookingID() << "," << booking.getHostMemberID()
              << "," << booking.getSupporterMemberID() << "," << booking.getStatus()
-             << "," << booking.getFormattedCreationTime() << endl;
+             << "," << booking.getFormattedCreationTime() << "," << booking.getFormattedStartRentingTime() << endl;
     }
     // add member available status
     file.close();
