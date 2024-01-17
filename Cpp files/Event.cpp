@@ -60,9 +60,10 @@ void Event::startScreen() {
     string input;
 
     // Welcome Message
-    sectionDivider cout << COLOR_YELLOW << STYLE_BOLD
-                        << "EEET2482/COSC2082 ASSIGNMENT" << COLOR_RESET
-                        << endl;
+    sectionDivider
+    cout << COLOR_YELLOW << STYLE_BOLD
+         << "EEET2482/COSC2082 ASSIGNMENT" << COLOR_RESET
+         << endl;
     cout << COLOR_YELLOW << STYLE_UNDERLINE << "\"TIME BANK\" APPLICATION"
          << COLOR_RESET << endl;
     cout << endl;
@@ -123,6 +124,7 @@ void Event::startScreen() {
 void Event::getMemberInfoScreen(const string &ID) {
     systemInstance.displayMemberInformation(ID);
 }
+
 void Event::getAllSupporterInformationScreen() {
     string input;
     while (true) {
@@ -134,8 +136,8 @@ void Event::getAllSupporterInformationScreen() {
         // Check if user's input is only number
         if (input == YES) {
             cout << "Details of available supporters: " << endl;
-            for (auto &member : systemInstance.getMemberList()) {
-                if (member.getMemberAvailableStatus() == true)
+            for (auto &member: systemInstance.getMemberList()) {
+                if (member.getMemberAvailableStatus())
                     member.showInfo();
                 cout << "\n";
             }
@@ -150,10 +152,11 @@ void Event::getAllSupporterInformationScreen() {
 void Event::guestScreen() {
     string input_1;
     string input_2;
-    elementDivider cout
-        << COLOR_YELLOW << STYLE_UNDERLINE
-        << "Welcome to our Time Bank Application, you are browsing as guest:"
-        << COLOR_RESET << endl;
+    elementDivider
+    cout
+            << COLOR_YELLOW << STYLE_UNDERLINE
+            << "Welcome to our Time Bank Application, you are browsing as guest:"
+            << COLOR_RESET << endl;
 
     while (true) {
         cout << "\nDo you want to see the information of our supporter (y/n):"
@@ -163,11 +166,9 @@ void Event::guestScreen() {
         // Check if user's input is only number
 
         if (input_1 == YES) {
-
             cout << COLOR_CYAN << STYLE_UNDERLINE << "Details of available supporters: " << COLOR_RESET << endl;
             cout << endl;
-            for (auto &member : systemInstance.getMemberList()) {
-
+            for (auto &member: systemInstance.getMemberList()) {
                 member.showInfo();
                 cout << "\n";
             }
@@ -414,7 +415,7 @@ void Event::loginScreen() {
         }
 
         if (!(systemInstance.getIDWithUsernamePassword(username, password)
-                  .empty())) {
+                .empty())) {
             cout << COLOR_YELLOW << STYLE_UNDERLINE << "Welcome to Time Bank!" << COLOR_RESET << endl;
             UI::showMemberScreen(
                     systemInstance.getIDWithUsernamePassword(username, password));
@@ -490,7 +491,7 @@ void Event::registerScreen() {
     systemInstance.registerNewMember(fullname, email, address,
                                      stoi(phoneNumber), username, password);
     cout << COLOR_GREEN << "Successfully register your account \n Press e to exit to start "
-            "screen." << COLOR_RESET << endl;
+                           "screen." << COLOR_RESET << endl;
     UI::start();
 }
 
@@ -505,7 +506,8 @@ void Event::resetMemberPwd() {
 
         if (systemInstance.checkMemberExist(id)) {
             cout << COLOR_GREEN << "Existing member found with matching ID. Loading..." << COLOR_RESET << endl;
-            elementDivider cout << "Information of member: " << id << endl;
+            elementDivider
+            cout << "Information of member: " << id << endl;
             systemInstance.displayMemberInformation(id);
             break;
         }
@@ -576,22 +578,22 @@ void Event::bookSupporter(const string hostID) {
             cout << "Existing member with your inputted ID. Loading.." << endl;
             elementDivider
 
-                    cout
-                << "Information of member" << supporterID << endl;
+            cout
+                    << "Information of member" << supporterID << endl;
             systemInstance.displayMemberInformation(supporterID);
             cout << "\nDo you wish to proceed? [y/n]: ";
             cout << "\n>>> ";
             cin >> input;
             if (input == "y") {
                 cout << "\nHow long do you want to rent: ";
-                cin >> rentingTime; 
+                cin >> rentingTime;
                 //prevent renting over 12 hours and negative number
-                while (rentingTime < 0 && rentingTime > 12){
+                while (rentingTime < 0 && rentingTime > 12) {
                     cout << "Please enter renting time that is valid (>0 and <12): ";
                     cin >> rentingTime;
                 }
                 cout
-                    << "\nDate and time that you want to rent your supporter: ";
+                        << "\nDate and time that you want to rent your supporter: ";
                 cout << "\nWhat time do you want to start renting ";
                 getline(cin >> std::ws, time);
                 while (time != "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}") {
@@ -617,7 +619,7 @@ void Event::bookSupporter(const string hostID) {
             systemInstance.addNewBooking(hostID, supporterID, "Pending",
                                          rentingTime, systemInstance.parseCSVTime(time));
         } else cout << "System doesn't have the supporter with your inputted ID.";
-        
+
         break;
     }
 }
