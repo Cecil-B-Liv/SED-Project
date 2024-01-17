@@ -15,7 +15,8 @@ class Event {
     static void endScreen();
 
     static void getMemberInfoScreen(const string &);
-
+    static void getAllSupporterInformationScreen();
+    
     static void guestScreen();
     static void memberScreen(const string &);
     static void adminScreen();
@@ -23,6 +24,8 @@ class Event {
     static void registerLoginScreen();
     static void loginScreen();
     static void resetMemberPwd();
+
+    static void bookSupporter(const string);
 
     static void registerScreen();
 

@@ -8,7 +8,7 @@
 Member::Member(string fullName, string email, string homeAddress,
                int phoneNumber, double ratingScore, double supporterRating,
                double hostRating, string username, string password,
-               string memberID, bool available_status,
+               string memberID, int available_status,
                vector<string *> skillInfo, vector<Rating *> ratingList,
                vector<Booking *> requestList, Member *hostMember,
                Member *supportMember) {
@@ -23,7 +23,7 @@ Member::Member(string fullName, string email, string homeAddress,
     this->username = username;
     this->password = password;
     this->memberID = memberID;
-    // this->availableStatus = available_status;
+    this->availableStatus = available_status;
     // this->hostMember = hostMember;
     // this->supporterMember = supporterMember;
 }
