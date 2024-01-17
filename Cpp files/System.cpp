@@ -6,20 +6,22 @@
 
 const string EMPTY;
 
-enum Status { UNAVAILABLE, AVAILABLE };
+enum Status {
+    UNAVAILABLE, AVAILABLE
+};
 
 const vector<string> skillStrings = {
-    "Unknown skill",    "Car Mechanic",
-    "Teaching",         "Tutoring",
-    "Plumbing Repair",  "Writing",
-    "Photography",      "Cooking",
-    "Gardening",        "House Cleaning",
-    "Laundry",          "Sewing",
-    "First Aid",        "Time Management",
-    "Public Speaking",  "Basic Computer Skills",
-    "Money Management", "Communication",
-    "Problem Solving",  "Teamwork",
-    "Stress Management"};
+        "Unknown skill", "Car Mechanic",
+        "Teaching", "Tutoring",
+        "Plumbing Repair", "Writing",
+        "Photography", "Cooking",
+        "Gardening", "House Cleaning",
+        "Laundry", "Sewing",
+        "First Aid", "Time Management",
+        "Public Speaking", "Basic Computer Skills",
+        "Money Management", "Communication",
+        "Problem Solving", "Teamwork",
+        "Stress Management"};
 
 // static vector<Rating> ratingList;
 // vector<Rating> System::getRatingList() { return ratingList; }
@@ -54,7 +56,7 @@ void System::clearTerminal() {
 }
 
 string toLowerString(string &input) {
-    for (unsigned char c : input) {
+    for (unsigned char c: input) {
         tolower(c);
     }
     return input;
@@ -80,6 +82,7 @@ void System::memberFileReader() {
         string password;
         string ID;
         string skills;
+        string status;
         vector<string *> newSkillsList;
         Member member;
 
@@ -96,6 +99,7 @@ void System::memberFileReader() {
         getline(iss, username, ',');
         getline(iss, password, ',');
         getline(iss, ID, ',');
+        getline(iss, status, ',');
         getline(iss, skills, ',');
 
         stringstream getSkill(skills);
@@ -111,8 +115,8 @@ void System::memberFileReader() {
         member.setUsername(username);
         member.setPassword(password);
         member.setMemberID(ID);
+        member.setAvailableStatus(stoi(status));
         member.setSkillInfo(newSkillsList);
-        // member.setAvailableStatus();
 
         memberList.push_back(member);
     }
@@ -203,17 +207,18 @@ void System::memberFileWriter() {
     }
     string skillList;
 
-    for (Member &members : memberList) {
-        for (const auto &skill : members.getSkillInfo()) {
+    for (Member &members: memberList) {
+        for (const auto &skill: members.getSkillInfo()) {
             skillList += *skill;
             if (&skill != &members.getSkillInfo().back()) {
                 skillList += "-";
             }
         }
-        file << members.getFullName() << "," << members.getEmail() << ","
-             << members.getHomeAddress() << "," << members.getPhoneNumber()
+        file << members.getFullName() << "," << members.getEmail()
+             << "," << members.getHomeAddress() << "," << members.getPhoneNumber()
              << "," << members.getUsername() << "," << members.getPassword()
-             << "," << members.getMemberID() << "," << skillList << endl;
+             << "," << members.getMemberID() << "," << members.getMemberAvailableStatus()
+             << "," << skillList << endl;
     }
 
     // add member available status
@@ -256,14 +261,14 @@ void System::bookingFileWriter() {
 
 int System::checkMemberExist(const string &ID) {
     // check if there is a member with that ID
-    for (const Member &member : memberList) {
+    for (const Member &member: memberList) {
         if ((ID == member.getMemberID())) return Status::AVAILABLE;
     }
     return Status::UNAVAILABLE;
 }
 
 void System::resetPassword(const string &ID, const string &newPwd) {
-    for (Member &member : memberList) {
+    for (Member &member: memberList) {
         if (ID == member.getMemberID()) {
             member.setPassword(newPwd);
             memberFileWriter();
@@ -276,7 +281,7 @@ string System::getIDWithUsernamePassword(const string &username,
                                          const string &password) {
     string memberID;
 
-    for (const Member &member : getMemberList()) {
+    for (const Member &member: getMemberList()) {
         if (!(username == member.getUsername() &&
               password == member.getPassword())) {
             return EMPTY;
@@ -291,7 +296,7 @@ string System::getIDWithUsernamePassword(const string &username,
 
 Member System::getMemberObject(const string &ID) {
     Member temp;
-    for (const Member &mem : getMemberList()) {
+    for (const Member &mem: getMemberList()) {
         if (mem.getMemberID() == ID) {
             return mem;
         }
@@ -303,7 +308,7 @@ Member System::getMemberObject(const string &ID) {
 void System::displayMemberInformation(const string &ID) {
     // Loop through each showMemberScreen
 
-    for (Member &member : getMemberList()) {
+    for (Member &member: getMemberList()) {
         // If the ID doesn't match, exit the loop
         if (!(ID == member.getMemberID())) {
             cout << "showMemberScreen not found";
@@ -331,8 +336,8 @@ void System::addNewRating(string memberID, string hostID,
 }
 
 void System::addNewBooking(string hostMemberID,
-                   string supporterMemberID, string status, double timeRenting,
-                   tm startTime) {
+                           string supporterMemberID, string status, double timeRenting,
+                           tm startTime) {
     Booking booking;
     booking.setBookingID(generateBookingID());
     booking.setHostMemberID(hostMemberID);
@@ -372,7 +377,7 @@ string System::generateRatingID() {
 string System::generateBookingID() {
     int bookingID = 0;  // default ID value
     string IDSuffix = "B";  // suffix of ID
-    int totalRequestAmount = (int)bookingList.size();
+    int totalRequestAmount = (int) bookingList.size();
 
 
     int currentID = bookingID + totalRequestAmount;
