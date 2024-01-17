@@ -172,6 +172,7 @@ void Event::guestScreen() {
                 member.showInfo();
                 cout << "\n";
             }
+            break;
         } else if (input_1 == NO) {
             break;
         } else {
