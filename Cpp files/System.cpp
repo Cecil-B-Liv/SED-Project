@@ -234,9 +234,9 @@ void System::ratingFileWriter() {
     }
 
     for (const auto &rating: ratingList) {
-        file << rating.getRatingID() << "," << rating.getMemberID() << ","
-             << rating.getHostID() << "," << rating.getSkillRating() << "," <<
-             "," << rating.getHostRating() << "," << "," << rating.getComments() << endl;
+        file << rating.getRatingID() << "," << rating.getMemberID()
+             << "," << rating.getHostID() << "," << rating.getSkillRating()
+             << "," << "," << rating.getHostRating() << "," << "," << rating.getComments() << endl;
     }
 
     file.close();
@@ -251,9 +251,9 @@ void System::bookingFileWriter() {
     }
 
     for (const auto &booking: bookingList) {
-        file << booking.getBookingID() << "," << booking.getHostMemberID() << ","
-             << booking.getSupporterMemberID() << "," << booking.getStatus() << ","
-             << booking.getFormattedCreationTime() << endl;
+        file << booking.getBookingID() << "," << booking.getHostMemberID()
+             << "," << booking.getSupporterMemberID() << "," << booking.getStatus()
+             << "," << booking.getFormattedCreationTime() << endl;
     }
     // add member available status
     file.close();
