@@ -268,31 +268,31 @@ void Event::memberScreen(const string &ID) {
                 UI::showGuestScreen();
                 return;
             case BOOK_AVAILABLE_SUPPORTER:
-//<<<<<<< viet_ui
-                while (true) {
-                    cout << "\nDo you want to see the information of our "
-                            "supporters (y.YES/n.NO):"
-                         << endl;
-                    cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
-                    cin >> input;
-                    // Check if user's input is only number
-                    if (input == YES) {
-                        cout << COLOR_CYAN << STYLE_UNDERLINE << "Details of available supporters: " << endl;
-                        cout << endl;
-                        for (auto &member : systemInstance.getMemberList()) {
-                            member.showInfo();
-                            cout << "\n";
-                        }
-                    } else if (input == NO) {
-                        break;
-                    } else {
-                        cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET << endl;
-                    }
-                }
-//=======
+// //<<<<<<< viet_ui
+//                 while (true) {
+//                     cout << "\nDo you want to see the information of our "
+//                             "supporters (y.YES/n.NO):"
+//                          << endl;
+//                     cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
+//                     cin >> input;
+//                     // Check if user's input is only number
+//                     if (input == YES) {
+//                         cout << COLOR_CYAN << STYLE_UNDERLINE << "Details of available supporters: " << endl;
+//                         cout << endl;
+//                         for (auto &member : systemInstance.getMemberList()) {
+//                             member.showInfo();
+//                             cout << "\n";
+//                         }
+//                     } else if (input == NO) {
+//                         break;
+//                     } else {
+//                         cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET << endl;
+//                     }
+//                 }
+// //=======
 
-                //UI::showAllSupporterInformationScreen();
-                //UI::bookSupporter(ID);
+                UI::showAllSupporterInformationScreen();
+                UI::bookSupporter(ID);
 //>>>>>>> main
 
                 UI::showGuestScreen();
