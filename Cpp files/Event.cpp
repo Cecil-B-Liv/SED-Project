@@ -19,11 +19,17 @@ enum UserPosition {
 const string YES = "y";
 const string NO = "n";
 
-enum UserChoice { LOGIN = 1, REGISTER };
+enum UserChoice {
+    LOGIN = 1, REGISTER
+};
 
-enum { MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER };
+enum {
+    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER
+};
 
-enum { RESET_MEM_PWD = 1 };
+enum {
+    RESET_MEM_PWD = 1
+};
 
 // username and password for admin
 string const adminUsername = "admin";
@@ -42,7 +48,7 @@ System &systemInstance = System::getInstance();
 void Event::initialize() {
     systemInstance.memberFileReader();
     systemInstance.ratingFileReader();
-    systemInstance.requestFileReader();
+    systemInstance.bookingFileReader();
 }
 
 void Event::endScreen() {
@@ -77,7 +83,7 @@ void Event::startScreen() {
          << COLOR_RESET << endl;
     elementDivider
 
-        while (true) {
+    while (true) {
         // Prompt User to Choose Role
         cout << COLOR_GREEN << "Select your role: " << COLOR_RESET << endl;
         cout << COLOR_BLUE << "  1. Guest - Browse as a guest" << COLOR_RESET
@@ -149,7 +155,7 @@ void Event::guestScreen() {
 
     elementDivider
 
-        while (true) {
+    while (true) {
         cout << COLOR_GREEN
              << "If you want to book one of our supporter, or becoming one of "
                 "us, consider joining us here: "
@@ -201,7 +207,7 @@ void Event::memberScreen(const string &ID) {
 
     elementDivider
 
-        while (true) {
+    while (true) {
         cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
         cout << endl;
         cout << COLOR_BLUE << "1. View my info." << COLOR_RESET << endl;
@@ -257,7 +263,7 @@ void Event::memberScreen(const string &ID) {
                         cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET << endl;
                     }
                 }
-                
+
                 UI::showGuestScreen();
                 return;
             case FILTER_SUPPORTER:
@@ -277,7 +283,7 @@ void Event::adminScreen() {
     cout << "\nWelcome, you are browsing with administrator role." << endl;
     elementDivider
 
-        while (true) {
+    while (true) {
         cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
         cout << endl;
         cout << COLOR_BLUE << "1. Reset a member password." << COLOR_RESET
@@ -382,7 +388,7 @@ void Event::loginScreen() {
                   .empty())) {
             cout << COLOR_YELLOW << STYLE_UNDERLINE << "Welcome to Time Bank!" << COLOR_RESET << endl;
             UI::showMemberScreen(
-                systemInstance.getIDWithUsernamePassword(username, password));
+                    systemInstance.getIDWithUsernamePassword(username, password));
             return;
         }
         cout << COLOR_RED << "Wrong username or password!" << COLOR_RESET
@@ -517,6 +523,7 @@ void Event::resetMemberPwd() {
                 cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
                 getline(cin >> std::ws, newPassword);
                 systemInstance.resetPassword(id, newPassword);
+                systemInstance.clearTerminal();
                 UI::showAdminScreen();
                 return;
             default:

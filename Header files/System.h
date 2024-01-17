@@ -24,6 +24,10 @@ private:
     vector<Booking> bookingList;
 
 public:
+
+
+    void clearTerminal();
+
     static System &getInstance();
 
     vector<Member> getMemberList() { return memberList; }
@@ -37,7 +41,7 @@ public:
 
     void ratingFileReader();
 
-    void requestFileReader();
+    void bookingFileReader();
 
     // File Writer
     void memberFileWriter();
@@ -85,7 +89,7 @@ public:
 
     void addNewSkill(const string &, const string &);
 
-    void addNewRating(string ratingID, string memberID, string hostID,
+    void addNewRating(string memberID, string hostID,
                       double skillRating, double supporterRating,
                       double hostRating, string comments);
 
