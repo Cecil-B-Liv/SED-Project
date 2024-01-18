@@ -46,7 +46,7 @@ public:
             string username = "", string password = "", string memberID = "", int creditPoints = 20,
             int available_status = 0, vector<string *> skillInfo = {},
             vector<Rating *> ratingList = {}, vector<Booking *> requestList = {},
-            string hostMemberID = "", string supportMemberID = "");
+            string hostMemberID = "", string supporterMemberID = "");
 
     // toString
     void showInfo() const;
@@ -126,7 +126,7 @@ public:
         this->memberID = memberIDVal;
     }
 
-    void setCreditPoints (const int &creditPointsVal) {
+    void setCreditPoints(const int &creditPointsVal) {
         this->creditPoints = creditPointsVal;
     }
 

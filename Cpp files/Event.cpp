@@ -819,12 +819,12 @@ void Event::PendingScreen() {
 
     if (cInput == 1) {
         for (Booking &booking: systemInstance.getBookingList()) {
-            if (booking.getHostMemberID() == ID)
+            if (booking.getSupporterMemberID() == ID)
                 booking.setStatus("Approved");
         }
     } else if (cInput == 2) {
         for (Booking &booking: systemInstance.getBookingList()) {
-            if (booking.getHostMemberID() == ID)
+            if (booking.getSupporterMemberID() == ID)
                 booking.setStatus("Denied");
         }
     } else {
