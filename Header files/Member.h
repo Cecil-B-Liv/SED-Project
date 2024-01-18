@@ -17,7 +17,7 @@ private:
     string fullName;
     string email;
     string homeAddress;
-    int phoneNumber;
+    string phoneNumber;
 
     // showMemberScreen value
     double ratingScore;
@@ -34,18 +34,18 @@ private:
     // System based member info
     vector<Rating *> ratingList;
     vector<Booking *> requestList;
-    Member *hostMember;
-    Member *supporterMember;
+    string hostMemberID;
+    string supporterMemberID;
 
 public:
     explicit Member(
             string fullName = "", string email = "", string homeAddress = "",
-            int phoneNumber = 0, double ratingScore = 0.0,
+            string phoneNumber = "", double ratingScore = 0.0,
             double supporterRating = 0.0, double hostRating = 0.0,
             string username = "", string password = "", string memberID = "",
-            int availableStatus = 0, vector<string *> skillInfoList = {},
+            int available_status = 0, vector<string *> skillInfo = {},
             vector<Rating *> ratingList = {}, vector<Booking *> requestList = {},
-            Member *hostMember = nullptr, Member *supporterMember = nullptr);
+            string hostMemberID = "", string supportMemberID = "");
 
     // toString
     void showInfo() const;
@@ -62,7 +62,7 @@ public:
 
     string getHomeAddress() const { return homeAddress; }
 
-    int getPhoneNumber() const { return phoneNumber; }
+    string getPhoneNumber() const { return phoneNumber; }
 
     double getRatingScore() const { return ratingScore; }
 
@@ -80,9 +80,9 @@ public:
 
     vector<Booking *> getRequestList() { return requestList; }
 
-    Member *getHostMember() { return hostMember; }
+    string getHostMember() const { return hostMemberID; }
 
-    Member *getSupporterMember() { return supporterMember; }
+    string getSupporterMember() const { return supporterMemberID; }
 
     // setter
     void setFullName(const string &fullNameVal) {
@@ -95,7 +95,7 @@ public:
         this->homeAddress = homeAddressVal;
     }
 
-    void setPhoneNumber(int phoneNumberVal) {
+    void setPhoneNumber(const string &phoneNumberVal) {
         this->phoneNumber = phoneNumberVal;
     }
 
@@ -131,10 +131,10 @@ public:
         this->skillInfoList = skillInfoListVal;
     }
 
-    void setHostMember(Member *newHost) { this->hostMember = newHost; }
+    void setHostMember(string newHost) { this->hostMemberID = newHost; }
 
-    void setSupporterMember(Member *newSupporter) {
-        this->supporterMember = newSupporter;
+    void setSupporterMember(string newSupporter) {
+        this->supporterMemberID = newSupporter;
     }
 
     void addSkill(string *newSkill) { this->skillInfoList.push_back(newSkill); }
