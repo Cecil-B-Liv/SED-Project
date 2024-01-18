@@ -114,6 +114,7 @@ void Event::startScreen() {
         // Check if user's input is only number
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case UserPosition::GUEST:
+                systemInstance.clearTerminal();
                 UI::showGuestScreen();
                 return;
             case UserPosition::MEMBER:
@@ -270,6 +271,7 @@ void Event::guestScreen() {
         }
 
         if (input_2 == "h") {
+            systemInstance.clearTerminal();
             Event::startScreen();
             return;
         }
@@ -278,9 +280,11 @@ void Event::guestScreen() {
         switch (systemInstance.checkIfInputIsInteger(input_2)) {
             // case 0:
             case UserChoice::REGISTER:
+                systemInstance.clearTerminal();
                 UI::showRegisterScreen();
                 return;
             case UserChoice::LOGIN:
+                systemInstance.clearTerminal();
                 UI::showLoginScreen();
                 return;
             default:
@@ -325,6 +329,7 @@ void Event::memberScreen(const string &ID) {
         }
 
         if (input == "h") {
+            systemInstance.clearTerminal();
             Event::startScreen();
             return;
         }
@@ -410,7 +415,9 @@ void Event::adminScreen() {
 
         if (input == "e") {
             return;
+
         } else if (input == "h") {
+
             Event::startScreen();
             return;
         }
@@ -418,6 +425,7 @@ void Event::adminScreen() {
         // Check if user's input is only number
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case RESET_MEM_PWD:
+                systemInstance.clearTerminal();
                 UI::resetMemberPwdScreen();
                 return;
             case VIEW_MEMBERLIST:
@@ -466,6 +474,7 @@ void Event::registerLoginScreen() {
         if (givenChoice == "e") {
             return;
         } else if (givenChoice == "h") {
+            systemInstance.clearTerminal();
             Event::startScreen();
             return;
         }
@@ -473,9 +482,11 @@ void Event::registerLoginScreen() {
 
         switch (systemInstance.checkIfInputIsInteger(givenChoice)) {
             case UserChoice::LOGIN:
+                systemInstance.clearTerminal();
                 UI::showLoginScreen();
                 return;
             case UserChoice::REGISTER:
+                systemInstance.clearTerminal();
                 UI::showRegisterScreen();
                 return;
             default:
@@ -497,6 +508,7 @@ void Event::loginScreen() {
         getline(cin >> std::ws, password);
 
         if (username == adminUsername && password == adminPassword) {
+            systemInstance.clearTerminal();
             UI::showAdminScreen();
             return;
         }
@@ -792,5 +804,45 @@ void Event::PendingScreen() {
 
     systemInstance.bookingFileWriter();
     UI::showMemberScreen(ID);
+}
+
+void Event::topUpScreen(const string &memberID) {
+    systemInstance.clearTerminal();
+    cout << COLOR_YELLOW << STYLE_UNDERLINE << "Top-Up Credits" << COLOR_RESET << endl;
+    elementDivider
+
+    int topUpAmount;
+    cout << "Enter the amount of credits to top up: ";
+    cin >> topUpAmount;
+
+    if (cin.fail() || topUpAmount < 0) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << COLOR_RED << "Invalid input. Please enter a positive number." << COLOR_RESET << endl;
+        UI::showMemberScreen(memberID);
+        return;
+    }
+
+    string passwordInput;
+    int attempts = 0;
+    while (attempts < 3) {
+        cout << "Enter your password to confirm: ";
+        cin >> passwordInput;
+        if (systemInstance.topUpCredits(memberID, topUpAmount, passwordInput)) {
+            Member member = systemInstance.getMemberObject(memberID);
+            int updatedBalance = member.getCreditPoints();
+            cout << COLOR_GREEN << "Top-up successful. Your new credit balance is: " << updatedBalance << COLOR_RESET << endl;
+            break;
+        } else {
+            attempts++;
+            cout << COLOR_RED << "Incorrect password. Attempts left: " << (3 - attempts) << COLOR_RESET << endl;
+        }
+    }
+
+    if (attempts == 3) {
+        systemInstance.clearTerminal();
+        cout << COLOR_RED << "Incorrect password entered 3 times. Returning to Member Screen." << COLOR_RESET << endl;
+        UI::showMemberScreen(memberID);
+    }
 }
 

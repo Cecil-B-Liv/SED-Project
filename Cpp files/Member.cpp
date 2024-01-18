@@ -8,7 +8,7 @@
 Member::Member(string fullName, string email, string homeAddress,
                string phoneNumber, double ratingScore, double supporterRating,
                double hostRating, string username, string password,
-               string memberID, int available_status,
+               string memberID, int creditPoints, int available_status,
                vector<string *> skillInfo, vector<Rating *> ratingList,
                vector<Booking *> requestList, string hostMemberID,
                string supportorMemberID) {
@@ -23,6 +23,7 @@ Member::Member(string fullName, string email, string homeAddress,
     this->username = username;
     this->password = password;
     this->memberID = memberID;
+    this->creditPoints = creditPoints;
     this->availableStatus = available_status;
     this->hostMemberID = hostMemberID;
     this->supporterMemberID = supportorMemberID;
@@ -41,6 +42,7 @@ void Member::showInfo() const {
     cout << "Member ID: " << memberID << endl;
     cout << "Username: " << username << endl;
     cout << "Password: " << password << endl;
+    cout << "Credit Points:" << creditPoints << endl;
 
     cout << "Available Status: " << (availableStatus ? "Online" : "Offline") << endl;
     cout << "Host member: " << hostMemberID << endl;

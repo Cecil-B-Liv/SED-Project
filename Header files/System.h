@@ -104,6 +104,8 @@ public:
     void addNewRequest();
 
     void requestToBookAvailableSupporter(const string &, const string &);
+
+    bool topUpCredits(const string &memberID, int topUpAmount, const string &passwordInput);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H
