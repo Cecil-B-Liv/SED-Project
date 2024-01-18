@@ -35,6 +35,8 @@ enum {
 string const adminUsername = "admin";
 string const adminPassword = "admin";
 
+string currentID;
+
 // Dividers shortcuts
 #define sectionDivider                                                       \
     cout << COLOR_CYAN << "************************************************" \
@@ -137,12 +139,15 @@ void Event::getAllSupporterInformationScreen() {
         if (input == YES) {
             cout << "Details of available supporters: " << endl;
             for (auto &member: systemInstance.getMemberList()) {
-                if (member.getMemberAvailableStatus())
+                if (member.getMemberAvailableStatus() && member.getMemberID() != currentID) {
                     member.showInfo();
+                }
                 cout << "\n";
             }
+            return;
         } else if (input == NO) {
-            break;
+            UI::showMemberScreen(currentID);
+            return;
         } else {
             cout << "Invalid option provided!" << endl;
         }
@@ -272,7 +277,6 @@ void Event::memberScreen(const string &ID) {
             case BOOK_AVAILABLE_SUPPORTER:
                 UI::showAllSupporterInformationScreen();
                 UI::bookSupporter(ID);
-                UI::showGuestScreen();
                 return;
             case FILTER_SUPPORTER:
                 cout << "have yet to implemented";
@@ -393,7 +397,8 @@ void Event::loginScreen() {
         if (!(systemInstance.getIDWithUsernamePassword(username, password)
                 .empty())) {
             cout << COLOR_YELLOW << STYLE_UNDERLINE << "Welcome to Time Bank!" << COLOR_RESET << endl;
-            UI::showMemberScreen(systemInstance.getIDWithUsernamePassword(username, password));
+            currentID = systemInstance.getIDWithUsernamePassword(username, password);
+            UI::showMemberScreen(currentID);
             return;
         }
         cout << COLOR_RED << "Wrong username or password!" << COLOR_RESET
@@ -597,66 +602,18 @@ void Event::bookSupporter(const string &hostID) {
     }
     systemInstance.addNewBooking(hostID, supporterID, "Pending",
                                  rentingTime, systemInstance.parseCSVTime(time));
-    systemInstance.bookingFileWriter();
-}
 
-//
-//    while (true) {
-//        cout << "\nEnter the ID of the member you want to book: ";
-//        getline(cin >> std::ws, supporterID);
-//
-//        if (systemInstance.checkMemberExist(supporterID)) {
-//            break;
-//        }
-//        cout << "System doesn't have the supporter with your inputted ID.";
-//
-//    }
-//
-//
-//    cout << "Existing member with your inputted ID. Loading.." << endl;
-//    elementDivider
-//
-//    cout << "Information of member " << supporterID << endl;
-//    systemInstance.displayMemberInformation(supporterID);
-//    cout << "\nDo you wish to proceed? [y/n]: ";
-//    cout << "\n>>> ";
-//    cin >> input;
-//
-//    if (input == YES) {
-//        while (true) {
-//            cout << "\nHow long do you want to rent: ";
-//            cin >> rentingTime;
-//            //prevent renting over 12 hours and negative number
-//            if (rentingTime > 0 || rentingTime < 12) {
-//                break;
-//            }
-//            cout << "Please enter renting time that is valid (>0 and <12): ";
-//        }
-//
-//        cout << "\nDate and time that you want to rent your supporter: ";
-//        cout << "\nWhat time do you want to start renting ";
-//        getline(cin >> std::ws, time);
-//
-//        while (time != R"(\d{4}-\d{2}-\d{2} \d{2}:\d{2})") {
-//            cout << "\nWrong format! Please follow this format "
-//                    "yyyy-mm-dd hh:mm" << endl << endl;
-//
-//            cout << COLOR_YELLOW << "h. Return to start screen"
-//                 << COLOR_RESET << endl;
-//            cout << COLOR_RED << "e. Exit - Close the application"
-//                 << COLOR_RESET << endl;
-//            cin >> rentingTime;
-//
-//            if (time == "e") {
-//                return;
-//            }
-//
-//            if (time == "h") {
-//                Event::startScreen();
-//                return;
-//            }
-//        }
-//        systemInstance.addNewBooking(hostID, supporterID, "Pending",
-//                                     rentingTime, systemInstance.parseCSVTime(time));
-//    }
-//}
+    for (auto &hostMember: systemInstance.getMemberList()) {
+        if (hostMember.getMemberID() == hostID)
+            hostMember.setSupporterMember(supporterID);
+    }
+
+    for (auto &supporterMember: systemInstance.getMemberList()) {
+        if (supporterMember.getMemberID() == supporterID)
+            supporterMember.setHostMember(currentID);
+    }
+    systemInstance.bookingFileWriter();
+    systemInstance.memberFileWriter();
+
+    UI::showMemberScreen(currentID);
+}

@@ -32,9 +32,9 @@ public:
 
     static System &getInstance();
 
-    vector<Member> getMemberList() { return memberList; }
+    vector<Member> &getMemberList() { return memberList; }
 
-    vector<Rating> getRatingList() { return ratingList; }
+    vector<Rating> &getRatingList() { return ratingList; }
 
     vector<Booking> &getRequestList() { return bookingList; }
 
