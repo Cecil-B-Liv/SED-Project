@@ -35,7 +35,7 @@ public:
 
     vector<Rating> &getRatingList() { return ratingList; }
 
-    vector<Booking> getBookingList() { return bookingList; }
+    vector<Booking> &getBookingList() { return bookingList; }
 
     // File Reader
     void memberFileReader();

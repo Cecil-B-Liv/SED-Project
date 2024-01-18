@@ -183,6 +183,7 @@ void System::bookingFileReader() {
         string bookingID;
         string hostMemberID;
         string supporterMemberID;
+        string rentingTime;
         string creationTime;
         string startTime;
 
@@ -195,6 +196,8 @@ void System::bookingFileReader() {
         getline(iss, supporterMemberID, ',');
 
         getline(iss, status, ',');
+        getline(iss, rentingTime, ',');
+
         getline(iss, creationTime, ',');
         getline(iss, startTime, ',');
 
@@ -202,6 +205,7 @@ void System::bookingFileReader() {
         request.setCreationTime(parseCSVTime(creationTime));
         request.setStartTime(parseCSVTime(startTime));
         request.setBookingID(bookingID);
+        request.setTimeRenting(std::stod(rentingTime));
         request.setHostMemberID(hostMemberID);
         request.setSupporterMemberID(supporterMemberID);
         request.setStatus(status);
@@ -269,7 +273,9 @@ void System::bookingFileWriter() {
     for (const auto &booking: bookingList) {
         file << booking.getBookingID() << "," << booking.getHostMemberID()
              << "," << booking.getSupporterMemberID() << "," << booking.getStatus()
-             << "," << booking.getFormattedCreationTime() << "," << booking.getFormattedStartRentingTime() << endl;
+             << "," << booking.getTimeRenting()
+             << "," << booking.getFormattedCreationTime()
+             << "," << booking.getFormattedStartRentingTime() << endl;
     }
     // add member available status
     file.close();

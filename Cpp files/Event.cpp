@@ -40,11 +40,9 @@ enum UserChoice {
 };
 
 
-
 enum {
     MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER, BOOKING, ADD_SKILL, REMOVE_SKILL
 };
-
 
 
 enum ADMIN {
@@ -94,8 +92,8 @@ void Event::startScreen() {
     sectionDivider
 
 
-            cout
-        << "Instructor: Mr. Tran Duc Linh" << endl;
+    cout
+            << "Instructor: Mr. Tran Duc Linh" << endl;
 
     cout << "Group: No. 6" << endl;
     cout << endl;
@@ -165,7 +163,7 @@ void Event::getAllSupporterInformationScreen() {
         if (input == YES) {
             cout << "Details of available supporters: " << endl;
 
-            for (auto &member : systemInstance.getMemberList()) {
+            for (auto &member: systemInstance.getMemberList()) {
                 if (member.getMemberAvailableStatus() &&
                     member.getMemberID() != currentID) {
                     member.showInfo();
@@ -332,7 +330,7 @@ void Event::memberScreen(const string &ID) {
              << COLOR_RESET << endl;
         cout << COLOR_BLUE << "4. See pending booking."
              << COLOR_RESET << endl;
-      
+
         cout << endl;
         cout << COLOR_BLUE << "5. Add skills."
              << COLOR_RESET << endl;
@@ -548,17 +546,17 @@ void Event::loginScreen() {
         }
 
         if (!(systemInstance.getIDWithUsernamePassword(username, password)
-                  .empty())) {
+                .empty())) {
             cout << COLOR_BLUE
                  << "\nCurrently loading you to your member screen."
                  << COLOR_RESET << endl;
             elementDivider
 
-                    cout
-                << COLOR_YELLOW << STYLE_UNDERLINE << "\nWelcome to Time Bank!"
-                << COLOR_RESET << endl;
+            cout
+                    << COLOR_YELLOW << STYLE_UNDERLINE << "\nWelcome to Time Bank!"
+                    << COLOR_RESET << endl;
             currentID =
-                systemInstance.getIDWithUsernamePassword(username, password);
+                    systemInstance.getIDWithUsernamePassword(username, password);
             UI::showMemberScreen(currentID);
 
             return;
@@ -754,7 +752,7 @@ void Event::bookSupporter(const string &hostID) {
     cout << "Existing member with your inputted ID. Loading.." << endl;
     elementDivider
 
-        while (true) {
+    while (true) {
         cout << "Information of member " << supporterID << endl;
         systemInstance.displayMemberInformation(supporterID);
         cout << "\nDo you wish to proceed? [y/n]: ";
@@ -796,12 +794,12 @@ void Event::bookSupporter(const string &hostID) {
     systemInstance.addNewBooking(hostID, supporterID, "Pending", rentingTime,
                                  systemInstance.parseCSVTime(time));
 
-    for (auto &hostMember : systemInstance.getMemberList()) {
+    for (auto &hostMember: systemInstance.getMemberList()) {
         if (hostMember.getMemberID() == hostID)
             hostMember.setSupporterMember(supporterID);
     }
 
-    for (auto &supporterMember : systemInstance.getMemberList()) {
+    for (auto &supporterMember: systemInstance.getMemberList()) {
         if (supporterMember.getMemberID() == supporterID)
             supporterMember.setHostMember(currentID);
     }
@@ -815,6 +813,7 @@ void Event::PendingScreen() {
     string ID = currentID;
     string input;
     int cInput;
+    Member &member = systemInstance.getMemberObject(currentID);
 
     while (true) {
         cout << "1. Accept" << endl;
@@ -834,10 +833,11 @@ void Event::PendingScreen() {
     }
 
     if (cInput == 1) {
-
         for (Booking &booking: systemInstance.getBookingList()) {
-            if (booking.getSupporterMemberID() == ID)
+            if (booking.getSupporterMemberID() == ID) {
                 booking.setStatus("Approved");
+                member.setAvailableStatus(false);
+            }
         }
     } else if (cInput == 2) {
         for (Booking &booking: systemInstance.getBookingList()) {
@@ -849,6 +849,7 @@ void Event::PendingScreen() {
     }
 
     systemInstance.bookingFileWriter();
+    systemInstance.memberFileWriter();
     UI::showMemberScreen(ID);
 }
 
@@ -858,7 +859,7 @@ void Event::topUpScreen(const string &memberID) {
          << endl;
     elementDivider
 
-        int topUpAmount;
+    int topUpAmount;
     cout << "Enter the amount of credits to top up: ";
     cin >> topUpAmount;
 
@@ -895,9 +896,9 @@ void Event::topUpScreen(const string &memberID) {
     if (attempts == 3) {
         systemInstance.clearTerminal();
         cout
-            << COLOR_RED
-            << "Incorrect password entered 3 times. Returning to Member Screen."
-            << COLOR_RESET << endl;
+                << COLOR_RED
+                << "Incorrect password entered 3 times. Returning to Member Screen."
+                << COLOR_RESET << endl;
         UI::showMemberScreen(memberID);
         return;
     }
