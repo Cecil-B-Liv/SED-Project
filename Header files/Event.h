@@ -36,6 +36,7 @@ public:
     static void registerScreen();
 
     // static void
+    static void PendingScreen();
 };
 
 #endif  // SED_PROJECT_EVENT_H

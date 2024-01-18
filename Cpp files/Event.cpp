@@ -24,7 +24,7 @@ enum UserChoice {
 };
 
 enum {
-    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER
+    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER, BOOKING
 };
 
 enum {
@@ -250,6 +250,9 @@ void Event::memberScreen(const string &ID) {
         cout << COLOR_BLUE << "3. Filter condition for supporter booking."
              << COLOR_RESET << endl;
         cout << endl;
+        cout << COLOR_BLUE << "4. See pending booking."
+             << COLOR_RESET << endl;
+        cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application." << COLOR_RESET
              << endl;
         cout << COLOR_YELLOW << "h. Return to start screen." << COLOR_RESET
@@ -281,6 +284,9 @@ void Event::memberScreen(const string &ID) {
             case FILTER_SUPPORTER:
                 cout << "have yet to implemented";
                 UI::showGuestScreen();
+                return;
+            case BOOKING:
+                UI::showPendingBooking();
                 return;
             default:
                 cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
@@ -617,3 +623,45 @@ void Event::bookSupporter(const string &hostID) {
 
     UI::showMemberScreen(currentID);
 }
+
+void Event::PendingScreen() {
+    string ID = currentID;
+    string input;
+    int cInput;
+
+    while (true) {
+        cout << "1. Accept" << endl;
+        cout << "2. Deny" << endl;
+        cout << "h. Back" << endl;
+
+        getline(cin >> std::ws, input);
+
+        if (input == "h") {
+            return;
+        }
+
+        cInput = systemInstance.checkIfInputIsInteger(input);
+        if (cInput)
+            break;
+
+        cout << "invalid";
+    }
+
+    if (cInput == 1) {
+        for (Booking &booking: systemInstance.getRequestList()) {
+            if (booking.getHostMemberID() == ID)
+                booking.setStatus("Approved");
+        }
+    } else if (cInput == 2) {
+        for (Booking &booking: systemInstance.getRequestList()) {
+            if (booking.getHostMemberID() == ID)
+                booking.setStatus("Denied");
+        }
+    } else {
+        cout << "no";
+    }
+
+    systemInstance.bookingFileWriter();
+    UI::showMemberScreen(ID);
+}
+

@@ -46,6 +46,8 @@ public:
     static void showLoginScreen() { Event::loginScreen(); }
 
     static void showRegisterScreen() { Event::registerScreen(); }
+
+    static void showPendingBooking() { Event::PendingScreen(); }
 };
 
 #endif  // SED_PROJECT_UI_H
