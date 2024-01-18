@@ -83,6 +83,8 @@ void System::memberFileReader() {
         string ID;
         string skills;
         string status;
+        string hostID;
+        string supporterID;
         vector<string *> newSkillsList;
         Member member;
 
@@ -100,6 +102,8 @@ void System::memberFileReader() {
         getline(iss, password, ',');
         getline(iss, ID, ',');
         getline(iss, status, ',');
+        getline(iss, hostID, ',');
+        getline(iss, supporterID, ',');
         getline(iss, skills, ',');
 
         stringstream getSkill(skills);
@@ -115,6 +119,8 @@ void System::memberFileReader() {
         member.setUsername(username);
         member.setPassword(password);
         member.setMemberID(ID);
+        member.setHostMember(hostID);
+        member.setSupporterMember(supporterID);
         member.setAvailableStatus(stoi(status));
         member.setSkillInfo(newSkillsList);
 
@@ -226,6 +232,7 @@ void System::memberFileWriter() {
              << "," << members.getHomeAddress() << "," << members.getPhoneNumber()
              << "," << members.getUsername() << "," << members.getPassword()
              << "," << members.getMemberID() << "," << members.getMemberAvailableStatus()
+             << "," << members.getHostMember() << "," << members.getSupporterMember()
              << "," << skillList << endl;
     }
 
@@ -285,22 +292,14 @@ void System::resetPassword(const string &ID, const string &newPwd) {
     }
 }
 
-string System::getIDWithUsernamePassword(const string &username,
-                                         const string &password) {
-    string memberID;
-
-    for (const Member &member: getMemberList()) {
-        if (!(username == member.getUsername() &&
-              password == member.getPassword())) {
-            return EMPTY;
+string System::getIDWithUsernamePassword(const string &username, const string &password) {
+    for (auto &member: memberList) {
+        if (username == member.getUsername() && password == member.getPassword()) {
+            return member.getMemberID();
         }
-        // If found, store the showMemberScreen ID and break the loop
-        memberID = member.getMemberID();
-        break;
     }
-    // Return the showMemberScreen ID
-    return memberID;
-}  // Check if valid information was input
+    return EMPTY;
+}
 
 Member System::getMemberObject(const string &ID) {
     Member temp;
@@ -316,15 +315,15 @@ Member System::getMemberObject(const string &ID) {
 void System::displayMemberInformation(const string &ID) {
     // Loop through each showMemberScreen
 
-    for (Member &member: getMemberList()) {
+    for (auto &member: memberList) {
         // If the ID doesn't match, exit the loop
-        if (!(ID == member.getMemberID())) {
-            cout << "showMemberScreen not found";
+        if (ID == member.getMemberID()) {
+            member.showInfo();
             return;
         }
         // Display showMemberScreen information
-        member.showInfo();
     }
+    cout << "Member not found";
 }
 
 int System::checkIfInputIsInteger(const string &input) {

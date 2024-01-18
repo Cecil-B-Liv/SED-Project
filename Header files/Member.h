@@ -34,8 +34,8 @@ private:
     // System based member info
     vector<Rating *> ratingList;
     vector<Booking *> requestList;
-    Member *hostMember;
-    Member *supporterMember;
+    string hostMemberID;
+    string supporterMemberID;
 
 public:
     explicit Member(
@@ -45,7 +45,7 @@ public:
             string username = "", string password = "", string memberID = "",
             int available_status = 0, vector<string *> skillInfo = {},
             vector<Rating *> ratingList = {}, vector<Booking *> requestList = {},
-            Member *hostMember = nullptr, Member *supportMember = nullptr);
+            string hostMemberID = "", string supportMemberID = "");
 
     // toString
     void showInfo() const;
@@ -80,9 +80,9 @@ public:
 
     vector<Booking *> getRequestList() { return requestList; }
 
-    Member *getHostMember() { return hostMember; }
+    string getHostMember() const { return hostMemberID; }
 
-    Member *getSupporterMember() { return supporterMember; }
+    string getSupporterMember() const { return supporterMemberID; }
 
     // setter
     void setFullName(const string &fullNameVal) {
@@ -131,10 +131,10 @@ public:
         this->skillInfoList = skillInfoListVal;
     }
 
-    void setHostMember(Member *newHost) { this->hostMember = newHost; }
+    void setHostMember(string newHost) { this->hostMemberID = newHost; }
 
-    void setSupporterMember(Member *newSupporter) {
-        this->supporterMember = newSupporter;
+    void setSupporterMember(string newSupporter) {
+        this->supporterMemberID = newSupporter;
     }
 
     void addSkill(string *newSkill) { this->skillInfoList.push_back(newSkill); }

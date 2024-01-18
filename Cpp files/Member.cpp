@@ -10,8 +10,8 @@ Member::Member(string fullName, string email, string homeAddress,
                double hostRating, string username, string password,
                string memberID, int available_status,
                vector<string *> skillInfo, vector<Rating *> ratingList,
-               vector<Booking *> requestList, Member *hostMember,
-               Member *supportMember) {
+               vector<Booking *> requestList, string hostMemberID,
+               string supportorMemberID) {
     this->fullName = fullName;
     this->email = email;
     this->homeAddress = homeAddress;
@@ -24,8 +24,8 @@ Member::Member(string fullName, string email, string homeAddress,
     this->password = password;
     this->memberID = memberID;
     this->availableStatus = available_status;
-    // this->hostMember = hostMember;
-    // this->supporterMember = supporterMember;
+    this->hostMemberID = hostMemberID;
+    this->supporterMemberID = supportorMemberID;
 }
 
 void Member::showInfo() const {
@@ -33,6 +33,7 @@ void Member::showInfo() const {
     cout << "Email: " << email << endl;
     cout << "Home Address: " << homeAddress << endl;
     cout << "Phone Number: " << phoneNumber << endl;
+
     cout << "Rating Score: " << ratingScore << endl;
     cout << "Supporter Rating: " << supporterRating << endl;
     cout << "Host Rating: " << hostRating << endl;
@@ -41,12 +42,9 @@ void Member::showInfo() const {
     cout << "Username: " << username << endl;
     cout << "Password: " << password << endl;
 
-    availableStatus ? cout << "Available Status: Online " << endl
-                    : cout << "Available Status: Offline " << endl;
-
-
-    cout << "Host List: " << (hostMember ? hostMember->getFullName() : "") << endl;
-    cout << "Supporter List: " << (supporterMember ? supporterMember->getFullName() : "") << endl;
+    cout << "Available Status: " << (availableStatus ? "Online" : "Offline") << endl;
+    cout << "Host member: " << hostMemberID << endl;
+    cout << "Supporter member: " << supporterMemberID << endl;
 
     cout << "Skill Info: ";
     for (string *skill: skillInfoList) {
