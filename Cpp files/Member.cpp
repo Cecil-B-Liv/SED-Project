@@ -45,8 +45,8 @@ void Member::showInfo() const {
                     : cout << "Available Status: Offline " << endl;
 
 
-    cout << "Host List: " << (hostMember ? hostMember->getFullName() : "") << endl;
-    cout << "Supporter List: " << (supporterMember ? supporterMember->getFullName() : "") << endl;
+    // cout << "Host Member: " << (hostMember ? hostMember->getFullName() : "") << endl;
+    // cout << "Supporter Member: " << (supporterMember ? supporterMember->getFullName() : "") << endl;
 
     cout << "Skill Info: ";
     for (string *skill: skillInfoList) {
