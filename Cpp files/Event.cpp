@@ -22,13 +22,19 @@ const string NO = "n";
 enum City { HCM = 1, Hanoi };
 enum UserChoice { LOGIN = 1, REGISTER };
 
-enum { MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER };
+
+enum {
+    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER, BOOKING
+};
+
 
 enum { RESET_MEM_PWD = 1 };
 
 // username and password for admin
 string const adminUsername = "admin";
 string const adminPassword = "admin";
+
+string currentID;
 
 // Dividers shortcuts
 #define sectionDivider                                                       \
@@ -132,12 +138,18 @@ void Event::getAllSupporterInformationScreen() {
         // Check if user's input is only number
         if (input == YES) {
             cout << "Details of available supporters: " << endl;
-            for (auto &member : systemInstance.getMemberList()) {
-                if (member.getMemberAvailableStatus()) member.showInfo();
+
+            for (auto &member: systemInstance.getMemberList()) {
+                if (member.getMemberAvailableStatus() && member.getMemberID() != currentID) {
+                    member.showInfo();
+                }
+
                 cout << "\n";
             }
+            return;
         } else if (input == NO) {
-            break;
+            UI::showMemberScreen(currentID);
+            return;
         } else {
             cout << "Invalid option provided!" << endl;
         }
@@ -242,6 +254,9 @@ void Event::memberScreen(const string &ID) {
         cout << COLOR_BLUE << "3. Filter condition for supporter booking."
              << COLOR_RESET << endl;
         cout << endl;
+        cout << COLOR_BLUE << "4. See pending booking."
+             << COLOR_RESET << endl;
+        cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application." << COLOR_RESET
              << endl;
         cout << COLOR_YELLOW << "h. Return to start screen." << COLOR_RESET
@@ -264,10 +279,9 @@ void Event::memberScreen(const string &ID) {
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case MEMBER_INFO:
                 UI::showMemberInformationScreen(ID);
-                UI::showGuestScreen();
+                UI::showMemberScreen(ID);
                 return;
             case BOOK_AVAILABLE_SUPPORTER:
-                // //<<<<<<< viet_ui
                 //                 while (true) {
                 //                     cout << "\nDo you want to see the
                 //                     information of our "
@@ -292,17 +306,17 @@ void Event::memberScreen(const string &ID) {
                 //                         provided!" << COLOR_RESET << endl;
                 //                     }
                 //                 }
-                // //=======
 
                 UI::showAllSupporterInformationScreen();
                 UI::bookSupporter(ID);
-                //>>>>>>> main
 
-                UI::showGuestScreen();
                 return;
             case FILTER_SUPPORTER:
                 cout << "have yet to implemented";
                 UI::showGuestScreen();
+                return;
+            case BOOKING:
+                UI::showPendingBooking();
                 return;
             default:
                 cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
@@ -417,11 +431,12 @@ void Event::loginScreen() {
         }
 
         if (!(systemInstance.getIDWithUsernamePassword(username, password)
-                  .empty())) {
-            cout << COLOR_YELLOW << STYLE_UNDERLINE << "Welcome to Time Bank!"
-                 << COLOR_RESET << endl;
-            UI::showMemberScreen(
-                systemInstance.getIDWithUsernamePassword(username, password));
+
+                .empty())) {
+            cout << COLOR_YELLOW << STYLE_UNDERLINE << "Welcome to Time Bank!" << COLOR_RESET << endl;
+            currentID = systemInstance.getIDWithUsernamePassword(username, password);
+            UI::showMemberScreen(currentID);
+
             return;
         }
         cout << COLOR_RED << "Wrong username or password!" << COLOR_RESET
@@ -509,14 +524,11 @@ void Event::registerScreen() {
         cout << COLOR_RED << "Invalid phone number!" << COLOR_RESET << endl;
     }
     systemInstance.registerNewMember(fullname, email, address,
-                                     stoi(phoneNumber), username, password);
-    cout << COLOR_GREEN
-         << "Successfully register your account \nRe-enter the application "
-            "to "
-            "login with your new account."
-         << COLOR_RESET << endl
-         << endl
-         << endl;
+
+                                     phoneNumber, username, password);
+    cout << COLOR_GREEN << "Successfully register your account \n Press e to exit to start "
+                           "screen." << COLOR_RESET << endl;
+
     UI::start();
 }
 
@@ -595,67 +607,119 @@ void Event::resetMemberPwd() {
     }
 }
 
-void Event::bookSupporter(const string hostID) {
+void Event::bookSupporter(const string &hostID) {
     string supporterID;
     string input;
     double rentingTime;
     string time;
+    regex timeRegex(R"(\d{4}-\d{2}-\d{2} \d{2}:\d{2})");
 
     while (true) {
         cout << "\nEnter the ID of the member you want to book: ";
         getline(cin >> std::ws, supporterID);
 
         if (systemInstance.checkMemberExist(supporterID)) {
-            cout << "Existing member with your inputted ID. Loading.." << endl;
-            elementDivider
-
-                    cout
-                << "Information of member" << supporterID << endl;
-            systemInstance.displayMemberInformation(supporterID);
-            cout << "\nDo you wish to proceed? [y/n]: ";
-            cout << "\n>>> ";
-            cin >> input;
-            if (input == "y") {
-                cout << "\nHow long do you want to rent: ";
-                cin >> rentingTime;
-                // prevent renting over 12 hours and negative number
-                while (rentingTime < 0 && rentingTime > 12) {
-                    cout << "Please enter renting time that is valid (>0 "
-                            "and "
-                            "<12): ";
-                    cin >> rentingTime;
-                }
-                cout << "\nDate and time that you want to rent your "
-                        "supporter: ";
-                cout << "\nWhat time do you want to start renting ";
-                getline(cin >> std::ws, time);
-                while (time != "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}") {
-                    cout << "\nWrong format! Please follow this format "
-                            "yyyy-mm-dd hh:mm"
-                         << endl
-                         << endl;
-
-                    cout << COLOR_YELLOW << "h. Return to start screen"
-                         << COLOR_RESET << endl;
-                    cout << COLOR_RED << "e. Exit - Close the application"
-                         << COLOR_RESET << endl;
-                    cin >> rentingTime;
-
-                    if (time == "e") {
-                        return;
-                    } else if (time == "h") {
-                        Event::startScreen();
-                        return;
-                    }
-                }
-            }
-            systemInstance.addNewBooking(hostID, supporterID, "Pending",
-                                         rentingTime,
-                                         systemInstance.parseCSVTime(time));
-        } else
-            cout << "System doesn't have the supporter with your inputted "
-                    "ID.";
-
-        break;
+            break;
+        }
+        cout << "System doesn't have the supporter with your inputted ID.";
     }
+
+    cout << "Existing member with your inputted ID. Loading.." << endl;
+    elementDivider
+
+    while (true) {
+        cout << "Information of member " << supporterID << endl;
+        systemInstance.displayMemberInformation(supporterID);
+        cout << "\nDo you wish to proceed? [y/n]: ";
+        cout << "\n>>> ";
+        cin >> input;
+
+        if (input == NO) {
+            UI::bookSupporter(hostID);
+            return;
+        } else if (input == YES) {
+            break;
+        } else {
+            cout << "Invalid input" << endl;
+        }
+    }
+
+    while (true) {
+        cout << "\nHow long do you want to rent: ";
+        cin >> rentingTime;
+        //prevent renting over 12 hours and negative number
+        if (rentingTime > 0 && rentingTime < 12) {
+            break;
+        }
+        cout << "Please enter renting time that is valid (>0 and <12): ";
+    }
+
+    while (true) {
+        cout << "\nDate and time that you want to rent your supporter (yyyy-mm-dd hh:mm): ";
+        getline(cin >> std::ws, time);
+
+        if (regex_match(time, timeRegex)) {
+            break;
+        }
+        cout << "\nWrong format! Please follow this format (yyyy-mm-dd hh:mm)" << endl << endl;
+    }
+    systemInstance.addNewBooking(hostID, supporterID, "Pending",
+                                 rentingTime, systemInstance.parseCSVTime(time));
+
+    for (auto &hostMember: systemInstance.getMemberList()) {
+        if (hostMember.getMemberID() == hostID)
+            hostMember.setSupporterMember(supporterID);
+    }
+
+    for (auto &supporterMember: systemInstance.getMemberList()) {
+        if (supporterMember.getMemberID() == supporterID)
+            supporterMember.setHostMember(currentID);
+    }
+    systemInstance.bookingFileWriter();
+    systemInstance.memberFileWriter();
+
+    UI::showMemberScreen(currentID);
 }
+
+void Event::PendingScreen() {
+    string ID = currentID;
+    string input;
+    int cInput;
+
+    while (true) {
+        cout << "1. Accept" << endl;
+        cout << "2. Deny" << endl;
+        cout << "h. Back" << endl;
+
+        getline(cin >> std::ws, input);
+
+        if (input == "h") {
+            return;
+        }
+
+
+        cInput = systemInstance.checkIfInputIsInteger(input);
+        if (cInput)
+            break;
+
+        cout << "invalid";
+    }
+
+    if (cInput == 1) {
+        for (Booking &booking: systemInstance.getRequestList()) {
+            if (booking.getHostMemberID() == ID)
+                booking.setStatus("Approved");
+        }
+    } else if (cInput == 2) {
+        for (Booking &booking: systemInstance.getRequestList()) {
+            if (booking.getHostMemberID() == ID)
+                booking.setStatus("Denied");
+        }
+    } else {
+        cout << "no";
+    }
+
+    systemInstance.bookingFileWriter();
+    UI::showMemberScreen(ID);
+}
+
