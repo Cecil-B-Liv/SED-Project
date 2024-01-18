@@ -55,6 +55,9 @@ public:
     static void showRegisterScreen() { Event::registerScreen(); }
 
     static void showPendingBooking() { Event::PendingScreen(); }
+
+    static void showAddSKill() { Event::AddSkill(); }
+    
 };
 
 #endif  // SED_PROJECT_UI_H
