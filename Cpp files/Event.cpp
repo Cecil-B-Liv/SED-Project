@@ -28,7 +28,12 @@ enum {
 };
 
 
-enum { RESET_MEM_PWD = 1 };
+enum ADMIN {
+    RESET_MEM_PWD = 1,
+    VIEW_MEMBERLIST,
+    VIEW_RATINGLIST,
+    VIEW_BOOKINGLIST
+};
 
 // username and password for admin
 string const adminUsername = "admin";
@@ -132,7 +137,7 @@ void Event::getAllSupporterInformationScreen() {
     string input;
     while (true) {
         cout << "\nDo you want to see the information of our "
-                "supporter (y.YES/n.NO):"
+                "supporter? (y.YES/n.NO):"
              << endl;
         cout << ">>> ";
         cin >> input;
@@ -145,6 +150,55 @@ void Event::getAllSupporterInformationScreen() {
                     member.showInfo();
                 }
 
+                cout << "\n";
+            }
+
+            break;
+        } else if (input == NO) {
+            break;
+        } else {
+            cout << "Invalid option provided!" << endl;
+        }
+    }
+}
+
+void Event::showAllBookingList() {
+    string input;
+    while (true) {
+        cout << "\nDo you want to see all booking in our "
+                "system? (y.YES/n.NO):"
+             << endl;
+        cout << ">>> ";
+        cin >> input;
+        // Check if user's input is only number
+        if (input == YES) {
+            cout << "Details of active booking in the system: " << endl;
+            for (auto &booking : systemInstance.getBookingList()) {
+                booking.showInfo();
+                cout << "\n";
+            }
+            break;
+        } else if (input == NO) {
+            break;
+        } else {
+            cout << "Invalid option provided!" << endl;
+        }
+    }
+}
+
+void Event::showAllRatingList() {
+    string input;
+    while (true) {
+        cout << "\nDo you want to see the all the rating in the system? "
+                "(y.YES/n.NO):"
+             << endl;
+        cout << ">>> ";
+        cin >> input;
+        // Check if user's input is only number
+        if (input == YES) {
+            cout << "Details of rating in the system: " << endl;
+            for (auto &rating : systemInstance.getRatingList()) {
+                rating.showInfo();
                 cout << "\n";
             }
             return;
@@ -341,6 +395,13 @@ void Event::adminScreen() {
         cout << endl;
         cout << COLOR_BLUE << "1. Reset a member password." << COLOR_RESET
              << endl;
+        cout << COLOR_BLUE << "2. View member in the system." << COLOR_RESET
+             << endl;
+        cout << COLOR_BLUE << "3. View all rating in the system." << COLOR_RESET
+             << endl;
+        cout << COLOR_BLUE << "4. View all booking in the system."
+             << COLOR_RESET << endl;
+
         cout << endl;
         cout << COLOR_YELLOW << "h. Return to start screen" << COLOR_RESET
              << endl;
@@ -354,10 +415,9 @@ void Event::adminScreen() {
 
         if (input == "e") {
             return;
-        }
 
-        if (input == "h") {
-            systemInstance.clearTerminal();
+        } else if (input == "h") {
+
             Event::startScreen();
             return;
         }
@@ -367,6 +427,18 @@ void Event::adminScreen() {
             case RESET_MEM_PWD:
                 systemInstance.clearTerminal();
                 UI::resetMemberPwdScreen();
+                return;
+            case VIEW_MEMBERLIST:
+                UI::showAllSupporterInformationScreen();
+                UI::showAdminScreen();
+                return;
+            case VIEW_RATINGLIST:
+                UI::showAllRatingScreen();
+                UI::showAdminScreen();
+                return;
+            case VIEW_BOOKINGLIST:
+                UI::showAllBookingScreen();
+                UI::showAdminScreen();
                 return;
             default:
                 cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
@@ -717,12 +789,12 @@ void Event::PendingScreen() {
     }
 
     if (cInput == 1) {
-        for (Booking &booking: systemInstance.getRequestList()) {
+        for (Booking &booking: systemInstance.getBookingList()) {
             if (booking.getHostMemberID() == ID)
                 booking.setStatus("Approved");
         }
     } else if (cInput == 2) {
-        for (Booking &booking: systemInstance.getRequestList()) {
+        for (Booking &booking: systemInstance.getBookingList()) {
             if (booking.getHostMemberID() == ID)
                 booking.setStatus("Denied");
         }
