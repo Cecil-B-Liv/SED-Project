@@ -34,6 +34,13 @@ class UI {
     static void showAllSupporterInformationScreen(){
         Event::getAllSupporterInformationScreen();
     }
+    static void showAllRatingScreen(){
+        Event::showAllRatingList();
+    }
+
+    static void showAllBookingScreen(){
+        Event::showAllBookingList();
+    }
 
     static void bookSupporter(const string ID) { Event::bookSupporter(ID); }
     static void resetMemberPwdScreen() { Event::resetMemberPwd(); };

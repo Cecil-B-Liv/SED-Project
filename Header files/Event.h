@@ -16,6 +16,8 @@ class Event {
 
     static void getMemberInfoScreen(const string &);
     static void getAllSupporterInformationScreen();
+    static void showAllRatingList();
+    static void showAllBookingList();
     
     static void guestScreen();
     static void memberScreen(const string &);
