@@ -15,7 +15,7 @@ For Windows:
 mkdir output; cd output; g++ '..\Cpp files\*cpp' '..\Source\main.cpp' -o SED_Project.exe; ./SED_Project.exe
 
 After the first time, just run:
-g++ '..\Cpp files\*cpp' '..\Source\main.cpp' -o SED_Project.exe; ./SED_Project.exe
+cd output; g++ '..\Cpp files\*cpp' '..\Source\main.cpp' -o SED_Project.exe; ./SED_Project.exe
 
 Bug found
 -

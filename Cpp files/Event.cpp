@@ -110,6 +110,7 @@ void Event::startScreen() {
         // Check if user's input is only number
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case UserPosition::GUEST:
+                systemInstance.clearTerminal();
                 UI::showGuestScreen();
                 return;
             case UserPosition::MEMBER:
@@ -213,6 +214,7 @@ void Event::guestScreen() {
         }
 
         if (input_2 == "h") {
+            systemInstance.clearTerminal();
             Event::startScreen();
             return;
         }
@@ -221,9 +223,11 @@ void Event::guestScreen() {
         switch (systemInstance.checkIfInputIsInteger(input_2)) {
             // case 0:
             case UserChoice::REGISTER:
+                systemInstance.clearTerminal();
                 UI::showRegisterScreen();
                 return;
             case UserChoice::LOGIN:
+                systemInstance.clearTerminal();
                 UI::showLoginScreen();
                 return;
             default:
@@ -267,6 +271,7 @@ void Event::memberScreen(const string &ID) {
         }
 
         if (input == "h") {
+            systemInstance.clearTerminal();
             Event::startScreen();
             return;
         }
@@ -322,6 +327,7 @@ void Event::adminScreen() {
         }
 
         if (input == "h") {
+            systemInstance.clearTerminal();
             Event::startScreen();
             return;
         }
@@ -329,6 +335,7 @@ void Event::adminScreen() {
         // Check if user's input is only number
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case RESET_MEM_PWD:
+                systemInstance.clearTerminal();
                 UI::resetMemberPwdScreen();
                 return;
             default:
@@ -365,6 +372,7 @@ void Event::registerLoginScreen() {
         if (givenChoice == "e") {
             return;
         } else if (givenChoice == "h") {
+            systemInstance.clearTerminal();
             Event::startScreen();
             return;
         }
@@ -372,9 +380,11 @@ void Event::registerLoginScreen() {
 
         switch (systemInstance.checkIfInputIsInteger(givenChoice)) {
             case UserChoice::LOGIN:
+                systemInstance.clearTerminal();
                 UI::showLoginScreen();
                 return;
             case UserChoice::REGISTER:
+                systemInstance.clearTerminal();
                 UI::showRegisterScreen();
                 return;
             default:
@@ -396,6 +406,7 @@ void Event::loginScreen() {
         getline(cin >> std::ws, password);
 
         if (username == adminUsername && password == adminPassword) {
+            systemInstance.clearTerminal();
             UI::showAdminScreen();
             return;
         }
