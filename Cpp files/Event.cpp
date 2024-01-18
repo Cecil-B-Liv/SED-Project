@@ -359,6 +359,7 @@ void Event::memberScreen(const string &ID) {
         // Check if user's input is only number
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case MEMBER_INFO:
+                systemInstance.clearTerminal();
                 UI::showMemberInformationScreen(ID);
                 UI::showMemberScreen(ID);
                 return;
@@ -387,19 +388,21 @@ void Event::memberScreen(const string &ID) {
                 //                         provided!" << COLOR_RESET << endl;
                 //                     }
                 //                 }
-
+                systemInstance.clearTerminal();
                 UI::showAllSupporterInformationScreen();
                 UI::bookSupporter(ID);
-
                 return;
             case FILTER_SUPPORTER:
                 cout << "have yet to implemented";
+                systemInstance.clearTerminal();
                 UI::showGuestScreen();
                 return;
             case BOOKING:
+                systemInstance.clearTerminal();
                 UI::showPendingBooking();
                 return;
             case ADD_SKILL:
+                systemInstance.clearTerminal();
                 UI::showAddSKill();
                 return;
             default:
@@ -870,7 +873,7 @@ void Event::topUpScreen(const string &memberID) {
         systemInstance.clearTerminal();
         cout << COLOR_RED << "Incorrect password entered 3 times. Returning to Member Screen." << COLOR_RESET << endl;
         UI::showMemberScreen(memberID);
-
+        return;
     }
 }
 
