@@ -28,6 +28,7 @@ private:
     string username;
     string password;
     string memberID;
+    int creditPoints;
     bool availableStatus;
     vector<string *> skillInfoList;
 
@@ -42,7 +43,7 @@ public:
             string fullName = "", string email = "", string homeAddress = "",
             string phoneNumber = "", double ratingScore = 0.0,
             double supporterRating = 0.0, double hostRating = 0.0,
-            string username = "", string password = "", string memberID = "",
+            string username = "", string password = "", string memberID = "", int creditPoints = 20,
             int available_status = 0, vector<string *> skillInfo = {},
             vector<Rating *> ratingList = {}, vector<Booking *> requestList = {},
             string hostMemberID = "", string supportMemberID = "");
@@ -71,6 +72,8 @@ public:
     double getHostRating() const { return hostRating; }
 
     string getMemberID() const { return memberID; }
+
+    int getCreditPoints() const { return creditPoints; }
 
     bool getMemberAvailableStatus() const { return availableStatus; }
 
@@ -121,6 +124,10 @@ public:
 
     void setMemberID(const string &memberIDVal) {
         this->memberID = memberIDVal;
+    }
+
+    void setCreditPoints (const int &creditPointsVal) {
+        this->creditPoints = creditPointsVal;
     }
 
     void setAvailableStatus(const bool &availableStatusVal) {

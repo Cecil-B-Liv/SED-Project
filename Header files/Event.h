@@ -35,6 +35,8 @@ public:
 
     static void registerScreen();
 
+    static void topUpScreen(const string &);
+
     // static void
     static void PendingScreen();
 };
