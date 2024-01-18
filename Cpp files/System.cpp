@@ -431,3 +431,18 @@ void System::addNewSkill(const string &newSkill, const string &memberID) {
     }
 }
 
+bool System::topUpCredits(const string &memberID, int topUpAmount, const string &passwordInput) {
+    for (Member& member : memberList) {
+        if (member.getMemberID() == memberID && member.getPassword() == passwordInput) {
+            member.setCreditPoints(member.getCreditPoints() + topUpAmount);
+            memberFileWriter();
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
