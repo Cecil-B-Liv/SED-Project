@@ -19,17 +19,16 @@ enum UserPosition {
 const string YES = "y";
 const string NO = "n";
 
-enum UserChoice {
-    LOGIN = 1, REGISTER
-};
+enum City { HCM = 1, Hanoi };
+enum UserChoice { LOGIN = 1, REGISTER };
+
 
 enum {
     MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER, BOOKING
 };
 
-enum {
-    RESET_MEM_PWD = 1
-};
+
+enum { RESET_MEM_PWD = 1 };
 
 // username and password for admin
 string const adminUsername = "admin";
@@ -62,16 +61,16 @@ void Event::startScreen() {
     string input;
 
     // Welcome Message
-    sectionDivider
-    cout << COLOR_YELLOW << STYLE_BOLD
-         << "EEET2482/COSC2082 ASSIGNMENT" << COLOR_RESET
-         << endl;
+    sectionDivider cout << COLOR_YELLOW << STYLE_BOLD
+                        << "EEET2482/COSC2082 ASSIGNMENT" << COLOR_RESET
+                        << endl;
     cout << COLOR_YELLOW << STYLE_UNDERLINE << "\"TIME BANK\" APPLICATION"
          << COLOR_RESET << endl;
     cout << endl;
     sectionDivider
 
-    cout << endl;
+            cout
+        << endl;
     cout << "Instructor: Mr. Tran Duc Linh" << endl;
     cout << "Group: No. 6" << endl;
     cout << endl;
@@ -86,7 +85,7 @@ void Event::startScreen() {
          << COLOR_RESET << endl;
     elementDivider
 
-    while (true) {
+        while (true) {
         // Prompt User to Choose Role
         cout << COLOR_GREEN << "Select your role: " << COLOR_RESET << endl;
         cout << COLOR_BLUE << "  1. Guest - Browse as a guest" << COLOR_RESET
@@ -116,7 +115,8 @@ void Event::startScreen() {
                 UI::showRegisterLoginScreen();
                 return;
             default:
-                cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET << endl;
+                cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
+                     << endl;
         }
     }
 }
@@ -138,10 +138,12 @@ void Event::getAllSupporterInformationScreen() {
         // Check if user's input is only number
         if (input == YES) {
             cout << "Details of available supporters: " << endl;
+
             for (auto &member: systemInstance.getMemberList()) {
                 if (member.getMemberAvailableStatus() && member.getMemberID() != currentID) {
                     member.showInfo();
                 }
+
                 cout << "\n";
             }
             return;
@@ -157,11 +159,10 @@ void Event::getAllSupporterInformationScreen() {
 void Event::guestScreen() {
     string input_1;
     string input_2;
-    elementDivider
-    cout
-            << COLOR_YELLOW << STYLE_UNDERLINE
-            << "Welcome to our Time Bank Application, you are browsing as guest:"
-            << COLOR_RESET << endl;
+    elementDivider cout
+        << COLOR_YELLOW << STYLE_UNDERLINE
+        << "Welcome to our Time Bank Application, you are browsing as guest:"
+        << COLOR_RESET << endl;
 
     while (true) {
         cout << "\nDo you want to see the information of our supporter (y/n):"
@@ -171,9 +172,10 @@ void Event::guestScreen() {
         // Check if user's input is only number
 
         if (input_1 == YES) {
-            cout << COLOR_CYAN << STYLE_UNDERLINE << "Details of available supporters: " << COLOR_RESET << endl;
+            cout << COLOR_CYAN << STYLE_UNDERLINE
+                 << "Details of available supporters: " << COLOR_RESET << endl;
             cout << endl;
-            for (auto &member: systemInstance.getMemberList()) {
+            for (auto &member : systemInstance.getMemberList()) {
                 member.showInfo();
                 cout << "\n";
             }
@@ -181,13 +183,14 @@ void Event::guestScreen() {
         } else if (input_1 == NO) {
             break;
         } else {
-            cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET << endl;
+            cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
+                 << endl;
         }
     }
 
     elementDivider
 
-    while (true) {
+        while (true) {
         cout << COLOR_GREEN
              << "If you want to book one of our supporter, or becoming one of "
                 "us, consider joining us here: "
@@ -227,7 +230,8 @@ void Event::guestScreen() {
                 UI::showLoginScreen();
                 return;
             default:
-                cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET << endl;
+                cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
+                     << endl;
         }
     }
 }
@@ -239,7 +243,7 @@ void Event::memberScreen(const string &ID) {
 
     elementDivider
 
-    while (true) {
+        while (true) {
         cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
         cout << endl;
         cout << COLOR_BLUE << "1. View my info." << COLOR_RESET << endl;
@@ -278,8 +282,34 @@ void Event::memberScreen(const string &ID) {
                 UI::showMemberScreen(ID);
                 return;
             case BOOK_AVAILABLE_SUPPORTER:
+                //                 while (true) {
+                //                     cout << "\nDo you want to see the
+                //                     information of our "
+                //                             "supporters (y.YES/n.NO):"
+                //                          << endl;
+                //                     cout << COLOR_YELLOW << ">>> " <<
+                //                     COLOR_RESET; cin >> input;
+                //                     // Check if user's input is only number
+                //                     if (input == YES) {
+                //                         cout << COLOR_CYAN << STYLE_UNDERLINE
+                //                         << "Details of available supporters:
+                //                         " << endl; cout << endl; for (auto
+                //                         &member :
+                //                         systemInstance.getMemberList()) {
+                //                             member.showInfo();
+                //                             cout << "\n";
+                //                         }
+                //                     } else if (input == NO) {
+                //                         break;
+                //                     } else {
+                //                         cout << COLOR_RED << "Invalid option
+                //                         provided!" << COLOR_RESET << endl;
+                //                     }
+                //                 }
+
                 UI::showAllSupporterInformationScreen();
                 UI::bookSupporter(ID);
+
                 return;
             case FILTER_SUPPORTER:
                 cout << "have yet to implemented";
@@ -301,7 +331,7 @@ void Event::adminScreen() {
     cout << "\nWelcome, you are browsing with administrator role." << endl;
     elementDivider
 
-    while (true) {
+        while (true) {
         cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
         cout << endl;
         cout << COLOR_BLUE << "1. Reset a member password." << COLOR_RESET
@@ -401,10 +431,12 @@ void Event::loginScreen() {
         }
 
         if (!(systemInstance.getIDWithUsernamePassword(username, password)
+
                 .empty())) {
             cout << COLOR_YELLOW << STYLE_UNDERLINE << "Welcome to Time Bank!" << COLOR_RESET << endl;
             currentID = systemInstance.getIDWithUsernamePassword(username, password);
             UI::showMemberScreen(currentID);
+
             return;
         }
         cout << COLOR_RED << "Wrong username or password!" << COLOR_RESET
@@ -440,10 +472,27 @@ void Event::registerScreen() {
         cout << "Re-enter your password: " << endl;
     }
 
-    cout << "Enter your address: ";
-    getline(cin >> std::ws, address);
-    // HCM or HN only
+    cout << "Enter the city where you are living (Our application only "
+            "available in 2 Vietnamese cities. 1.HCM/ 2.Hanoi): ";
+    cout << "\nPress e if you want to exit." << endl;
 
+    string input;
+
+    while (true) {
+        cout << ">>> ";
+        getline(cin >> std::ws, input);
+
+        if (input == "e")
+            return;
+        else if (systemInstance.checkIfInputIsInteger(input) == HCM) {
+            address = "Ho Chi Minh City";
+            break;
+        } else if (systemInstance.checkIfInputIsInteger(input) == Hanoi) {
+            address = "Ha Noi City";
+            break;
+        }
+        cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET << endl;
+    }
     regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
 
     while (true) {
@@ -475,9 +524,11 @@ void Event::registerScreen() {
         cout << COLOR_RED << "Invalid phone number!" << COLOR_RESET << endl;
     }
     systemInstance.registerNewMember(fullname, email, address,
+
                                      phoneNumber, username, password);
     cout << COLOR_GREEN << "Successfully register your account \n Press e to exit to start "
                            "screen." << COLOR_RESET << endl;
+
     UI::start();
 }
 
@@ -487,18 +538,22 @@ void Event::resetMemberPwd() {
     string newPassword;
 
     while (true) {
-        cout << "Enter the ID of the member you want to reset their password: ";
+        cout << "Enter the ID of the member you want to reset their "
+                "password: ";
         getline(cin >> std::ws, id);
 
         if (systemInstance.checkMemberExist(id)) {
-            cout << COLOR_GREEN << "Existing member found with matching ID. Loading..." << COLOR_RESET << endl;
-            elementDivider
-            cout << "Information of member: " << id << endl;
+            cout << COLOR_GREEN
+                 << "Existing member found with matching ID. Loading..."
+                 << COLOR_RESET << endl;
+            elementDivider cout << "Information of member: " << id << endl;
             systemInstance.displayMemberInformation(id);
             break;
         }
 
-        cout << COLOR_YELLOW << "\nID not found.\nDo you want to try again?(y/n): " << COLOR_RESET;
+        cout << COLOR_YELLOW
+             << "\nID not found.\nDo you want to try again?(y/n): "
+             << COLOR_RESET;
         cin >> input;
 
         if (input == YES)
@@ -506,7 +561,9 @@ void Event::resetMemberPwd() {
         else if (input == NO)
             break;
         else {
-            cout << COLOR_RED << "Invalid option. Returning to administrator screen." << COLOR_RESET << endl;
+            cout << COLOR_RED
+                 << "Invalid option. Returning to administrator screen."
+                 << COLOR_RESET << endl;
             UI::showAdminScreen();
         }
     }
@@ -639,6 +696,7 @@ void Event::PendingScreen() {
         if (input == "h") {
             return;
         }
+
 
         cInput = systemInstance.checkIfInputIsInteger(input);
         if (cInput)

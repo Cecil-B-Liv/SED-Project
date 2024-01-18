@@ -46,6 +46,7 @@ void Member::showInfo() const {
     cout << "Host member: " << hostMemberID << endl;
     cout << "Supporter member: " << supporterMemberID << endl;
 
+
     cout << "Skill Info: ";
     for (string *skill: skillInfoList) {
         cout << *skill << " ";
