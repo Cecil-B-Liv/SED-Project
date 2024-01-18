@@ -36,11 +36,12 @@ public:
     static void showAllSupporterInformationScreen() {
         Event::getAllSupporterInformationScreen();
     }
-    static void showAllRatingScreen(){
+
+    static void showAllRatingScreen() {
         Event::showAllRatingList();
     }
 
-    static void showAllBookingScreen(){
+    static void showAllBookingScreen() {
         Event::showAllBookingList();
     }
 
@@ -57,7 +58,8 @@ public:
     static void showPendingBooking() { Event::PendingScreen(); }
 
     static void showAddSKill() { Event::AddSkill(); }
-    
+
+    static void showRemoveSkill() { Event::RemoveSkill(); }
 };
 
 #endif  // SED_PROJECT_UI_H

@@ -93,6 +93,8 @@ public:
 
     void addNewSkill(int &, const string &);
 
+    void removeSkill(int &, const string &);
+
     void addNewRating(string memberID, string hostID,
                       double skillRating, double supporterRating,
                       double hostRating, string comments);

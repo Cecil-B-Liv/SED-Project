@@ -41,7 +41,7 @@ enum UserChoice {
 
 
 enum {
-    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER, BOOKING, ADD_SKILL
+    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER, BOOKING, ADD_SKILL, REMOVE_SKILL
 };
 
 
@@ -337,6 +337,9 @@ void Event::memberScreen(const string &ID) {
         cout << COLOR_BLUE << "5. Add skills."
              << COLOR_RESET << endl;
         cout << endl;
+        cout << COLOR_BLUE << "6. Remove skills."
+             << COLOR_RESET << endl;
+        cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application." << COLOR_RESET
              << endl;
         cout << COLOR_YELLOW << "h. Return to start screen." << COLOR_RESET
@@ -404,6 +407,10 @@ void Event::memberScreen(const string &ID) {
             case ADD_SKILL:
                 systemInstance.clearTerminal();
                 UI::showAddSKill();
+                return;
+            case REMOVE_SKILL:
+                systemInstance.clearTerminal();
+                UI::showRemoveSkill();
                 return;
             default:
                 cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
@@ -919,3 +926,44 @@ void Event::AddSkill() {
     }
 }
 
+void Event::RemoveSkill() {
+    string inputSkill;
+    string inputToContinue;
+    int cInput;
+    Member &member = systemInstance.getMemberObject(currentID);
+
+    while (true) {
+        cout << "Select with number: " << endl;
+
+        int idx = 1;
+        for (auto &it: member.getSkillInfo()) {
+            cout << idx++ << "." << *it << endl;
+        }
+
+        cout << ">>> ";
+        getline(cin >> std::ws, inputSkill);
+
+        if (systemInstance.checkIfInputIsInteger(inputSkill)) {
+            cInput = systemInstance.checkIfInputIsInteger(inputSkill);
+            break;
+        }
+    }
+    systemInstance.removeSkill(cInput, currentID);
+
+    while (true) {
+        cout << "Add more skills ?" << endl;
+        cout << "y/n" << endl;
+
+        getline(cin >> std::ws, inputToContinue);
+
+        if (inputToContinue == YES) {
+            UI::showRemoveSkill();
+            return;
+        } else if (inputToContinue == NO) {
+            UI::showMemberScreen(currentID);
+            return;
+        } else {
+            cout << "Invalid input";
+        }
+    }
+}

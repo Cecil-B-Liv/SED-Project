@@ -425,7 +425,6 @@ void System::addNewSkill(int &newSkill, const string &memberID) {
         }
     }
 
-
     int idx = 0;
     for (auto it = skillStrings.begin(); it != skillStrings.end(); it++, idx++) {
         if (newSkill == idx) {
@@ -436,8 +435,23 @@ void System::addNewSkill(int &newSkill, const string &memberID) {
     memberFileWriter();
 }
 
+void System::removeSkill(int &removeSkill, const string &memberID) {
+    Member &temp = getMemberObject(memberID);
+    vector<string *> tempList = temp.getSkillInfo();
+
+    int idx = 0;
+    for (auto it = tempList.begin(); it != tempList.end(); it++, idx++) {
+        if (removeSkill - 1 == idx) {
+            tempList.erase(it);
+            temp.setSkillInfo(tempList);
+            cout << "Skill removed" << endl;
+        }
+    }
+    memberFileWriter();
+}
+
 bool System::topUpCredits(const string &memberID, int topUpAmount, const string &passwordInput) {
-    for (Member& member : memberList) {
+    for (Member &member: memberList) {
         if (member.getMemberID() == memberID && member.getPassword() == passwordInput) {
             member.setCreditPoints(member.getCreditPoints() + topUpAmount);
             memberFileWriter();
