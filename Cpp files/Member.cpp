@@ -11,7 +11,7 @@ Member::Member(string fullName, string email, string homeAddress,
                string memberID, int creditPoints, int available_status,
                vector<string *> skillInfo, vector<Rating *> ratingList,
                vector<Booking *> requestList, string hostMemberID,
-               string supportorMemberID) {
+               string supporterMemberID) {
     this->fullName = fullName;
     this->email = email;
     this->homeAddress = homeAddress;
@@ -26,7 +26,7 @@ Member::Member(string fullName, string email, string homeAddress,
     this->creditPoints = creditPoints;
     this->availableStatus = available_status;
     this->hostMemberID = hostMemberID;
-    this->supporterMemberID = supportorMemberID;
+    this->supporterMemberID = supporterMemberID;
 }
 
 void Member::showInfo() const {

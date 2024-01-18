@@ -42,6 +42,8 @@ public:
 
     // static void
     static void PendingScreen();
+
+    static void AddSkill();
 };
 
 #endif  // SED_PROJECT_EVENT_H

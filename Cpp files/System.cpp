@@ -5,7 +5,7 @@
 #include "../Header files/System.h"
 
 const string EMPTY;
-
+static Member nullMember;
 enum Status {
     UNAVAILABLE, AVAILABLE
 };
@@ -219,15 +219,16 @@ void System::memberFileWriter() {
         cerr << "Error opening file member data in member writer" << endl;
         return;
     }
-    string skillList;
 
     for (Member &members: memberList) {
-        for (const auto &skill: members.getSkillInfo()) {
+        string skillList;
+        for (auto &skill: members.getSkillInfo()) {
             skillList += *skill;
-            if (&skill != &members.getSkillInfo().back()) {
+            if (skill != members.getSkillInfo().back()) {
                 skillList += "-";
             }
         }
+
         file << members.getFullName() << "," << members.getEmail()
              << "," << members.getHomeAddress() << "," << members.getPhoneNumber()
              << "," << members.getUsername() << "," << members.getPassword()
@@ -301,15 +302,14 @@ string System::getIDWithUsernamePassword(const string &username, const string &p
     return EMPTY;
 }
 
-Member System::getMemberObject(const string &ID) {
-    Member temp;
-    for (const Member &mem: getMemberList()) {
+Member &System::getMemberObject(const string &ID) {
+    for (Member &mem: getMemberList()) {
         if (mem.getMemberID() == ID) {
             return mem;
         }
     }
     cout << "No data of member with that ID";
-    return temp;
+    return nullMember;
 }
 
 void System::displayMemberInformation(const string &ID) {
@@ -414,21 +414,26 @@ void System::registerNewMember(const string &fullName, const string &email,
     memberFileWriter();
 }
 
-void System::addNewSkill(const string &newSkill, const string &memberID) {
+void System::addNewSkill(int &newSkill, const string &memberID) {
 
-    Member temp = getMemberObject(memberID);
+    Member &temp = getMemberObject(memberID);
 
-    int tempSkill = checkIfInputIsInteger(newSkill);
-    if (!tempSkill) {
-        cout << "fuck you";
-        return;
-    }
-
-    for (auto it = skillStrings.begin(); it != skillStrings.end(); it++) {
-        if (tempSkill == (it - skillStrings.begin())) {
-            temp.addSkill(new string(*it));
+    for (auto &it2: temp.getSkillInfo()) {
+        if (skillStrings[newSkill] == *it2) {
+            cout << "You have this already" << endl;
+            return;
         }
     }
+
+
+    int idx = 0;
+    for (auto it = skillStrings.begin(); it != skillStrings.end(); it++, idx++) {
+        if (newSkill == idx) {
+            temp.addSkill(new string(*it));
+            cout << "Skill added" << endl;
+        }
+    }
+    memberFileWriter();
 }
 
 bool System::topUpCredits(const string &memberID, int topUpAmount, const string &passwordInput) {

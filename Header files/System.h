@@ -23,7 +23,6 @@ private:
     vector<Rating> ratingList;
     vector<Booking> bookingList;
 
-
 public:
 
 
@@ -70,7 +69,7 @@ public:
     void resetPassword(const string &ID, const string &newPwd);
 
     // System function
-    Member getMemberObject(const string &ID);
+    Member &getMemberObject(const string &ID);
 
     //    int changePasswordWithID(const string &, const string &);
 
@@ -92,7 +91,7 @@ public:
 
     string generateBookingID();
 
-    void addNewSkill(const string &, const string &);
+    void addNewSkill(int &, const string &);
 
     void addNewRating(string memberID, string hostID,
                       double skillRating, double supporterRating,
