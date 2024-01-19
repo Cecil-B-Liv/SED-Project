@@ -28,12 +28,14 @@ private:
     string username;
     string password;
     string memberID;
+
     int creditPoints;
+    int consumingPoints;
+
     bool availableStatus;
     vector<string *> skillInfoList;
 
     // System based member info
-    vector<double *> avgRatingScore;
     string hostMemberID;
     string supporterMemberID;
 
@@ -77,8 +79,6 @@ public:
 
     vector<string *> getSkillInfo() { return skillInfoList; }
 
-    vector<double *> getRatingList() { return avgRatingScore; }
-
     string getHostMember() const { return hostMemberID; }
 
     string getSupporterMember() const { return supporterMemberID; }
@@ -106,7 +106,7 @@ public:
         this->supportRating = supporterRatingVal;
     }
 
-    void setHostRating(const double &hostRatingVal) {
+    void setHostRating(double &hostRatingVal) {
         this->hostRating = hostRatingVal;
     }
 
@@ -142,7 +142,13 @@ public:
 
     void addSkill(string *newSkill) { this->skillInfoList.push_back(newSkill); }
 
-    void addRating(double *newRating) { this->avgRatingScore.push_back(newRating); }
+    int getConsumingPoints() const {
+        return consumingPoints;
+    }
+
+    void setConsumingPoints(int &consumingPoints) {
+        this->consumingPoints = consumingPoints;
+    }
 
 };
 

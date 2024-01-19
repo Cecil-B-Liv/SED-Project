@@ -861,7 +861,7 @@ void Event::PendingScreen() {
 
         cout << "invalid";
     }
-  
+
     if (cInput == 1) {
         for (Booking &booking: systemInstance.getBookingList()) {
             if (booking.getSupporterMemberID() == ID) {
@@ -1105,39 +1105,38 @@ void Event::CompleteBooking() {
             break;
 
         cout << "invalid";
-
-        switch (cInputScore) {
-            case 1:
-                comment = "This supporter is bad";
-                break;
-            case 2:
-                comment = "This supporter is decent";
-                break;
-            case 3:
-                comment = "This supporter is fine";
-                break;
-            case 4:
-                comment = "This supporter is good";
-                break;
-            case 5:
-                comment = "This supporter is excellent";
-                break;
-            default:
-                cout << "fuck you";
-        }
     }
 
+    switch (cInputScore) {
+        case 1:
+            comment = "bad";
+            break;
+        case 2:
+            comment = "decent";
+            break;
+        case 3:
+            comment = "fine";
+            break;
+        case 4:
+            comment = "good";
+            break;
+        case 5:
+            comment = "excellent";
+            break;
+        default:
+            cout << "ok";
+            break;
+    }
     for (Booking &booking: systemInstance.getBookingList()) {
         if (booking.getHostMemberID() == currentID) {
             booking.setStatus("Completed");
         }
     }
 
-    supporterMember.addRating(new double(cInputScore));
-    supporterMember.setRatingScore(systemInstance.calculateSupporterRating(supporterID));
+    supporterMember.setSupporterRating(systemInstance.calculateSupporterRating(supporterID, cInputScore));
     systemInstance.addNewRating(supporterID, currentID,
-                                systemInstance.calculateSupporterRating(supporterID),
-                                0, 0, comment);
+                                0, supporterMember.getSupporterRating(),
+                                0, comment);
 
     systemInstance.ratingFileWriter();
     systemInstance.bookingFileWriter();

@@ -116,7 +116,7 @@ void System::memberFileReader() {
         member.setUsername(username);
         member.setPassword(password);
         member.setMemberID(ID);
-        member.setRatingScore(std::stod(rating));
+        member.setSupporterRating(std::stod(rating));
         member.setHostMember(hostID);
         member.setSupporterMember(supporterID);
         member.setAvailableStatus(stoi(status));
@@ -162,6 +162,7 @@ void System::ratingFileReader() {
         rating.setHostID(hostID);
         rating.setSkillRating(std::stod(skillRating));
         rating.setHostRating(std::stod(hostRating));
+        rating.setSupporterRating(std::stod(supporterRating));
         rating.setComments(comments);
 
         ratingList.push_back(rating);
@@ -237,7 +238,7 @@ void System::memberFileWriter() {
              << "," << members.getUsername() << "," << members.getPassword()
              << "," << members.getMemberID() << "," << members.getMemberAvailableStatus()
              << "," << members.getHostMember() << "," << members.getSupporterMember()
-             << "," << members.getCreditPoints() << "," << members.getRatingScore()
+             << "," << members.getCreditPoints() << "," << members.getSupporterRating()
              << "," << skillList << endl;
     }
 
@@ -256,7 +257,8 @@ void System::ratingFileWriter() {
     for (const auto &rating: ratingList) {
         file << rating.getRatingID() << "," << rating.getMemberID()
              << "," << rating.getHostID() << "," << rating.getSkillRating()
-             << "," << "," << rating.getHostRating() << "," << "," << rating.getComments() << endl;
+             << "," << rating.getSupporterRating() << "," << rating.getHostRating()
+             << "," << rating.getComments() << endl;
     }
 
     file.close();
@@ -340,9 +342,9 @@ int System::checkIfInputIsInteger(const string &input) {
     }
 }
 
-void System::addNewRating(string memberID, string hostID,
+void System::addNewRating(string &memberID, string &hostID,
                           double skillRating, double supporterRating,
-                          double hostRating, string comments) {
+                          double hostRating, string &comments) {
     Rating rating(generateRatingID(), memberID, hostID, skillRating, supporterRating,
                   hostRating, comments);
     ratingList.push_back(rating);
@@ -469,15 +471,19 @@ bool System::topUpCredits(const string &memberID, int topUpAmount, const string 
     return false;
 }
 
-double System::calculateSupporterRating(const string &supporterID) {
-    Member &supporter = getMemberObject(supporterID);
-    double finalRating = 0;
-
+double System::calculateSupporterRating(const string &supporterID, int &newRating) {
+    double finalRating = newRating;
+    double temp = 0;
+    int idxToDivide = 1;
 
     for (auto &it: ratingList) {
-        finalRating += it.getSupporterRating() / (double) ratingList.size();
-
+        if (supporterID == it.getMemberID()) {
+            temp += it.getSupporterRating();
+            idxToDivide++;
+        }
     }
+
+    finalRating = (temp + finalRating) / idxToDivide;
     return finalRating;
 }
 

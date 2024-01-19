@@ -95,10 +95,6 @@ public:
 
     void removeSkill(int &, const string &);
 
-    void addNewRating(string memberID, string hostID,
-                      double skillRating, double supporterRating,
-                      double hostRating, string comments);
-
     void addNewBooking(string hostMemberID, string supporterMemberID,
                        string status, double timeRenting, tm startTime);
 
@@ -108,7 +104,10 @@ public:
 
     bool topUpCredits(const string &memberID, int topUpAmount, const string &passwordInput);
 
-    double calculateSupporterRating(const string &supporterID);
+    double calculateSupporterRating(const string &supporterID, int &);
+
+    void addNewRating(string &memberID, string &hostID, double skillRating,
+                      double supporterRating, double hostRating, string &comments);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H
