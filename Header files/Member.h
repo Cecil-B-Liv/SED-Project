@@ -106,7 +106,7 @@ public:
         this->supportRating = supporterRatingVal;
     }
 
-    void setHostRating(const double &hostRatingVal) {
+    void setHostRating(double &hostRatingVal) {
         this->hostRating = hostRatingVal;
     }
 
