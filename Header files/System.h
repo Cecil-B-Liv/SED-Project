@@ -107,6 +107,8 @@ public:
     void requestToBookAvailableSupporter(const string &, const string &);
 
     bool topUpCredits(const string &memberID, int topUpAmount, const string &passwordInput);
+
+    double calculateSupporterRating(const string &supporterID);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H

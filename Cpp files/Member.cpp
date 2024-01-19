@@ -9,9 +9,8 @@ Member::Member(string fullName, string email, string homeAddress,
                string phoneNumber, double ratingScore, double supporterRating,
                double hostRating, string username, string password,
                string memberID, int creditPoints, int available_status,
-               vector<string *> skillInfo, vector<Rating *> ratingList,
-               vector<Booking *> requestList, string hostMemberID,
-               string supporterMemberID) {
+               vector<string *> skillInfo,
+               string hostMemberID, string supporterMemberID) {
     this->fullName = fullName;
     this->email = email;
     this->homeAddress = homeAddress;

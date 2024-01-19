@@ -76,6 +76,7 @@ void System::memberFileReader() {
         string ID;
         string skills;
         string credit;
+        string rating;
         string status;
         string hostID;
         string supporterID;
@@ -99,6 +100,7 @@ void System::memberFileReader() {
         getline(iss, hostID, ',');
         getline(iss, supporterID, ',');
         getline(iss, credit, ',');
+        getline(iss, rating, ',');
         getline(iss, skills, ',');
 
         stringstream getSkill(skills);
@@ -114,6 +116,7 @@ void System::memberFileReader() {
         member.setUsername(username);
         member.setPassword(password);
         member.setMemberID(ID);
+        member.setRatingScore(std::stod(rating));
         member.setHostMember(hostID);
         member.setSupporterMember(supporterID);
         member.setAvailableStatus(stoi(status));
@@ -234,7 +237,8 @@ void System::memberFileWriter() {
              << "," << members.getUsername() << "," << members.getPassword()
              << "," << members.getMemberID() << "," << members.getMemberAvailableStatus()
              << "," << members.getHostMember() << "," << members.getSupporterMember()
-             << "," << members.getCreditPoints() << "," << skillList << endl;
+             << "," << members.getCreditPoints() << "," << members.getRatingScore()
+             << "," << skillList << endl;
     }
 
     // add member available status
@@ -466,7 +470,15 @@ bool System::topUpCredits(const string &memberID, int topUpAmount, const string 
     return false;
 }
 
+double System::calculateSupporterRating(const string &supporterID) {
+    Member &supporter = getMemberObject(supporterID);
+    double finalRating = 0.0;
 
+    for (auto &it: supporter.getRatingList()) {
+        finalRating = (finalRating + *it) / (double) supporter.getRatingList().size();
+    }
+    return finalRating;
+}
 
 
 

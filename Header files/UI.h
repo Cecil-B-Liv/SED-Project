@@ -63,6 +63,7 @@ public:
 
     static void showBookingStatus() { Event::BookingStatus(); }
 
+    static void showCompleteBooking() { Event::CompleteBooking(); }
 
 };
 
