@@ -5,8 +5,8 @@
     Lab Assessment: 2
     Author: Huynh Ngoc Tai, Tran Quang Minh, Nguyen Hoang Viet
     ID: s3978680, s3988776, s3926104
-    Compiler used: Compiler version (e.g. g++ 13.1.0, type "g++ --version" to
-   check) Created  date: 28/12/2023 Acknowledgement: None
+    Compiler used: g++ 13.2.0
+    Created  date: 28/12/2023 Acknowledgement: None
 */
 
 #include "../Header files/INCLUDEHEADERS.h"
@@ -40,9 +40,8 @@ enum UserChoice {
 };
 
 
-
 enum {
-    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, BOOKING, ADD_SKILL, REMOVE_SKILL, SET_BOOKING_STATUS, COMPLETE_BOOKING
+    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, BOOKING, TOPUP_CREDITS, ADD_SKILL, REMOVE_SKILL, SET_BOOKING_STATUS, COMPLETE_BOOKING
 };
 
 
@@ -115,6 +114,7 @@ void Event::startScreen() {
              << endl;
         cout << COLOR_BLUE << "  2. Member - Access member features"
              << COLOR_RESET << endl;
+        cout << endl;
         cout << COLOR_RED << "  e. Exit - Close the application" << COLOR_RESET
              << endl;
         cout << endl;
@@ -136,6 +136,7 @@ void Event::startScreen() {
                 UI::showGuestScreen();
                 return;
             case UserPosition::MEMBER:
+                systemInstance.clearTerminal();
                 UI::showRegisterLoginScreen();
                 return;
             default:
@@ -339,9 +340,11 @@ void Event::memberScreen(const string &ID) {
              << COLOR_RESET << endl;
         cout << COLOR_BLUE << "3. See pending booking."
              << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "4. Add skills."
+        cout << COLOR_BLUE << "4. Top-up credits."
              << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "5. Remove skills."
+        cout << COLOR_BLUE << "5. Add skills."
+             << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "6. Remove skills."
              << COLOR_RESET << endl;
 
         cout << endl;
@@ -402,6 +405,9 @@ void Event::memberScreen(const string &ID) {
                 // systemInstance.clearTerminal();
                 UI::showPendingBooking();
                 return;
+            case TOPUP_CREDITS:
+                UI::showTopUpScreen(ID);
+                return;
             case ADD_SKILL:
                 // systemInstance.clearTerminal();
                 UI::showAddSKill();
@@ -417,7 +423,6 @@ void Event::memberScreen(const string &ID) {
             case COMPLETE_BOOKING:
                 systemInstance.clearTerminal();
                 UI::showCompleteBooking();
-                return;
             default:
                 cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
                      << endl;
@@ -433,7 +438,7 @@ void Event::adminScreen() {
             << "\nWelcome, you are browsing with administrator role." << endl;
 
     while (true) {
-        cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
+        cout << COLOR_GREEN << "Please select an option: " << COLOR_RESET << endl;
         cout << endl;
         cout << COLOR_BLUE << "1. Reset a member password." << COLOR_RESET
              << endl;
@@ -883,6 +888,8 @@ void Event::topUpScreen(const string &memberID) {
     cout << COLOR_YELLOW << STYLE_UNDERLINE << "Top-Up Credits" << COLOR_RESET
          << endl;
     elementDivider
+    
+    cout << endl;
 
     int topUpAmount;
     cout << "Enter the amount of credits to top up: ";
@@ -903,14 +910,14 @@ void Event::topUpScreen(const string &memberID) {
         cout << "Enter your password to confirm: ";
         cin >> passwordInput;
         if (systemInstance.topUpCredits(memberID, topUpAmount, passwordInput)) {
+            systemInstance.memberFileWriter();
             Member member = systemInstance.getMemberObject(memberID);
             int updatedBalance = member.getCreditPoints();
-
-            cout << COLOR_GREEN
-                 << "Top-up successful. Your new credit balance is: "
-                 << updatedBalance << COLOR_RESET << endl;
-
-            break;
+            cout << COLOR_GREEN << "Top-up successful. Your new credit balance is: " << updatedBalance 
+            << COLOR_RESET << endl;
+            cout << endl;
+            UI::showMemberScreen(memberID);
+            return;
         } else {
             attempts++;
             cout << COLOR_RED

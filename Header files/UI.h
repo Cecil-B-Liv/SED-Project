@@ -65,6 +65,7 @@ public:
 
     static void showCompleteBooking() { Event::CompleteBooking(); }
 
+    static void showTopUpScreen(const string &memberID) { Event::topUpScreen(memberID); }
 };
 
 #endif  // SED_PROJECT_UI_H
