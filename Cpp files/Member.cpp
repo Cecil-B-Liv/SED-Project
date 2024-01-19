@@ -41,7 +41,7 @@ void Member::showInfo() const {
     cout << "Member ID: " << memberID << endl;
     cout << "Username: " << username << endl;
     cout << "Password: " << password << endl;
-    cout << "Credit Points:" << creditPoints << endl;
+    cout << "Credit Points: " << creditPoints << endl;
 
     cout << "Available Status: " << (availableStatus ? "Available" : "Unavailable") << endl;
     cout << "Host member: " << hostMemberID << endl;

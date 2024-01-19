@@ -465,7 +465,6 @@ bool System::topUpCredits(const string &memberID, int topUpAmount, const string 
     for (Member &member: memberList) {
         if (member.getMemberID() == memberID && member.getPassword() == passwordInput) {
             member.setCreditPoints(member.getCreditPoints() + topUpAmount);
-            memberFileWriter();
             return true;
         }
     }
