@@ -21,6 +21,7 @@ private:
     // Data for the systemInstance
     vector<Member> memberList;
     vector<Rating> ratingList;
+    vector<string> skillList;
     vector<Booking> bookingList;
 
 public:
@@ -108,6 +109,8 @@ public:
 
     void addNewRating(string &memberID, string &hostID, double skillRating,
                       double supporterRating, double hostRating, string &comments);
+
+    double calculateHostRating(const string &hostID, int &newRating);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H

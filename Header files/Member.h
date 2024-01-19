@@ -98,7 +98,7 @@ public:
         this->phoneNumber = phoneNumberVal;
     }
 
-    void setRatingScore(const double &ratingScoreVal) {
+    void setSkillRating(const double &ratingScoreVal) {
         this->skillRating = ratingScoreVal;
     }
 
@@ -106,7 +106,7 @@ public:
         this->supportRating = supporterRatingVal;
     }
 
-    void setHostRating(double &hostRatingVal) {
+    void setHostRating(const double &hostRatingVal) {
         this->hostRating = hostRatingVal;
     }
 
@@ -146,8 +146,8 @@ public:
         return consumingPoints;
     }
 
-    void setConsumingPoints(int &consumingPoints) {
-        this->consumingPoints = consumingPoints;
+    void setConsumingPoints(int &consumingPointsVal) {
+        this->consumingPoints = consumingPointsVal;
     }
 
 };

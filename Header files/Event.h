@@ -50,7 +50,9 @@ public:
 
     static void BookingStatus();
 
-    static void CompleteBooking();
+    static void CompleteBookingForHost();
+
+    static void CompleteBookingForSupporter();
 };
 
 #endif  // SED_PROJECT_EVENT_H

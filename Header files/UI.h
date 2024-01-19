@@ -63,7 +63,10 @@ public:
 
     static void showBookingStatus() { Event::BookingStatus(); }
 
-    static void showCompleteBooking() { Event::CompleteBooking(); }
+    static void showCompleteBooking() { Event::CompleteBookingForHost(); }
+
+    static void showCompleteBookingForSupporter() { Event::CompleteBookingForSupporter(); }
+
 
     static void showTopUpScreen(const string &memberID) { Event::topUpScreen(memberID); }
 };

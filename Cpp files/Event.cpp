@@ -41,7 +41,8 @@ enum UserChoice {
 
 
 enum {
-    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, BOOKING, TOPUP_CREDITS, ADD_SKILL, REMOVE_SKILL, SET_BOOKING_STATUS, COMPLETE_BOOKING
+    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, BOOKING, ADD_SKILL,
+    REMOVE_SKILL, SET_BOOKING_STATUS, COMPLETE_BOOKING, COMPLETE_BOOKING_FOR_SUPPORTER
 };
 
 
@@ -182,8 +183,7 @@ void Event::getAllSupporterInformationScreen() {
     for (auto &member: systemInstance.getMemberList()) {
         if (member.getMemberAvailableStatus() &&
             member.getMemberID() != currentID &&
-            member.getHomeAddress() == temp.getHomeAddress() &&
-            member.getRatingScore() >= std::stod(inputMinRating)) {
+            member.getHomeAddress() == temp.getHomeAddress()) {
             member.showInfo();
         }
         cout << "\n";
@@ -373,31 +373,6 @@ void Event::memberScreen(const string &ID) {
                 UI::showMemberScreen(ID);
                 return;
             case BOOK_AVAILABLE_SUPPORTER:
-                //                 while (true) {
-                //                     cout << "\nDo you want to see the
-                //                     information of our "
-                //                             "supporters (y.YES/n.NO):"
-                //                          << endl;
-                //                     cout << COLOR_YELLOW << ">>> " <<
-                //                     COLOR_RESET; cin >> input;
-                //                     // Check if user's input is only number
-                //                     if (input == YES) {
-                //                         cout << COLOR_CYAN << STYLE_UNDERLINE
-                //                         << "Details of available supporters:
-                //                         " << endl; cout << endl; for (auto
-                //                         &member :
-                //                         systemInstance.getMemberList()) {
-                //                             member.showInfo();
-                //                             cout << "\n";
-                //                         }
-                //                     } else if (input == NO) {
-                //                         break;
-                //                     } else {
-                //                         cout << COLOR_RED << "Invalid option
-                //                         provided!" << COLOR_RESET << endl;
-                //                     }
-                //                 }
-                // systemInstance.clearTerminal();
                 UI::showAllSupporterInformationScreen();
                 UI::bookSupporter(ID);
                 return;
@@ -423,6 +398,11 @@ void Event::memberScreen(const string &ID) {
             case COMPLETE_BOOKING:
                 systemInstance.clearTerminal();
                 UI::showCompleteBooking();
+                return;
+            case COMPLETE_BOOKING_FOR_SUPPORTER:
+                systemInstance.clearTerminal();
+                UI::showCompleteBookingForSupporter();
+                return;
             default:
                 cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
                      << endl;
@@ -1051,18 +1031,17 @@ void Event::BookingStatus() {
     systemInstance.memberFileWriter();
 }
 
-void Event::CompleteBooking() {
+void Event::CompleteBookingForHost() {
     string ID = currentID;
     string input;
-    string inputScore;
+
+    string inputSupportScore;
+
     string comment;
+    string supporterID;
 
     int cInput;
     int cInputScore;
-
-    string supporterID;
-    Member &currMem = systemInstance.getMemberObject(currentID);
-
 
     for (Booking &booking: systemInstance.getBookingList()) {
         if (booking.getHostMemberID() == ID) {
@@ -1098,10 +1077,10 @@ void Event::CompleteBooking() {
 
     while (true) {
         cout << "Rate the user: ";
-        getline(cin >> std::ws, inputScore);
+        getline(cin >> std::ws, inputSupportScore);
 
-        cInputScore = systemInstance.checkIfInputIsInteger(inputScore);
-        if (cInputScore && (cInput >= 0 && cInput <= 5))
+        cInputScore = systemInstance.checkIfInputIsInteger(inputSupportScore);
+        if (cInputScore && (cInputScore >= 0 && cInputScore <= 5))
             break;
 
         cout << "invalid";
@@ -1127,6 +1106,7 @@ void Event::CompleteBooking() {
             cout << "ok";
             break;
     }
+
     for (Booking &booking: systemInstance.getBookingList()) {
         if (booking.getHostMemberID() == currentID) {
             booking.setStatus("Completed");
@@ -1135,8 +1115,72 @@ void Event::CompleteBooking() {
 
     supporterMember.setSupporterRating(systemInstance.calculateSupporterRating(supporterID, cInputScore));
     systemInstance.addNewRating(supporterID, currentID,
-                                0, supporterMember.getSupporterRating(),
+                                0, cInputScore,
                                 0, comment);
+
+    systemInstance.ratingFileWriter();
+    systemInstance.bookingFileWriter();
+    systemInstance.memberFileWriter();
+    UI::showMemberScreen(currentID);
+}
+
+void Event::CompleteBookingForSupporter() {
+
+    string inputScore;
+    string hostID;
+    string comment;
+
+    int cInputScore;
+
+    for (Booking &booking: systemInstance.getBookingList()) {
+        if (booking.getStatus() == "Completed" && booking.getSupporterMemberID() == currentID) {
+            hostID = booking.getHostMemberID();
+        }
+    }
+
+    Member &hostMember = systemInstance.getMemberObject(hostID);
+
+    while (true) {
+        cout << "Rate host (1-5): " << endl;
+        getline(cin >> std::ws, inputScore);
+
+        cInputScore = systemInstance.checkIfInputIsInteger(inputScore);
+        if (cInputScore && (cInputScore >= 0 && cInputScore <= 5)) {
+            break;
+        }
+    }
+
+    for (Booking &booking: systemInstance.getBookingList()) {
+        if (booking.getHostMemberID() == currentID) {
+            booking.setStatus("Completed-2");
+        }
+    }
+
+    switch (cInputScore) {
+        case 1:
+            comment = "bad";
+            break;
+        case 2:
+            comment = "decent";
+            break;
+        case 3:
+            comment = "fine";
+            break;
+        case 4:
+            comment = "good";
+            break;
+        case 5:
+            comment = "excellent";
+            break;
+        default:
+            cout << "ok";
+            break;
+    }
+
+    hostMember.setHostRating(systemInstance.calculateHostRating(hostID, cInputScore));
+    systemInstance.addNewRating(currentID, hostID,
+                                0, 0,
+                                cInputScore, comment);
 
     systemInstance.ratingFileWriter();
     systemInstance.bookingFileWriter();
