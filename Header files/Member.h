@@ -20,6 +20,9 @@ private:
     string phoneNumber;
 
     // showMemberScreen value
+    double totalRating;
+
+private:
     double skillRating;
     double supportRating;
     double hostRating;
@@ -33,6 +36,7 @@ private:
     int consumingPoints;
 
     bool availableStatus;
+
     vector<string *> skillInfoList;
 
     // System based member info
@@ -65,7 +69,7 @@ public:
 
     string getPhoneNumber() const { return phoneNumber; }
 
-    double getRatingScore() const { return skillRating; }
+    double getSkillRating() const { return skillRating; }
 
     double getSupporterRating() const { return supportRating; }
 
@@ -148,6 +152,14 @@ public:
 
     void setConsumingPoints(int &consumingPointsVal) {
         this->consumingPoints = consumingPointsVal;
+    }
+
+    double getTotalRating() const {
+        return totalRating;
+    }
+
+    void setTotalRating(const double totalRatingVal) {
+        this->totalRating = totalRatingVal;
     }
 
 };

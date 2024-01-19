@@ -70,18 +70,26 @@ void System::memberFileReader() {
         string fullname;
         string email;
         string address;
+
         string phoneNumber;
         string username;
         string password;
+
         string ID;
         string skills;
         string credit;
+
+        string skillRating;
         string supporterRating;
         string hostRating;
+        string totalRating;
+
         string status;
         string hostID;
         string supporterID;
+
         vector<string *> newSkillsList;
+
         Member member;
 
         // vector<Rating> ratingList;
@@ -101,6 +109,8 @@ void System::memberFileReader() {
         getline(iss, hostID, ',');
         getline(iss, supporterID, ',');
         getline(iss, credit, ',');
+        getline(iss, totalRating, ',');
+        getline(iss, skillRating, ',');
         getline(iss, hostRating, ',');
         getline(iss, supporterRating, ',');
         getline(iss, skills, ',');
@@ -118,7 +128,10 @@ void System::memberFileReader() {
         member.setUsername(username);
         member.setPassword(password);
         member.setMemberID(ID);
+        member.setTotalRating(std::stod(totalRating));
+        member.setSkillRating(std::stod(skillRating));
         member.setSupporterRating(std::stod(supporterRating));
+        member.setHostRating(std::stod(hostRating));
         member.setHostMember(hostID);
         member.setSupporterMember(supporterID);
         member.setAvailableStatus(stoi(status));
@@ -240,7 +253,8 @@ void System::memberFileWriter() {
              << "," << members.getUsername() << "," << members.getPassword()
              << "," << members.getMemberID() << "," << members.getMemberAvailableStatus()
              << "," << members.getHostMember() << "," << members.getSupporterMember()
-             << "," << members.getCreditPoints() << "," << members.getHostRating()
+             << "," << members.getCreditPoints() << "," << members.getTotalRating()
+             << "," << members.getSkillRating() << "," << members.getHostRating()
              << "," << members.getSupporterRating() << "," << skillList1 << endl;
     }
 
@@ -415,11 +429,6 @@ void System::registerNewMember(const string &fullName, const string &email,
 
     newMember.setMemberID(generateMemberID());
 
-    // Already being set when default constructor
-    // newMember.setAvailableStatus(false);
-    // newMember.setHostMember()
-    // newMember.setSupporterMember()
-
     memberList.push_back(newMember);
     memberFileWriter();
 }
@@ -489,6 +498,23 @@ double System::calculateSupporterRating(const string &supporterID, int &newRatin
     return finalRating;
 }
 
+double System::calculateSupporterSkillRating(const string &supporterID, int &newRating) {
+    double finalRating = newRating;
+    double temp = 0;
+    int idxToDivide = 1;
+
+    for (auto &it: ratingList) {
+        if (supporterID == it.getMemberID()) {
+            temp += it.getSkillRating();
+            idxToDivide++;
+        }
+    }
+
+    finalRating = (temp + finalRating) / idxToDivide;
+    return finalRating;
+}
+
+
 double System::calculateHostRating(const string &hostID, int &newRating) {
     double finalRating = newRating;
     double temp = 0;
@@ -505,4 +531,17 @@ double System::calculateHostRating(const string &hostID, int &newRating) {
     return finalRating;
 }
 
+double System::calculateTotalRating(const string &ID) {
+    double finalRating = 0;
+    double temp = 0;
+    int idxToDivide = 4;
 
+    for (auto &it: memberList) {
+        if (ID == it.getMemberID()) {
+            temp += it.getSkillRating() + it.getHostRating() + it.getSupporterRating();
+        }
+    }
+
+    finalRating = (temp + finalRating) / idxToDivide;
+    return finalRating;
+}

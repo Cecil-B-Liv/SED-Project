@@ -21,7 +21,6 @@ private:
     // Data for the systemInstance
     vector<Member> memberList;
     vector<Rating> ratingList;
-    vector<string> skillList;
     vector<Booking> bookingList;
 
 public:
@@ -111,6 +110,10 @@ public:
                       double supporterRating, double hostRating, string &comments);
 
     double calculateHostRating(const string &hostID, int &newRating);
+
+    double calculateSupporterSkillRating(const string &supporterID, int &newRating);
+
+    double calculateTotalRating(const string &ID);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H
