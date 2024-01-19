@@ -55,13 +55,6 @@ void System::clearTerminal() {
 #endif
 }
 
-string toLowerString(string &input) {
-    for (unsigned char c: input) {
-        tolower(c);
-    }
-    return input;
-}
-
 // Reader functions
 void System::memberFileReader() {
     // Check if file exist
