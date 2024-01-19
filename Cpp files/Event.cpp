@@ -328,7 +328,7 @@ void Event::memberScreen(const string &ID) {
     cout << endl;
     string input;
 
-    cout << COLOR_YELLOW << "Hello"
+    cout << COLOR_YELLOW << "Hello "
          << systemInstance.getMemberObject(ID).getFullName() << " - " << ID
          << COLOR_RESET << endl;
 
@@ -892,16 +892,18 @@ void Event::topUpScreen(const string &memberID) {
     cout << endl;
 
     int topUpAmount;
-    cout << "Enter the amount of credits to top up: ";
-    cin >> topUpAmount;
+    bool validInput = false;
+    while (!validInput) {
+        cout << "Enter the amount of credits to top up: ";
+        cin >> topUpAmount;
 
-    if (cin.fail() || topUpAmount < 0) {
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        cout << COLOR_RED << "Invalid input. Please enter a positive number."
-             << COLOR_RESET << endl;
-        UI::showMemberScreen(memberID);
-        return;
+        if (cin.fail() || topUpAmount < 0) {
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cout << COLOR_RED << "Invalid input. Please enter a positive number." << COLOR_RESET << endl;
+        } else {
+            validInput = true;
+        }
     }
 
     string passwordInput;
