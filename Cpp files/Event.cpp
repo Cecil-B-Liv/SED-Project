@@ -1039,6 +1039,7 @@ void Event::CompleteBooking() {
     string ID = currentID;
     string input;
     string inputScore;
+    string comment;
 
     int cInput;
     int cInputScore;
@@ -1088,10 +1089,41 @@ void Event::CompleteBooking() {
             break;
 
         cout << "invalid";
+
+        switch (cInputScore) {
+            case 1:
+                comment = "This supporter is bad";
+                break;
+            case 2:
+                comment = "This supporter is decent";
+                break;
+            case 3:
+                comment = "This supporter is fine";
+                break;
+            case 4:
+                comment = "This supporter is good";
+                break;
+            case 5:
+                comment = "This supporter is excellent";
+                break;
+            default:
+                cout << "fuck you";
+        }
     }
+
+    for (Booking &booking: systemInstance.getBookingList()) {
+        if (booking.getHostMemberID() == currentID) {
+            booking.setStatus("Completed");
+        }
+    }
+
     supporterMember.addRating(new double(cInputScore));
     supporterMember.setRatingScore(systemInstance.calculateSupporterRating(supporterID));
+    systemInstance.addNewRating(supporterID, currentID,
+                                systemInstance.calculateSupporterRating(supporterID),
+                                0, 0, comment);
 
+    systemInstance.ratingFileWriter();
     systemInstance.bookingFileWriter();
     systemInstance.memberFileWriter();
     UI::showMemberScreen(currentID);

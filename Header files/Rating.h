@@ -5,7 +5,7 @@
 #include "Member.h"
 
 class Rating {
-   private:
+private:
     string ratingID;
     string memberID;
     string hostID;
@@ -19,7 +19,10 @@ class Rating {
     double hostRating;
     string comments;
 
-   public:
+    vector<double *> avgHostToSupporterRatingScore;
+    vector<double *> avgSupporterToHostRatingScore;
+
+public:
     // constructor code
     explicit Rating(string = "", string = "", string = "", double = 0.0,
                     double = 0.0, double = 0.0, string = "");

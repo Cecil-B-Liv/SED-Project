@@ -360,7 +360,7 @@ void System::addNewBooking(string hostMemberID,
     booking.setStartTime(startTime);
 
     bookingList.push_back(booking);
-};
+}
 
 string System::generateMemberID() {
     int memberID = 300000;  // default ID value
@@ -472,13 +472,14 @@ bool System::topUpCredits(const string &memberID, int topUpAmount, const string 
 
 double System::calculateSupporterRating(const string &supporterID) {
     Member &supporter = getMemberObject(supporterID);
-    double finalRating = 0.0;
+    double finalRating = 0;
 
-    for (auto &it: supporter.getRatingList()) {
-        finalRating = (finalRating + *it) / (double) supporter.getRatingList().size();
+
+    for (auto &it: ratingList) {
+        finalRating += it.getSupporterRating() / (double) ratingList.size();
+
     }
     return finalRating;
 }
-
 
 
