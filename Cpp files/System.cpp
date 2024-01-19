@@ -75,6 +75,7 @@ void System::memberFileReader() {
         string password;
         string ID;
         string skills;
+        string credit;
         string status;
         string hostID;
         string supporterID;
@@ -97,6 +98,7 @@ void System::memberFileReader() {
         getline(iss, status, ',');
         getline(iss, hostID, ',');
         getline(iss, supporterID, ',');
+        getline(iss, credit, ',');
         getline(iss, skills, ',');
 
         stringstream getSkill(skills);
@@ -115,6 +117,7 @@ void System::memberFileReader() {
         member.setHostMember(hostID);
         member.setSupporterMember(supporterID);
         member.setAvailableStatus(stoi(status));
+        member.setCreditPoints(stoi(credit));
         member.setSkillInfo(newSkillsList);
 
         memberList.push_back(member);
@@ -231,7 +234,7 @@ void System::memberFileWriter() {
              << "," << members.getUsername() << "," << members.getPassword()
              << "," << members.getMemberID() << "," << members.getMemberAvailableStatus()
              << "," << members.getHostMember() << "," << members.getSupporterMember()
-             << "," << skillList << endl;
+             << "," << members.getCreditPoints() << "," << skillList << endl;
     }
 
     // add member available status
@@ -439,11 +442,14 @@ void System::removeSkill(int &removeSkill, const string &memberID) {
     vector<string *> tempList = temp.getSkillInfo();
 
     int idx = 0;
-    for (auto it = tempList.begin(); it != tempList.end(); it++, idx++) {
+    for (auto it = tempList.begin(); it != tempList.end();) {
         if (removeSkill - 1 == idx) {
-            tempList.erase(it);
+            it = tempList.erase(it);
             temp.setSkillInfo(tempList);
             cout << "Skill removed" << endl;
+        } else {
+            ++it;
+            ++idx;
         }
     }
     memberFileWriter();

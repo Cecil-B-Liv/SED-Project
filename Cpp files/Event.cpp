@@ -41,7 +41,7 @@ enum UserChoice {
 
 
 enum {
-    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER, BOOKING, ADD_SKILL, REMOVE_SKILL
+    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER, BOOKING, ADD_SKILL, REMOVE_SKILL, SET_BOOKING_STATUS
 };
 
 
@@ -394,7 +394,6 @@ void Event::memberScreen(const string &ID) {
                 UI::bookSupporter(ID);
                 return;
             case FILTER_SUPPORTER:
-                cout << "have yet to implemented";
                 systemInstance.clearTerminal();
                 UI::showGuestScreen();
                 return;
@@ -409,6 +408,10 @@ void Event::memberScreen(const string &ID) {
             case REMOVE_SKILL:
                 systemInstance.clearTerminal();
                 UI::showRemoveSkill();
+                return;
+            case SET_BOOKING_STATUS:
+                systemInstance.clearTerminal();
+                UI::showBookingStatus();
                 return;
             default:
                 cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
@@ -986,4 +989,46 @@ void Event::RemoveSkill() {
             cout << "Invalid input";
         }
     }
+}
+
+
+void Event::BookingStatus() {
+    Member &member = systemInstance.getMemberObject(currentID);
+    string inputForStatus;
+    string inputForCredit;
+    int cInputForCredit;
+
+    cout << "Your current status: " << (member.getMemberAvailableStatus() ? "Online" : "Offline") << endl;
+    while (true) {
+        cout << "Do you wish to go: " << (member.getMemberAvailableStatus() ? "Offline" : "Online") << endl;
+        getline(cin >> std::ws, inputForStatus);
+
+        if (inputForStatus == YES && !member.getMemberAvailableStatus()) {
+            member.setAvailableStatus(true);
+            break;
+        } else if (inputForStatus == YES && member.getMemberAvailableStatus()) {
+            member.setAvailableStatus(false);
+            return;
+        } else if (inputForStatus == NO && member.getMemberAvailableStatus()) {
+            break;
+        } else if (inputForStatus == NO && !member.getMemberAvailableStatus()) {
+            return;
+        } else {
+            cout << "no valid input" << endl;
+        }
+    }
+
+    while (true) {
+        cout << "Set your credit point: ";
+
+        getline(cin >> std::ws, inputForCredit);
+        cInputForCredit = systemInstance.checkIfInputIsInteger(inputForCredit);
+        if (cInputForCredit) {
+            break;
+        }
+    }
+
+    member.setCreditPoints(cInputForCredit);
+    systemInstance.memberFileWriter();
+
 }

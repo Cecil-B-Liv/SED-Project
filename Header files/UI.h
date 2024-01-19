@@ -60,6 +60,10 @@ public:
     static void showAddSKill() { Event::AddSkill(); }
 
     static void showRemoveSkill() { Event::RemoveSkill(); }
+
+    static void showBookingStatus() { Event::BookingStatus(); }
+
+
 };
 
 #endif  // SED_PROJECT_UI_H

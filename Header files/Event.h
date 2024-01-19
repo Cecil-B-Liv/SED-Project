@@ -47,6 +47,8 @@ public:
     static void AddSkill();
 
     static void RemoveSkill();
+
+    static void BookingStatus();
 };
 
 #endif  // SED_PROJECT_EVENT_H

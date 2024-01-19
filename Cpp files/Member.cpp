@@ -16,8 +16,8 @@ Member::Member(string fullName, string email, string homeAddress,
     this->email = email;
     this->homeAddress = homeAddress;
     this->phoneNumber = phoneNumber;
-    this->ratingScore = ratingScore;
-    this->supporterRating = supporterRating;
+    this->skillRating = ratingScore;
+    this->supportRating = supporterRating;
     this->hostRating = hostRating;
     this->skillInfoList = skillInfo;
     this->username = username;
@@ -35,8 +35,8 @@ void Member::showInfo() const {
     cout << "Home Address: " << homeAddress << endl;
     cout << "Phone Number: " << phoneNumber << endl;
 
-    cout << "Rating Score: " << ratingScore << endl;
-    cout << "Supporter Rating: " << supporterRating << endl;
+    cout << "Rating Score: " << skillRating << endl;
+    cout << "Supporter Rating: " << supportRating << endl;
     cout << "Host Rating: " << hostRating << endl;
 
     cout << "Member ID: " << memberID << endl;

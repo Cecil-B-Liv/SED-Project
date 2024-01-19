@@ -20,8 +20,8 @@ private:
     string phoneNumber;
 
     // showMemberScreen value
-    double ratingScore;
-    double supporterRating;
+    double skillRating;
+    double supportRating;
     double hostRating;
 
     // showMemberScreen account
@@ -65,9 +65,9 @@ public:
 
     string getPhoneNumber() const { return phoneNumber; }
 
-    double getRatingScore() const { return ratingScore; }
+    double getRatingScore() const { return skillRating; }
 
-    double getSupporterRating() const { return supporterRating; }
+    double getSupporterRating() const { return supportRating; }
 
     double getHostRating() const { return hostRating; }
 
@@ -103,11 +103,11 @@ public:
     }
 
     void setRatingScore(const double &ratingScoreVal) {
-        this->ratingScore = ratingScoreVal;
+        this->skillRating = ratingScoreVal;
     }
 
     void setSupporterRating(const double &supporterRatingVal) {
-        this->supporterRating = supporterRatingVal;
+        this->supportRating = supporterRatingVal;
     }
 
     void setHostRating(const double &hostRatingVal) {
