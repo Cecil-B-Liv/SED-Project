@@ -12,17 +12,17 @@
 #include "../Header files/INCLUDEHEADERS.h"
 
 const vector<string> skillStrings = {
-        "Unknown skill", "Car Mechanic",
-        "Teaching", "Tutoring",
-        "Plumbing Repair", "Writing",
-        "Photography", "Cooking",
-        "Gardening", "House Cleaning",
-        "Laundry", "Sewing",
-        "First Aid", "Time Management",
-        "Public Speaking", "Basic Computer Skills",
-        "Money Management", "Communication",
-        "Problem Solving", "Teamwork",
-        "Stress Management"};
+    "Unknown skill",    "Car Mechanic",
+    "Teaching",         "Tutoring",
+    "Plumbing Repair",  "Writing",
+    "Photography",      "Cooking",
+    "Gardening",        "House Cleaning",
+    "Laundry",          "Sewing",
+    "First Aid",        "Time Management",
+    "Public Speaking",  "Basic Computer Skills",
+    "Money Management", "Communication",
+    "Problem Solving",  "Teamwork",
+    "Stress Management"};
 
 enum UserPosition {
     GUEST = 1,
@@ -32,20 +32,16 @@ enum UserPosition {
 const string YES = "y";
 const string NO = "n";
 
-enum City {
-    HCM = 1, Hanoi
-};
-enum UserChoice {
-    LOGIN = 1, REGISTER
-};
-
-
+enum City { HCM = 1, Hanoi };
+enum UserChoice { LOGIN = 1, REGISTER };
 
 enum {
-    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, FILTER_SUPPORTER, BOOKING, ADD_SKILL
+    MEMBER_INFO = 1,
+    BOOK_AVAILABLE_SUPPORTER,
+    FILTER_SUPPORTER,
+    BOOKING,
+    ADD_SKILL
 };
-
-
 
 enum ADMIN {
     RESET_MEM_PWD = 1,
@@ -85,14 +81,12 @@ void Event::startScreen() {
     string input;
 
     // Welcome Message
-    sectionDivider
-    cout << COLOR_YELLOW << STYLE_BOLD
-         << "EEET2482/COSC2082 ASSIGNMENT" << COLOR_RESET
-         << endl;
+    sectionDivider cout << COLOR_YELLOW << STYLE_BOLD
+                        << "EEET2482/COSC2082 ASSIGNMENT" << COLOR_RESET
+                        << endl;
     cout << COLOR_YELLOW << STYLE_UNDERLINE << "\"TIME BANK\" APPLICATION"
          << COLOR_RESET << endl;
     sectionDivider
-
 
             cout
         << "Instructor: Mr. Tran Duc Linh" << endl;
@@ -110,7 +104,7 @@ void Event::startScreen() {
          << COLOR_RESET << endl;
     elementDivider
 
-    while (true) {
+        while (true) {
         // Prompt User to Choose Role
         cout << COLOR_GREEN << "Select your role: " << COLOR_RESET << endl;
         cout << COLOR_BLUE << "  1. Guest - Browse as a guest" << COLOR_RESET
@@ -194,7 +188,7 @@ void Event::showAllBookingList() {
         // Check if user's input is only number
         if (input == YES) {
             cout << "Details of active booking in the system: " << endl;
-            for (auto &booking: systemInstance.getBookingList()) {
+            for (auto &booking : systemInstance.getBookingList()) {
                 booking.showInfo();
                 cout << "\n";
             }
@@ -218,7 +212,7 @@ void Event::showAllRatingList() {
         // Check if user's input is only number
         if (input == YES) {
             cout << "Details of rating in the system: " << endl;
-            for (auto &rating: systemInstance.getRatingList()) {
+            for (auto &rating : systemInstance.getRatingList()) {
                 rating.showInfo();
                 cout << "\n";
             }
@@ -235,11 +229,10 @@ void Event::showAllRatingList() {
 void Event::guestScreen() {
     string input_1;
     string input_2;
-    elementDivider
-    cout
-            << COLOR_YELLOW << STYLE_UNDERLINE
-            << "Welcome to our Time Bank Application, you are browsing as guest:"
-            << COLOR_RESET << endl;
+    elementDivider cout
+        << COLOR_YELLOW << STYLE_UNDERLINE
+        << "Welcome to our Time Bank Application, you are browsing as guest:"
+        << COLOR_RESET << endl;
 
     while (true) {
         cout << "\nDo you want to see the information of our supporter (y/n):"
@@ -252,7 +245,7 @@ void Event::guestScreen() {
             cout << COLOR_CYAN << STYLE_UNDERLINE
                  << "Details of available supporters: " << COLOR_RESET << endl;
             cout << endl;
-            for (auto &member: systemInstance.getMemberList()) {
+            for (auto &member : systemInstance.getMemberList()) {
                 member.showInfo();
                 cout << "\n";
             }
@@ -267,7 +260,7 @@ void Event::guestScreen() {
 
     elementDivider
 
-    while (true) {
+        while (true) {
         cout << COLOR_GREEN
              << "If you want to book one of our supporter, or becoming one of "
                 "us, consider joining us here: "
@@ -317,10 +310,12 @@ void Event::guestScreen() {
 }
 
 void Event::memberScreen(const string &ID) {
+    cout << endl;
     string input;
 
-    cout << ID << "-" << systemInstance.getMemberObject(ID).getFullName()
-         << endl;
+    cout << COLOR_YELLOW << "Hello"
+         << systemInstance.getMemberObject(ID).getFullName() << " - " << ID
+         << COLOR_RESET << endl;
 
     while (true) {
         cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
@@ -330,12 +325,8 @@ void Event::memberScreen(const string &ID) {
              << COLOR_RESET << endl;
         cout << COLOR_BLUE << "3. Filter condition for supporter booking."
              << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "4. See pending booking."
-             << COLOR_RESET << endl;
-      
-        cout << endl;
-        cout << COLOR_BLUE << "5. Add skills."
-             << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "4. See pending booking." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "5. Add skills." << COLOR_RESET << endl;
         cout << endl;
 
         cout << COLOR_RED << "e. Exit - Close the application." << COLOR_RESET
@@ -349,18 +340,16 @@ void Event::memberScreen(const string &ID) {
 
         if (input == "e") {
             return;
-        }
-
-        if (input == "h") {
+        } else if (input == "h") {
             systemInstance.clearTerminal();
             Event::startScreen();
             return;
         }
-
+        cout << endl;
         // Check if user's input is only number
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case MEMBER_INFO:
-                systemInstance.clearTerminal();
+                // systemInstance.clearTerminal();
                 UI::showMemberInformationScreen(ID);
                 UI::showMemberScreen(ID);
                 return;
@@ -389,21 +378,21 @@ void Event::memberScreen(const string &ID) {
                 //                         provided!" << COLOR_RESET << endl;
                 //                     }
                 //                 }
-                systemInstance.clearTerminal();
+                // systemInstance.clearTerminal();
                 UI::showAllSupporterInformationScreen();
                 UI::bookSupporter(ID);
                 return;
             case FILTER_SUPPORTER:
                 cout << "have yet to implemented";
                 systemInstance.clearTerminal();
-                UI::showGuestScreen();
+
                 return;
             case BOOKING:
-                systemInstance.clearTerminal();
+                // systemInstance.clearTerminal();
                 UI::showPendingBooking();
                 return;
             case ADD_SKILL:
-                systemInstance.clearTerminal();
+                // systemInstance.clearTerminal();
                 UI::showAddSKill();
                 return;
             default:
@@ -416,8 +405,8 @@ void Event::memberScreen(const string &ID) {
 void Event::adminScreen() {
     string input;
 
-    cout << "\nWelcome, you are browsing with administrator role." << endl;
-    elementDivider
+    elementDivider cout
+        << "\nWelcome, you are browsing with administrator role." << endl;
 
     while (true) {
         cout << COLOR_GREEN << "Please select an option" << COLOR_RESET << endl;
@@ -453,7 +442,8 @@ void Event::adminScreen() {
         // Check if user's input is only number
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case RESET_MEM_PWD:
-                systemInstance.clearTerminal();
+                cout << endl;
+                // systemInstance.clearTerminal();
                 UI::resetMemberPwdScreen();
                 return;
             case VIEW_MEMBERLIST:
@@ -502,6 +492,7 @@ void Event::registerLoginScreen() {
         if (givenChoice == "e") {
             return;
         } else if (givenChoice == "h") {
+            cout << endl;
             systemInstance.clearTerminal();
             Event::startScreen();
             return;
@@ -510,10 +501,12 @@ void Event::registerLoginScreen() {
 
         switch (systemInstance.checkIfInputIsInteger(givenChoice)) {
             case UserChoice::LOGIN:
+                cout << endl;
                 systemInstance.clearTerminal();
                 UI::showLoginScreen();
                 return;
             case UserChoice::REGISTER:
+                cout << endl;
                 systemInstance.clearTerminal();
                 UI::showRegisterScreen();
                 return;
@@ -528,6 +521,7 @@ void Event::loginScreen() {
     string username;
     string password;
 
+    cout << endl;
     while (true) {
         cout << "Enter your username: ";
         getline(cin >> std::ws, username);
@@ -537,6 +531,7 @@ void Event::loginScreen() {
 
         if (username == adminUsername && password == adminPassword) {
             systemInstance.clearTerminal();
+            cout << endl;
             UI::showAdminScreen();
             return;
         }
@@ -666,8 +661,7 @@ void Event::resetMemberPwd() {
             cout << COLOR_GREEN
                  << "Existing member found with matching ID. Loading..."
                  << COLOR_RESET << endl;
-            elementDivider
-            cout << "Information of member: " << id << endl;
+            elementDivider cout << "Information of member: " << id << endl;
             systemInstance.displayMemberInformation(id);
             break;
         }
@@ -828,13 +822,12 @@ void Event::PendingScreen() {
     }
 
     if (cInput == 1) {
-
-        for (Booking &booking: systemInstance.getBookingList()) {
+        for (Booking &booking : systemInstance.getBookingList()) {
             if (booking.getSupporterMemberID() == ID)
                 booking.setStatus("Approved");
         }
     } else if (cInput == 2) {
-        for (Booking &booking: systemInstance.getBookingList()) {
+        for (Booking &booking : systemInstance.getBookingList()) {
             if (booking.getSupporterMemberID() == ID)
                 booking.setStatus("Denied");
         }
@@ -874,8 +867,9 @@ void Event::topUpScreen(const string &memberID) {
             Member member = systemInstance.getMemberObject(memberID);
             int updatedBalance = member.getCreditPoints();
 
-            cout << COLOR_GREEN << "Top-up successful. Your new credit balance is: " << updatedBalance << COLOR_RESET
-                 << endl;
+            cout << COLOR_GREEN
+                 << "Top-up successful. Your new credit balance is: "
+                 << updatedBalance << COLOR_RESET << endl;
 
             break;
         } else {
@@ -905,8 +899,15 @@ void Event::AddSkill() {
     while (true) {
         cout << "Select with number: " << endl;
 
-        for (int i = 1; i < skillStrings.size(); i++) {
-            std::cout << i << ". " << skillStrings[i] << std::endl;
+        // for (int i = 1; i < skillStrings.size(); i++) {
+        //     cout << i << ". " << skillStrings[i] << std::endl;
+        // }
+        for (int i = 0; i < skillStrings.size(); i += 2) {
+            std::cout << std::setw(4) << i + 1 << ". " << std::setw(20)
+                      << skillStrings[i] << std::setw(10) << i + 2 << ". "
+                      << ((i + 1 < skillStrings.size()) ? skillStrings[i + 1]
+                                                        : "add more later")
+                      << std::endl;
         }
 
         cout << ">>> ";
@@ -922,8 +923,7 @@ void Event::AddSkill() {
     systemInstance.addNewSkill(cInput, currentID);
 
     while (true) {
-        cout << "Add more skills ?" << endl;
-        cout << "y/n" << endl;
+        cout << "Do you want to add more skills? (y.YES/ n.NO)" << endl;
 
         getline(cin >> std::ws, inputToContinue);
 
@@ -934,7 +934,7 @@ void Event::AddSkill() {
             UI::showMemberScreen(currentID);
             return;
         } else {
-            cout << "Invalid input";
+            cout << "Invalid input" << endl;
         }
     }
 }
