@@ -35,7 +35,7 @@ public:
 
     vector<Rating> &getRatingList() { return ratingList; }
 
-    vector<Booking> getBookingList() { return bookingList; }
+    vector<Booking> &getBookingList() { return bookingList; }
 
     // File Reader
     void memberFileReader();
@@ -93,6 +93,8 @@ public:
 
     void addNewSkill(int &, const string &);
 
+    void removeSkill(int &, const string &);
+
     void addNewRating(string memberID, string hostID,
                       double skillRating, double supporterRating,
                       double hostRating, string comments);
@@ -105,6 +107,8 @@ public:
     void requestToBookAvailableSupporter(const string &, const string &);
 
     bool topUpCredits(const string &memberID, int topUpAmount, const string &passwordInput);
+
+    double calculateSupporterRating(const string &supporterID);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H

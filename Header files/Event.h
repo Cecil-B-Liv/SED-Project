@@ -20,8 +20,9 @@ public:
     static void getAllSupporterInformationScreen();
 
     static void showAllRatingList();
+
     static void showAllBookingList();
-    
+
     static void guestScreen();
 
     static void memberScreen(const string &);
@@ -44,6 +45,12 @@ public:
     static void PendingScreen();
 
     static void AddSkill();
+
+    static void RemoveSkill();
+
+    static void BookingStatus();
+
+    static void CompleteBooking();
 };
 
 #endif  // SED_PROJECT_EVENT_H

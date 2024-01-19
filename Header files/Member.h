@@ -20,8 +20,8 @@ private:
     string phoneNumber;
 
     // showMemberScreen value
-    double ratingScore;
-    double supporterRating;
+    double skillRating;
+    double supportRating;
     double hostRating;
 
     // showMemberScreen account
@@ -33,8 +33,7 @@ private:
     vector<string *> skillInfoList;
 
     // System based member info
-    vector<Rating *> ratingList;
-    vector<Booking *> requestList;
+    vector<double *> avgRatingScore;
     string hostMemberID;
     string supporterMemberID;
 
@@ -45,7 +44,6 @@ public:
             double supporterRating = 0.0, double hostRating = 0.0,
             string username = "", string password = "", string memberID = "", int creditPoints = 20,
             int available_status = 0, vector<string *> skillInfo = {},
-            vector<Rating *> ratingList = {}, vector<Booking *> requestList = {},
             string hostMemberID = "", string supporterMemberID = "");
 
     // toString
@@ -65,9 +63,9 @@ public:
 
     string getPhoneNumber() const { return phoneNumber; }
 
-    double getRatingScore() const { return ratingScore; }
+    double getRatingScore() const { return skillRating; }
 
-    double getSupporterRating() const { return supporterRating; }
+    double getSupporterRating() const { return supportRating; }
 
     double getHostRating() const { return hostRating; }
 
@@ -79,9 +77,7 @@ public:
 
     vector<string *> getSkillInfo() { return skillInfoList; }
 
-    vector<Rating *> getRatingList() { return ratingList; }
-
-    vector<Booking *> getRequestList() { return requestList; }
+    vector<double *> getRatingList() { return avgRatingScore; }
 
     string getHostMember() const { return hostMemberID; }
 
@@ -103,11 +99,11 @@ public:
     }
 
     void setRatingScore(const double &ratingScoreVal) {
-        this->ratingScore = ratingScoreVal;
+        this->skillRating = ratingScoreVal;
     }
 
     void setSupporterRating(const double &supporterRatingVal) {
-        this->supporterRating = supporterRatingVal;
+        this->supportRating = supporterRatingVal;
     }
 
     void setHostRating(const double &hostRatingVal) {
@@ -146,11 +142,8 @@ public:
 
     void addSkill(string *newSkill) { this->skillInfoList.push_back(newSkill); }
 
-    void addRating(Rating *newRating) { this->ratingList.push_back(newRating); }
+    void addRating(double *newRating) { this->avgRatingScore.push_back(newRating); }
 
-    void addRequest(Booking *newRequest) {
-        this->requestList.push_back(newRequest);
-    }
 };
 
 #endif  // SED_PROJECT_MEMBER_H

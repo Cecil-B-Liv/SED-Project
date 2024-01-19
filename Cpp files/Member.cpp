@@ -9,15 +9,14 @@ Member::Member(string fullName, string email, string homeAddress,
                string phoneNumber, double ratingScore, double supporterRating,
                double hostRating, string username, string password,
                string memberID, int creditPoints, int available_status,
-               vector<string *> skillInfo, vector<Rating *> ratingList,
-               vector<Booking *> requestList, string hostMemberID,
-               string supporterMemberID) {
+               vector<string *> skillInfo,
+               string hostMemberID, string supporterMemberID) {
     this->fullName = fullName;
     this->email = email;
     this->homeAddress = homeAddress;
     this->phoneNumber = phoneNumber;
-    this->ratingScore = ratingScore;
-    this->supporterRating = supporterRating;
+    this->skillRating = ratingScore;
+    this->supportRating = supporterRating;
     this->hostRating = hostRating;
     this->skillInfoList = skillInfo;
     this->username = username;
@@ -35,8 +34,8 @@ void Member::showInfo() const {
     cout << "Home Address: " << homeAddress << endl;
     cout << "Phone Number: " << phoneNumber << endl;
 
-    cout << "Rating Score: " << ratingScore << endl;
-    cout << "Supporter Rating: " << supporterRating << endl;
+    cout << "Rating Score: " << skillRating << endl;
+    cout << "Supporter Rating: " << supportRating << endl;
     cout << "Host Rating: " << hostRating << endl;
 
     cout << "Member ID: " << memberID << endl;
@@ -44,7 +43,7 @@ void Member::showInfo() const {
     cout << "Password: " << password << endl;
     cout << "Credit Points:" << creditPoints << endl;
 
-    cout << "Available Status: " << (availableStatus ? "Online" : "Offline") << endl;
+    cout << "Available Status: " << (availableStatus ? "Available" : "Unavailable") << endl;
     cout << "Host member: " << hostMemberID << endl;
     cout << "Supporter member: " << supporterMemberID << endl;
 

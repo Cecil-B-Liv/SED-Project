@@ -39,13 +39,12 @@ enum UserChoice {
     LOGIN = 1, REGISTER
 };
 
+
+
 enum {
-    MEMBER_INFO = 1,
-    BOOK_AVAILABLE_SUPPORTER,
-    FILTER_SUPPORTER,
-    BOOKING,
-    ADD_SKILL
+    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, BOOKING, ADD_SKILL, REMOVE_SKILL, SET_BOOKING_STATUS, COMPLETE_BOOKING
 };
+
 
 enum ADMIN {
     RESET_MEM_PWD = 1,
@@ -154,33 +153,42 @@ void Event::getMemberInfoScreen(const string &ID) {
 
 void Event::getAllSupporterInformationScreen() {
     string input;
+    string inputMinRating;
+    Member &temp = systemInstance.getMemberObject(currentID);
+
     while (true) {
-        cout << "\nDo you want to see the information of our "
-                "supporter? (y.YES/n.NO):"
+        cout << "\nMinimum rating score: "
              << endl;
         cout << ">>> ";
-        cin >> input;
-        // Check if user's input is only number
-        if (input == YES) {
-            cout << "Details of available supporters: " << endl;
+        cin >> inputMinRating;
 
-            for (auto &member: systemInstance.getMemberList()) {
-                if (member.getMemberAvailableStatus() &&
-                    member.getMemberID() != currentID) {
-                    member.showInfo();
-                }
 
-                cout << "\n";
-            }
-
-            break;
-        } else if (input == NO) {
-            break;
-        } else {
-            cout << "Invalid option provided!" << endl;
+        try {
+            std::stod(inputMinRating);
+        } catch (std::invalid_argument &) {
+            cout << "no";
         }
+        if (std::stod(inputMinRating) > 0 && std::stod(inputMinRating) <= 5) {
+            break;
+        }
+        cout << "no" << endl;
+    }
+
+
+    // Check if user's input is only number
+    cout << "Details of available supporters: " << endl;
+
+    for (auto &member: systemInstance.getMemberList()) {
+        if (member.getMemberAvailableStatus() &&
+            member.getMemberID() != currentID &&
+            member.getHomeAddress() == temp.getHomeAddress() &&
+            member.getRatingScore() >= std::stod(inputMinRating)) {
+            member.showInfo();
+        }
+        cout << "\n";
     }
 }
+
 
 void Event::showAllBookingList() {
     string input;
@@ -329,12 +337,14 @@ void Event::memberScreen(const string &ID) {
         cout << COLOR_BLUE << "1. View my info." << COLOR_RESET << endl;
         cout << COLOR_BLUE << "2. View available supporter and book them."
              << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "3. Filter condition for supporter booking."
+        cout << COLOR_BLUE << "3. See pending booking."
              << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "4. See pending booking." << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "5. Add skills." << COLOR_RESET << endl;
-        cout << endl;
+        cout << COLOR_BLUE << "4. Add skills."
+             << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "5. Remove skills."
+             << COLOR_RESET << endl;
 
+        cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application." << COLOR_RESET
              << endl;
         cout << COLOR_YELLOW << "h. Return to start screen." << COLOR_RESET
@@ -388,11 +398,6 @@ void Event::memberScreen(const string &ID) {
                 UI::showAllSupporterInformationScreen();
                 UI::bookSupporter(ID);
                 return;
-            case FILTER_SUPPORTER:
-                cout << "have yet to implemented";
-                systemInstance.clearTerminal();
-
-                return;
             case BOOKING:
                 // systemInstance.clearTerminal();
                 UI::showPendingBooking();
@@ -400,6 +405,18 @@ void Event::memberScreen(const string &ID) {
             case ADD_SKILL:
                 // systemInstance.clearTerminal();
                 UI::showAddSKill();
+                return;
+            case REMOVE_SKILL:
+                systemInstance.clearTerminal();
+                UI::showRemoveSkill();
+                return;
+            case SET_BOOKING_STATUS:
+                systemInstance.clearTerminal();
+                UI::showBookingStatus();
+                return;
+            case COMPLETE_BOOKING:
+                systemInstance.clearTerminal();
+                UI::showCompleteBooking();
                 return;
             default:
                 cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
@@ -811,6 +828,17 @@ void Event::PendingScreen() {
     string ID = currentID;
     string input;
     int cInput;
+    Member &member = systemInstance.getMemberObject(currentID);
+
+    for (Booking &booking: systemInstance.getBookingList()) {
+        if (booking.getSupporterMemberID() == ID && booking.getStatus() == "Pending") {
+            cout << "You were booked by: " << booking.getHostMemberID() << endl;
+        } else {
+            cout << "No one booked you" << endl;
+            UI::showMemberScreen(ID);
+            return;
+        }
+    }
 
     while (true) {
         cout << "1. Accept" << endl;
@@ -828,11 +856,13 @@ void Event::PendingScreen() {
 
         cout << "invalid";
     }
-
+  
     if (cInput == 1) {
         for (Booking &booking: systemInstance.getBookingList()) {
-            if (booking.getSupporterMemberID() == ID)
+            if (booking.getSupporterMemberID() == ID) {
                 booking.setStatus("Approved");
+                member.setAvailableStatus(false);
+            }
         }
     } else if (cInput == 2) {
         for (Booking &booking: systemInstance.getBookingList()) {
@@ -844,6 +874,7 @@ void Event::PendingScreen() {
     }
 
     systemInstance.bookingFileWriter();
+    systemInstance.memberFileWriter();
     UI::showMemberScreen(ID);
 }
 
@@ -939,4 +970,136 @@ void Event::AddSkill() {
             cout << "Invalid input" << endl;
         }
     }
+}
+
+void Event::RemoveSkill() {
+    string inputSkill;
+    string inputToContinue;
+    int cInput;
+    Member &member = systemInstance.getMemberObject(currentID);
+
+    while (true) {
+        cout << "Select with number: " << endl;
+
+        int idx = 1;
+        for (auto &it: member.getSkillInfo()) {
+            cout << idx++ << "." << *it << endl;
+        }
+
+        cout << ">>> ";
+        getline(cin >> std::ws, inputSkill);
+
+        if (systemInstance.checkIfInputIsInteger(inputSkill)) {
+            cInput = systemInstance.checkIfInputIsInteger(inputSkill);
+            break;
+        }
+    }
+    systemInstance.removeSkill(cInput, currentID);
+
+    while (true) {
+        cout << "Add more skills ?" << endl;
+        cout << "y/n" << endl;
+
+        getline(cin >> std::ws, inputToContinue);
+
+        if (inputToContinue == YES) {
+            UI::showRemoveSkill();
+            return;
+        } else if (inputToContinue == NO) {
+            UI::showMemberScreen(currentID);
+            return;
+        } else {
+            cout << "Invalid input";
+        }
+    }
+}
+
+
+void Event::BookingStatus() {
+    Member &member = systemInstance.getMemberObject(currentID);
+    string inputForStatus;
+
+    cout << "Your current status: " << (member.getMemberAvailableStatus() ? "Online" : "Offline") << endl;
+    while (true) {
+        cout << "Do you wish to go: " << (member.getMemberAvailableStatus() ? "Offline" : "Online") << endl;
+        getline(cin >> std::ws, inputForStatus);
+
+        if (inputForStatus == YES && !member.getMemberAvailableStatus()) {
+            member.setAvailableStatus(true);
+            break;
+        } else if (inputForStatus == YES && member.getMemberAvailableStatus()) {
+            member.setAvailableStatus(false);
+            return;
+        } else if (inputForStatus == NO && member.getMemberAvailableStatus()) {
+            break;
+        } else if (inputForStatus == NO && !member.getMemberAvailableStatus()) {
+            return;
+        } else {
+            cout << "no valid input" << endl;
+        }
+    }
+
+    systemInstance.memberFileWriter();
+}
+
+void Event::CompleteBooking() {
+    string ID = currentID;
+    string input;
+    string inputScore;
+
+    int cInput;
+    int cInputScore;
+
+    string supporterID;
+    Member &currMem = systemInstance.getMemberObject(currentID);
+
+
+    for (Booking &booking: systemInstance.getBookingList()) {
+        if (booking.getHostMemberID() == ID) {
+            supporterID = booking.getSupporterMemberID();
+        }
+    }
+    Member &supporterMember = systemInstance.getMemberObject(supporterID);
+
+    for (Booking &booking: systemInstance.getBookingList()) {
+        if (booking.getHostMemberID() == ID && booking.getStatus() == "Approved") {
+            cout << "You booked: " << booking.getSupporterMemberID() << endl;
+        } else {
+            cout << "You haven't booked anyone yet" << endl;
+            UI::showMemberScreen(ID);
+            return;
+        }
+    }
+    while (true) {
+        cout << "1. Complete" << endl;
+        cout << "h. Back" << endl;
+
+        getline(cin >> std::ws, input);
+
+        if (input == "h") {
+            return;
+        }
+
+        cInput = systemInstance.checkIfInputIsInteger(input);
+        if (cInput) break;
+
+        cout << "invalid";
+    }
+
+    while (true) {
+        cout << "Rate the user: ";
+        getline(cin >> std::ws, inputScore);
+
+        cInputScore = systemInstance.checkIfInputIsInteger(inputScore);
+        if (cInputScore && (cInput >= 0 && cInput <= 5))
+            break;
+
+        cout << "invalid";
+    }
+    supporterMember.addRating(new double(cInputScore));
+    supporterMember.setRatingScore(systemInstance.calculateSupporterRating(supporterID));
+
+    systemInstance.bookingFileWriter();
+    systemInstance.memberFileWriter();
+    UI::showMemberScreen(currentID);
 }

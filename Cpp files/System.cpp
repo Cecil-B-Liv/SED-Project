@@ -55,13 +55,6 @@ void System::clearTerminal() {
 #endif
 }
 
-string toLowerString(string &input) {
-    for (unsigned char c: input) {
-        tolower(c);
-    }
-    return input;
-}
-
 // Reader functions
 void System::memberFileReader() {
     // Check if file exist
@@ -82,6 +75,8 @@ void System::memberFileReader() {
         string password;
         string ID;
         string skills;
+        string credit;
+        string rating;
         string status;
         string hostID;
         string supporterID;
@@ -104,6 +99,8 @@ void System::memberFileReader() {
         getline(iss, status, ',');
         getline(iss, hostID, ',');
         getline(iss, supporterID, ',');
+        getline(iss, credit, ',');
+        getline(iss, rating, ',');
         getline(iss, skills, ',');
 
         stringstream getSkill(skills);
@@ -119,9 +116,11 @@ void System::memberFileReader() {
         member.setUsername(username);
         member.setPassword(password);
         member.setMemberID(ID);
+        member.setRatingScore(std::stod(rating));
         member.setHostMember(hostID);
         member.setSupporterMember(supporterID);
         member.setAvailableStatus(stoi(status));
+        member.setCreditPoints(stoi(credit));
         member.setSkillInfo(newSkillsList);
 
         memberList.push_back(member);
@@ -183,6 +182,7 @@ void System::bookingFileReader() {
         string bookingID;
         string hostMemberID;
         string supporterMemberID;
+        string rentingTime;
         string creationTime;
         string startTime;
 
@@ -195,6 +195,8 @@ void System::bookingFileReader() {
         getline(iss, supporterMemberID, ',');
 
         getline(iss, status, ',');
+        getline(iss, rentingTime, ',');
+
         getline(iss, creationTime, ',');
         getline(iss, startTime, ',');
 
@@ -202,6 +204,7 @@ void System::bookingFileReader() {
         request.setCreationTime(parseCSVTime(creationTime));
         request.setStartTime(parseCSVTime(startTime));
         request.setBookingID(bookingID);
+        request.setTimeRenting(std::stod(rentingTime));
         request.setHostMemberID(hostMemberID);
         request.setSupporterMemberID(supporterMemberID);
         request.setStatus(status);
@@ -234,6 +237,7 @@ void System::memberFileWriter() {
              << "," << members.getUsername() << "," << members.getPassword()
              << "," << members.getMemberID() << "," << members.getMemberAvailableStatus()
              << "," << members.getHostMember() << "," << members.getSupporterMember()
+             << "," << members.getCreditPoints() << "," << members.getRatingScore()
              << "," << skillList << endl;
     }
 
@@ -269,7 +273,9 @@ void System::bookingFileWriter() {
     for (const auto &booking: bookingList) {
         file << booking.getBookingID() << "," << booking.getHostMemberID()
              << "," << booking.getSupporterMemberID() << "," << booking.getStatus()
-             << "," << booking.getFormattedCreationTime() << "," << booking.getFormattedStartRentingTime() << endl;
+             << "," << booking.getTimeRenting()
+             << "," << booking.getFormattedCreationTime()
+             << "," << booking.getFormattedStartRentingTime() << endl;
     }
     // add member available status
     file.close();
@@ -425,7 +431,6 @@ void System::addNewSkill(int &newSkill, const string &memberID) {
         }
     }
 
-
     int idx = 0;
     for (auto it = skillStrings.begin(); it != skillStrings.end(); it++, idx++) {
         if (newSkill == idx) {
@@ -436,8 +441,26 @@ void System::addNewSkill(int &newSkill, const string &memberID) {
     memberFileWriter();
 }
 
+void System::removeSkill(int &removeSkill, const string &memberID) {
+    Member &temp = getMemberObject(memberID);
+    vector<string *> tempList = temp.getSkillInfo();
+
+    int idx = 0;
+    for (auto it = tempList.begin(); it != tempList.end();) {
+        if (removeSkill - 1 == idx) {
+            it = tempList.erase(it);
+            temp.setSkillInfo(tempList);
+            cout << "Skill removed" << endl;
+        } else {
+            ++it;
+            ++idx;
+        }
+    }
+    memberFileWriter();
+}
+
 bool System::topUpCredits(const string &memberID, int topUpAmount, const string &passwordInput) {
-    for (Member& member : memberList) {
+    for (Member &member: memberList) {
         if (member.getMemberID() == memberID && member.getPassword() == passwordInput) {
             member.setCreditPoints(member.getCreditPoints() + topUpAmount);
             memberFileWriter();
@@ -447,7 +470,15 @@ bool System::topUpCredits(const string &memberID, int topUpAmount, const string 
     return false;
 }
 
+double System::calculateSupporterRating(const string &supporterID) {
+    Member &supporter = getMemberObject(supporterID);
+    double finalRating = 0.0;
 
+    for (auto &it: supporter.getRatingList()) {
+        finalRating = (finalRating + *it) / (double) supporter.getRatingList().size();
+    }
+    return finalRating;
+}
 
 
 
