@@ -12,17 +12,17 @@
 #include "../Header files/INCLUDEHEADERS.h"
 
 const vector<string> skillStrings = {
-        "Unknown skill", "Car Mechanic",
-        "Teaching", "Tutoring",
-        "Plumbing Repair", "Writing",
-        "Photography", "Cooking",
-        "Gardening", "House Cleaning",
-        "Laundry", "Sewing",
-        "First Aid", "Time Management",
-        "Public Speaking", "Basic Computer Skills",
-        "Money Management", "Communication",
-        "Problem Solving", "Teamwork",
-        "Stress Management"};
+    "Unknown skill",    "Car Mechanic",
+    "Teaching",         "Tutoring",
+    "Plumbing Repair",  "Writing",
+    "Photography",      "Cooking",
+    "Gardening",        "House Cleaning",
+    "Laundry",          "Sewing",
+    "First Aid",        "Time Management",
+    "Public Speaking",  "Basic Computer Skills",
+    "Money Management", "Communication",
+    "Problem Solving",  "Teamwork",
+    "Stress Management"};
 
 enum UserPosition {
     GUEST = 1,
@@ -32,19 +32,20 @@ enum UserPosition {
 const string YES = "y";
 const string NO = "n";
 
-enum City {
-    HCM = 1, Hanoi
-};
-enum UserChoice {
-    LOGIN = 1, REGISTER
-};
-
+enum City { HCM = 1, Hanoi };
+enum UserChoice { LOGIN = 1, REGISTER };
 
 enum {
-    MEMBER_INFO = 1, BOOK_AVAILABLE_SUPPORTER, BOOKING, ADD_SKILL,
-    REMOVE_SKILL, SET_BOOKING_STATUS, COMPLETE_BOOKING, COMPLETE_BOOKING_FOR_SUPPORTER
+    MEMBER_INFO = 1,
+    BOOK_AVAILABLE_SUPPORTER,
+    BOOKING,
+    TOPUP_CREDITS,
+    ADD_SKILL,
+    REMOVE_SKILL,
+    SET_BOOKING_STATUS,
+    COMPLETE_BOOKING,
+    COMPLETE_BOOKING_FOR_SUPPORTER
 };
-
 
 enum ADMIN {
     RESET_MEM_PWD = 1,
@@ -84,16 +85,15 @@ void Event::startScreen() {
     string input;
 
     // Welcome Message
-    sectionDivider
-    cout << COLOR_YELLOW << STYLE_BOLD
-         << "EEET2482/COSC2082 ASSIGNMENT" << COLOR_RESET
-         << endl;
+    sectionDivider cout << COLOR_YELLOW << STYLE_BOLD
+                        << "EEET2482/COSC2082 ASSIGNMENT" << COLOR_RESET
+                        << endl;
     cout << COLOR_YELLOW << STYLE_UNDERLINE << "\"TIME BANK\" APPLICATION"
          << COLOR_RESET << endl;
     sectionDivider
 
-    cout
-            << "Instructor: Mr. Tran Duc Linh" << endl;
+            cout
+        << "Instructor: Mr. Tran Duc Linh" << endl;
 
     cout << "Group: No. 6" << endl;
     cout << endl;
@@ -108,7 +108,7 @@ void Event::startScreen() {
          << COLOR_RESET << endl;
     elementDivider
 
-    while (true) {
+        while (true) {
         // Prompt User to Choose Role
         cout << COLOR_GREEN << "Select your role: " << COLOR_RESET << endl;
         cout << COLOR_BLUE << "  1. Guest - Browse as a guest" << COLOR_RESET
@@ -159,11 +159,9 @@ void Event::getAllSupporterInformationScreen() {
     Member &temp = systemInstance.getMemberObject(currentID);
 
     while (true) {
-        cout << "\nMinimum rating score: "
-             << endl;
+        cout << "\nMinimum rating score: " << endl;
         cout << ">>> ";
         cin >> inputMinRating;
-
 
         try {
             std::stod(inputMinRating);
@@ -176,11 +174,10 @@ void Event::getAllSupporterInformationScreen() {
         cout << "no" << endl;
     }
 
-
     // Check if user's input is only number
     cout << "Details of available supporters: " << endl;
 
-    for (auto &member: systemInstance.getMemberList()) {
+    for (auto &member : systemInstance.getMemberList()) {
         if (member.getMemberAvailableStatus() &&
             member.getMemberID() != currentID &&
             member.getHomeAddress() == temp.getHomeAddress()) {
@@ -189,7 +186,6 @@ void Event::getAllSupporterInformationScreen() {
         cout << "\n";
     }
 }
-
 
 void Event::showAllBookingList() {
     string input;
@@ -202,7 +198,7 @@ void Event::showAllBookingList() {
         // Check if user's input is only number
         if (input == YES) {
             cout << "Details of active booking in the system: " << endl;
-            for (auto &booking: systemInstance.getBookingList()) {
+            for (auto &booking : systemInstance.getBookingList()) {
                 booking.showInfo();
                 cout << "\n";
             }
@@ -226,7 +222,7 @@ void Event::showAllRatingList() {
         // Check if user's input is only number
         if (input == YES) {
             cout << "Details of rating in the system: " << endl;
-            for (auto &rating: systemInstance.getRatingList()) {
+            for (auto &rating : systemInstance.getRatingList()) {
                 rating.showInfo();
                 cout << "\n";
             }
@@ -243,11 +239,10 @@ void Event::showAllRatingList() {
 void Event::guestScreen() {
     string input_1;
     string input_2;
-    elementDivider
-    cout
-            << COLOR_YELLOW << STYLE_UNDERLINE
-            << "Welcome to our Time Bank Application, you are browsing as guest:"
-            << COLOR_RESET << endl;
+    elementDivider cout
+        << COLOR_YELLOW << STYLE_UNDERLINE
+        << "Welcome to our Time Bank Application, you are browsing as guest:"
+        << COLOR_RESET << endl;
 
     while (true) {
         cout << "\nDo you want to see the information of our supporter (y/n):"
@@ -260,7 +255,7 @@ void Event::guestScreen() {
             cout << COLOR_CYAN << STYLE_UNDERLINE
                  << "Details of available supporters: " << COLOR_RESET << endl;
             cout << endl;
-            for (auto &member: systemInstance.getMemberList()) {
+            for (auto &member : systemInstance.getMemberList()) {
                 member.showInfo();
                 cout << "\n";
             }
@@ -275,7 +270,7 @@ void Event::guestScreen() {
 
     elementDivider
 
-    while (true) {
+        while (true) {
         cout << COLOR_GREEN
              << "If you want to book one of our supporter, or becoming one of "
                 "us, consider joining us here: "
@@ -338,14 +333,10 @@ void Event::memberScreen(const string &ID) {
         cout << COLOR_BLUE << "1. View my info." << COLOR_RESET << endl;
         cout << COLOR_BLUE << "2. View available supporter and book them."
              << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "3. See pending booking."
-             << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "4. Top-up credits."
-             << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "5. Add skills."
-             << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "6. Remove skills."
-             << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "3. See pending booking." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "4. Top-up credits." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "5. Add skills." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "6. Remove skills." << COLOR_RESET << endl;
 
         cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application." << COLOR_RESET
@@ -413,12 +404,12 @@ void Event::memberScreen(const string &ID) {
 void Event::adminScreen() {
     string input;
 
-    elementDivider
-    cout
-            << "\nWelcome, you are browsing with administrator role." << endl;
+    elementDivider cout
+        << "\nWelcome, you are browsing with administrator role." << endl;
 
     while (true) {
-        cout << COLOR_GREEN << "Please select an option: " << COLOR_RESET << endl;
+        cout << COLOR_GREEN << "Please select an option: " << COLOR_RESET
+             << endl;
         cout << endl;
         cout << COLOR_BLUE << "1. Reset a member password." << COLOR_RESET
              << endl;
@@ -546,17 +537,17 @@ void Event::loginScreen() {
         }
 
         if (!(systemInstance.getIDWithUsernamePassword(username, password)
-                .empty())) {
+                  .empty())) {
             cout << COLOR_BLUE
                  << "\nCurrently loading you to your member screen."
                  << COLOR_RESET << endl;
             elementDivider
 
-            cout
-                    << COLOR_YELLOW << STYLE_UNDERLINE << "\nWelcome to Time Bank!"
-                    << COLOR_RESET << endl;
+                    cout
+                << COLOR_YELLOW << STYLE_UNDERLINE << "\nWelcome to Time Bank!"
+                << COLOR_RESET << endl;
             currentID =
-                    systemInstance.getIDWithUsernamePassword(username, password);
+                systemInstance.getIDWithUsernamePassword(username, password);
             UI::showMemberScreen(currentID);
 
             return;
@@ -670,8 +661,7 @@ void Event::resetMemberPwd() {
             cout << COLOR_GREEN
                  << "Existing member found with matching ID. Loading..."
                  << COLOR_RESET << endl;
-            elementDivider
-            cout << "Information of member: " << id << endl;
+            elementDivider cout << "Information of member: " << id << endl;
             systemInstance.displayMemberInformation(id);
             break;
         }
@@ -752,7 +742,7 @@ void Event::bookSupporter(const string &hostID) {
     cout << "Existing member with your inputted ID. Loading.." << endl;
     elementDivider
 
-    while (true) {
+        while (true) {
         cout << "Information of member " << supporterID << endl;
         systemInstance.displayMemberInformation(supporterID);
         cout << "\nDo you wish to proceed? [y/n]: ";
@@ -794,12 +784,12 @@ void Event::bookSupporter(const string &hostID) {
     systemInstance.addNewBooking(hostID, supporterID, "Pending", rentingTime,
                                  systemInstance.parseCSVTime(time));
 
-    for (auto &hostMember: systemInstance.getMemberList()) {
+    for (auto &hostMember : systemInstance.getMemberList()) {
         if (hostMember.getMemberID() == hostID)
             hostMember.setSupporterMember(supporterID);
     }
 
-    for (auto &supporterMember: systemInstance.getMemberList()) {
+    for (auto &supporterMember : systemInstance.getMemberList()) {
         if (supporterMember.getMemberID() == supporterID)
             supporterMember.setHostMember(currentID);
     }
@@ -815,8 +805,9 @@ void Event::PendingScreen() {
     int cInput;
     Member &member = systemInstance.getMemberObject(currentID);
 
-    for (Booking &booking: systemInstance.getBookingList()) {
-        if (booking.getSupporterMemberID() == ID && booking.getStatus() == "Pending") {
+    for (Booking &booking : systemInstance.getBookingList()) {
+        if (booking.getSupporterMemberID() == ID &&
+            booking.getStatus() == "Pending") {
             cout << "You were booked by: " << booking.getHostMemberID() << endl;
         } else {
             cout << "No one booked you" << endl;
@@ -843,14 +834,14 @@ void Event::PendingScreen() {
     }
 
     if (cInput == 1) {
-        for (Booking &booking: systemInstance.getBookingList()) {
+        for (Booking &booking : systemInstance.getBookingList()) {
             if (booking.getSupporterMemberID() == ID) {
                 booking.setStatus("Approved");
                 member.setAvailableStatus(false);
             }
         }
     } else if (cInput == 2) {
-        for (Booking &booking: systemInstance.getBookingList()) {
+        for (Booking &booking : systemInstance.getBookingList()) {
             if (booking.getSupporterMemberID() == ID)
                 booking.setStatus("Denied");
         }
@@ -868,8 +859,9 @@ void Event::topUpScreen(const string &memberID) {
     cout << COLOR_YELLOW << STYLE_UNDERLINE << "Top-Up Credits" << COLOR_RESET
          << endl;
     elementDivider
-    
-    cout << endl;
+
+            cout
+        << endl;
 
     int topUpAmount;
     bool validInput = false;
@@ -880,7 +872,9 @@ void Event::topUpScreen(const string &memberID) {
         if (cin.fail() || topUpAmount < 0) {
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            cout << COLOR_RED << "Invalid input. Please enter a positive number." << COLOR_RESET << endl;
+            cout << COLOR_RED
+                 << "Invalid input. Please enter a positive number."
+                 << COLOR_RESET << endl;
         } else {
             validInput = true;
         }
@@ -895,8 +889,9 @@ void Event::topUpScreen(const string &memberID) {
             systemInstance.memberFileWriter();
             Member member = systemInstance.getMemberObject(memberID);
             int updatedBalance = member.getCreditPoints();
-            cout << COLOR_GREEN << "Top-up successful. Your new credit balance is: " << updatedBalance 
-            << COLOR_RESET << endl;
+            cout << COLOR_GREEN
+                 << "Top-up successful. Your new credit balance is: "
+                 << updatedBalance << COLOR_RESET << endl;
             cout << endl;
             UI::showMemberScreen(memberID);
             return;
@@ -911,9 +906,9 @@ void Event::topUpScreen(const string &memberID) {
     if (attempts == 3) {
         systemInstance.clearTerminal();
         cout
-                << COLOR_RED
-                << "Incorrect password entered 3 times. Returning to Member Screen."
-                << COLOR_RESET << endl;
+            << COLOR_RED
+            << "Incorrect password entered 3 times. Returning to Member Screen."
+            << COLOR_RESET << endl;
         UI::showMemberScreen(memberID);
         return;
     }
@@ -928,8 +923,10 @@ void Event::AddSkill() {
         cout << "Select with number: " << endl;
 
         for (int i = 1; i < skillStrings.size(); i += 2) {
-            std::cout << std::setw(3) << std::left << i << "." << std::setw(30) << std::left << skillStrings[i]
-                      << std::setw(3) << std::left << i + 1 << "." << skillStrings[i + 1] << std::endl;
+            std::cout << std::setw(3) << std::left << i << "." << std::setw(30)
+                      << std::left << skillStrings[i] << std::setw(3)
+                      << std::left << i + 1 << "." << skillStrings[i + 1]
+                      << std::endl;
         }
 
         cout << ">>> ";
@@ -971,7 +968,7 @@ void Event::RemoveSkill() {
         cout << "Select with number: " << endl;
 
         int idx = 1;
-        for (auto &it: member.getSkillInfo()) {
+        for (auto &it : member.getSkillInfo()) {
             cout << idx++ << "." << *it << endl;
         }
 
@@ -1003,14 +1000,16 @@ void Event::RemoveSkill() {
     }
 }
 
-
 void Event::BookingStatus() {
     Member &member = systemInstance.getMemberObject(currentID);
     string inputForStatus;
 
-    cout << "Your current status: " << (member.getMemberAvailableStatus() ? "Online" : "Offline") << endl;
+    cout << "Your current status: "
+         << (member.getMemberAvailableStatus() ? "Online" : "Offline") << endl;
     while (true) {
-        cout << "Do you wish to go: " << (member.getMemberAvailableStatus() ? "Offline" : "Online") << endl;
+        cout << "Do you wish to go: "
+             << (member.getMemberAvailableStatus() ? "Offline" : "Online")
+             << endl;
         getline(cin >> std::ws, inputForStatus);
 
         if (inputForStatus == YES && !member.getMemberAvailableStatus()) {
@@ -1043,15 +1042,16 @@ void Event::CompleteBookingForHost() {
     int cInput;
     int cInputScore;
 
-    for (Booking &booking: systemInstance.getBookingList()) {
+    for (Booking &booking : systemInstance.getBookingList()) {
         if (booking.getHostMemberID() == ID) {
             supporterID = booking.getSupporterMemberID();
         }
     }
     Member &supporterMember = systemInstance.getMemberObject(supporterID);
 
-    for (Booking &booking: systemInstance.getBookingList()) {
-        if (booking.getHostMemberID() == ID && booking.getStatus() == "Approved") {
+    for (Booking &booking : systemInstance.getBookingList()) {
+        if (booking.getHostMemberID() == ID &&
+            booking.getStatus() == "Approved") {
             cout << "You booked: " << booking.getSupporterMemberID() << endl;
         } else {
             cout << "You haven't booked anyone yet" << endl;
@@ -1080,8 +1080,7 @@ void Event::CompleteBookingForHost() {
         getline(cin >> std::ws, inputSupportScore);
 
         cInputScore = systemInstance.checkIfInputIsInteger(inputSupportScore);
-        if (cInputScore && (cInputScore >= 0 && cInputScore <= 5))
-            break;
+        if (cInputScore && (cInputScore >= 0 && cInputScore <= 5)) break;
 
         cout << "invalid";
     }
@@ -1107,16 +1106,16 @@ void Event::CompleteBookingForHost() {
             break;
     }
 
-    for (Booking &booking: systemInstance.getBookingList()) {
+    for (Booking &booking : systemInstance.getBookingList()) {
         if (booking.getHostMemberID() == currentID) {
             booking.setStatus("Completed");
         }
     }
 
-    supporterMember.setSupporterRating(systemInstance.calculateSupporterRating(supporterID, cInputScore));
-    systemInstance.addNewRating(supporterID, currentID,
-                                0, cInputScore,
-                                0, comment);
+    supporterMember.setSupporterRating(
+        systemInstance.calculateSupporterRating(supporterID, cInputScore));
+    systemInstance.addNewRating(supporterID, currentID, 0, cInputScore, 0,
+                                comment);
 
     systemInstance.ratingFileWriter();
     systemInstance.bookingFileWriter();
@@ -1125,15 +1124,15 @@ void Event::CompleteBookingForHost() {
 }
 
 void Event::CompleteBookingForSupporter() {
-
     string inputScore;
     string hostID;
     string comment;
 
     int cInputScore;
 
-    for (Booking &booking: systemInstance.getBookingList()) {
-        if (booking.getStatus() == "Completed" && booking.getSupporterMemberID() == currentID) {
+    for (Booking &booking : systemInstance.getBookingList()) {
+        if (booking.getStatus() == "Completed" &&
+            booking.getSupporterMemberID() == currentID) {
             hostID = booking.getHostMemberID();
         }
     }
@@ -1150,7 +1149,7 @@ void Event::CompleteBookingForSupporter() {
         }
     }
 
-    for (Booking &booking: systemInstance.getBookingList()) {
+    for (Booking &booking : systemInstance.getBookingList()) {
         if (booking.getHostMemberID() == currentID) {
             booking.setStatus("Completed-2");
         }
@@ -1177,10 +1176,9 @@ void Event::CompleteBookingForSupporter() {
             break;
     }
 
-    hostMember.setHostRating(systemInstance.calculateHostRating(hostID, cInputScore));
-    systemInstance.addNewRating(currentID, hostID,
-                                0, 0,
-                                cInputScore, comment);
+    hostMember.setHostRating(
+        systemInstance.calculateHostRating(hostID, cInputScore));
+    systemInstance.addNewRating(currentID, hostID, 0, 0, cInputScore, comment);
 
     systemInstance.ratingFileWriter();
     systemInstance.bookingFileWriter();
