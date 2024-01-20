@@ -32,8 +32,8 @@ private:
     string password;
     string memberID;
 
-    int creditPoints;
-    int consumingPoints;
+    double creditPoints;
+    double consumingPoints;
 
     bool availableStatus;
 
@@ -77,7 +77,7 @@ public:
 
     string getMemberID() const { return memberID; }
 
-    int getCreditPoints() const { return creditPoints; }
+    double getCreditPoints() const { return creditPoints; }
 
     bool getMemberAvailableStatus() const { return availableStatus; }
 
@@ -126,7 +126,7 @@ public:
         this->memberID = memberIDVal;
     }
 
-    void setCreditPoints(const int &creditPointsVal) {
+    void setCreditPoints(const double &creditPointsVal) {
         this->creditPoints = creditPointsVal;
     }
 
@@ -146,11 +146,11 @@ public:
 
     void addSkill(string *newSkill) { this->skillInfoList.push_back(newSkill); }
 
-    int getConsumingPoints() const {
+    double getConsumingPoints() const {
         return consumingPoints;
     }
 
-    void setConsumingPoints(int &consumingPointsVal) {
+    void setConsumingPoints(const double &consumingPointsVal) {
         this->consumingPoints = consumingPointsVal;
     }
 

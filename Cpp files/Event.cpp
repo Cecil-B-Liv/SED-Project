@@ -1052,6 +1052,8 @@ void Event::CompleteBookingForHost() {
     int cInputScore;
     int cInputSkillScore;
 
+    Member &hostMember = systemInstance.getMemberObject(ID);
+
     for (Booking &booking: systemInstance.getBookingList()) {
         if (booking.getHostMemberID() == ID) {
             supporterID = booking.getSupporterMemberID();
@@ -1126,15 +1128,21 @@ void Event::CompleteBookingForHost() {
             break;
     }
 
+    double bookingTime;
     for (Booking &booking: systemInstance.getBookingList()) {
         if (booking.getHostMemberID() == currentID) {
             booking.setStatus("Completed");
+            bookingTime = booking.getTimeRenting();
         }
     }
 
     supporterMember.setSupporterRating(systemInstance.calculateSupporterRating(supporterID, cInputScore));
     supporterMember.setSkillRating(systemInstance.calculateSupporterSkillRating(supporterID, cInputScore));
     supporterMember.setTotalRating(systemInstance.calculateTotalRating(supporterID));
+
+    hostMember.setCreditPoints(hostMember.getCreditPoints() - (supporterMember.getConsumingPoints() * bookingTime));
+    supporterMember.setConsumingPoints(
+            supporterMember.getCreditPoints() + (supporterMember.getCreditPoints() * bookingTime));
     systemInstance.addNewRating(supporterID, currentID, cInputSkillScore, cInputScore, 0,
                                 comment);
 

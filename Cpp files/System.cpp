@@ -87,6 +87,7 @@ void System::memberFileReader() {
         string status;
         string hostID;
         string supporterID;
+        string consumingCredit;
 
         vector<string *> newSkillsList;
 
@@ -109,6 +110,7 @@ void System::memberFileReader() {
         getline(iss, hostID, ',');
         getline(iss, supporterID, ',');
         getline(iss, credit, ',');
+        getline(iss, consumingCredit, ',');
         getline(iss, totalRating, ',');
         getline(iss, skillRating, ',');
         getline(iss, hostRating, ',');
@@ -135,7 +137,8 @@ void System::memberFileReader() {
         member.setHostMember(hostID);
         member.setSupporterMember(supporterID);
         member.setAvailableStatus(stoi(status));
-        member.setCreditPoints(stoi(credit));
+        member.setCreditPoints(std::stod(credit));
+        member.setConsumingPoints(std::stod(consumingCredit));
         member.setSkillInfo(newSkillsList);
 
         memberList.push_back(member);
@@ -253,9 +256,10 @@ void System::memberFileWriter() {
              << "," << members.getUsername() << "," << members.getPassword()
              << "," << members.getMemberID() << "," << members.getMemberAvailableStatus()
              << "," << members.getHostMember() << "," << members.getSupporterMember()
-             << "," << members.getCreditPoints() << "," << members.getTotalRating()
-             << "," << members.getSkillRating() << "," << members.getHostRating()
-             << "," << members.getSupporterRating() << "," << skillList1 << endl;
+             << "," << members.getCreditPoints() << "," << members.getConsumingPoints()
+             << "," << members.getTotalRating() << "," << members.getSkillRating()
+             << "," << members.getHostRating() << "," << members.getSupporterRating()
+             << "," << skillList1 << endl;
     }
 
     // add member available status
