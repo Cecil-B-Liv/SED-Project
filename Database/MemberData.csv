@@ -1,2 +1,8 @@
-fwaesd,gm@gm.com,Ho Chi Minh City,1234,cba,1234,S300000,1,,S300001,20,0,0,0,0,0,
+fwaesd,gm@gm.com,Ho Chi Minh City,1234,cba,1234,S300000,1,S300003,S300003,20,0,0,0,0,0,
 fwaesd,gm@gm.com,Ho Chi Minh City,1234,abc,1234,S300001,0,S300000,,20,0,0,0,0,0,
+viet,mail@mail.com,Ha Noi City,0123456789,viet,deptrai,S300002,1,,,20,0,0,0,0,0,
+viet2,mail@mail.com,Ho Chi Minh City,0123456789,viet2,deptrai,S300003,1,S300000,S300000,20,0,0,0,0,0,Writing-Cooking-Basic Computer Skills
+fwaesd,gm@gm.com,Ho Chi Minh City,1234,cba,1234,S300000,1,S300003,S300003,20,0,0,0,0,0,
+fwaesd,gm@gm.com,Ho Chi Minh City,1234,abc,1234,S300001,0,S300000,,20,0,0,0,0,0,
+viet,mail@mail.com,Ha Noi City,0123456789,viet,deptrai,S300002,1,,,20,0,0,0,0,0,
+viet2,mail@mail.com,Ho Chi Minh City,0123456789,viet2,deptrai,S300003,0,S300000,S300000,20,0,0,0,0,0,
