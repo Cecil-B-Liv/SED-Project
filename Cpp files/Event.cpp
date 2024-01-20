@@ -1271,21 +1271,23 @@ void Event::blockUserScreen() {
 
     while (true) {
         for (auto &infoToBlock: systemInstance.getMemberList()) {
-            infoToBlock.showInfo();
-            cout << endl;
+            if (infoToBlock.getMemberID() != currentID) {
+                infoToBlock.showInfo();
+                cout << endl;
+            }
         }
 
         cout << "Select user ID to block: ";
         getline(cin >> std::ws, input);
 
         if (systemInstance.checkIfInputIsInteger(input)) {
-            cout << "Blocked successfully" << endl;
             break;
         } else {
             UI::showMemberScreen(currentID);
             return;
         }
     }
+    cout << "Blocked successfully" << endl;
     systemInstance.addNewBlock(input, currentID);
 }
 
@@ -1302,19 +1304,18 @@ void Event::unBlockUserScreen() {
     while (true) {
         for (auto &infoToBlock: systemInstance.getMemberList()) {
             infoToBlock.showInfo();
-            cout << endl;
         }
 
         cout << "Select user ID to un-block: ";
         getline(cin >> std::ws, input);
 
         if (systemInstance.checkIfInputIsInteger(input)) {
-            cout << "Un-blocked successfully" << endl;
             break;
         } else {
             UI::showMemberScreen(currentID);
             return;
         }
     }
+    cout << "Un-blocked successfully" << endl;
     systemInstance.removeBlock(input, currentID);
 }

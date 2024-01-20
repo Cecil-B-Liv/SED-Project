@@ -280,7 +280,7 @@ void System::blockFileWriter() {
             }
         }
 
-        file << members.getMemberID() << "," << blockList1;
+        file << members.getMemberID() << "," << blockList1 << endl;
     }
 }
 
@@ -616,7 +616,7 @@ void System::addNewBlock(const string &blockID, const string &blockerID) {
 
 void System::removeBlock(const string &blockID, const string &blockerID) {
     Member &temp = getMemberObject(blockerID);
-    vector < string * > tempList = temp.getBlockList();
+    vector<string *> tempList = temp.getBlockList();
 
     for (auto it = tempList.begin(); it != tempList.end();) {
         if (**it == blockID) {
