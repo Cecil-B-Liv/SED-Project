@@ -668,7 +668,8 @@ void Event::resetMemberPwd() {
                  << "Existing member found with matching ID. Loading..."
                  << COLOR_RESET << endl;
             elementDivider
-            cout << "Information of member: " << id << endl;
+            cout << COLOR_YELLOW << STYLE_UNDERLINE << "Information of member: " << id << COLOR_RESET << endl;
+            cout << endl;
             systemInstance.displayMemberInformation(id);
             break;
         }
