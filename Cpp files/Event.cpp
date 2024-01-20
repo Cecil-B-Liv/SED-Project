@@ -186,12 +186,14 @@ void Event::getAllSupporterInformationScreen() {
     cout << COLOR_GREEN "Details of available supporters: " << COLOR_RESET << endl;
 
     for (auto &member: systemInstance.getMemberList()) {
-        if (member.getMemberAvailableStatus() &&
-            member.getMemberID() != currentID &&
-            member.getHomeAddress() == temp.getHomeAddress() &&
-            member.getTotalRating() >= std::stod(inputMinRating)) {
-            member.showInfo();
-        }
+        for (auto &blocked: temp.getBlockList())
+            if (member.getMemberAvailableStatus() &&
+                member.getMemberID() != currentID &&
+                member.getHomeAddress() == temp.getHomeAddress() &&
+                member.getTotalRating() >= std::stod(inputMinRating) &&
+                member.getMemberID() != *blocked) {
+                member.showInfo();
+            }
         cout << "\n";
     }
 }
