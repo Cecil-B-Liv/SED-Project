@@ -12,6 +12,8 @@
 const string MEMBER_PATH = "../Database/MemberData.csv";
 const string BOOKING_PATH = "../Database/BookingData.csv";
 const string RATING_PATH = "../Database/RatingData.csv";
+const string BLOCK_PATH = "../Database/Block.csv";
+
 
 class System {
 private:
@@ -44,16 +46,18 @@ public:
 
     void bookingFileReader();
 
+    void blockFileReader();
+
     // File Writer
     void memberFileWriter();
 
     void ratingFileWriter();
 
-
-    tm parseCSVTime(const std::string &timeStr);
-
     void bookingFileWriter();
 
+    void blockFileWriter();
+
+    tm parseCSVTime(const std::string &timeStr);
 
     // check if there is a member with that ID
     int checkMemberExist(const string &);
@@ -114,6 +118,10 @@ public:
     double calculateSupporterSkillRating(const string &supporterID, int &newRating);
 
     double calculateTotalRating(const string &ID);
+
+    void addNewBlock(const string &blockID, const string &blockerID);
+
+    void removeBlock(const string &blockID, const string &blockerID);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H

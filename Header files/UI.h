@@ -57,18 +57,22 @@ public:
 
     static void showPendingBooking() { Event::PendingScreen(); }
 
-    static void showAddSKill() { Event::AddSkill(); }
+    static void showAddSKill() { Event::addSkill(); }
 
-    static void showRemoveSkill() { Event::RemoveSkill(); }
+    static void showRemoveSkill() { Event::removeSkill(); }
 
-    static void showBookingStatus() { Event::BookingStatus(); }
+    static void showBookingStatus() { Event::bookingStatus(); }
 
-    static void showCompleteBooking() { Event::CompleteBookingForHost(); }
+    static void showCompleteBooking() { Event::completeBookingForHost(); }
 
-    static void showCompleteBookingForSupporter() { Event::CompleteBookingForSupporter(); }
-
+    static void showCompleteBookingForSupporter() { Event::completeBookingForSupporter(); }
 
     static void showTopUpScreen(const string &memberID) { Event::topUpScreen(memberID); }
+
+    static void showBlockScreen() { Event::blockUserScreen(); }
+
+    static void showUnBlockScreen() { Event::unBlockUserScreen(); }
+
 };
 
 #endif  // SED_PROJECT_UI_H

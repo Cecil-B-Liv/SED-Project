@@ -48,7 +48,9 @@ enum {
     REMOVE_SKILL,
     SET_BOOKING_STATUS,
     COMPLETE_BOOKING,
-    COMPLETE_BOOKING_FOR_SUPPORTER
+    COMPLETE_BOOKING_FOR_SUPPORTER,
+    BLOCK_MEMBER,
+    UNBLOCK_MEMBER
 };
 
 enum ADMIN {
@@ -78,6 +80,7 @@ void Event::initialize() {
     systemInstance.memberFileReader();
     systemInstance.ratingFileReader();
     systemInstance.bookingFileReader();
+    systemInstance.blockFileReader();
 }
 
 void Event::endScreen() {
@@ -347,6 +350,8 @@ void Event::memberScreen(const string &ID) {
         cout << COLOR_BLUE << "7. Set availability." << COLOR_RESET << endl;
         cout << COLOR_BLUE << "8. Complete booking as a host." << COLOR_RESET << endl;
         cout << COLOR_BLUE << "9. Complete booking as a supporter." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "10. Block." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "11. Unblock." << COLOR_RESET << endl;
 
         cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application." << COLOR_RESET
@@ -403,6 +408,14 @@ void Event::memberScreen(const string &ID) {
             case COMPLETE_BOOKING_FOR_SUPPORTER:
                 systemInstance.clearTerminal();
                 UI::showCompleteBookingForSupporter();
+                return;
+            case BLOCK_MEMBER:
+                systemInstance.clearTerminal();
+                UI::showBlockScreen();
+                return;
+            case UNBLOCK_MEMBER:
+                systemInstance.clearTerminal();
+                UI::showUnBlockScreen();
                 return;
             default:
                 cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
@@ -950,7 +963,7 @@ void Event::topUpScreen(const string &memberID) {
     }
 }
 
-void Event::AddSkill() {
+void Event::addSkill() {
     string inputSkill;
     string inputToContinue;
     int cInput;
@@ -994,7 +1007,7 @@ void Event::AddSkill() {
     }
 }
 
-void Event::RemoveSkill() {
+void Event::removeSkill() {
     string inputSkill;
     string inputToContinue;
     int cInput;
@@ -1035,7 +1048,7 @@ void Event::RemoveSkill() {
     }
 }
 
-void Event::BookingStatus() {
+void Event::bookingStatus() {
     Member &member = systemInstance.getMemberObject(currentID);
     string inputForStatus;
 
@@ -1072,7 +1085,7 @@ void Event::BookingStatus() {
 }
 
 
-void Event::CompleteBookingForHost() {
+void Event::completeBookingForHost() {
     string ID = currentID;
     string input;
 
@@ -1192,7 +1205,7 @@ void Event::CompleteBookingForHost() {
     UI::showMemberScreen(currentID);
 }
 
-void Event::CompleteBookingForSupporter() {
+void Event::completeBookingForSupporter() {
     string inputScore;
     string hostID;
     string comment;
@@ -1251,4 +1264,57 @@ void Event::CompleteBookingForSupporter() {
     systemInstance.bookingFileWriter();
     systemInstance.memberFileWriter();
     UI::showMemberScreen(currentID);
+}
+
+void Event::blockUserScreen() {
+    string input;
+
+    while (true) {
+        for (auto &infoToBlock: systemInstance.getMemberList()) {
+            infoToBlock.showInfo();
+            cout << endl;
+        }
+
+        cout << "Select user ID to block: ";
+        getline(cin >> std::ws, input);
+
+        if (systemInstance.checkIfInputIsInteger(input)) {
+            cout << "Blocked successfully" << endl;
+            break;
+        } else {
+            UI::showMemberScreen(currentID);
+            return;
+        }
+    }
+    systemInstance.addNewBlock(input, currentID);
+}
+
+void Event::unBlockUserScreen() {
+    string input;
+    Member &blocker = systemInstance.getMemberObject(currentID);
+    vector<string *> &blockedID = blocker.getBlockList();
+
+    if (blockedID.empty()) {
+        cout << "you haven't blocked anyone yet" << endl;
+        return;
+    }
+
+    while (true) {
+        for (auto &infoToBlock: systemInstance.getMemberList()) {
+            infoToBlock.showInfo();
+            cout << endl;
+        }
+
+        cout << "Select user ID to un-block: ";
+        getline(cin >> std::ws, input);
+
+        if (systemInstance.checkIfInputIsInteger(input)) {
+            cout << "Un-blocked successfully" << endl;
+            break;
+        } else {
+            UI::showMemberScreen(currentID);
+            return;
+        }
+    }
+    systemInstance.removeBlock(input, currentID);
 }

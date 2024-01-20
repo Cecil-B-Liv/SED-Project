@@ -36,6 +36,7 @@ private:
     bool availableStatus;
 
     vector<string *> skillInfoList;
+    vector<string *> blockList = {};
 
     // System based member info
     string hostMemberID;
@@ -161,6 +162,11 @@ public:
         this->totalRating = totalRatingVal;
     }
 
+    vector<string *> &getBlockList() { return blockList; }
+
+    void setBlockList(vector<string *> &blockListVal) {
+        this->blockList = blockListVal;
+    }
 };
 
 #endif  // SED_PROJECT_MEMBER_H
