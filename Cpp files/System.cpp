@@ -592,11 +592,6 @@ double System::calculateTotalRating(const string &ID) {
     Member &member = getMemberObject(ID);
     finalRating = ((member.getHostRating() + member.getSupporterRating() + member.getSkillRating()) / 3);
 
-//    for (auto &it: memberList) {
-//        if (ID == it.getMemberID()) {
-//            temp += it.getSkillRating() + it.getHostRating() + it.getSupporterRating();
-//        }
-//    }
     return finalRating;
 }
 
@@ -606,7 +601,6 @@ void System::addNewBlock(const string &blockID, const string &blockerID) {
 
     for (auto &it2: temp.getBlockList()) {
         if (*it2 == blockID) {
-            cout << "You blocked this person this already" << endl;
             return;
         }
     }
@@ -625,7 +619,6 @@ void System::removeBlock(const string &blockID, const string &blockerID) {
         if (**it == blockID) {
             it = tempList.erase(it);
             temp.setBlockList(tempList);
-            cout << "Unblocked" << endl;
         } else {
             ++it;
         }

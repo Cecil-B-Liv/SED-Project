@@ -1302,8 +1302,9 @@ void Event::unBlockUserScreen() {
     }
 
     while (true) {
-        for (auto &infoToBlock: systemInstance.getMemberList()) {
-            infoToBlock.showInfo();
+        cout << "Blocked users:" << endl;
+        for (auto &infoToUnBlock: blocker.getBlockList()) {
+            cout << *infoToUnBlock << endl;
         }
 
         cout << "Select user ID to un-block: ";
