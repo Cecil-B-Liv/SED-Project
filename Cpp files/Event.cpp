@@ -1198,6 +1198,8 @@ void Event::CompleteBookingForSupporter() {
             booking.getSupporterMemberID() == currentID) {
             booking.setStatus("Completed2");
             hostID = booking.getHostMemberID();
+        } else {
+            UI::showMemberScreen(currentID);
         }
     }
 
