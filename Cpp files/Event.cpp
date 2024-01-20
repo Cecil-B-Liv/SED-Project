@@ -1162,6 +1162,7 @@ void Event::CompleteBookingForSupporter() {
     for (Booking &booking: systemInstance.getBookingList()) {
         if (booking.getStatus() == "Completed" &&
             booking.getSupporterMemberID() == currentID) {
+            booking.setStatus("Completed2");
             hostID = booking.getHostMemberID();
         }
     }
@@ -1175,12 +1176,6 @@ void Event::CompleteBookingForSupporter() {
         cInputScore = systemInstance.checkIfInputIsInteger(inputScore);
         if (cInputScore && (cInputScore >= 0 && cInputScore <= 5)) {
             break;
-        }
-    }
-
-    for (Booking &booking: systemInstance.getBookingList()) {
-        if (booking.getSupporterMemberID() == currentID) {
-            booking.setStatus("Completed2");
         }
     }
 
