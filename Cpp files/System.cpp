@@ -536,16 +536,17 @@ double System::calculateHostRating(const string &hostID, int &newRating) {
 }
 
 double System::calculateTotalRating(const string &ID) {
-    double finalRating = 0;
+    double finalRating;
     double temp = 0;
-    int idxToDivide = 4;
+    int idxToDivide = 3;
 
-    for (auto &it: memberList) {
-        if (ID == it.getMemberID()) {
-            temp += it.getSkillRating() + it.getHostRating() + it.getSupporterRating();
-        }
-    }
+    Member &member = getMemberObject(ID);
+    finalRating = ((member.getHostRating() + member.getSupporterRating() + member.getSkillRating()) / 3);
 
-    finalRating = (temp + finalRating) / idxToDivide;
+//    for (auto &it: memberList) {
+//        if (ID == it.getMemberID()) {
+//            temp += it.getSkillRating() + it.getHostRating() + it.getSupporterRating();
+//        }
+//    }
     return finalRating;
 }
