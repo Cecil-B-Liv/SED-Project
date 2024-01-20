@@ -8,9 +8,8 @@
 Member::Member(string fullName, string email, string homeAddress,
                string phoneNumber, double ratingScore, double supporterRating,
                double hostRating, string username, string password,
-               string memberID, int creditPoints, int available_status,
-               vector<string *> skillInfo,
-               string hostMemberID, string supporterMemberID) {
+               string memberID, double creditPoints, double consumingPoints, double totalRating, int available_status,
+               vector<string *> skillInfo, string hostMemberID, string supporterMemberID) {
     this->fullName = fullName;
     this->email = email;
     this->homeAddress = homeAddress;
@@ -22,7 +21,9 @@ Member::Member(string fullName, string email, string homeAddress,
     this->username = username;
     this->password = password;
     this->memberID = memberID;
+    this->totalRating = totalRating;
     this->creditPoints = creditPoints;
+    this->consumingPoints = consumingPoints;
     this->availableStatus = available_status;
     this->hostMemberID = hostMemberID;
     this->supporterMemberID = supporterMemberID;

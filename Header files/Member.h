@@ -21,8 +21,6 @@ private:
 
     // showMemberScreen value
     double totalRating;
-
-private:
     double skillRating;
     double supportRating;
     double hostRating;
@@ -48,7 +46,8 @@ public:
             string fullName = "", string email = "", string homeAddress = "",
             string phoneNumber = "", double ratingScore = 0.0,
             double supporterRating = 0.0, double hostRating = 0.0,
-            string username = "", string password = "", string memberID = "", int creditPoints = 20,
+            string username = "", string password = "", string memberID = "", double creditPoints = 20,
+            double consumingPoints = 0.0, double totalRating = 0.0,
             int available_status = 0, vector<string *> skillInfo = {},
             string hostMemberID = "", string supporterMemberID = "");
 
