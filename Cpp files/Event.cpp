@@ -173,7 +173,7 @@ void Event::getAllSupporterInformationScreen() {
         } catch (std::invalid_argument &) {
             cout << COLOR_RED << "Invalid input!" << COLOR_RESET;
         }
-        if (std::stod(inputMinRating) > 0 && std::stod(inputMinRating) <= 5) {
+        if (std::stod(inputMinRating) >= 0 && std::stod(inputMinRating) <= 5) {
             break;
         }
         cout << "no" << endl;
@@ -185,7 +185,8 @@ void Event::getAllSupporterInformationScreen() {
     for (auto &member: systemInstance.getMemberList()) {
         if (member.getMemberAvailableStatus() &&
             member.getMemberID() != currentID &&
-            member.getHomeAddress() == temp.getHomeAddress()) {
+            member.getHomeAddress() == temp.getHomeAddress() &&
+            member.getTotalRating() >= std::stod(inputMinRating)) {
             member.showInfo();
         }
         cout << "\n";
@@ -796,7 +797,7 @@ void Event::bookSupporter(const string &hostID) {
         if (regex_match(time, timeRegex)) {
             break;
         }
-        cout << COLOR_RED 
+        cout << COLOR_RED
              << "\nWrong format! Please follow this format (yyyy-mm-dd hh:mm)"
              << COLOR_RESET
              << endl
@@ -806,17 +807,21 @@ void Event::bookSupporter(const string &hostID) {
                                  systemInstance.parseCSVTime(time));
 
     for (auto &hostMember: systemInstance.getMemberList()) {
-        if (hostMember.getMemberID() == hostID)
+        if (hostMember.getMemberID() == hostID) {
             hostMember.setSupporterMember(supporterID);
+            hostMember.setAvailableStatus(false);
+        }
     }
 
     for (auto &supporterMember: systemInstance.getMemberList()) {
-        if (supporterMember.getMemberID() == supporterID)
+        if (supporterMember.getMemberID() == supporterID) {
             supporterMember.setHostMember(currentID);
+            supporterMember.setAvailableStatus(false);
+        }
+
     }
     systemInstance.bookingFileWriter();
     systemInstance.memberFileWriter();
-
     UI::showMemberScreen(currentID);
 }
 
@@ -824,6 +829,7 @@ void Event::PendingScreen() {
     string ID = currentID;
     string input;
     int cInput;
+    string hostMemberID;
     Member &member = systemInstance.getMemberObject(currentID);
 
     for (Booking &booking: systemInstance.getBookingList()) {
@@ -854,11 +860,15 @@ void Event::PendingScreen() {
         cout << COLOR_RED << "Invalid input!" << COLOR_RESET << endl;
     }
 
+
     if (cInput == 1) {
         for (Booking &booking: systemInstance.getBookingList()) {
             if (booking.getSupporterMemberID() == ID) {
                 booking.setStatus("Approved");
+                hostMemberID = booking.getHostMemberID();
                 member.setAvailableStatus(false);
+                Member &hostMember = systemInstance.getMemberObject(hostMemberID);
+                hostMember.setAvailableStatus(false);
             }
         }
     } else if (cInput == 2) {
@@ -1030,7 +1040,7 @@ void Event::BookingStatus() {
         cout << "Do you wish to go [Y / N]: "
              << (member.getMemberAvailableStatus() ? "Offline" : "Online")
              << endl;
-        
+
         cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
         getline(cin >> std::ws, inputForStatus);
 
@@ -1158,10 +1168,16 @@ void Event::CompleteBookingForHost() {
     supporterMember.setSupporterRating(systemInstance.calculateSupporterRating(supporterID, cInputScore));
     supporterMember.setSkillRating(systemInstance.calculateSupporterSkillRating(supporterID, cInputScore));
     supporterMember.setTotalRating(systemInstance.calculateTotalRating(supporterID));
+    supporterMember.setAvailableStatus(true);
+    supporterMember.setHostMember("");
 
     hostMember.setCreditPoints(hostMember.getCreditPoints() - (supporterMember.getConsumingPoints() * bookingTime));
-    supporterMember.setConsumingPoints(
+    hostMember.setAvailableStatus(true);
+    hostMember.setSupporterMember("");
+
+    supporterMember.setCreditPoints(
             supporterMember.getCreditPoints() + (supporterMember.getCreditPoints() * bookingTime));
+
     systemInstance.addNewRating(supporterID, currentID, cInputSkillScore, cInputScore, 0,
                                 comment);
 
@@ -1183,6 +1199,8 @@ void Event::CompleteBookingForSupporter() {
             booking.getSupporterMemberID() == currentID) {
             booking.setStatus("Completed2");
             hostID = booking.getHostMemberID();
+        } else {
+            UI::showMemberScreen(currentID);
         }
     }
 
