@@ -832,9 +832,14 @@ void Event::PendingScreen() {
     string hostMemberID;
     Member &member = systemInstance.getMemberObject(currentID);
 
+    if (systemInstance.getBookingList().empty()) {
+        cout << COLOR_BLUE << "No one booked you!" << COLOR_RESET << endl;
+        UI::showMemberScreen(ID);
+        return;
+    }
+
     for (Booking &booking: systemInstance.getBookingList()) {
-        if (booking.getSupporterMemberID() == ID &&
-            booking.getStatus() == "Pending") {
+        if (booking.getSupporterMemberID() == ID && booking.getStatus() == "Pending") {
             cout << COLOR_GREEN << "You were booked by: " << COLOR_RESET << booking.getHostMemberID() << endl;
         } else {
             cout << COLOR_BLUE << "No one booked you!" << COLOR_RESET << endl;
