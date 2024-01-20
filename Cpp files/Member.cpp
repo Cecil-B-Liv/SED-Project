@@ -54,17 +54,5 @@ void Member::showInfo() const {
         cout << *skill << " ";
     }
     cout << endl;
-
-    // cout << "Rating List: ";
-    // for (auto rating : ratingList) {
-    //     rating.showInfo();
-    // }
-    // cout << endl;
-
-    // cout << "Booking List: ";
-    // for (auto request : requestList) {
-    //     request.showInfo();
-    // }
-    // cout << endl;
 }
 
