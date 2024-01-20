@@ -602,6 +602,7 @@ double System::calculateTotalRating(const string &ID) {
 
 void System::addNewBlock(const string &blockID, const string &blockerID) {
     Member &temp = getMemberObject(blockerID);
+    vector<string *> tempList = temp.getBlockList();
 
     for (auto &it2: temp.getBlockList()) {
         if (*it2 == blockID) {
@@ -610,7 +611,9 @@ void System::addNewBlock(const string &blockID, const string &blockerID) {
         }
     }
 
-    temp.getBlockList().push_back(new string(blockID));
+//    temp.getBlockList().push_back(new string(blockID));
+    tempList.push_back(new string(blockID));
+    temp.setBlockList(tempList);
     blockFileWriter();
 }
 
@@ -621,8 +624,8 @@ void System::removeBlock(const string &blockID, const string &blockerID) {
     for (auto it = tempList.begin(); it != tempList.end();) {
         if (**it == blockID) {
             it = tempList.erase(it);
-            temp.setSkillInfo(tempList);
-            cout << "Skill removed" << endl;
+            temp.setBlockList(tempList);
+            cout << "Unblocked" << endl;
         } else {
             ++it;
         }

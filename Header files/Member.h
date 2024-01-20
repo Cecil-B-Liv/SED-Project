@@ -162,9 +162,9 @@ public:
         this->totalRating = totalRatingVal;
     }
 
-    vector<string *> &getBlockList() { return blockList; }
+    vector<string *> getBlockList() { return blockList; }
 
-    void setBlockList(vector<string *> &blockListVal) {
+    void setBlockList(vector<string *> blockListVal) {
         this->blockList = blockListVal;
     }
 };

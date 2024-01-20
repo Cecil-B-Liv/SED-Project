@@ -1294,7 +1294,7 @@ void Event::blockUserScreen() {
 void Event::unBlockUserScreen() {
     string input;
     Member &blocker = systemInstance.getMemberObject(currentID);
-    vector<string *> &blockedID = blocker.getBlockList();
+    vector<string *> blockedID = blocker.getBlockList();
 
     if (blockedID.empty()) {
         cout << "you haven't blocked anyone yet" << endl;
