@@ -1336,8 +1336,12 @@ void Event::completeBookingForSupporter() {
 
 void Event::blockUserScreen() {
     string input;
+    int attempts = 0;
 
-    while (true) {
+    cout << COLOR_YELLOW << STYLE_UNDERLINE << "Block a User" << COLOR_RESET << endl;
+    elementDivider
+
+    while (attempts < 3) {
         for (auto &infoToBlock : systemInstance.getMemberList()) {
             if (infoToBlock.getMemberID() != currentID) {
                 infoToBlock.showInfo();
@@ -1345,46 +1349,64 @@ void Event::blockUserScreen() {
             }
         }
 
-        cout << "Select user ID to block: ";
+        cout << "Select user ID to block (attempt " << (attempts + 1) << "/3): ";
         getline(cin >> std::ws, input);
 
-        if (systemInstance.checkIfInputIsInteger(input)) {
+        if (systemInstance.checkMemberExist(input)) {
+            Member blockedMember = systemInstance.getMemberObject(input);
+            systemInstance.addNewBlock(input, currentID);
+            cout << COLOR_GREEN << "Blocked successfully: " << blockedMember.getFullName() << " (" << input << ")" << COLOR_RESET << endl;
             break;
         } else {
-            UI::showMemberScreen(currentID);
-            return;
+            cout << COLOR_RED << "Invalid ID. Please try again." << COLOR_RESET << endl;
+            attempts++;
         }
     }
-    cout << "Blocked successfully" << endl;
-    systemInstance.addNewBlock(input, currentID);
+
+    if (attempts == 3) {
+        cout << COLOR_RED << "Maximum attempts reached. Returning to Member Screen." << COLOR_RESET << endl;
+    }
+
+    UI::showMemberScreen(currentID);
 }
+
 
 void Event::unBlockUserScreen() {
     string input;
+    int attempts = 0;
     Member &blocker = systemInstance.getMemberObject(currentID);
-    vector<string *> blockedID = blocker.getBlockList();
+    vector<string *> blockedIDs = blocker.getBlockList();
 
-    if (blockedID.empty()) {
-        cout << "you haven't blocked anyone yet" << endl;
+    if (blockedIDs.empty()) {
+        cout << COLOR_BLUE << "You haven't blocked anyone yet." << COLOR_RESET << endl;
+        UI::showMemberScreen(currentID);
         return;
     }
 
-    while (true) {
-        cout << "Blocked users:" << endl;
-        for (auto &infoToUnBlock : blocker.getBlockList()) {
-            cout << *infoToUnBlock << endl;
-        }
+    cout << COLOR_YELLOW << "Blocked users:" << COLOR_RESET << endl;
+    for (auto &blockedID : blockedIDs) {
+        Member blockedMember = systemInstance.getMemberObject(*blockedID);
+        cout << *blockedID << " - " << blockedMember.getFullName() << endl;
+    }
 
-        cout << "Select user ID to un-block: ";
+    while (attempts < 3) {
+        cout << COLOR_YELLOW << "Select user ID to un-block (attempt " << (attempts + 1) << "/3): " << COLOR_RESET;
         getline(cin >> std::ws, input);
 
-        if (systemInstance.checkIfInputIsInteger(input)) {
+        if (systemInstance.checkMemberExist(input)) {
+            Member unblockedMember = systemInstance.getMemberObject(input);
+            systemInstance.removeBlock(input, currentID);
+            cout << COLOR_GREEN << "Un-blocked successfully: " << unblockedMember.getFullName() << " (" << input << ")" << COLOR_RESET << endl;
             break;
         } else {
-            UI::showMemberScreen(currentID);
-            return;
+            cout << COLOR_RED << "Invalid ID. Please try again." << COLOR_RESET << endl;
+            attempts++;
         }
     }
-    cout << "Un-blocked successfully" << endl;
-    systemInstance.removeBlock(input, currentID);
+
+    if (attempts == 3) {
+        cout << COLOR_RED << "Maximum attempts reached. Returning to Member Screen." << COLOR_RESET << endl;
+    }
+
+    UI::showMemberScreen(currentID);
 }
