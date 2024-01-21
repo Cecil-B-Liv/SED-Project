@@ -1144,7 +1144,7 @@ void Event::bookingStatus() {
     cout << COLOR_YELLOW << "Your current status: " << COLOR_RESET
          << (member.getMemberAvailableStatus() ? "Online" : "Offline") << endl;
     while (true) {
-        cout << "Do you wish to go [Y / N]: "
+        cout << "Do you wish to go [y / n]: "
              << (member.getMemberAvailableStatus() ? "Offline" : "Online")
              << endl;
 
