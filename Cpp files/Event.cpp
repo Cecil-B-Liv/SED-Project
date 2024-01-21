@@ -38,6 +38,7 @@ enum UserChoice { LOGIN = 1, REGISTER };
 enum {
     MEMBER_INFO = 1,
     BOOK_AVAILABLE_SUPPORTER,
+    ALL_BOOKINGS,
     BOOKING,
     TOPUP_CREDITS,
     ADD_SKILL,
@@ -392,17 +393,18 @@ void Event::memberScreen(const string &ID) {
         cout << COLOR_BLUE << "1. View my info." << COLOR_RESET << endl;
         cout << COLOR_BLUE << "2. View available supporter and book them."
              << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "3. See pending booking." << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "4. Top-up credits." << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "5. Add skills." << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "6. Remove skills." << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "7. Set availability." << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "8. Complete booking as a host." << COLOR_RESET
+        cout << COLOR_BLUE << "3. View my bookings." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "4. See pending booking." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "5. Top-up credits." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "6. Add skills." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "7. Remove skills." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "8. Set availability." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "9. Complete booking as a host." << COLOR_RESET
              << endl;
-        cout << COLOR_BLUE << "9. Complete booking as a supporter."
+        cout << COLOR_BLUE << "10. Complete booking as a supporter."
              << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "10. Block." << COLOR_RESET << endl;
-        cout << COLOR_BLUE << "11. Unblock." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "11. Block a member." << COLOR_RESET << endl;
+        cout << COLOR_BLUE << "12. Unblock a member." << COLOR_RESET << endl;
 
         cout << endl;
         cout << COLOR_RED << "e. Exit - Close the application." << COLOR_RESET
@@ -432,6 +434,9 @@ void Event::memberScreen(const string &ID) {
             case BOOK_AVAILABLE_SUPPORTER:
                 UI::showAllSupporterInformationScreen();
                 UI::bookSupporter(ID);
+                return;
+            case ALL_BOOKINGS:
+                UI::membersBookingScreen(ID);
                 return;
             case BOOKING:
                 // systemInstance.clearTerminal();
@@ -825,21 +830,24 @@ void Event::bookSupporter(const string &hostID) {
         cout << "\nEnter the ID of the member you want to book: ";
         getline(cin >> std::ws, supporterID);
 
+        if (supporterID == hostID) {
+            cout << COLOR_RED << "You cannot book yourself. Please enter a different ID." << COLOR_RESET << endl;
+            attempts++;
+            cout << COLOR_RED << "Attempts left: " << 3 - attempts << COLOR_RESET << endl;
+            continue;
+        }
+
         if (systemInstance.checkMemberExist(supporterID)) {
             break;
         } else {
-            cout << COLOR_RED
-                 << "System doesn't have the supporter with your inputted ID!"
-                 << COLOR_RESET << endl;
+            cout << COLOR_RED << "System doesn't have the supporter with your inputted ID!" << COLOR_RESET << endl;
             attempts++;
-            cout << COLOR_RED << "Attempts left: " << 3 - attempts
-                 << COLOR_RESET << endl;
+            cout << COLOR_RED << "Attempts left: " << 3 - attempts << COLOR_RESET << endl;
         }
 
         if (attempts == 3) {
             systemInstance.clearTerminal();
-            cout << COLOR_YELLOW << "Returning to member screen" << COLOR_RESET
-                 << endl;
+            cout << COLOR_YELLOW << "Returning to member screen" << COLOR_RESET << endl;
             UI::showMemberScreen(hostID);
             return;
         }
@@ -994,12 +1002,12 @@ void Event::PendingScreen() {
 
 void Event::topUpScreen(const string &memberID) {
     systemInstance.clearTerminal();
-    cout << COLOR_YELLOW << STYLE_UNDERLINE << "Top-Up Credits" << COLOR_RESET
-         << endl;
+    cout << COLOR_YELLOW << STYLE_UNDERLINE << "Top-Up Credits" << COLOR_RESET << endl;
     elementDivider
 
-            cout
-        << endl;
+    // Display current credit points
+    Member member = systemInstance.getMemberObject(memberID);
+    cout << "Your current credit balance is: " << member.getCreditPoints() << endl << endl;
 
     int topUpAmount;
     bool validInput = false;
@@ -1010,9 +1018,7 @@ void Event::topUpScreen(const string &memberID) {
         if (cin.fail() || topUpAmount < 0) {
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            cout << COLOR_RED
-                 << "Invalid input. Please enter a positive number."
-                 << COLOR_RESET << endl;
+            cout << COLOR_RED << "Invalid input. Please enter a positive number." << COLOR_RESET << endl;
         } else {
             validInput = true;
         }
@@ -1025,28 +1031,20 @@ void Event::topUpScreen(const string &memberID) {
         cin >> passwordInput;
         if (systemInstance.topUpCredits(memberID, topUpAmount, passwordInput)) {
             systemInstance.memberFileWriter();
-            Member member = systemInstance.getMemberObject(memberID);
             int updatedBalance = member.getCreditPoints();
-            cout << COLOR_GREEN
-                 << "Top-up successful. Your new credit balance is: "
-                 << updatedBalance << COLOR_RESET << endl;
+            cout << COLOR_GREEN << "Top-up successful. Your new credit balance is: " << updatedBalance << COLOR_RESET << endl;
             cout << endl;
             UI::showMemberScreen(memberID);
             return;
         } else {
             attempts++;
-            cout << COLOR_RED
-                 << "Incorrect password. Attempts left: " << (3 - attempts)
-                 << COLOR_RESET << endl;
+            cout << COLOR_RED << "Incorrect password. Attempts left: " << (3 - attempts) << COLOR_RESET << endl;
         }
     }
 
     if (attempts == 3) {
         systemInstance.clearTerminal();
-        cout
-            << COLOR_RED
-            << "Incorrect password entered 3 times. Returning to Member Screen."
-            << COLOR_RESET << endl;
+        cout << COLOR_RED << "Incorrect password entered 3 times. Returning to Member Screen." << COLOR_RESET << endl;
         UI::showMemberScreen(memberID);
         return;
     }
@@ -1317,25 +1315,31 @@ void Event::completeBookingForSupporter() {
 
     int cInputScore;
 
+
     for (Booking &booking : systemInstance.getBookingList()) {
         if (booking.getStatus() == "Completed" &&
             booking.getSupporterMemberID() == currentID) {
             booking.setStatus("Completed2");
             hostID = booking.getHostMemberID();
         } else {
+            cout << COLOR_RED << "No completed bookings found." << COLOR_RESET << endl;
             UI::showMemberScreen(currentID);
+            return;
         }
     }
 
     Member &hostMember = systemInstance.getMemberObject(hostID);
 
+    cout << COLOR_YELLOW << "Rate your experience with the host (1-5):" << COLOR_RESET << endl;
     while (true) {
-        cout << "Rate host (1-5): " << endl;
+        cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
         getline(cin >> std::ws, inputScore);
 
         cInputScore = systemInstance.checkIfInputIsInteger(inputScore);
-        if (cInputScore && (cInputScore >= 0 && cInputScore <= 5)) {
+        if (cInputScore >= 1 && cInputScore <= 5) {
             break;
+        } else {
+            cout << COLOR_RED << "Invalid rating. Please enter a number between 1 and 5." << COLOR_RESET << endl;
         }
     }
 
@@ -1368,13 +1372,18 @@ void Event::completeBookingForSupporter() {
     systemInstance.ratingFileWriter();
     systemInstance.bookingFileWriter();
     systemInstance.memberFileWriter();
+    cout << COLOR_GREEN << "Host rated successfully. Returning to Member Screen." << COLOR_RESET << endl;
     UI::showMemberScreen(currentID);
 }
 
 void Event::blockUserScreen() {
     string input;
+    int attempts = 0;
 
-    while (true) {
+    cout << COLOR_YELLOW << STYLE_UNDERLINE << "Block a User" << COLOR_RESET << endl;
+    elementDivider
+
+    while (attempts < 3) {
         for (auto &infoToBlock : systemInstance.getMemberList()) {
             if (infoToBlock.getMemberID() != currentID) {
                 infoToBlock.showInfo();
@@ -1382,46 +1391,74 @@ void Event::blockUserScreen() {
             }
         }
 
-        cout << "Select user ID to block: ";
+        cout << "Select user ID to block (attempt " << (attempts + 1) << "/3): ";
         getline(cin >> std::ws, input);
 
-        if (systemInstance.checkIfInputIsInteger(input)) {
+        if (systemInstance.checkMemberExist(input)) {
+            Member blockedMember = systemInstance.getMemberObject(input);
+            systemInstance.addNewBlock(input, currentID);
+            cout << COLOR_GREEN << "Blocked successfully: " << blockedMember.getFullName() << " (" << input << ")" << COLOR_RESET << endl;
             break;
         } else {
-            UI::showMemberScreen(currentID);
-            return;
+            cout << COLOR_RED << "Invalid ID. Please try again." << COLOR_RESET << endl;
+            attempts++;
         }
     }
-    cout << "Blocked successfully" << endl;
-    systemInstance.addNewBlock(input, currentID);
+
+    if (attempts == 3) {
+        cout << COLOR_RED << "Maximum attempts reached. Returning to Member Screen." << COLOR_RESET << endl;
+    }
+
+    UI::showMemberScreen(currentID);
 }
+
 
 void Event::unBlockUserScreen() {
     string input;
+    int attempts = 0;
     Member &blocker = systemInstance.getMemberObject(currentID);
-    vector<string *> blockedID = blocker.getBlockList();
+    vector<string *> blockedIDs = blocker.getBlockList();
 
-    if (blockedID.empty()) {
-        cout << "you haven't blocked anyone yet" << endl;
+    if (blockedIDs.empty()) {
+        cout << COLOR_BLUE << "You haven't blocked anyone yet." << COLOR_RESET << endl;
+        UI::showMemberScreen(currentID);
         return;
     }
 
-    while (true) {
-        cout << "Blocked users:" << endl;
-        for (auto &infoToUnBlock : blocker.getBlockList()) {
-            cout << *infoToUnBlock << endl;
-        }
+    cout << COLOR_YELLOW << "Blocked users:" << COLOR_RESET << endl;
+    for (auto &blockedID : blockedIDs) {
+        Member blockedMember = systemInstance.getMemberObject(*blockedID);
+        cout << *blockedID << " - " << blockedMember.getFullName() << endl;
+    }
 
-        cout << "Select user ID to un-block: ";
+    while (attempts < 3) {
+        cout << COLOR_YELLOW << "Select user ID to un-block (attempt " << (attempts + 1) << "/3): " << COLOR_RESET;
         getline(cin >> std::ws, input);
 
-        if (systemInstance.checkIfInputIsInteger(input)) {
+        if (systemInstance.checkMemberExist(input)) {
+            Member unblockedMember = systemInstance.getMemberObject(input);
+            systemInstance.removeBlock(input, currentID);
+            cout << COLOR_GREEN << "Un-blocked successfully: " << unblockedMember.getFullName() << " (" << input << ")" << COLOR_RESET << endl;
             break;
         } else {
-            UI::showMemberScreen(currentID);
-            return;
+            cout << COLOR_RED << "Invalid ID. Please try again." << COLOR_RESET << endl;
+            attempts++;
         }
     }
-    cout << "Un-blocked successfully" << endl;
-    systemInstance.removeBlock(input, currentID);
+
+    if (attempts == 3) {
+        cout << COLOR_RED << "Maximum attempts reached. Returning to Member Screen." << COLOR_RESET << endl;
+    }
+
+    UI::showMemberScreen(currentID);
+}
+
+void Event::membersBookingScreen(const string &memberID) {
+    systemInstance.clearTerminal();
+    cout << COLOR_YELLOW << STYLE_UNDERLINE << "My Bookings" << COLOR_RESET << endl;
+    elementDivider
+    systemInstance.showMemberBookings(memberID);
+    cout << "\nPress any key to return to the main menu.";
+    cin.get();
+    UI::showMemberScreen(memberID);
 }
