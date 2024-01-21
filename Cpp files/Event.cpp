@@ -164,15 +164,17 @@ void Event::showAllMemberInfo() {
             break;
         }
 
-        cout << "\nDo you want to see the information of our supporter (y/n):"
-             << endl;
-        cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
+        cout << COLOR_GREEN
+             << "\nDo you want to see the information of our supporter (y/n):"
+             << COLOR_RESET << endl;
+        cout << ">>> ";
         cin >> input_1;
         // Check if user's input is only y/n
 
         if (input_1 == YES) {
             cout << COLOR_CYAN << STYLE_UNDERLINE
-                 << "Details of supporter in the system: " << COLOR_RESET << endl;
+                 << "\nDetails of supporter in the system: " << COLOR_RESET
+                 << endl;
             cout << endl;
             for (auto &member : systemInstance.getMemberList()) {
                 member.showFullInfo();
@@ -181,7 +183,7 @@ void Event::showAllMemberInfo() {
             break;
         } else if (input_1 == NO) {
             break;
-        }  else {
+        } else {
             cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
                  << endl;
         }
@@ -196,7 +198,9 @@ void Event::getAllSupporterInformationScreen() {
     Member &temp = systemInstance.getMemberObject(currentID);
 
     while (true) {
-        cout << "\nMinimum rating score: " << endl;
+        cout << COLOR_GREEN
+             << "\nInput your desire minimum rating score: " << COLOR_RESET
+             << endl;
         cout << ">>> ";
         cin >> inputMinRating;
 
@@ -212,8 +216,9 @@ void Event::getAllSupporterInformationScreen() {
     }
 
     // Check if user's input is only number
-    cout << COLOR_GREEN "Details of available supporters: " << COLOR_RESET
-         << endl;
+    cout << COLOR_GREEN
+         << STYLE_UNDERLINE "Details of available supporters: " << COLOR_RESET
+         << endl  << endl;
 
     for (auto &member : systemInstance.getMemberList()) {
         for (auto &blocked : temp.getBlockList())
@@ -231,14 +236,17 @@ void Event::getAllSupporterInformationScreen() {
 void Event::showAllBookingList() {
     string input;
     while (true) {
-        cout << "\nDo you want to see all booking in our "
+        cout << COLOR_GREEN
+             << "\nDo you want to see all booking in our "
                 "system? (y.YES/n.NO):"
-             << endl;
+             << COLOR_RESET << endl;
         cout << ">>> ";
         cin >> input;
         // Check if user's input is only number
         if (input == YES) {
-            cout << "Details of active booking in the system: " << endl;
+            cout << COLOR_GREEN << STYLE_UNDERLINE
+                 << "\nDetails of active booking in the system: " << COLOR_RESET
+                 << endl << endl;
             for (auto &booking : systemInstance.getBookingList()) {
                 booking.showInfo();
                 cout << "\n";
@@ -247,7 +255,8 @@ void Event::showAllBookingList() {
         } else if (input == NO) {
             break;
         } else {
-            cout << "Invalid option provided!" << endl;
+            cout << COLOR_RED << "Invalid option provided!" << COLOR_RESET
+                 << endl;
         }
     }
 }
@@ -255,14 +264,17 @@ void Event::showAllBookingList() {
 void Event::showAllRatingList() {
     string input;
     while (true) {
-        cout << "\nDo you want to see the all the rating in the system? "
+        cout << COLOR_GREEN
+             << "\nDo you want to see the all the rating in the system? "
                 "(y.YES/n.NO):"
              << endl;
         cout << ">>> ";
         cin >> input;
         // Check if user's input is only number
         if (input == YES) {
-            cout << "Details of rating in the system: " << endl;
+            cout << COLOR_GREEN << STYLE_UNDERLINE
+                 << "\nDetails of rating in the system: " << COLOR_RESET
+                 << endl << endl;
             for (auto &rating : systemInstance.getRatingList()) {
                 rating.showInfo();
                 cout << "\n";
@@ -295,7 +307,7 @@ void Event::guestScreen() {
         if (input_1 == YES) {
             cout << COLOR_CYAN << STYLE_UNDERLINE
                  << "Details of available supporters: " << COLOR_RESET << endl;
-            cout << endl;
+            cout << endl << endl;
             for (auto &member : systemInstance.getMemberList()) {
                 member.showInfo();
                 cout << "\n";
@@ -529,6 +541,9 @@ void Event::registerLoginScreen() {
     string givenChoice;
 
     while (true) {
+        cout << endl;
+        cout << COLOR_YELLOW << "\nPlease proceed to continue!" << COLOR_RESET
+             << endl;
         cout << COLOR_YELLOW << "\nContinue sign-in to enter." << COLOR_RESET
              << endl;
         cout << COLOR_GREEN << "Please select an option: " << COLOR_RESET
@@ -583,10 +598,10 @@ void Event::loginScreen() {
     int attempts = 0;
 
     while (attempts < 3) {
-        cout << "Enter your username: ";
+        cout << COLOR_GREEN << "Enter your username: " << COLOR_RESET;
         getline(cin >> std::ws, username);
 
-        cout << "Enter your password: ";
+        cout << COLOR_GREEN << "Enter your password: " << COLOR_RESET;
         getline(cin >> std::ws, password);
 
         if (username == adminUsername && password == adminPassword) {
@@ -627,28 +642,30 @@ void Event::registerScreen() {
     string phoneNumber;
     string email;
 
-    cout << "Enter your fullname: ";
+    cout << COLOR_GREEN << "Enter your fullname: " << COLOR_RESET;
     getline(cin >> std::ws, fullname);
 
-    cout << "Enter your username: ";
+    cout << COLOR_GREEN << "Enter your username: " << COLOR_RESET;
     getline(cin >> std::ws, username);
 
     while (true) {
-        cout << "Enter your password: ";
+        cout << COLOR_GREEN << "Enter your password: " << COLOR_RESET;
         getline(cin >> std::ws, password);
 
-        cout << "Confirm your password: ";
+        cout << COLOR_GREEN << "Confirm your password: " << COLOR_RESET;
         getline(cin >> std::ws, passwordDoubleCheck);
 
         if (password == passwordDoubleCheck) {
             break;
         }
-        cout << "Re-enter your password: " << endl;
+        cout << COLOR_GREEN << "Re-enter your password: " << COLOR_RESET
+             << endl;
     }
 
-    cout << "Enter the city where you are living (Our application only "
+    cout << COLOR_GREEN
+         << "Enter the city where you are living (Our application only "
             "available in 2 Vietnamese cities. 1.HCM / 2.Hanoi): ";
-    cout << "\nPress e if you want to exit." << endl;
+    cout << "\nPress e if you want to exit." << COLOR_RESET << endl;
 
     string input;
 
@@ -670,7 +687,7 @@ void Event::registerScreen() {
     regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
 
     while (true) {
-        cout << "Enter your email: ";
+        cout << COLOR_GREEN << "Enter your email: ";
         getline(cin >> std::ws, email);
 
         if (regex_match(email, emailRegex)) {
@@ -683,7 +700,7 @@ void Event::registerScreen() {
     regex phoneRegex(R"(\+?[0-9]+[\s\-]*[0-9]+[\s\-]*[0-9]+)");
 
     while (true) {
-        cout << "Enter your phone number: ";
+        cout << COLOR_GREEN << "Enter your phone number: " << COLOR_RESET;
         getline(cin >> std::ws, phoneNumber);
 
         if (regex_match(phoneNumber, phoneRegex)) {
@@ -714,8 +731,10 @@ void Event::resetMemberPwd() {
     string newPassword;
 
     while (true) {
-        cout << "Enter the ID of the member you want to reset their "
-                "password: ";
+        cout << COLOR_YELLOW
+             << "Enter the ID of the member you want to reset their "
+                "password: "
+             << COLOR_RESET;
         getline(cin >> std::ws, id);
 
         if (systemInstance.checkMemberExist(id)) {
@@ -726,7 +745,7 @@ void Event::resetMemberPwd() {
                                 << "Information of member: " << id
                                 << COLOR_RESET << endl;
             cout << endl;
-            systemInstance.displayMemberInformation(id);
+            systemInstance.displayMemberFullInformation(id);
             break;
         }
 
@@ -757,7 +776,7 @@ void Event::resetMemberPwd() {
              << endl;
         cout << endl;
 
-        cout << COLOR_YELLOW << ">>>" << COLOR_RESET;
+        cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
         cin >> input;
 
         if (input == "e") {
@@ -772,8 +791,10 @@ void Event::resetMemberPwd() {
         // Check if user's input is only number
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case RESET_MEM_PWD:
-                cout << "Enter new password that you want to reset: " << endl;
-                cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
+                cout << COLOR_YELLOW
+                     << "Enter new password that you want to reset: "
+                     << COLOR_RESET << endl;
+                cout << ">>> ";
                 getline(cin >> std::ws, newPassword);
                 systemInstance.resetPassword(id, newPassword);
                 systemInstance.clearTerminal();
@@ -896,8 +917,9 @@ void Event::PendingScreen() {
     Member &member = systemInstance.getMemberObject(currentID);
 
     vector<Booking> pendingBookings;
-    for (Booking &booking: systemInstance.getBookingList()) {
-        if (booking.getSupporterMemberID() == ID && booking.getStatus() == "Pending") {
+    for (Booking &booking : systemInstance.getBookingList()) {
+        if (booking.getSupporterMemberID() == ID &&
+            booking.getStatus() == "Pending") {
             pendingBookings.push_back(booking);
         }
     }
@@ -910,10 +932,13 @@ void Event::PendingScreen() {
 
     cout << COLOR_CYAN << "Pending Bookings:" << COLOR_RESET << endl;
     for (const Booking &booking : pendingBookings) {
-        Member hostMember = systemInstance.getMemberObject(booking.getHostMemberID());
+        Member hostMember =
+            systemInstance.getMemberObject(booking.getHostMemberID());
         cout << COLOR_GREEN << "Booking ID: " << booking.getBookingID() << endl;
-        cout << "Host Member ID: " << booking.getHostMemberID() << " - " << hostMember.getFullName() << endl;
-        cout << "Booking Time: " << booking.getFormattedStartRentingTime() << endl;
+        cout << "Host Member ID: " << booking.getHostMemberID() << " - "
+             << hostMember.getFullName() << endl;
+        cout << "Booking Time: " << booking.getFormattedStartRentingTime()
+             << endl;
         cout << "Duration: " << booking.getTimeRenting() << " hours" << endl;
         cout << "Status: " << booking.getStatus() << COLOR_RESET << endl;
         elementDivider
@@ -946,7 +971,8 @@ void Event::PendingScreen() {
                 Member &hostMember =
                     systemInstance.getMemberObject(hostMemberID);
                 hostMember.setAvailableStatus(false);
-                cout << COLOR_GREEN << "Booking accepted!" << COLOR_RESET << endl;
+                cout << COLOR_GREEN << "Booking accepted!" << COLOR_RESET
+                     << endl;
             }
         }
     } else if (cInput == 2) {
@@ -1216,22 +1242,22 @@ void Event::completeBookingForHost() {
 
     switch (cInputScore) {
         case 1:
-            comment = "bad";
+            comment = "Bad";
             break;
         case 2:
-            comment = "decent";
+            comment = "Decent";
             break;
         case 3:
-            comment = "fine";
+            comment = "Fine";
             break;
         case 4:
-            comment = "good";
+            comment = "Good";
             break;
         case 5:
-            comment = "excellent";
+            comment = "Excellent";
             break;
         default:
-            cout << "ok";
+            cout << "Ok";
             break;
     }
 
@@ -1308,22 +1334,22 @@ void Event::completeBookingForSupporter() {
 
     switch (cInputScore) {
         case 1:
-            comment = "bad";
+            comment = "Bad";
             break;
         case 2:
-            comment = "decent";
+            comment = "Decent";
             break;
         case 3:
-            comment = "fine";
+            comment = "Fine";
             break;
         case 4:
-            comment = "good";
+            comment = "Good";
             break;
         case 5:
-            comment = "excellent";
+            comment = "Excellent";
             break;
         default:
-            cout << "ok";
+            cout << "Ok";
             break;
     }
 

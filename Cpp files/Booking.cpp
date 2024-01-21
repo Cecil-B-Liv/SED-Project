@@ -7,10 +7,9 @@
 Booking::Booking() {
     std::time_t timeOfRequestObjectCreation = std::time(nullptr);
     creationTime = *std::localtime(&timeOfRequestObjectCreation);
-
 }
 
-//function code
+// function code
 
 // bool Booking::answerRequest() {
 //     return true;

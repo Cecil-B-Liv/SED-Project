@@ -2,8 +2,9 @@
 
 #include "../Header files/INCLUDEHEADERS.h"
 
-Rating::Rating(string ratingID, string memberID, string hostID, double skillRating,
-               double supporterRating, double hostRating, string comments) {
+Rating::Rating(string ratingID, string memberID, string hostID,
+               double skillRating, double supporterRating, double hostRating,
+               string comments) {
     this->ratingID = ratingID;
     this->memberID = memberID;
     this->hostID = hostID;
@@ -14,10 +15,11 @@ Rating::Rating(string ratingID, string memberID, string hostID, double skillRati
 }
 
 void Rating::showInfo() {
-    cout << "Rating ID: " << ratingID;
-    cout << "Member ID: " << memberID;
-    cout << "Host ID: " << hostID;
-    cout << "Supporter Rating: " << supporterRating;
-    cout << "Host Rating: " << hostRating;
-    cout << "Comment: " << comments;
+    cout << COLOR_GREEN << "Rating ID: " << COLOR_RESET << ratingID << endl;
+    cout << COLOR_CYAN << " Member ID: " << COLOR_RESET << memberID << endl;
+    cout << COLOR_CYAN << " Host ID: " << COLOR_RESET << hostID << endl;
+    cout << COLOR_BLUE << " Supporter Rating: " << COLOR_RESET
+         << supporterRating << endl;
+    cout << COLOR_BLUE << " Host Rating: " << COLOR_RESET << hostRating << endl;
+    cout << COLOR_BLUE << " Comment: " << COLOR_RESET << comments << endl;
 }
