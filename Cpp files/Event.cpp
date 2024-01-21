@@ -1233,7 +1233,7 @@ void Event::completeBookingForHost() {
                  << "You booked: " << booking.getSupporterMemberID()
                  << COLOR_RESET << endl;
         } else {
-            cout << COLOR_YELLOW << "You haven't booked anyone yet"
+            cout << COLOR_YELLOW << "\nYou haven't booked anyone yet"
                  << COLOR_RESET << endl;
             UI::showMemberScreen(ID);
             return;
