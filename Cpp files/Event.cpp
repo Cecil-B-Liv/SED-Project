@@ -172,7 +172,7 @@ void Event::showAllMemberInfo() {
         cout << COLOR_GREEN
              << "\nDo you want to see the information of our supporter (y/n):"
              << COLOR_RESET << endl;
-        cout << ">>> ";
+        cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
         cin >> input_1;
         // Check if user's input is only y/n
 
@@ -206,7 +206,7 @@ void Event::getAllSupporterInformationScreen() {
         cout << COLOR_GREEN
              << "\nInput your desire minimum rating score: " << COLOR_RESET
              << endl;
-        cout << ">>> ";
+        cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
         cin >> inputMinRating;
 
         try {
@@ -246,7 +246,7 @@ void Event::showAllBookingList() {
              << "\nDo you want to see all booking in our "
                 "system? (y/n):"
              << COLOR_RESET << endl;
-        cout << ">>> ";
+        cout << COLOR_YELLOW << ">>> " COLOR_RESET;
         cin >> input;
         // Check if user's input is only number
         if (input == YES) {
@@ -275,7 +275,7 @@ void Event::showAllRatingList() {
              << "\nDo you want to see the all the rating in the system? "
                 "(y/n):"
              << endl;
-        cout << ">>> ";
+        cout << COLOR_YELLOW << ">>> " COLOR_RESET;
         cin >> input;
         // Check if user's input is only number
         if (input == YES) {
@@ -677,7 +677,7 @@ void Event::registerScreen() {
     string input;
 
     while (true) {
-        cout << ">>> ";
+        cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
         getline(cin >> std::ws, input);
 
         if (input == "e")
@@ -801,7 +801,7 @@ void Event::resetMemberPwd() {
                 cout << COLOR_YELLOW
                      << "Enter new password that you want to reset: "
                      << COLOR_RESET << endl;
-                cout << ">>> ";
+                cout << COLOR_YELLOW << ">>> " << COLOR_YELLOW;
                 getline(cin >> std::ws, newPassword);
                 systemInstance.resetPassword(id, newPassword);
                 // systemInstance.clearTerminal();
@@ -1066,7 +1066,7 @@ void Event::addSkill() {
                       << skillStrings[i + 1] << std::endl;
         }
 
-        cout <<  ">>> " ;
+        cout << COLOR_YELLOW  ">>> " << COLOR_RESET;
         getline(cin >> std::ws, inputSkill);
 
         if (systemInstance.checkIfInputIsInteger(inputSkill)) {
@@ -1110,7 +1110,7 @@ void Event::removeSkill() {
             cout << idx++ << "." << *it << endl;
         }
 
-        cout << ">>> ";
+        cout << COLOR_YELLOW << ">>> " COLOR_RESET;
         getline(cin >> std::ws, inputSkill);
 
         if (systemInstance.checkIfInputIsInteger(inputSkill)) {
@@ -1121,7 +1121,7 @@ void Event::removeSkill() {
     systemInstance.removeSkill(cInput, currentID);
 
     while (true) {
-        cout << COLOR_GREEN << "Add more skills? (y/n)" << COLOR_RESET << endl;
+        cout << COLOR_GREEN << "Remove another skill? (y/n)" << COLOR_RESET << endl;
 
         getline(cin >> std::ws, inputToContinue);
 
