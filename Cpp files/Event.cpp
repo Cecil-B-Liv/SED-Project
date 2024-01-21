@@ -900,7 +900,6 @@ void Event::PendingScreen() {
         return;
     }
 
-<<<<<<< HEAD
     cout << COLOR_CYAN << "Pending Bookings:" << COLOR_RESET << endl;
     for (const Booking &booking : pendingBookings) {
         Member hostMember = systemInstance.getMemberObject(booking.getHostMemberID());
@@ -910,18 +909,6 @@ void Event::PendingScreen() {
         cout << "Duration: " << booking.getTimeRenting() << " hours" << endl;
         cout << "Status: " << booking.getStatus() << COLOR_RESET << endl;
         elementDivider
-=======
-    for (Booking &booking : systemInstance.getBookingList()) {
-        if (booking.getSupporterMemberID() == ID &&
-            booking.getStatus() == "Pending") {
-            cout << COLOR_GREEN << "You were booked by: " << COLOR_RESET
-                 << booking.getHostMemberID() << endl;
-        } else {
-            cout << COLOR_BLUE << "No one booked you!" << COLOR_RESET << endl;
-            UI::showMemberScreen(ID);
-            return;
-        }
->>>>>>> 2df74503ad2d9520389738d7371dbaa699705f32
     }
 
     while (true) {
