@@ -825,7 +825,7 @@ void Event::resetMemberPwd() {
                 // systemInstance.clearTerminal();
 
                 cout << COLOR_GREEN
-                     << "Password changed, reset to update the new one."
+                     << "Password changed, reset to update the new one.\n"
                      << COLOR_RESET;
                 UI::showAdminScreen();
                 return;
