@@ -528,14 +528,13 @@ void System::removeSkill(int &removeSkill, const string &memberID) {
     vector<string *> tempList = temp.getSkillInfo();
 
     int idx = 0;
-    for (auto it = tempList.begin(); it != tempList.end();) {
+    for (auto it = tempList.begin(); it != tempList.end(); idx++) {
         if (removeSkill - 1 == idx) {
             it = tempList.erase(it);
             temp.setSkillInfo(tempList);
             cout << "Skill removed" << endl;
         } else {
             ++it;
-            ++idx;
         }
     }
     memberFileWriter();
@@ -642,7 +641,7 @@ void System::removeBlock(const string &blockID, const string &blockerID) {
 
 void System::showMemberBookings(const string &memberID) {
     bool hasBookings = false;
-    for (const auto &booking : bookingList) {
+    for (const auto &booking: bookingList) {
         if (booking.getHostMemberID() == memberID || booking.getSupporterMemberID() == memberID) {
             booking.showInfo();
             cout << "-------------------------------------" << endl;
