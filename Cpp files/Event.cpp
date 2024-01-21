@@ -80,6 +80,8 @@ void Event::initialize() {
 }
 
 void Event::endScreen() {
+    cout << COLOR_GREEN << "\nTHANK YOU FOR USING OUR APPLICATION, GOODBYE AND SEE YOU AGAIN !!!" << COLOR_RESET << endl;
+    cout << COLOR_BLUE << "FROM GROUP 6" << endl;
     // pass
 }
 
@@ -792,7 +794,9 @@ void Event::resetMemberPwd() {
                 cout << ">>> ";
                 getline(cin >> std::ws, newPassword);
                 systemInstance.resetPassword(id, newPassword);
-                systemInstance.clearTerminal();
+                // systemInstance.clearTerminal();
+
+                cout << COLOR_GREEN << "Password changed, reset to update the new one."<< COLOR_RESET;
                 UI::showAdminScreen();
                 return;
             default:
