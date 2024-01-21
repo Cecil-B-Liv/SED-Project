@@ -219,7 +219,6 @@ void System::bookingFileReader() {
         getline(iss, creationTime, ',');
         getline(iss, startTime, ',');
 
-
         request.setCreationTime(parseCSVTime(creationTime));
         request.setStartTime(parseCSVTime(startTime));
         request.setBookingID(bookingID);
@@ -231,6 +230,58 @@ void System::bookingFileReader() {
         bookingList.push_back(request);
     }
     file.close();
+}
+
+void System::blockFileReader() {
+    ifstream file(BLOCK_PATH);
+    if (!file.is_open()) {
+        cerr << "Error opening file " << endl;
+        return;
+    }
+
+    string line;
+    while (getline(file, line)) {
+        string blockerID;
+        string blockedIDs;
+        vector<string *> newBlockList;
+
+        istringstream iss(line);
+        getline(iss, blockerID, ',');
+        getline(iss, blockedIDs, ',');
+
+        stringstream getBlockedID(blockedIDs);
+        string blockedID;
+
+        while (getline(getBlockedID, blockedID, '-')) {
+            newBlockList.push_back(new string(blockedID));
+        }
+
+        for (Member &member: memberList) {
+            if (member.getMemberID() == blockerID) {
+                member.setBlockList(newBlockList);
+            }
+        }
+    }
+    file.close();
+}
+
+void System::blockFileWriter() {
+    ofstream file(BLOCK_PATH);
+    if (!file.is_open()) {
+        cerr << "Error opening file " << endl;
+        return;
+    }
+    for (Member &members: memberList) {
+        string blockList1;
+        for (auto &blockedID: members.getBlockList()) {
+            blockList1 += *blockedID;
+            if (blockedID != members.getBlockList().back()) {
+                blockList1 += "-";
+            }
+        }
+
+        file << members.getMemberID() << "," << blockList1 << endl;
+    }
 }
 
 // Writer functions
@@ -537,16 +588,40 @@ double System::calculateHostRating(const string &hostID, int &newRating) {
 
 double System::calculateTotalRating(const string &ID) {
     double finalRating;
-    double temp = 0;
-    int idxToDivide = 3;
 
     Member &member = getMemberObject(ID);
     finalRating = ((member.getHostRating() + member.getSupporterRating() + member.getSkillRating()) / 3);
 
-//    for (auto &it: memberList) {
-//        if (ID == it.getMemberID()) {
-//            temp += it.getSkillRating() + it.getHostRating() + it.getSupporterRating();
-//        }
-//    }
     return finalRating;
+}
+
+void System::addNewBlock(const string &blockID, const string &blockerID) {
+    Member &temp = getMemberObject(blockerID);
+    vector<string *> tempList = temp.getBlockList();
+
+    for (auto &it2: temp.getBlockList()) {
+        if (*it2 == blockID) {
+            return;
+        }
+    }
+
+//    temp.getBlockList().push_back(new string(blockID));
+    tempList.push_back(new string(blockID));
+    temp.setBlockList(tempList);
+    blockFileWriter();
+}
+
+void System::removeBlock(const string &blockID, const string &blockerID) {
+    Member &temp = getMemberObject(blockerID);
+    vector<string *> tempList = temp.getBlockList();
+
+    for (auto it = tempList.begin(); it != tempList.end();) {
+        if (**it == blockID) {
+            it = tempList.erase(it);
+            temp.setBlockList(tempList);
+        } else {
+            ++it;
+        }
+    }
+    blockFileWriter();
 }

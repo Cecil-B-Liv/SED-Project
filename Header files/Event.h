@@ -41,18 +41,23 @@ public:
 
     static void topUpScreen(const string &);
 
+    static void showAllMemberInfo();
     // static void
     static void PendingScreen();
 
-    static void AddSkill();
+    static void addSkill();
 
-    static void RemoveSkill();
+    static void removeSkill();
 
-    static void BookingStatus();
+    static void bookingStatus();
 
-    static void CompleteBookingForHost();
+    static void completeBookingForHost();
 
-    static void CompleteBookingForSupporter();
+    static void completeBookingForSupporter();
+
+    static void blockUserScreen();
+
+    static void unBlockUserScreen();
 };
 
 #endif  // SED_PROJECT_EVENT_H
