@@ -822,7 +822,7 @@ void Event::bookSupporter(const string &hostID) {
     int attempts = 0;
 
     while (attempts < 3) {
-        cout << "\nEnter the ID of the member you want to book: ";
+        cout << COLOR_CYAN << "\nEnter the ID of the member you want to book: ";
         getline(cin >> std::ws, supporterID);
 
         if (systemInstance.checkMemberExist(supporterID)) {
@@ -850,10 +850,10 @@ void Event::bookSupporter(const string &hostID) {
     elementDivider
 
         while (true) {
-        cout << "Information of member " << supporterID << endl;
+        cout << COLOR_CYAN << "Information of member " << COLOR_RESET<< supporterID << endl;
         systemInstance.displayMemberInformation(supporterID);
-        cout << "\nDo you wish to proceed? [y/n]: ";
-        cout << COLOR_YELLOW << "\n>>> " << COLOR_RESET;
+        cout << COLOR_CYAN << "\nDo you wish to proceed? (y/n): " <<COLOR_RESET;
+        cout << "\n>>> " << COLOR_RESET;
         cin >> input;
 
         if (input == NO) {
@@ -867,20 +867,20 @@ void Event::bookSupporter(const string &hostID) {
     }
 
     while (true) {
-        cout << "\nHow long do you want to rent (hours): ";
+        cout << COLOR_GREEN << "\nHow long do you want to rent (hours): " << COLOR_RESET;
         cin >> rentingTime;
         // prevent renting over 12 hours and negative number
         if (rentingTime > 0 && rentingTime < 12) {
             break;
         }
-        cout << COLOR_YELLOW
+        cout << COLOR_GREEN
              << "Please enter renting time that is valid (>0 and <12): "
              << COLOR_RESET;
     }
 
     while (true) {
-        cout << "\nDate and time that you want to rent your supporter "
-                "(yyyy-mm-dd hh:mm): ";
+        cout << COLOR_GREEN << "\nDate and time that you want to rent your supporter "
+                "(yyyy-mm-dd hh:mm): " << COLOR_RESET;
         getline(cin >> std::ws, time);
 
         if (regex_match(time, timeRegex)) {
@@ -1004,7 +1004,7 @@ void Event::topUpScreen(const string &memberID) {
     int topUpAmount;
     bool validInput = false;
     while (!validInput) {
-        cout << "Enter the amount of credits to top up: ";
+        cout << COLOR_CYAN << "Enter the amount of credits to top up: " << COLOR_RESET;
         cin >> topUpAmount;
 
         if (cin.fail() || topUpAmount < 0) {
@@ -1021,7 +1021,7 @@ void Event::topUpScreen(const string &memberID) {
     string passwordInput;
     int attempts = 0;
     while (attempts < 3) {
-        cout << "Enter your password to confirm: ";
+        cout << COLOR_CYAN << "Enter your password to confirm: " << COLOR_RESET;
         cin >> passwordInput;
         if (systemInstance.topUpCredits(memberID, topUpAmount, passwordInput)) {
             systemInstance.memberFileWriter();
@@ -1058,16 +1058,17 @@ void Event::addSkill() {
     int cInput;
 
     while (true) {
-        cout << "Select with number: " << endl;
+        cout << COLOR_GREEN << "Select with number: " << COLOR_RESET << endl;
 
         for (int i = 1; i < skillStrings.size(); i += 2) {
-            std::cout << std::setw(3) << std::left << i << "." << std::setw(30)
-                      << std::left << skillStrings[i] << std::setw(3)
-                      << std::left << i + 1 << "." << skillStrings[i + 1]
-                      << std::endl;
+            std::cout << COLOR_CYAN << std::setw(3) << std::left << i << "."
+                      << COLOR_RESET << std::setw(30) << std::left
+                      << skillStrings[i] << std::setw(3) << COLOR_CYAN
+                      << std::left << i + 1 << "." << COLOR_RESET
+                      << skillStrings[i + 1] << std::endl;
         }
 
-        cout << COLOR_YELLOW << ">>> " << COLOR_RESET;
+        cout <<  ">>> " ;
         getline(cin >> std::ws, inputSkill);
 
         if (systemInstance.checkIfInputIsInteger(inputSkill)) {
@@ -1080,7 +1081,8 @@ void Event::addSkill() {
     systemInstance.addNewSkill(cInput, currentID);
 
     while (true) {
-        cout << "Do you want to add more skills? (y.YES / n.NO)" << endl;
+        cout << COLOR_CYAN << "Do you want to add more skills? (y.YES / n.NO)"
+             << COLOR_RESET << endl;
 
         getline(cin >> std::ws, inputToContinue);
 
@@ -1103,7 +1105,7 @@ void Event::removeSkill() {
     Member &member = systemInstance.getMemberObject(currentID);
 
     while (true) {
-        cout << "Select a number: " << endl;
+        cout << COLOR_CYAN << "Select a number: " << COLOR_RESET << endl;
 
         int idx = 1;
         for (auto &it : member.getSkillInfo()) {
@@ -1121,7 +1123,7 @@ void Event::removeSkill() {
     systemInstance.removeSkill(cInput, currentID);
 
     while (true) {
-        cout << "Add more skills? [Y / N]" << endl;
+        cout << COLOR_GREEN << "Add more skills? (y/n)" << COLOR_RESET << endl;
 
         getline(cin >> std::ws, inputToContinue);
 
@@ -1231,7 +1233,7 @@ void Event::completeBookingForHost() {
     }
 
     while (true) {
-        cout << "Rate the user: ";
+        cout << COLOR_GREEN << "Rate the user: " << COLOR_RESET;
         getline(cin >> std::ws, inputSupportScore);
 
         cInputScore = systemInstance.checkIfInputIsInteger(inputSupportScore);
@@ -1241,7 +1243,7 @@ void Event::completeBookingForHost() {
     }
 
     while (true) {
-        cout << "Rate the user skill: ";
+        cout << COLOR_GREEN << "Rate the user skill: " << COLOR_RESET;
         getline(cin >> std::ws, inputSupportSkillScore);
 
         cInputSkillScore =
@@ -1330,7 +1332,8 @@ void Event::completeBookingForSupporter() {
     Member &hostMember = systemInstance.getMemberObject(hostID);
 
     while (true) {
-        cout << "Rate host (1-5): " << endl;
+        cout << COLOR_RESET << COLOR_GREEN << "Rate host (1-5): " << COLOR_RESET
+             << endl;
         getline(cin >> std::ws, inputScore);
 
         cInputScore = systemInstance.checkIfInputIsInteger(inputScore);
@@ -1382,7 +1385,7 @@ void Event::blockUserScreen() {
             }
         }
 
-        cout << "Select user ID to block: ";
+        cout << COLOR_RESET << COLOR_BLUE << "Select user ID to block: ";
         getline(cin >> std::ws, input);
 
         if (systemInstance.checkIfInputIsInteger(input)) {
@@ -1392,7 +1395,7 @@ void Event::blockUserScreen() {
             return;
         }
     }
-    cout << "Blocked successfully" << endl;
+    cout << COLOR_RESET << COLOR_GREEN << "Blocked successfully" << endl;
     systemInstance.addNewBlock(input, currentID);
 }
 
@@ -1402,17 +1405,18 @@ void Event::unBlockUserScreen() {
     vector<string *> blockedID = blocker.getBlockList();
 
     if (blockedID.empty()) {
-        cout << "you haven't blocked anyone yet" << endl;
+        cout << COLOR_GREEN << "You haven't blocked anyone yet" << COLOR_RESET
+             << endl;
         return;
     }
 
     while (true) {
-        cout << "Blocked users:" << endl;
+        cout << COLOR_BLUE << "Blocked users:" << COLOR_RESET << endl;
         for (auto &infoToUnBlock : blocker.getBlockList()) {
             cout << *infoToUnBlock << endl;
         }
 
-        cout << "Select user ID to un-block: ";
+        cout << COLOR_RESET << COLOR_YELLOW << "Select user ID to un-block: ";
         getline(cin >> std::ws, input);
 
         if (systemInstance.checkIfInputIsInteger(input)) {
@@ -1422,6 +1426,6 @@ void Event::unBlockUserScreen() {
             return;
         }
     }
-    cout << "Un-blocked successfully" << endl;
+    cout << COLOR_RESET << COLOR_GREEN << "Un-blocked successfully" << endl;
     systemInstance.removeBlock(input, currentID);
 }
