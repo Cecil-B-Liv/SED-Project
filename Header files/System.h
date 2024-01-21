@@ -122,6 +122,8 @@ public:
     void addNewBlock(const string &blockID, const string &blockerID);
 
     void removeBlock(const string &blockID, const string &blockerID);
+
+    void showMemberBookings(const string &memberID);
 };
 
 #endif  // SED_PROJECT_SYSTEM_H

@@ -58,6 +58,8 @@ public:
     static void blockUserScreen();
 
     static void unBlockUserScreen();
+
+    static void membersBookingScreen(const string &memberID);
 };
 
 #endif  // SED_PROJECT_EVENT_H

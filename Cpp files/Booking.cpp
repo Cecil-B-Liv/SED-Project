@@ -17,7 +17,7 @@ Booking::Booking() {
 // }
 
 
-void Booking::showInfo() {
+void Booking::showInfo() const {
     cout << "Booking ID: " << bookingID << endl;
     cout << "Host ID: " << hostMemberID << endl;
     cout << "Supporter ID: " << hostMemberID << endl;
