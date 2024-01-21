@@ -33,6 +33,9 @@ public:
         Event::getMemberInfoScreen(ID);
     }
 
+    static void showMemberFullInformationScreen(const string &ID = "") {
+        Event::getMemberFullInfoScreen(ID);
+    }
 
     static void showAllSupporterInformationScreen() {
         Event::getAllSupporterInformationScreen();

@@ -167,6 +167,10 @@ void Event::getMemberInfoScreen(const string &ID) {
     systemInstance.displayMemberInformation(ID);
 }
 
+void Event::getMemberFullInfoScreen(const string &ID) {
+    systemInstance.displayMemberFullInformation(ID);
+}
+
 void Event::showAllMemberInfo() {
     string input_1;
     int counter = 0;
@@ -444,7 +448,7 @@ void Event::memberScreen(const string &ID) {
         switch (systemInstance.checkIfInputIsInteger(input)) {
             case MEMBER_INFO:
                 // systemInstance.clearTerminal();
-                UI::showMemberInformationScreen(ID);
+                UI::showMemberFullInformationScreen(ID);
                 UI::showMemberScreen(ID);
                 return;
             case BOOK_AVAILABLE_SUPPORTER:
@@ -1239,10 +1243,13 @@ void Event::completeBookingForHost() {
             return;
         }
     }
+
     while (true) {
+        cout << COLOR_CYAN << "\nUpdate status of your booking: " << COLOR_RESET << endl;
         cout << COLOR_GREEN << "1. Complete" << COLOR_RESET << endl;
         cout << COLOR_YELLOW << "h. Back" << COLOR_RESET << endl;
 
+        cout << ">>> ";
         getline(cin >> std::ws, input);
 
         if (input == "h") {
@@ -1256,6 +1263,7 @@ void Event::completeBookingForHost() {
     }
 
     while (true) {
+        cout << COLOR_CYAN << "\nUpdate rating of the booking" << COLOR_RESET << endl;
         cout << COLOR_GREEN << "Rate the user: " << COLOR_RESET;
         getline(cin >> std::ws, inputSupportScore);
 
@@ -1266,6 +1274,7 @@ void Event::completeBookingForHost() {
     }
 
     while (true) {
+        cout << COLOR_CYAN << "\nUpdate rating of the booking" << COLOR_RESET << endl;
         cout << COLOR_GREEN << "Rate the user skill: " << COLOR_RESET;
         getline(cin >> std::ws, inputSupportSkillScore);
 

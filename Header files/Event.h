@@ -17,6 +17,8 @@ public:
 
     static void getMemberInfoScreen(const string &);
 
+     static void getMemberFullInfoScreen(const string &);
+
     static void getAllSupporterInformationScreen();
 
     static void showAllRatingList();
