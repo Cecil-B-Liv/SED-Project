@@ -81,6 +81,11 @@ void Event::initialize() {
 }
 
 void Event::endScreen() {
+    cout << COLOR_GREEN
+         << "\nTHANK YOU FOR USING OUR APPLICATION, GOODBYE AND SEE YOU AGAIN "
+            "!!!"
+         << COLOR_RESET << endl;
+    cout << COLOR_BLUE << "FROM GROUP 6" << COLOR_RESET << endl;
     // pass
 }
 
@@ -218,7 +223,8 @@ void Event::getAllSupporterInformationScreen() {
     // Check if user's input is only number
     cout << COLOR_GREEN
          << STYLE_UNDERLINE "Details of available supporters: " << COLOR_RESET
-         << endl  << endl;
+         << endl
+         << endl;
 
     for (auto &member : systemInstance.getMemberList()) {
         for (auto &blocked : temp.getBlockList())
@@ -238,7 +244,7 @@ void Event::showAllBookingList() {
     while (true) {
         cout << COLOR_GREEN
              << "\nDo you want to see all booking in our "
-                "system? (y.YES/n.NO):"
+                "system? (y/n):"
              << COLOR_RESET << endl;
         cout << ">>> ";
         cin >> input;
@@ -246,7 +252,8 @@ void Event::showAllBookingList() {
         if (input == YES) {
             cout << COLOR_GREEN << STYLE_UNDERLINE
                  << "\nDetails of active booking in the system: " << COLOR_RESET
-                 << endl << endl;
+                 << endl
+                 << endl;
             for (auto &booking : systemInstance.getBookingList()) {
                 booking.showInfo();
                 cout << "\n";
@@ -266,15 +273,15 @@ void Event::showAllRatingList() {
     while (true) {
         cout << COLOR_GREEN
              << "\nDo you want to see the all the rating in the system? "
-                "(y.YES/n.NO):"
+                "(y/n):"
              << endl;
         cout << ">>> ";
         cin >> input;
         // Check if user's input is only number
         if (input == YES) {
             cout << COLOR_GREEN << STYLE_UNDERLINE
-                 << "\nDetails of rating in the system: " << COLOR_RESET
-                 << endl << endl;
+                 << "\nDetails of rating in the system: " << COLOR_RESET << endl
+                 << endl;
             for (auto &rating : systemInstance.getRatingList()) {
                 rating.showInfo();
                 cout << "\n";
@@ -797,7 +804,11 @@ void Event::resetMemberPwd() {
                 cout << ">>> ";
                 getline(cin >> std::ws, newPassword);
                 systemInstance.resetPassword(id, newPassword);
-                systemInstance.clearTerminal();
+                // systemInstance.clearTerminal();
+
+                cout << COLOR_GREEN
+                     << "Password changed, reset to update the new one."
+                     << COLOR_RESET;
                 UI::showAdminScreen();
                 return;
             default:

@@ -6,5 +6,6 @@
 
 int main() {
     UI::start(); // start and initialize everything
+    UI::end();
     return 0;
 }
