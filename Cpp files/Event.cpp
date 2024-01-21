@@ -887,27 +887,34 @@ void Event::PendingScreen() {
     string hostMemberID;
     Member &member = systemInstance.getMemberObject(currentID);
 
-    if (systemInstance.getBookingList().empty()) {
-        cout << COLOR_BLUE << "No one booked you!" << COLOR_RESET << endl;
+    vector<Booking> pendingBookings;
+    for (Booking &booking: systemInstance.getBookingList()) {
+        if (booking.getSupporterMemberID() == ID && booking.getStatus() == "Pending") {
+            pendingBookings.push_back(booking);
+        }
+    }
+
+    if (pendingBookings.empty()) {
+        cout << COLOR_BLUE << "No pending bookings!" << COLOR_RESET << endl;
         UI::showMemberScreen(ID);
         return;
     }
 
-    for (Booking &booking : systemInstance.getBookingList()) {
-        if (booking.getSupporterMemberID() == ID &&
-            booking.getStatus() == "Pending") {
-            cout << COLOR_GREEN << "You were booked by: " << COLOR_RESET
-                 << booking.getHostMemberID() << endl;
-        } else {
-            cout << COLOR_BLUE << "No one booked you!" << COLOR_RESET << endl;
-            UI::showMemberScreen(ID);
-            return;
-        }
+    cout << COLOR_CYAN << "Pending Bookings:" << COLOR_RESET << endl;
+    for (const Booking &booking : pendingBookings) {
+        Member hostMember = systemInstance.getMemberObject(booking.getHostMemberID());
+        cout << COLOR_GREEN << "Booking ID: " << booking.getBookingID() << endl;
+        cout << "Host Member ID: " << booking.getHostMemberID() << " - " << hostMember.getFullName() << endl;
+        cout << "Booking Time: " << booking.getFormattedStartRentingTime() << endl;
+        cout << "Duration: " << booking.getTimeRenting() << " hours" << endl;
+        cout << "Status: " << booking.getStatus() << COLOR_RESET << endl;
+        elementDivider
     }
 
     while (true) {
         cout << COLOR_GREEN << "1. Accept" << COLOR_RESET << endl;
         cout << COLOR_RED << "2. Deny" << COLOR_RESET << endl;
+        cout << endl;
         cout << COLOR_YELLOW << "h. Back" << COLOR_RESET << endl;
 
         getline(cin >> std::ws, input);
@@ -931,6 +938,7 @@ void Event::PendingScreen() {
                 Member &hostMember =
                     systemInstance.getMemberObject(hostMemberID);
                 hostMember.setAvailableStatus(false);
+                cout << COLOR_GREEN << "Booking accepted!" << COLOR_RESET << endl;
             }
         }
     } else if (cInput == 2) {
