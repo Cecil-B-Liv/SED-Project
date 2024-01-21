@@ -94,7 +94,7 @@ void Member::showFullInfo() const {
 
     cout << COLOR_BLUE << "Skill Info: " << COLOR_RESET;
     for (string *skill : skillInfoList) {
-        cout << *skill << " ";
+        cout << *skill << ", ";
     }
     cout << endl;
 }

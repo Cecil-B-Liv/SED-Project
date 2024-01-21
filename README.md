@@ -1,33 +1,18 @@
-=========================
-SED_App_Project
-=========================
+EEET2482/COSC2082 ASSIGNMENT
+"TIME BANK" APPLICATION
+************************************************
+Instructor: Mr. Tran Duc Linh
+Group: No. 6
 
-EVENT -> UI -> System
-fullname, email, address, phonenumber, username, password, id
+Team Members:
+s3978680 - Huynh Ngoc Tai
+s3988776 - Tran Quang Minh
+s3926104 - Nguyen Hoang Viet
+s3940891 - Ngo Minh Hieu
 
 Command_line to start the project:
-mkdir output; cd output;
-g++ '.\Cpp files\*.cpp' Source/main.cpp -o SED_Project.exe; ./SED_Project.exe
-
+1.Run this first to get in where the main.cpp is:
+cd .\Source\
+2.Run this second to compile everything:
 g++ '..\Cpp files\*.cpp' main.cpp -o SED_Project.exe; ./SED_Project.exe
 
-For Windows:
-mkdir output; cd output; g++ '..\Cpp files\*cpp' '..\Source\main.cpp' -o SED_Project.exe; ./SED_Project.exe
-
-After the first time, just run:
-cd output; g++ '..\Cpp files\*cpp' '..\Source\main.cpp' -o SED_Project.exe; ./SED_Project.exe
-
-Bug found
--
-
--...
-
-Feature that need to test
--
-
-...
-
-Note
--
-
-...
