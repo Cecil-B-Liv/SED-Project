@@ -4,6 +4,8 @@
 
 #include "../Header files/Member.h"
 
+#include "../Header files/INCLUDEHEADERS.h"
+
 Member::Member(string fullName, string email, string homeAddress,
                string phoneNumber, double ratingScore, double supporterRating,
                double hostRating, string username, string password,
@@ -31,26 +33,32 @@ Member::Member(string fullName, string email, string homeAddress,
 }
 
 void Member::showInfo() const {
-    cout << "Full Name: " << fullName << endl;
-    cout << "Email: " << email << endl;
-    cout << "Home Address: " << homeAddress << endl;
-    cout << "Phone Number: " << phoneNumber << endl;
+    cout << COLOR_GREEN << "Full Name: " << COLOR_RESET << fullName << endl;
+    cout << COLOR_GREEN << "Email: " << COLOR_RESET << email << endl;
+    cout << COLOR_GREEN << "Home Address: " << COLOR_RESET << homeAddress
+         << endl;
+    cout << COLOR_GREEN << "Phone Number: " << COLOR_RESET << phoneNumber
+         << endl;
 
-    cout << "Rating Score: " << skillRating << endl;
-    cout << "Supporter Rating: " << supportRating << endl;
-    cout << "Host Rating: " << hostRating << endl;
+    cout << COLOR_CYAN << "Rating Score: " << COLOR_RESET << skillRating
+         << endl;
+    cout << COLOR_CYAN << "Supporter Rating: " << COLOR_RESET << supportRating
+         << endl;
+    cout << COLOR_CYAN << "Host Rating: " << COLOR_RESET << hostRating << endl;
 
-    cout << "Member ID: " << memberID << endl;
-    cout << "Username: " << username << endl;
+    cout << COLOR_CYAN << "Member ID: " << COLOR_RESET << memberID << endl;
+    cout << COLOR_CYAN << "Username: " << COLOR_RESET << username << endl;
     // cout << "Password: " << password << endl;
     // cout << "Credit Points: " << creditPoints << endl;
 
-    cout << "Available Status: "
+    cout << COLOR_BLUE << "Available Status: " << COLOR_RESET
          << (availableStatus ? "Available" : "Unavailable") << endl;
-    cout << "Host member: " << hostMemberID << endl;
-    cout << "Supporter member: " << supporterMemberID << endl;
+    cout << COLOR_BLUE << "Host member: " << COLOR_RESET << hostMemberID
+         << endl;
+    cout << COLOR_BLUE << "Supporter member: " << COLOR_RESET
+         << supporterMemberID << endl;
 
-    cout << "Skill Info: ";
+    cout << COLOR_BLUE << "Skill Info: " << COLOR_RESET;
     for (string *skill : skillInfoList) {
         cout << *skill << " ";
     }
@@ -58,48 +66,33 @@ void Member::showInfo() const {
 }
 
 void Member::showFullInfo() const {
-    cout << "Full Name: " << fullName << endl;
-    cout << "Email: " << email << endl;
-    cout << "Home Address: " << homeAddress << endl;
-    cout << "Phone Number: " << phoneNumber << endl;
+    cout << COLOR_GREEN << "Full Name: " << COLOR_RESET << fullName << endl;
+    cout << COLOR_GREEN << "Email: " << COLOR_RESET << email << endl;
+    cout << COLOR_GREEN << "Home Address: " << COLOR_RESET << homeAddress
+         << endl;
+    cout << COLOR_GREEN << "Phone Number: " << COLOR_RESET << phoneNumber
+         << endl;
 
-    cout << "Rating Score: " << skillRating << endl;
-    cout << "Supporter Rating: " << supportRating << endl;
-    cout << "Host Rating: " << hostRating << endl;
+    cout << COLOR_CYAN << "Rating Score: " << COLOR_RESET << skillRating
+         << endl;
+    cout << COLOR_CYAN << "Supporter Rating: " << COLOR_RESET << supportRating
+         << endl;
+    cout << COLOR_CYAN << "Host Rating: " << COLOR_RESET << hostRating << endl;
 
-    cout << "Member ID: " << memberID << endl;
-    cout << "Username: " << username << endl;
-    cout << "Password: " << password << endl;
-    cout << "Credit Points: " << creditPoints << endl;
+    cout << COLOR_CYAN << "Member ID: " << COLOR_RESET << memberID << endl;
+    cout << COLOR_CYAN << "Username: " << COLOR_RESET << username << endl;
+    cout << COLOR_CYAN << "Password: " << COLOR_RESET << password << endl;
+    cout << COLOR_CYAN << "Credit Points: " << COLOR_RESET << creditPoints
+         << endl;
 
-    cout << "Available Status: " << (availableStatus ? "Available" :
-    "Unavailable") << endl; cout << "Host member: " << hostMemberID << endl;
-    cout << "Supporter member: " << supporterMemberID << endl;
+    cout << COLOR_BLUE << "Available Status: " << COLOR_RESET
+         << (availableStatus ? "Available" : "Unavailable") << endl;
+    cout << COLOR_BLUE << "Host member: " << COLOR_RESET << hostMemberID
+         << endl;
+    cout << COLOR_BLUE << "Supporter member: " << COLOR_RESET
+         << supporterMemberID << endl;
 
-    // std::cout << std::setw(20) << "Full Name: " << std::setw(20) << fullName
-    //           << std::setw(20) << "Email: " << std::setw(20) << email
-    //           << std::setw(20) << "Home Address: " << std::setw(20)
-    //           << homeAddress << std::setw(20)
-    //           << "Phone Number: " << std::setw(20) << phoneNumber
-    //           << std::setw(20) << "Rating Score: " << std::setw(20)
-    //           << skillRating << std::setw(20)
-    //           << "Supporter Rating: " << std::setw(20) << supportRating
-    //           << std::setw(20) << "Host Rating: " << std::setw(20) << hostRating
-    //           << std::setw(20) << "Member ID: " << std::setw(20) << memberID
-    //           << std::setw(20) << "Username: " << std::setw(20) << username
-    //           << std::endl;
-
-    // std::cout << std::setw(20) << "Password: " << std::setw(20) << password
-    //           << std::setw(20) << "Credit Points: " << std::setw(20)
-    //           << creditPoints << std::setw(20)
-    //           << "Available Status: " << std::setw(20)
-    //           << (availableStatus ? "Available" : "Unavailable")
-    //           << std::setw(20) << "Host member: " << std::setw(20)
-    //           << hostMemberID << std::setw(20)
-    //           << "Supporter member: " << std::setw(20) << supporterMemberID
-    //           << std::endl;
-
-    cout << "Skill Info: ";
+    cout << COLOR_BLUE << "Skill Info: " << COLOR_RESET;
     for (string *skill : skillInfoList) {
         cout << *skill << " ";
     }

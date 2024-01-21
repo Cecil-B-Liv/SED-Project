@@ -68,6 +68,7 @@ public:
 
     // Get information of showMemberScreen
     void displayMemberInformation(const string &ID);
+    void displayMemberFullInformation(const string &ID);
 
     // Admin function
     void resetPassword(const string &ID, const string &newPwd);

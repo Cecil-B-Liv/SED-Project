@@ -7,22 +7,24 @@
 Booking::Booking() {
     std::time_t timeOfRequestObjectCreation = std::time(nullptr);
     creationTime = *std::localtime(&timeOfRequestObjectCreation);
-
 }
 
-//function code
+// function code
 
 // bool Booking::answerRequest() {
 //     return true;
 // }
 
-
 void Booking::showInfo() {
-    cout << "Booking ID: " << bookingID << endl;
-    cout << "Host ID: " << hostMemberID << endl;
-    cout << "Supporter ID: " << hostMemberID << endl;
-    cout << "Time Renting " << timeRenting << endl;
-    cout << "Creation time: " << getFormattedCreationTime() << endl;
-    cout << "Start Renting time: " << getFormattedStartRentingTime() << endl;
-    cout << "Status: " << status << endl;
+    cout << COLOR_GREEN << "Booking ID: " << bookingID << COLOR_RESET << endl;
+    cout << COLOR_GREEN << "Host ID: " << hostMemberID << COLOR_RESET << endl;
+    cout << COLOR_GREEN << "Supporter ID: " << hostMemberID << COLOR_RESET
+         << endl;
+    cout << COLOR_CYAN << "Time Renting " << timeRenting << COLOR_RESET << endl;
+    cout << COLOR_CYAN << "Creation time: " << getFormattedCreationTime()
+         << COLOR_RESET << endl;
+    cout << COLOR_CYAN
+         << "Start Renting time: " << getFormattedStartRentingTime()
+         << COLOR_RESET << endl;
+    cout << COLOR_BLUE << "Status: " << status << COLOR_RESET << endl;
 }

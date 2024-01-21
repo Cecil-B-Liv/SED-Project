@@ -405,6 +405,20 @@ void System::displayMemberInformation(const string &ID) {
     cout << "Member not found";
 }
 
+void System::displayMemberFullInformation(const string &ID) {
+    // Loop through each showMemberScreen
+
+    for (auto &member: memberList) {
+        // If the ID doesn't match, exit the loop
+        if (ID == member.getMemberID()) {
+            member.showFullInfo();
+            return;
+        }
+        // Display showMemberScreen information
+    }
+    cout << "Member not found";
+}
+
 int System::checkIfInputIsInteger(const string &input) {
     try {
         return stoi(input);
