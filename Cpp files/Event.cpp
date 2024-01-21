@@ -467,26 +467,32 @@ void Event::memberScreen(const string &ID) {
                 return;
             case REMOVE_SKILL:
                 systemInstance.clearTerminal();
+                elementDivider
                 UI::showRemoveSkill();
                 return;
             case SET_BOOKING_STATUS:
                 systemInstance.clearTerminal();
+                elementDivider
                 UI::showBookingStatus();
                 return;
             case COMPLETE_BOOKING:
                 systemInstance.clearTerminal();
+                elementDivider
                 UI::showCompleteBooking();
                 return;
             case COMPLETE_BOOKING_FOR_SUPPORTER:
                 systemInstance.clearTerminal();
+                elementDivider
                 UI::showCompleteBookingForSupporter();
                 return;
             case BLOCK_MEMBER:
                 systemInstance.clearTerminal();
+                elementDivider
                 UI::showBlockScreen();
                 return;
             case UNBLOCK_MEMBER:
                 systemInstance.clearTerminal();
+                elementDivider
                 UI::showUnBlockScreen();
                 return;
             default:
