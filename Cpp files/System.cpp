@@ -402,7 +402,7 @@ void System::displayMemberInformation(const string &ID) {
         }
         // Display showMemberScreen information
     }
-    cout << "Member not found";
+    cout << "Member not found!";
 }
 
 void System::displayMemberFullInformation(const string &ID) {
@@ -639,3 +639,19 @@ void System::removeBlock(const string &blockID, const string &blockerID) {
     }
     blockFileWriter();
 }
+
+void System::showMemberBookings(const string &memberID) {
+    bool hasBookings = false;
+    for (const auto &booking : bookingList) {
+        if (booking.getHostMemberID() == memberID || booking.getSupporterMemberID() == memberID) {
+            booking.showInfo();
+            cout << "-------------------------------------" << endl;
+            hasBookings = true;
+        }
+    }
+
+    if (!hasBookings) {
+        cout << "No bookings found for member ID: " << memberID << endl;
+    }
+}
+

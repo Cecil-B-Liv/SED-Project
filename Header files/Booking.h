@@ -21,7 +21,7 @@ public:
     Booking();
 
     // function code
-    void showInfo();
+    void showInfo() const;
 
     // Setter methods
     void setBookingID(string bookingIDVal) { this->bookingID = bookingIDVal; }

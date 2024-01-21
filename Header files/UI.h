@@ -77,6 +77,8 @@ class UI {
     static void showBlockScreen() { Event::blockUserScreen(); }
 
     static void showUnBlockScreen() { Event::unBlockUserScreen(); }
+
+    static void membersBookingScreen(const string &memberID) { Event::membersBookingScreen(memberID); }
 };
 
 #endif  // SED_PROJECT_UI_H
