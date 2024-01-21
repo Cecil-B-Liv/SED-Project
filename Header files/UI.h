@@ -11,7 +11,7 @@
 #include "Event.h"
 
 class UI {
-   public:
+public:
     // start the intialize that run all of the reader file to get data for the
     // program start the home screen
     static void start() {
@@ -35,7 +35,7 @@ class UI {
 
 
     static void showAllSupporterInformationScreen() {
-        Event::showAllMemberInfo();
+        Event::getAllSupporterInformationScreen();
     }
 
     static void showAllSupporterInformationAdminScreen() {

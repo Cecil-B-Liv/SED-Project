@@ -17,11 +17,11 @@ Booking::Booking() {
 
 
 void Booking::showInfo() const {
-    cout << "Booking ID: " << bookingID << endl;
-    cout << "Host ID: " << hostMemberID << endl;
-    cout << "Supporter ID: " << hostMemberID << endl;
-    cout << "Time Renting " << timeRenting << endl;
-    cout << "Creation time: " << getFormattedCreationTime() << endl;
-    cout << "Start Renting time: " << getFormattedStartRentingTime() << endl;
-    cout << "Status: " << status << endl;
+    cout << COLOR_GREEN << "Booking ID: " << COLOR_RESET << bookingID << endl;
+    cout << COLOR_CYAN << "Host ID: " << COLOR_RESET<< hostMemberID << endl;
+    cout << COLOR_CYAN <<"Supporter ID: " << COLOR_RESET<< hostMemberID << endl;
+    cout << COLOR_BLUE << "Time Renting " << COLOR_RESET<< timeRenting << endl;
+    cout << COLOR_BLUE <<"Creation time: " << COLOR_RESET<< getFormattedCreationTime() << endl;
+    cout << COLOR_BLUE <<"Start Renting time: " << COLOR_RESET<< getFormattedStartRentingTime() << endl;
+    cout << COLOR_BLUE <<"Status: " << COLOR_RESET<< status << endl;
 }
