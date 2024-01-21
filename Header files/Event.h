@@ -41,6 +41,7 @@ public:
 
     static void topUpScreen(const string &);
 
+    static void showAllMemberInfo();
     // static void
     static void PendingScreen();
 

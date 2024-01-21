@@ -8,11 +8,11 @@
 #include <utility>
 
 #include "BasicSTDLIB.h"
-#include "Rating.h"
 #include "Booking.h"
+#include "Rating.h"
 
 class Member {
-private:
+   private:
     // showMemberScreen Info
     string fullName;
     string email;
@@ -42,18 +42,20 @@ private:
     string hostMemberID;
     string supporterMemberID;
 
-public:
-    explicit Member(
-            string fullName = "", string email = "", string homeAddress = "",
-            string phoneNumber = "", double ratingScore = 0.0,
-            double supporterRating = 0.0, double hostRating = 0.0,
-            string username = "", string password = "", string memberID = "", double creditPoints = 20,
-            double consumingPoints = 0.0, double totalRating = 0.0,
-            int available_status = 0, vector<string *> skillInfo = {},
-            string hostMemberID = "", string supporterMemberID = "");
+   public:
+    explicit Member(string fullName = "", string email = "",
+                    string homeAddress = "", string phoneNumber = "",
+                    double ratingScore = 0.0, double supporterRating = 0.0,
+                    double hostRating = 0.0, string username = "",
+                    string password = "", string memberID = "",
+                    double creditPoints = 20, double consumingPoints = 0.0,
+                    double totalRating = 0.0, int available_status = 0,
+                    vector<string *> skillInfo = {}, string hostMemberID = "",
+                    string supporterMemberID = "");
 
     // toString
     void showInfo() const;
+    void showFullInfo() const;
 
     // accessor methods
     // getter
@@ -146,17 +148,13 @@ public:
 
     void addSkill(string *newSkill) { this->skillInfoList.push_back(newSkill); }
 
-    double getConsumingPoints() const {
-        return consumingPoints;
-    }
+    double getConsumingPoints() const { return consumingPoints; }
 
     void setConsumingPoints(const double &consumingPointsVal) {
         this->consumingPoints = consumingPointsVal;
     }
 
-    double getTotalRating() const {
-        return totalRating;
-    }
+    double getTotalRating() const { return totalRating; }
 
     void setTotalRating(const double totalRatingVal) {
         this->totalRating = totalRatingVal;

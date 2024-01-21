@@ -11,7 +11,7 @@
 #include "Event.h"
 
 class UI {
-public:
+   public:
     // start the intialize that run all of the reader file to get data for the
     // program start the home screen
     static void start() {
@@ -33,17 +33,18 @@ public:
         Event::getMemberInfoScreen(ID);
     }
 
+
     static void showAllSupporterInformationScreen() {
-        Event::getAllSupporterInformationScreen();
+        Event::showAllMemberInfo();
     }
 
-    static void showAllRatingScreen() {
-        Event::showAllRatingList();
+    static void showAllSupporterInformationAdminScreen() {
+        Event::showAllMemberInfo();
     }
 
-    static void showAllBookingScreen() {
-        Event::showAllBookingList();
-    }
+    static void showAllRatingScreen() { Event::showAllRatingList(); }
+
+    static void showAllBookingScreen() { Event::showAllBookingList(); }
 
     static void bookSupporter(const string &ID) { Event::bookSupporter(ID); }
 
@@ -65,14 +66,17 @@ public:
 
     static void showCompleteBooking() { Event::completeBookingForHost(); }
 
-    static void showCompleteBookingForSupporter() { Event::completeBookingForSupporter(); }
+    static void showCompleteBookingForSupporter() {
+        Event::completeBookingForSupporter();
+    }
 
-    static void showTopUpScreen(const string &memberID) { Event::topUpScreen(memberID); }
+    static void showTopUpScreen(const string &memberID) {
+        Event::topUpScreen(memberID);
+    }
 
     static void showBlockScreen() { Event::blockUserScreen(); }
 
     static void showUnBlockScreen() { Event::unBlockUserScreen(); }
-
 };
 
 #endif  // SED_PROJECT_UI_H
